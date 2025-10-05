@@ -1,4 +1,4 @@
-# **Advanced Multi-Modal AI**
+# **Multi-Modal AI**
 
 <div align="center">
 

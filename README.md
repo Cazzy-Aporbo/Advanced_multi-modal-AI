@@ -34,6 +34,16 @@ The project represents my research in multi-modal fusion, implementing novel att
 
 </div>
 
+<div align="center">
+
+### [View Advanced Technical Portfolio](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html)
+<sub>Comprehensive technical portfolio showcasing systems architecture, ML engineering, and infrastructure expertise</sub>
+
+### [View Technical Skills Portfolio](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html)
+<sub>Full stack engineering excellence with production-grade implementations</sub>
+
+</div>
+
 ---
 
 ## **Table of Contents**

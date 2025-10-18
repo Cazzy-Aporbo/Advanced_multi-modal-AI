@@ -1,4 +1,4 @@
-# 🧬 Advanced Multi-Modal AI: A Personal Atlas of Natural Intelligence Systems
+#  Advanced Multi-Modal AI: A Personal Atlas of Natural Intelligence Systems
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Multimodal AI](https://img.shields.io/badge/Multimodal_AI-Vision_Audio_Bio-blue)](https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI)

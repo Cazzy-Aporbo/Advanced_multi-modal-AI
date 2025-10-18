@@ -16,7 +16,7 @@ The system combines:
 - Multimodal transformers with consciousness embedding
 - Biosignal-to-experience translation
 
-This aims to achieves something never before possible: translating human consciousness
+This aims to translate consciousness
 states into AI-understandable multimodal representations and generating
 experiences that can influence consciousness states in return.
 

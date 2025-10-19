@@ -22,7 +22,7 @@
 
 ### **A Multi-Modal Deep Learning Implementation**
 
-This repository showcases my implementation of advanced multi-modal deep learning systes that integrates diverse data modalities. I've designed this architecture to push the boundaries of what's possible when combining visual, textual, and structured data streams, creating a unified intelligence framework that exceeds single-modality limitations.
+This repository showcases my implementation of advanced multi-modal deep learning systms that integrate diverse data modalities. I've designed this architecture to push the boundaries of what's possible when combining visual, textual, and structured data streams, creating a unified intelligence framework that exceeds single-modality limitations.
 
 The project represents my research in multi-modal fusion, implementing attention mechanisms and cross-modal transformers that enable deep semantic understanding across different data types. Every component has been engineered for both research and production readiness.
 

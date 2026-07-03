@@ -58,3 +58,25 @@ CREATE TABLE IF NOT EXISTS ontology_snapshots (
     created_at TEXT NOT NULL,
     snapshot_payload TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS lifecycle_policies (
+    policy_id TEXT PRIMARY KEY,
+    dataset_name TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    record_payload TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS change_controls (
+    change_id TEXT PRIMARY KEY,
+    change_kind TEXT NOT NULL,
+    status TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    record_payload TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS supply_chain_snapshots (
+    snapshot_id TEXT PRIMARY KEY,
+    label TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    record_payload TEXT NOT NULL
+);

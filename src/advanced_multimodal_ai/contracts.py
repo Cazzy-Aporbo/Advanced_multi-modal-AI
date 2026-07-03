@@ -755,6 +755,213 @@ class DatasetEvolutionResponse(BaseModel):
     created_at: str = Field(default_factory=utc_now)
 
 
+DataClassification = Literal[
+    "public",
+    "internal",
+    "confidential",
+    "regulated",
+    "restricted",
+]
+RemovalMode = Literal["delete", "archive", "anonymize", "quarantine"]
+LifecycleState = Literal["active", "review_due", "removal_due"]
+ChangeSeverity = Literal["low", "medium", "high", "critical"]
+ChangeKind = Literal["schema", "connector", "retention", "policy", "model", "serving", "deletion"]
+ChangeStatus = Literal["proposed", "approved", "implemented", "reversed"]
+SupplyChainNodeKind = Literal[
+    "source",
+    "connector",
+    "dataset",
+    "queue",
+    "feature_store",
+    "model",
+    "index",
+    "consumer",
+    "archive",
+    "deletion_lane",
+]
+SupplyChainMovement = Literal[
+    "ingest",
+    "normalize",
+    "enrich",
+    "train",
+    "serve",
+    "export",
+    "archive",
+    "delete",
+]
+
+
+class DataLifecyclePolicyRequest(BaseModel):
+    dataset_name: str = Field(min_length=1)
+    owner: str = Field(min_length=1)
+    data_classification: DataClassification = "internal"
+    residency_regions: List[str] = Field(default_factory=list, max_length=32)
+    allowed_uses: List[str] = Field(default_factory=list, max_length=32)
+    effective_from: str = Field(default_factory=utc_now)
+    retention_days: int = Field(ge=1, le=36500)
+    half_life_days: int = Field(ge=1, le=36500)
+    review_interval_days: int = Field(default=30, ge=1, le=3650)
+    removal_mode: RemovalMode = "archive"
+    deletion_evidence_required: bool = True
+    evidence_refs: List[str] = Field(default_factory=list, max_length=64)
+    notes: List[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_schedule(self) -> "DataLifecyclePolicyRequest":
+        if self.half_life_days > self.retention_days:
+            raise ValueError("half_life_days cannot exceed retention_days")
+        return self
+
+
+class DataLifecyclePolicyRecord(BaseModel):
+    policy_id: str = Field(default_factory=lambda: str(uuid4()))
+    dataset_id: str
+    dataset_name: str
+    dataset_version: str
+    owner: str
+    data_classification: DataClassification
+    residency_regions: List[str] = Field(default_factory=list)
+    allowed_uses: List[str] = Field(default_factory=list)
+    effective_from: str
+    retention_days: int = Field(ge=1)
+    half_life_days: int = Field(ge=1)
+    review_interval_days: int = Field(ge=1)
+    half_life_at: str
+    next_review_at: str
+    removal_due_at: str
+    removal_mode: RemovalMode
+    deletion_evidence_required: bool = True
+    state: LifecycleState
+    evidence_refs: List[str] = Field(default_factory=list)
+    notes: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class ChangeControlRequest(BaseModel):
+    title: str = Field(min_length=1)
+    owner: str = Field(min_length=1)
+    change_kind: ChangeKind
+    severity: ChangeSeverity = "medium"
+    status: ChangeStatus = "proposed"
+    summary: str = Field(min_length=1)
+    affected_datasets: List[str] = Field(default_factory=list, max_length=64)
+    affected_connectors: List[str] = Field(default_factory=list, max_length=64)
+    affected_routes: List[str] = Field(default_factory=list, max_length=64)
+    linked_policy_ids: List[str] = Field(default_factory=list, max_length=64)
+    planned_window: str = ""
+    validation_commands: List[str] = Field(default_factory=list, max_length=64)
+    rollback_notes: List[str] = Field(default_factory=list)
+    evidence_refs: List[str] = Field(default_factory=list, max_length=64)
+    notes: List[str] = Field(default_factory=list)
+
+
+class ChangeControlRecord(BaseModel):
+    change_id: str = Field(default_factory=lambda: str(uuid4()))
+    title: str
+    owner: str
+    change_kind: ChangeKind
+    severity: ChangeSeverity
+    status: ChangeStatus = "proposed"
+    summary: str
+    affected_datasets: List[str] = Field(default_factory=list)
+    affected_connectors: List[str] = Field(default_factory=list)
+    affected_routes: List[str] = Field(default_factory=list)
+    linked_policy_ids: List[str] = Field(default_factory=list)
+    planned_window: str = ""
+    validation_commands: List[str] = Field(default_factory=list)
+    rollback_notes: List[str] = Field(default_factory=list)
+    evidence_refs: List[str] = Field(default_factory=list)
+    notes: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class SupplyChainNode(BaseModel):
+    node_id: str = Field(default_factory=lambda: str(uuid4()))
+    label: str = Field(min_length=1)
+    node_kind: SupplyChainNodeKind
+    dataset_name: str = ""
+    owner: str = ""
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+
+class SupplyChainEdge(BaseModel):
+    edge_id: str = Field(default_factory=lambda: str(uuid4()))
+    from_node_id: str = Field(min_length=1)
+    to_node_id: str = Field(min_length=1)
+    movement: SupplyChainMovement
+    carries_data_categories: List[str] = Field(default_factory=list, max_length=32)
+    cross_border: bool = False
+    governed: bool = True
+    deletion_supported: bool = True
+    notes: List[str] = Field(default_factory=list)
+
+
+class SupplyChainSnapshotRequest(BaseModel):
+    label: str = Field(min_length=1)
+    owner: str = Field(min_length=1)
+    tenant_id: str = ""
+    nodes: List[SupplyChainNode] = Field(min_length=1, max_length=256)
+    edges: List[SupplyChainEdge] = Field(min_length=1, max_length=512)
+    evidence_refs: List[str] = Field(default_factory=list, max_length=64)
+    notes: List[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_nodes(self) -> "SupplyChainSnapshotRequest":
+        node_ids = [node.node_id for node in self.nodes]
+        if len(node_ids) != len(set(node_ids)):
+            raise ValueError("Supply chain nodes must have unique node ids")
+        return self
+
+
+class SupplyChainSnapshotRecord(BaseModel):
+    snapshot_id: str = Field(default_factory=lambda: str(uuid4()))
+    label: str
+    owner: str
+    tenant_id: str = ""
+    node_count: int = Field(ge=1)
+    edge_count: int = Field(ge=1)
+    cross_border_edge_count: int = Field(ge=0)
+    governed_edge_count: int = Field(ge=0)
+    ungoverned_edge_count: int = Field(ge=0)
+    deletion_ready_edge_count: int = Field(ge=0)
+    nodes: List[SupplyChainNode]
+    edges: List[SupplyChainEdge]
+    evidence_refs: List[str] = Field(default_factory=list)
+    notes: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class StewardshipCoverageItem(BaseModel):
+    dataset_id: str
+    dataset_name: str
+    dataset_version: str
+    has_policy: bool
+    policy_id: str = ""
+    data_classification: str = ""
+    review_due: bool = False
+    removal_due: bool = False
+    next_review_at: str = ""
+    half_life_at: str = ""
+    removal_due_at: str = ""
+    notes: List[str] = Field(default_factory=list)
+
+
+class StewardshipPostureResponse(BaseModel):
+    dataset_count: int = Field(ge=0)
+    policy_count: int = Field(ge=0)
+    covered_dataset_count: int = Field(ge=0)
+    uncovered_dataset_count: int = Field(ge=0)
+    open_change_controls: int = Field(ge=0)
+    approved_change_controls: int = Field(ge=0)
+    supply_chain_snapshot_count: int = Field(ge=0)
+    cross_border_edge_count: int = Field(ge=0)
+    ungoverned_edge_count: int = Field(ge=0)
+    deletion_ready_edge_count: int = Field(ge=0)
+    datasets: List[StewardshipCoverageItem] = Field(default_factory=list)
+    warnings: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
 ConnectorKind = Literal[
     "local_csv",
     "local_jsonl",
@@ -771,7 +978,7 @@ WebExtractMode = Literal["article_blocks", "paragraphs", "headings"]
 
 class WebIngestPolicy(BaseModel):
     user_agent: str = (
-        "AdvancedMultimodalAI/0.4 "
+        "AdvancedMultimodalAI/0.5 "
         "(public research runtime; repository contact through GitHub)"
     )
     respect_robots: bool = True

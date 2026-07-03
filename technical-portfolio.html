@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advanced Multi-modal AI · Component Catalog</title>
   <meta name="description" content="Component catalog for the Advanced Multi-modal AI repository, including contracts, public-web intake, quality profiling, provenance, retrieval, video, and local operations.">
+  <link rel="stylesheet" href="site-controls.css">
   <style>
     :root {
       --bg: #0e0b09;
@@ -74,6 +75,100 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       margin-top: 20px;
     }
+    .weave {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+    .weave-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.035);
+      position: relative;
+      overflow: hidden;
+    }
+    .weave-card::after {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      right: -50px;
+      bottom: -70px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(143, 201, 190, 0.16), transparent 70%);
+      pointer-events: none;
+    }
+    .weave-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 10px;
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 12px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-size: 0.84rem;
+      font-family: "SFMono-Regular", Consolas, monospace;
+    }
+    .weave-rule {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .ribbon-rows {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .ribbon-row {
+      display: grid;
+      gap: 7px;
+    }
+    .ribbon-row header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .ribbon-row small {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .ribbon-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+    .ribbon-fill {
+      height: 100%;
+      width: var(--width, 50%);
+      border-radius: inherit;
+      transform-origin: left center;
+      animation: ribbonGrow 1.2s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+    }
+    .ribbon-fill.intake { background: linear-gradient(90deg, rgba(223, 156, 95, 0.95), rgba(215, 169, 184, 0.86)); }
+    .ribbon-fill.measure { background: linear-gradient(90deg, rgba(143, 201, 190, 0.96), rgba(169, 196, 255, 0.86)); }
+    .ribbon-fill.control { background: linear-gradient(90deg, rgba(246, 239, 232, 0.92), rgba(143, 201, 190, 0.82)); }
+    @keyframes ribbonGrow {
+      from { transform: scaleX(0.06); opacity: 0.35; }
+      to { transform: scaleX(1); opacity: 1; }
+    }
     .catalog-card {
       padding: 22px;
       position: relative;
@@ -103,7 +198,7 @@
       white-space: pre-wrap;
     }
     @media (max-width: 860px) {
-      .hero, .catalog { grid-template-columns: 1fr; }
+      .hero, .catalog, .weave { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -135,6 +230,145 @@
           Instead, it produces evidence windows and cleanup suggestions from
           transcripts, frame signals, and audio energy traces.
         </p>
+      </div>
+    </section>
+
+    <section class="panel" id="python-weave" style="margin-top:20px;">
+      <div class="label">Python weave</div>
+      <h2>Why these files lean on one another</h2>
+      <p>
+        The Python package is easier to trust once the files are read as lanes of one system.
+        Intake, measurement, orchestration, and review are kept apart so each part can be tested
+        without turning the repository into a single oversized script.
+      </p>
+      <div class="weave">
+        <article class="weave-card">
+          <div class="label">Intake path</div>
+          <h3>Rows arrive before tensors do</h3>
+          <div class="chip-row">
+            <span class="chip">connectors.py</span>
+            <span class="chip">connector_store.py</span>
+            <span class="chip">catalog.py</span>
+            <span class="chip">catalog_store.py</span>
+            <span class="chip">pipelines.py</span>
+          </div>
+          <p>
+            These files stay together because one typed pull should be able to do three things at once:
+            bring the rows in, describe them as a dataset contract, and map them into persisted pipeline
+            work without asking for a separate preparation script.
+          </p>
+          <div class="weave-rule">
+            The intake lane answers three questions in order: what arrived, how was it typed, and what
+            multimodal batch should be built from it next.
+          </div>
+        </article>
+        <article class="weave-card">
+          <div class="label">Measurement path</div>
+          <h3>Weak signals are named early</h3>
+          <div class="chip-row">
+            <span class="chip">quality.py</span>
+            <span class="chip">signal_math.py</span>
+            <span class="chip">alignment.py</span>
+            <span class="chip">provenance.py</span>
+            <span class="chip">replay.py</span>
+          </div>
+          <p>
+            This group stays separate from inference because entropy, sparsity, temporal alignment, and
+            provenance need to remain inspectable on their own. The repository should be able to say
+            <em>why a signal looked fragile</em>, not just that a model happened to be uncertain.
+          </p>
+          <div class="weave-rule">
+            A replay only matters if the earlier receipts and timing windows were kept intact. That is why
+            provenance and replay share a lane.
+          </div>
+        </article>
+        <article class="weave-card">
+          <div class="label">Runtime path</div>
+          <h3>Contracts hold the center</h3>
+          <div class="chip-row">
+            <span class="chip">contracts.py</span>
+            <span class="chip">service.py</span>
+            <span class="chip">retrieval.py</span>
+            <span class="chip">video.py</span>
+            <span class="chip">api.py</span>
+          </div>
+          <p>
+            The central service composes the runtime edge, but it does not own everything. Contracts define
+            the shapes, service coordinates the work, retrieval keeps memory bounded, video handles temporal
+            cleanup, and the API stays narrow enough to expose the work without duplicating it.
+          </p>
+          <div class="weave-rule">
+            The service exists to keep these capabilities in one runtime, not to flatten them into one file.
+          </div>
+        </article>
+        <article class="weave-card">
+          <div class="label">Review path</div>
+          <h3>Change, drift, and liability remain visible</h3>
+          <div class="chip-row">
+            <span class="chip">drift.py</span>
+            <span class="chip">drift_store.py</span>
+            <span class="chip">domain_ontology.py</span>
+            <span class="chip">liability_surface.py</span>
+            <span class="chip">stewardship_store.py</span>
+            <span class="chip">readiness.py</span>
+          </div>
+          <p>
+            These files answer a different class of question. Not what the model predicted, but what moved,
+            what aged out, what crossed a boundary, and which datasets still lack a clean review rhythm.
+          </p>
+          <div class="weave-rule">
+            Readiness becomes more useful once it can see lifecycle policy, drift baselines, supply paths,
+            and route evidence in one place.
+          </div>
+        </article>
+      </div>
+      <div class="weave" style="margin-top:18px;">
+        <article class="weave-card">
+          <div class="label">Math lanes</div>
+          <h3>Small measures with operational weight</h3>
+          <p>
+            The repository does not need decorative numerics. It needs a handful of measures that change how
+            data is handled before it becomes another glossy output.
+          </p>
+          <div class="ribbon-rows">
+            <div class="ribbon-row">
+              <header><span>Entropy and sparsity</span><small>quality.py</small></header>
+              <div class="ribbon-track"><div class="ribbon-fill intake" style="--width:85%;"></div></div>
+            </div>
+            <div class="ribbon-row">
+              <header><span>Pairwise alignment</span><small>alignment.py</small></header>
+              <div class="ribbon-track"><div class="ribbon-fill measure" style="--width:78%;"></div></div>
+            </div>
+            <div class="ribbon-row">
+              <header><span>Schema fingerprinting</span><small>catalog.py + rust_bridge.py</small></header>
+              <div class="ribbon-track"><div class="ribbon-fill control" style="--width:90%;"></div></div>
+            </div>
+          </div>
+          <div class="weave-rule">
+            Each measure is tied to a real decision: whether to fuse, whether to replay, whether to accept a
+            schema change, or whether a new cohort should pause for review.
+          </div>
+        </article>
+        <article class="weave-card">
+          <div class="label">Delivery path</div>
+          <h3>One contract, several surfaces</h3>
+          <div class="chip-row">
+            <span class="chip">attestation.py</span>
+            <span class="chip">proof.py</span>
+            <span class="chip">scripts/export_openapi.py</span>
+            <span class="chip">sdk/python</span>
+            <span class="chip">sdk/typescript</span>
+          </div>
+          <p>
+            The public surface should be able to explain itself without hand-written divergence. The proof
+            lane counts what exists, the OpenAPI export freezes the live contract, and the generated clients
+            keep the downstream Python and TypeScript surfaces aligned with it.
+          </p>
+          <div class="weave-rule">
+            That is how the repository stays legible across code, documentation, and front-end pages without
+            pretending they are separate stories.
+          </div>
+        </article>
       </div>
     </section>
 
@@ -205,6 +439,11 @@
         <p>Enterprise artifact ingestion, compiled governance constraints, live trace comparison, and persisted ontology snapshots.</p>
       </article>
       <article class="catalog-card">
+        <div class="label">stewardship</div>
+        <h3>`stewardship_store.py` and `service.py`</h3>
+        <p>Persisted lifecycle policies, change-control records, supply-chain snapshots, and one posture surface for review coverage and data retirement.</p>
+      </article>
+      <article class="catalog-card">
         <div class="label">bias</div>
         <h3>`bias_taxonomy.py`</h3>
         <p>A sixty-category register for where bias enters a system, plus a stage-aware assessment lane.</p>
@@ -222,7 +461,7 @@
       <article class="catalog-card">
         <div class="label">sdk</div>
         <h3>`sdk/typescript`</h3>
-        <p>A small client for health checks, quality, provenance, planning, inference requests, alignment windows, and the WebSocket stream.</p>
+        <p>A small client for health checks, stewardship surfaces, quality, provenance, planning, inference requests, alignment windows, and the WebSocket stream.</p>
       </article>
       <article class="catalog-card">
         <div class="label">operations</div>
@@ -269,5 +508,6 @@
       </p>
     </section>
   </div>
+  <script src="site-controls.js"></script>
 </body>
 </html>

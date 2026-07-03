@@ -3,7 +3,7 @@
   "info": {
     "title": "Advanced Multi-modal AI",
     "summary": "A multimodal runtime surface for orchestration, retrieval, quality profiling, provenance, temporal alignment, public-web intake, and video evidence planning.",
-    "version": "0.4.0"
+    "version": "0.5.0"
   },
   "paths": {
     "/": {
@@ -211,6 +211,349 @@
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stewardship/lifecycle": {
+      "post": {
+        "summary": "Register Lifecycle Policy",
+        "operationId": "register_lifecycle_policy_v1_stewardship_lifecycle_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataLifecyclePolicyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Lifecycle Policies",
+        "operationId": "list_lifecycle_policies_v1_stewardship_lifecycle_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stewardship/lifecycle/{policy_id}": {
+      "get": {
+        "summary": "Get Lifecycle Policy",
+        "operationId": "get_lifecycle_policy_v1_stewardship_lifecycle__policy_id__get",
+        "parameters": [
+          {
+            "name": "policy_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Policy Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stewardship/change-controls": {
+      "post": {
+        "summary": "Create Change Control",
+        "operationId": "create_change_control_v1_stewardship_change_controls_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeControlRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Change Controls",
+        "operationId": "list_change_controls_v1_stewardship_change_controls_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stewardship/change-controls/{change_id}": {
+      "get": {
+        "summary": "Get Change Control",
+        "operationId": "get_change_control_v1_stewardship_change_controls__change_id__get",
+        "parameters": [
+          {
+            "name": "change_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Change Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stewardship/supply-chain": {
+      "post": {
+        "summary": "Create Supply Chain Snapshot",
+        "operationId": "create_supply_chain_snapshot_v1_stewardship_supply_chain_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplyChainSnapshotRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Supply Chain Snapshots",
+        "operationId": "list_supply_chain_snapshots_v1_stewardship_supply_chain_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stewardship/supply-chain/{snapshot_id}": {
+      "get": {
+        "summary": "Get Supply Chain Snapshot",
+        "operationId": "get_supply_chain_snapshot_v1_stewardship_supply_chain__snapshot_id__get",
+        "parameters": [
+          {
+            "name": "snapshot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Snapshot Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stewardship/posture": {
+      "get": {
+        "summary": "Stewardship Posture",
+        "operationId": "stewardship_posture_v1_stewardship_posture_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           }
@@ -1695,6 +2038,135 @@
         ],
         "title": "BiasAssessmentRequest"
       },
+      "ChangeControlRequest": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Title"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Owner"
+          },
+          "change_kind": {
+            "type": "string",
+            "enum": [
+              "schema",
+              "connector",
+              "retention",
+              "policy",
+              "model",
+              "serving",
+              "deletion"
+            ],
+            "title": "Change Kind"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Severity",
+            "default": "medium"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "proposed",
+              "approved",
+              "implemented",
+              "reversed"
+            ],
+            "title": "Status",
+            "default": "proposed"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Summary"
+          },
+          "affected_datasets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Affected Datasets"
+          },
+          "affected_connectors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Affected Connectors"
+          },
+          "affected_routes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Affected Routes"
+          },
+          "linked_policy_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Linked Policy Ids"
+          },
+          "planned_window": {
+            "type": "string",
+            "title": "Planned Window",
+            "default": ""
+          },
+          "validation_commands": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Validation Commands"
+          },
+          "rollback_notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Rollback Notes"
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Evidence Refs"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "owner",
+          "change_kind",
+          "summary"
+        ],
+        "title": "ChangeControlRequest"
+      },
       "ConnectorConfig": {
         "properties": {
           "kind": {
@@ -2039,6 +2511,110 @@
           "version"
         ],
         "title": "ConnectorRegistrationRequest"
+      },
+      "DataLifecyclePolicyRequest": {
+        "properties": {
+          "dataset_name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Dataset Name"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Owner"
+          },
+          "data_classification": {
+            "type": "string",
+            "enum": [
+              "public",
+              "internal",
+              "confidential",
+              "regulated",
+              "restricted"
+            ],
+            "title": "Data Classification",
+            "default": "internal"
+          },
+          "residency_regions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Residency Regions"
+          },
+          "allowed_uses": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Allowed Uses"
+          },
+          "effective_from": {
+            "type": "string",
+            "title": "Effective From"
+          },
+          "retention_days": {
+            "type": "integer",
+            "maximum": 36500.0,
+            "minimum": 1.0,
+            "title": "Retention Days"
+          },
+          "half_life_days": {
+            "type": "integer",
+            "maximum": 36500.0,
+            "minimum": 1.0,
+            "title": "Half Life Days"
+          },
+          "review_interval_days": {
+            "type": "integer",
+            "maximum": 3650.0,
+            "minimum": 1.0,
+            "title": "Review Interval Days",
+            "default": 30
+          },
+          "removal_mode": {
+            "type": "string",
+            "enum": [
+              "delete",
+              "archive",
+              "anonymize",
+              "quarantine"
+            ],
+            "title": "Removal Mode",
+            "default": "archive"
+          },
+          "deletion_evidence_required": {
+            "type": "boolean",
+            "title": "Deletion Evidence Required",
+            "default": true
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Evidence Refs"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "dataset_name",
+          "owner",
+          "retention_days",
+          "half_life_days"
+        ],
+        "title": "DataLifecyclePolicyRequest"
       },
       "DatasetEvolutionRequest": {
         "properties": {
@@ -3154,6 +3730,184 @@
         ],
         "title": "RetrievalUpsertRequest"
       },
+      "SupplyChainEdge": {
+        "properties": {
+          "edge_id": {
+            "type": "string",
+            "title": "Edge Id"
+          },
+          "from_node_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "From Node Id"
+          },
+          "to_node_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "To Node Id"
+          },
+          "movement": {
+            "type": "string",
+            "enum": [
+              "ingest",
+              "normalize",
+              "enrich",
+              "train",
+              "serve",
+              "export",
+              "archive",
+              "delete"
+            ],
+            "title": "Movement"
+          },
+          "carries_data_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Carries Data Categories"
+          },
+          "cross_border": {
+            "type": "boolean",
+            "title": "Cross Border",
+            "default": false
+          },
+          "governed": {
+            "type": "boolean",
+            "title": "Governed",
+            "default": true
+          },
+          "deletion_supported": {
+            "type": "boolean",
+            "title": "Deletion Supported",
+            "default": true
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_node_id",
+          "to_node_id",
+          "movement"
+        ],
+        "title": "SupplyChainEdge"
+      },
+      "SupplyChainNode": {
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "title": "Node Id"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Label"
+          },
+          "node_kind": {
+            "type": "string",
+            "enum": [
+              "source",
+              "connector",
+              "dataset",
+              "queue",
+              "feature_store",
+              "model",
+              "index",
+              "consumer",
+              "archive",
+              "deletion_lane"
+            ],
+            "title": "Node Kind"
+          },
+          "dataset_name": {
+            "type": "string",
+            "title": "Dataset Name",
+            "default": ""
+          },
+          "owner": {
+            "type": "string",
+            "title": "Owner",
+            "default": ""
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "node_kind"
+        ],
+        "title": "SupplyChainNode"
+      },
+      "SupplyChainSnapshotRequest": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Label"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Owner"
+          },
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id",
+            "default": ""
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/SupplyChainNode"
+            },
+            "type": "array",
+            "maxItems": 256,
+            "minItems": 1,
+            "title": "Nodes"
+          },
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/SupplyChainEdge"
+            },
+            "type": "array",
+            "maxItems": 512,
+            "minItems": 1,
+            "title": "Edges"
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Evidence Refs"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "owner",
+          "nodes",
+          "edges"
+        ],
+        "title": "SupplyChainSnapshotRequest"
+      },
       "TemporalAlignmentRequest": {
         "properties": {
           "observations": {
@@ -3481,7 +4235,7 @@
           "user_agent": {
             "type": "string",
             "title": "User Agent",
-            "default": "AdvancedMultimodalAI/0.4 (public research runtime; repository contact through GitHub)"
+            "default": "AdvancedMultimodalAI/0.5 (public research runtime; repository contact through GitHub)"
           },
           "respect_robots": {
             "type": "boolean",

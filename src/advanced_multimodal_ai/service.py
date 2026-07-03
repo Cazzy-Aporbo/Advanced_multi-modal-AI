@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+from datetime import datetime, timedelta, timezone
 from statistics import median
 from time import perf_counter
 from typing import Any, Dict, List, Tuple
@@ -29,11 +30,15 @@ from .contracts import (
     BiasAssessmentRequest,
     BiasAssessmentResponse,
     BiasCategory,
+    ChangeControlRecord,
+    ChangeControlRequest,
     ConnectorPipelineIngestRequest,
     ConnectorPipelineIngestResponse,
     ConnectorRegistrationRequest,
     ConnectorRegistrationResponse,
     ConnectorRunRecord,
+    DataLifecyclePolicyRecord,
+    DataLifecyclePolicyRequest,
     DataProfileResponse,
     DatasetEvolutionRequest,
     DatasetEvolutionResponse,
@@ -64,7 +69,11 @@ from .contracts import (
     RetrievalUpsertRequest,
     RuntimeAttestationResponse,
     RuntimeProofBundle,
+    StewardshipCoverageItem,
+    StewardshipPostureResponse,
     SuggestedCut,
+    SupplyChainSnapshotRecord,
+    SupplyChainSnapshotRequest,
     TemporalAlignmentRequest,
     TemporalAlignmentResponse,
     TimeSpan,
@@ -95,6 +104,7 @@ from .replay import compare_replay, export_pipeline_run
 from .retrieval import create_vector_index
 from .rust_bridge import signature_from_payload, video_cuts_from_payload
 from .signal_math import arrays_from_request, output_summary, signature
+from .stewardship_store import StewardshipStore
 from .video import build_video_cleaning_response, build_video_packet
 
 try:
@@ -144,6 +154,20 @@ def _classification_surface(
     return logits, probabilities
 
 
+def _parse_utc_timestamp(value: str) -> datetime:
+    normalized = value.strip()
+    if normalized.endswith("Z"):
+        normalized = normalized[:-1] + "+00:00"
+    parsed = datetime.fromisoformat(normalized)
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _serialize_utc_timestamp(value: datetime) -> str:
+    return value.astimezone(timezone.utc).isoformat()
+
+
 class AdvancedMultimodalService:
     def __init__(self, settings: Settings | None = None) -> None:
         self.settings = settings or Settings()
@@ -155,6 +179,7 @@ class AdvancedMultimodalService:
         self.pipeline_store = PipelineStore(self.settings.pipeline_run_db_path)
         self.ontology_store = OntologyStore(self.settings.ontology_db_path)
         self.recipe_store = RecipeStore(self.settings.recipe_db_path)
+        self.stewardship_store = StewardshipStore(self.settings.stewardship_db_path)
 
     @property
     def torch_available(self) -> bool:
@@ -209,6 +234,240 @@ class AdvancedMultimodalService:
                 f"Dataset '{request.dataset_name}' has not been registered yet"
             )
         return compare_dataset_schemas(current, request)
+
+    def register_lifecycle_policy(
+        self, request: DataLifecyclePolicyRequest
+    ) -> DataLifecyclePolicyRecord:
+        record_data_plane("stewardship_lifecycle_register")
+        dataset = self.catalog_store.get_latest_by_name(request.dataset_name)
+        if dataset is None:
+            raise ValueError(
+                f"Dataset '{request.dataset_name}' must be registered before a lifecycle policy."
+            )
+
+        effective_from = _parse_utc_timestamp(request.effective_from)
+        half_life_at = effective_from + timedelta(days=request.half_life_days)
+        next_review_at = effective_from + timedelta(days=request.review_interval_days)
+        removal_due_at = effective_from + timedelta(days=request.retention_days)
+        now = datetime.now(timezone.utc)
+
+        if removal_due_at <= now:
+            state = "removal_due"
+        elif next_review_at <= now:
+            state = "review_due"
+        else:
+            state = "active"
+
+        notes = list(request.notes)
+        if half_life_at <= now:
+            notes.append("This policy has already crossed its declared data half-life.")
+        if state == "removal_due":
+            notes.append("The declared retention window has already elapsed.")
+
+        record = DataLifecyclePolicyRecord(
+            dataset_id=dataset.dataset_id,
+            dataset_name=dataset.dataset_name,
+            dataset_version=dataset.version,
+            owner=request.owner,
+            data_classification=request.data_classification,
+            residency_regions=request.residency_regions,
+            allowed_uses=request.allowed_uses,
+            effective_from=_serialize_utc_timestamp(effective_from),
+            retention_days=request.retention_days,
+            half_life_days=request.half_life_days,
+            review_interval_days=request.review_interval_days,
+            half_life_at=_serialize_utc_timestamp(half_life_at),
+            next_review_at=_serialize_utc_timestamp(next_review_at),
+            removal_due_at=_serialize_utc_timestamp(removal_due_at),
+            removal_mode=request.removal_mode,
+            deletion_evidence_required=request.deletion_evidence_required,
+            state=state,
+            evidence_refs=request.evidence_refs,
+            notes=notes,
+        )
+        return self.stewardship_store.save_lifecycle_policy(record)
+
+    def list_lifecycle_policies(self, limit: int = 100) -> List[DataLifecyclePolicyRecord]:
+        record_data_plane("stewardship_lifecycle_list")
+        return self.stewardship_store.list_lifecycle_policies(limit=limit)
+
+    def get_lifecycle_policy(self, policy_id: str) -> DataLifecyclePolicyRecord | None:
+        return self.stewardship_store.get_lifecycle_policy(policy_id)
+
+    def create_change_control(self, request: ChangeControlRequest) -> ChangeControlRecord:
+        record_data_plane("stewardship_change_control_create")
+        for dataset_name in request.affected_datasets:
+            if self.catalog_store.get_latest_by_name(dataset_name) is None:
+                raise ValueError(
+                    "Dataset "
+                    f"'{dataset_name}' must be registered before it can appear "
+                    "in change control."
+                )
+        for policy_id in request.linked_policy_ids:
+            if self.stewardship_store.get_lifecycle_policy(policy_id) is None:
+                raise ValueError(
+                    f"Lifecycle policy '{policy_id}' must exist before it can be linked."
+                )
+
+        record = ChangeControlRecord(
+            title=request.title,
+            owner=request.owner,
+            change_kind=request.change_kind,
+            severity=request.severity,
+            status=request.status,
+            summary=request.summary,
+            affected_datasets=request.affected_datasets,
+            affected_connectors=request.affected_connectors,
+            affected_routes=request.affected_routes,
+            linked_policy_ids=request.linked_policy_ids,
+            planned_window=request.planned_window,
+            validation_commands=request.validation_commands,
+            rollback_notes=request.rollback_notes,
+            evidence_refs=request.evidence_refs,
+            notes=request.notes,
+        )
+        return self.stewardship_store.save_change_control(record)
+
+    def list_change_controls(self, limit: int = 100) -> List[ChangeControlRecord]:
+        record_data_plane("stewardship_change_control_list")
+        return self.stewardship_store.list_change_controls(limit=limit)
+
+    def get_change_control(self, change_id: str) -> ChangeControlRecord | None:
+        return self.stewardship_store.get_change_control(change_id)
+
+    def create_supply_chain_snapshot(
+        self, request: SupplyChainSnapshotRequest
+    ) -> SupplyChainSnapshotRecord:
+        record_data_plane("stewardship_supply_chain_create")
+        node_ids = {node.node_id for node in request.nodes}
+        for node in request.nodes:
+            if (
+                node.dataset_name
+                and self.catalog_store.get_latest_by_name(node.dataset_name) is None
+            ):
+                raise ValueError(
+                    "Dataset "
+                    f"'{node.dataset_name}' must be registered before it can appear "
+                    "in the supply chain."
+                )
+        for edge in request.edges:
+            if edge.from_node_id not in node_ids or edge.to_node_id not in node_ids:
+                raise ValueError(
+                    "Supply chain edges must point to nodes declared in the same snapshot."
+                )
+
+        cross_border_edge_count = sum(1 for edge in request.edges if edge.cross_border)
+        governed_edge_count = sum(1 for edge in request.edges if edge.governed)
+        ungoverned_edge_count = sum(1 for edge in request.edges if not edge.governed)
+        deletion_ready_edge_count = sum(1 for edge in request.edges if edge.deletion_supported)
+        notes = list(request.notes)
+        if ungoverned_edge_count:
+            notes.append(
+                f"{ungoverned_edge_count} supply edges still move without an explicit control."
+            )
+
+        record = SupplyChainSnapshotRecord(
+            label=request.label,
+            owner=request.owner,
+            tenant_id=request.tenant_id,
+            node_count=len(request.nodes),
+            edge_count=len(request.edges),
+            cross_border_edge_count=cross_border_edge_count,
+            governed_edge_count=governed_edge_count,
+            ungoverned_edge_count=ungoverned_edge_count,
+            deletion_ready_edge_count=deletion_ready_edge_count,
+            nodes=request.nodes,
+            edges=request.edges,
+            evidence_refs=request.evidence_refs,
+            notes=notes,
+        )
+        return self.stewardship_store.save_supply_chain_snapshot(record)
+
+    def list_supply_chain_snapshots(self, limit: int = 100) -> List[SupplyChainSnapshotRecord]:
+        record_data_plane("stewardship_supply_chain_list")
+        return self.stewardship_store.list_supply_chain_snapshots(limit=limit)
+
+    def get_supply_chain_snapshot(
+        self, snapshot_id: str
+    ) -> SupplyChainSnapshotRecord | None:
+        return self.stewardship_store.get_supply_chain_snapshot(snapshot_id)
+
+    def stewardship_posture(self) -> StewardshipPostureResponse:
+        record_data_plane("stewardship_posture")
+        datasets = self.catalog_store.list_datasets(limit=1000)
+        change_controls = self.stewardship_store.list_change_controls(limit=1000)
+        supply_snapshots = self.stewardship_store.list_supply_chain_snapshots(limit=1000)
+        now = datetime.now(timezone.utc)
+
+        coverage_items: List[StewardshipCoverageItem] = []
+        warnings: List[str] = []
+        covered_dataset_count = 0
+
+        for dataset in datasets:
+            policy = self.stewardship_store.get_latest_lifecycle_for_dataset(
+                dataset.dataset_name
+            )
+            review_due = False
+            removal_due = False
+            if policy is not None:
+                covered_dataset_count += 1
+                review_due = _parse_utc_timestamp(policy.next_review_at) <= now
+                removal_due = _parse_utc_timestamp(policy.removal_due_at) <= now
+            else:
+                warnings.append(
+                    f"{dataset.dataset_name} does not yet have a persisted lifecycle policy."
+                )
+
+            coverage_items.append(
+                StewardshipCoverageItem(
+                    dataset_id=dataset.dataset_id,
+                    dataset_name=dataset.dataset_name,
+                    dataset_version=dataset.version,
+                    has_policy=policy is not None,
+                    policy_id=policy.policy_id if policy is not None else "",
+                    data_classification=policy.data_classification if policy is not None else "",
+                    review_due=review_due,
+                    removal_due=removal_due,
+                    next_review_at=policy.next_review_at if policy is not None else "",
+                    half_life_at=policy.half_life_at if policy is not None else "",
+                    removal_due_at=policy.removal_due_at if policy is not None else "",
+                    notes=policy.notes if policy is not None else [],
+                )
+            )
+
+        cross_border_edge_count = sum(
+            snapshot.cross_border_edge_count for snapshot in supply_snapshots
+        )
+        ungoverned_edge_count = sum(
+            snapshot.ungoverned_edge_count for snapshot in supply_snapshots
+        )
+        deletion_ready_edge_count = sum(
+            snapshot.deletion_ready_edge_count for snapshot in supply_snapshots
+        )
+
+        if not supply_snapshots:
+            warnings.append("No supply-chain snapshot has been recorded yet.")
+        if not change_controls:
+            warnings.append("No change-control register has been recorded yet.")
+
+        return StewardshipPostureResponse(
+            dataset_count=len(datasets),
+            policy_count=self.stewardship_store.count_lifecycle_policies(),
+            covered_dataset_count=covered_dataset_count,
+            uncovered_dataset_count=max(len(datasets) - covered_dataset_count, 0),
+            open_change_controls=sum(
+                1 for item in change_controls if item.status in {"proposed", "approved"}
+            ),
+            approved_change_controls=sum(
+                1 for item in change_controls if item.status == "approved"
+            ),
+            supply_chain_snapshot_count=len(supply_snapshots),
+            cross_border_edge_count=cross_border_edge_count,
+            ungoverned_edge_count=ungoverned_edge_count,
+            deletion_ready_edge_count=deletion_ready_edge_count,
+            datasets=coverage_items,
+            warnings=warnings,
+        )
 
     def register_connector_dataset(
         self, request: ConnectorRegistrationRequest
@@ -364,6 +623,11 @@ class AdvancedMultimodalService:
                 "pipeline_runs": self.pipeline_store.count_runs(),
                 "ontology_snapshots": self.ontology_store.count_snapshots(),
                 "recipe_registry": self.recipe_store.count_recipes(),
+                "lifecycle_policies": self.stewardship_store.count_lifecycle_policies(),
+                "change_controls": self.stewardship_store.count_change_controls(),
+                "supply_chain_snapshots": (
+                    self.stewardship_store.count_supply_chain_snapshots()
+                ),
             },
         )
 

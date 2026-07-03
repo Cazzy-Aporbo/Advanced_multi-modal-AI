@@ -1,12 +1,12 @@
 # Example Runtime Bundle
 
 - Service: `advanced-multimodal-ai`
-- Version: `0.4.0`
-- Created at: `2026-07-03T06:46:39.227562+00:00`
+- Version: `0.5.0`
+- Created at: `2026-07-03T07:10:53.110385+00:00`
 
 ## Inference
 
-- Request id: `43350ce6-7858-4c9d-927a-b259552e1192`
+- Request id: `54495e18-e295-4e75-9817-a20b1ab40d40`
 - Route: `validate_payloads, encode_audio, encode_text, fuse_modalities, emit_target`
 - Output keys: `class_logits, class_probabilities, fused_embedding, modality_embeddings, predicted_index`
 
@@ -24,14 +24,14 @@
 
 ## Public web intake
 
-- Dataset id: `118ecca7-774c-49c6-b873-d5aa4f65783b`
+- Dataset id: `20e2797d-ab32-491e-bced-cfb39bce1b31`
 - Record count: `4`
 - Title row: `Example Intake`
 - Block kinds: `title, heading, paragraph, paragraph`
 
 ## Recipe manifest
 
-- Recipe id: `150f8f0b-d145-48a3-b97f-6c392fd66f88`
+- Recipe id: `67f8564e-53d5-46e9-b0f8-83e1714e6a74`
 - Launcher: `python`
 - Engine: `local`
 - Estimated global batch size: `4`
@@ -44,21 +44,21 @@
 
 ## Benchmark
 
-- Benchmark id: `a0b2a85d-bc72-4608-8935-baab1b96eb13`
+- Benchmark id: `b7bc4c15-b5ae-4c39-ab3e-a6bacd409f54`
 - Iterations: `3`
-- Median latency ms: `15.471917000468238`
-- P95 latency ms: `15.471917000468238`
+- Median latency ms: `15.95399999860092`
+- P95 latency ms: `15.95399999860092`
 
 ## Proof
 
-- Route count: `48`
-- Test count: `32`
+- Route count: `58`
+- Test count: `33`
 - Verification commands: `9`
 - Connector kinds: `local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html`
 
 ## Readiness
 
 - Posture: `review_ready`
-- Compiled recipes: `16`
-- Resolved recipes: `16`
-- Checks: `contract_surface, verification_depth, artifact_evidence, connector_coverage, connector_evidence, recipe_resolution, governance_evidence`
+- Compiled recipes: `20`
+- Resolved recipes: `20`
+- Checks: `contract_surface, verification_depth, artifact_evidence, connector_coverage, connector_evidence, recipe_resolution, governance_evidence, stewardship_surface`

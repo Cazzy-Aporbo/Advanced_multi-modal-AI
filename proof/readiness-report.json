@@ -1,8 +1,8 @@
 {
-  "report_id": "27f0b570-bed0-4223-a0b2-cc8ce87b8181",
+  "report_id": "94fc4c69-f1a7-429e-a588-36dc7f40818b",
   "posture": "review_ready",
-  "route_count": 48,
-  "test_count": 32,
+  "route_count": 58,
+  "test_count": 33,
   "verification_artifact_count": 5,
   "connector_kinds": [
     "local_csv",
@@ -13,18 +13,18 @@
     "http_ndjson",
     "web_html"
   ],
-  "resolved_recipe_count": 14,
-  "compiled_recipe_count": 14,
+  "resolved_recipe_count": 19,
+  "compiled_recipe_count": 19,
   "checks": [
     {
       "name": "contract_surface",
       "state": "pass",
-      "detail": "48 public runtime surfaces are exported."
+      "detail": "58 public runtime surfaces are exported."
     },
     {
       "name": "verification_depth",
       "state": "pass",
-      "detail": "32 tests are currently counted in the proof bundle."
+      "detail": "33 tests are currently counted in the proof bundle."
     },
     {
       "name": "artifact_evidence",
@@ -39,17 +39,22 @@
     {
       "name": "connector_evidence",
       "state": "pass",
-      "detail": "64 persisted connector runs are recorded."
+      "detail": "84 persisted connector runs are recorded."
     },
     {
       "name": "recipe_resolution",
       "state": "pass",
-      "detail": "14 of 14 compiled recipes have fully resolved source evidence."
+      "detail": "19 of 19 compiled recipes have fully resolved source evidence."
     },
     {
       "name": "governance_evidence",
       "state": "pass",
-      "detail": "drift baselines=8, ontology snapshots=53, pipeline runs=76"
+      "detail": "drift baselines=8, ontology snapshots=58, pipeline runs=90"
+    },
+    {
+      "name": "stewardship_surface",
+      "state": "pass",
+      "detail": "lifecycle policies=2, change controls=2, supply snapshots=2"
     }
   ],
   "blockers": [],
@@ -69,7 +74,11 @@
     {
       "area": "serving topology",
       "detail": "The repository proves a single-service runtime edge with supporting stores, not a hidden multi-cluster control plane."
+    },
+    {
+      "area": "data retirement",
+      "detail": "Lifecycle, change-control, and supply-chain surfaces document review, retention, and removal intent, but external schedulers still carry out the physical delete or archive operation."
     }
   ],
-  "created_at": "2026-07-03T06:46:38.469260+00:00"
+  "created_at": "2026-07-03T07:10:52.477616+00:00"
 }

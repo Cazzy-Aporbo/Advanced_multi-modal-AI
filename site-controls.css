@@ -1,0 +1,132 @@
+.site-dock {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+}
+
+.site-dock-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.site-dock select,
+.site-dock a {
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  padding: 8px 12px;
+  font: inherit;
+  text-decoration: none;
+}
+
+.site-dock select {
+  min-width: 108px;
+}
+
+.site-dock a:hover,
+.site-dock select:hover {
+  border-color: rgba(223, 156, 95, 0.38);
+  background: rgba(223, 156, 95, 0.12);
+}
+
+body[data-theme="midnight"] {
+  --bg: #0b0f19;
+  --surface: rgba(16, 24, 38, 0.82);
+  --surface-strong: rgba(23, 33, 51, 0.96);
+  --line: rgba(192, 212, 255, 0.18);
+  --text: #eef4ff;
+  --muted: #bfd0ea;
+  --copper: #f2b880;
+  --jade: #8bcdd7;
+  --rose: #d7b4d8;
+  --glow: rgba(139, 205, 215, 0.26);
+}
+
+body[data-theme="sea"] {
+  --bg: #081312;
+  --surface: rgba(13, 33, 31, 0.82);
+  --surface-strong: rgba(18, 46, 43, 0.96);
+  --line: rgba(178, 236, 224, 0.16);
+  --text: #edf9f7;
+  --muted: #b7d9d2;
+  --copper: #f1c48d;
+  --jade: #89d7c5;
+  --rose: #d9b6c5;
+  --glow: rgba(137, 215, 197, 0.24);
+}
+
+body[data-theme="rosewood"] {
+  --bg: #160d14;
+  --surface: rgba(43, 24, 37, 0.82);
+  --surface-strong: rgba(60, 31, 49, 0.96);
+  --line: rgba(247, 220, 232, 0.16);
+  --text: #fff0f7;
+  --muted: #ddc1ce;
+  --copper: #efb47d;
+  --jade: #9fd8c9;
+  --rose: #f0b2ce;
+  --glow: rgba(240, 178, 206, 0.24);
+}
+
+body[data-theme="dawn"] {
+  --bg: #1a140d;
+  --surface: rgba(52, 40, 26, 0.82);
+  --surface-strong: rgba(72, 53, 35, 0.96);
+  --line: rgba(248, 233, 206, 0.16);
+  --text: #fff4e5;
+  --muted: #dcc8ad;
+  --copper: #f0b36c;
+  --jade: #9fd0c4;
+  --rose: #deb0c3;
+  --glow: rgba(240, 179, 108, 0.22);
+}
+
+body[data-theme="paper"] {
+  --bg: #f3ede5;
+  --surface: rgba(255, 252, 248, 0.88);
+  --surface-strong: rgba(255, 255, 255, 0.96);
+  --line: rgba(67, 51, 38, 0.16);
+  --text: #2c2118;
+  --muted: #5b4c3f;
+  --copper: #9b5d23;
+  --jade: #2d7e77;
+  --rose: #985b76;
+  --glow: rgba(155, 93, 35, 0.12);
+}
+
+body[data-theme="paper"] .brand-mark,
+body[data-theme="paper"] .nav,
+body[data-theme="paper"] .panel,
+body[data-theme="paper"] .card,
+body[data-theme="paper"] .catalog-card,
+body[data-theme="paper"] .table-shell {
+  box-shadow: 0 18px 48px rgba(74, 58, 43, 0.08);
+}
+
+body[data-contrast="high"] {
+  --line: rgba(255, 255, 255, 0.28);
+  --text: #ffffff;
+  --muted: #f1e8dc;
+}
+
+body[data-theme="paper"][data-contrast="high"] {
+  --line: rgba(44, 33, 24, 0.32);
+  --text: #1d1510;
+  --muted: #34271d;
+}
+
+@media (max-width: 900px) {
+  .site-dock {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

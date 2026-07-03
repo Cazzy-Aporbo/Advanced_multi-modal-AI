@@ -8,8 +8,10 @@ from .config import get_settings
 from .contracts import (
     BatchInferenceRequest,
     BiasAssessmentRequest,
+    ChangeControlRequest,
     ConnectorPipelineIngestRequest,
     ConnectorRegistrationRequest,
+    DataLifecyclePolicyRequest,
     DatasetEvolutionRequest,
     DatasetRegistrationRequest,
     DriftBaselineRequest,
@@ -21,6 +23,7 @@ from .contracts import (
     RecipeCompileRequest,
     RetrievalQueryRequest,
     RetrievalUpsertRequest,
+    SupplyChainSnapshotRequest,
     TemporalAlignmentRequest,
     VideoCleaningRequest,
     VideoPacketRequest,
@@ -89,6 +92,64 @@ def create_app() -> FastAPI:
             return service.compare_dataset_evolution(request)
         except ValueError as error:
             raise HTTPException(status_code=404, detail=str(error)) from error
+
+    @app.post("/v1/stewardship/lifecycle")
+    def register_lifecycle_policy(request: DataLifecyclePolicyRequest):
+        try:
+            return service.register_lifecycle_policy(request)
+        except ValueError as error:
+            raise HTTPException(status_code=400, detail=str(error)) from error
+
+    @app.get("/v1/stewardship/lifecycle")
+    def list_lifecycle_policies(limit: int = 100):
+        return service.list_lifecycle_policies(limit=limit)
+
+    @app.get("/v1/stewardship/lifecycle/{policy_id}")
+    def get_lifecycle_policy(policy_id: str):
+        record = service.get_lifecycle_policy(policy_id)
+        if record is None:
+            raise HTTPException(status_code=404, detail="lifecycle policy not found")
+        return record
+
+    @app.post("/v1/stewardship/change-controls")
+    def create_change_control(request: ChangeControlRequest):
+        try:
+            return service.create_change_control(request)
+        except ValueError as error:
+            raise HTTPException(status_code=400, detail=str(error)) from error
+
+    @app.get("/v1/stewardship/change-controls")
+    def list_change_controls(limit: int = 100):
+        return service.list_change_controls(limit=limit)
+
+    @app.get("/v1/stewardship/change-controls/{change_id}")
+    def get_change_control(change_id: str):
+        record = service.get_change_control(change_id)
+        if record is None:
+            raise HTTPException(status_code=404, detail="change control not found")
+        return record
+
+    @app.post("/v1/stewardship/supply-chain")
+    def create_supply_chain_snapshot(request: SupplyChainSnapshotRequest):
+        try:
+            return service.create_supply_chain_snapshot(request)
+        except ValueError as error:
+            raise HTTPException(status_code=400, detail=str(error)) from error
+
+    @app.get("/v1/stewardship/supply-chain")
+    def list_supply_chain_snapshots(limit: int = 100):
+        return service.list_supply_chain_snapshots(limit=limit)
+
+    @app.get("/v1/stewardship/supply-chain/{snapshot_id}")
+    def get_supply_chain_snapshot(snapshot_id: str):
+        record = service.get_supply_chain_snapshot(snapshot_id)
+        if record is None:
+            raise HTTPException(status_code=404, detail="supply-chain snapshot not found")
+        return record
+
+    @app.get("/v1/stewardship/posture")
+    def stewardship_posture():
+        return service.stewardship_posture()
 
     @app.post("/v1/connectors/register")
     def register_connector_dataset(request: ConnectorRegistrationRequest):

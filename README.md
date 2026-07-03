@@ -21,8 +21,10 @@ This repository now holds two things in a clearer arrangement:
 - [The multimodal data plane](#the-multimodal-data-plane)
 - [Dataset contracts and evolution](#dataset-contracts-and-evolution)
 - [Connector-fed ingestion](#connector-fed-ingestion)
+- [Stewardship, change control, and supply chain](#stewardship-change-control-and-supply-chain)
 - [Runtime surfaces](#runtime-surfaces)
 - [Repository layout](#repository-layout)
+- [How the Python files connect](#how-the-python-files-connect)
 - [Quick start](#quick-start)
 - [Rust core and TypeScript SDK](#rust-core-and-typescript-sdk)
 - [Research registry](#research-registry)
@@ -58,6 +60,12 @@ is operational today.
   and fusion readiness
 - dataset contract registration, deterministic schema fingerprinting, and
   schema evolution checks
+- persisted lifecycle policies covering review cadence, half-life, retention,
+  and removal intent for named datasets
+- change-control records that bind affected datasets, routes, validation
+  commands, and rollback notes into one reviewable surface
+- supply-chain snapshots that show how data moves between sources, datasets,
+  consumers, and deletion lanes
 - typed dataset connectors for local CSV, local Parquet, S3-hosted Parquet,
   local NDJSON, HTTP JSON, HTTP NDJSON, and public HTML pages with robots-aware
   intake rules
@@ -150,6 +158,36 @@ The web lane adds a more careful intake path for public pages:
 
 That keeps web intake useful for research and review work without turning the
 repository into an indiscriminate crawler.
+
+## Stewardship, change control, and supply chain
+
+`POST /v1/stewardship/lifecycle`<br>
+`GET /v1/stewardship/lifecycle`<br>
+`GET /v1/stewardship/lifecycle/{policy_id}`<br>
+`POST /v1/stewardship/change-controls`<br>
+`GET /v1/stewardship/change-controls`<br>
+`GET /v1/stewardship/change-controls/{change_id}`<br>
+`POST /v1/stewardship/supply-chain`<br>
+`GET /v1/stewardship/supply-chain`<br>
+`GET /v1/stewardship/supply-chain/{snapshot_id}`<br>
+`GET /v1/stewardship/posture`
+
+This lane documents how data is allowed to enter, how long it should remain
+useful, when it should be reviewed again, and what should happen when it
+becomes too old to carry forward safely.
+
+- lifecycle policies attach half-life, retention, review cadence, residency,
+  and removal mode to a persisted dataset contract
+- change-control records tie one operational change to the datasets, routes,
+  validations, and rollback notes it depends on
+- supply-chain snapshots describe the path from connector to dataset to
+  consumer, including cross-border hops and unguided edges
+- the posture surface shows which datasets are covered, which ones are still
+  uncovered, and where the supply path still lacks explicit control
+
+This is the part of the runtime that helps a team answer practical questions:
+what can move, what should pause for review, what has started to age out, and
+what still lacks a clean retirement path.
 
 ## Recipe registry
 
@@ -325,6 +363,16 @@ what still needs evidence, and where the runtime is intentionally restrained.
 | `/v1/catalog/datasets` | `GET` | list persisted dataset contracts |
 | `/v1/catalog/datasets/{dataset_id}` | `GET` | read one persisted dataset contract |
 | `/v1/catalog/evolution` | `POST` | compare a candidate schema against the latest saved version |
+| `/v1/stewardship/lifecycle` | `POST` | save review cadence, half-life, retention, and removal intent for one dataset |
+| `/v1/stewardship/lifecycle` | `GET` | list persisted lifecycle policies |
+| `/v1/stewardship/lifecycle/{policy_id}` | `GET` | read one lifecycle policy |
+| `/v1/stewardship/change-controls` | `POST` | register one operational change with validations and rollback notes |
+| `/v1/stewardship/change-controls` | `GET` | list persisted change-control records |
+| `/v1/stewardship/change-controls/{change_id}` | `GET` | read one change-control record |
+| `/v1/stewardship/supply-chain` | `POST` | persist a source-to-consumer data movement snapshot |
+| `/v1/stewardship/supply-chain` | `GET` | list persisted supply-chain snapshots |
+| `/v1/stewardship/supply-chain/{snapshot_id}` | `GET` | read one supply-chain snapshot |
+| `/v1/stewardship/posture` | `GET` | summarize coverage gaps, open changes, and cross-border movement counts |
 | `/v1/connectors/register` | `POST` | infer and persist a dataset contract from file, object-store, HTTP, or public-web rows |
 | `/v1/connectors/pipeline-ingest` | `POST` | fetch rows, map features into modalities, and persist a pipeline run |
 | `/v1/connectors/runs` | `GET` | list benchmarked connector runs |
@@ -407,6 +455,7 @@ Advanced_multi-modal-AI/
 │   ├── rust_bridge.py            # optional bridge into the Rust core
 │   ├── service.py                # inference and coordination logic
 │   ├── signal_math.py            # shared tensor summaries and signature math
+│   ├── stewardship_store.py      # persisted lifecycle, change-control, and supply snapshots
 │   └── video.py                  # transcript-first video packet and cleanup lane
 ├── tests/                        # API, retrieval, and video verification
 ├── monitoring/prometheus.yml     # scrape configuration
@@ -430,6 +479,34 @@ Advanced_multi-modal-AI/
 ├── fusion_strategies.py
 └── core/attention_mechanisms.py
 ```
+
+## How the Python files connect
+
+The package under `src/advanced_multimodal_ai` is easier to read when the
+files are treated as lanes instead of as isolated utilities.
+
+- `connectors.py` and `catalog.py` begin the intake path.
+  They pull rows, infer contracts, and leave persisted evidence in
+  `connector_store.py` and `catalog_store.py`.
+- `pipelines.py`, `quality.py`, `signal_math.py`, and `alignment.py`
+  turn those rows into timed multimodal work.
+  This is the lane that measures entropy, sparsity, coverage, and temporal
+  agreement before a fused answer carries too much confidence.
+- `contracts.py` and `service.py` hold the center of the runtime.
+  `contracts.py` keeps shapes explicit.
+  `service.py` composes inference, retrieval, video cleanup, replay, and
+  async jobs without collapsing all of that behavior into the API layer.
+- `drift.py`, `domain_ontology.py`, `liability_surface.py`, and
+  `stewardship_store.py` form the review path.
+  They answer questions about population change, operational movement,
+  lifecycle coverage, and route-level handling rather than model output alone.
+- `attestation.py`, `proof.py`, and `readiness.py` sit at the final edge.
+  Their job is to describe what exists, what passed, and what still lacks
+  coverage without pretending to be the runtime itself.
+
+That separation is intentional. It keeps the repository testable, makes the
+math reusable across surfaces, and gives the generated OpenAPI and SDK lanes a
+clear contract to follow.
 
 ## Quick start
 

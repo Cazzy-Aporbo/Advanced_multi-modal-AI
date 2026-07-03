@@ -21,6 +21,9 @@ def test_runtime_attestation_reports_artifacts_and_store_counts():
     assert "openapi_sha256" in payload
     assert "async_jobs" in payload["store_counts"]
     assert "recipe_registry" in payload["store_counts"]
+    assert "lifecycle_policies" in payload["store_counts"]
+    assert "change_controls" in payload["store_counts"]
+    assert "supply_chain_snapshots" in payload["store_counts"]
     assert payload["verification_artifacts"]
     assert any(item["name"] == "Runtime schema" for item in payload["verification_artifacts"])
 
@@ -56,6 +59,7 @@ def test_runtime_readiness_report_surfaces_limits_and_live_checks():
     check_names = {item["name"] for item in payload["checks"]}
     assert "connector_coverage" in check_names
     assert "recipe_resolution" in check_names
+    assert "stewardship_surface" in check_names
     assert any(boundary["area"] == "cloud credentials" for boundary in payload["boundaries"])
     assert any(boundary["area"] == "public web intake" for boundary in payload["boundaries"])
 
@@ -111,6 +115,138 @@ def test_dataset_catalog_registration_and_evolution_report():
     assert any(
         item["change_type"] == "added"
         for item in evolution_payload["additive_changes"]
+    )
+
+
+def test_stewardship_surfaces_track_lifecycle_change_control_and_supply_chain():
+    dataset_response = client.post(
+        "/v1/catalog/register",
+        json={
+            "dataset_name": "music_distribution_tail",
+            "owner": "cazandra",
+            "version": "2026.07.02",
+            "modality": "tabular",
+            "partition_keys": ["market"],
+            "primary_keys": ["observation_id"],
+            "fields": [
+                {"name": "observation_id", "dtype": "string", "nullable": False},
+                {"name": "market", "dtype": "string", "nullable": False},
+                {"name": "attention_score", "dtype": "float", "nullable": False},
+            ],
+            "tags": ["market", "music"],
+        },
+    )
+    assert dataset_response.status_code == 200
+    dataset_payload = dataset_response.json()
+
+    lifecycle = client.post(
+        "/v1/stewardship/lifecycle",
+        json={
+            "dataset_name": "music_distribution_tail",
+            "owner": "cazandra",
+            "data_classification": "regulated",
+            "residency_regions": ["eu-west-1", "ap-southeast-1"],
+            "allowed_uses": ["analysis", "retrieval_review"],
+            "effective_from": "2020-01-01T00:00:00+00:00",
+            "retention_days": 365,
+            "half_life_days": 120,
+            "review_interval_days": 30,
+            "removal_mode": "anonymize",
+            "evidence_refs": ["contract://music-distribution-tail-v1"],
+        },
+    )
+    assert lifecycle.status_code == 200
+    lifecycle_payload = lifecycle.json()
+    assert lifecycle_payload["dataset_id"] == dataset_payload["dataset_id"]
+    assert lifecycle_payload["state"] == "removal_due"
+
+    listed_lifecycle = client.get("/v1/stewardship/lifecycle")
+    assert listed_lifecycle.status_code == 200
+    assert any(
+        item["policy_id"] == lifecycle_payload["policy_id"]
+        for item in listed_lifecycle.json()
+    )
+
+    change_control = client.post(
+        "/v1/stewardship/change-controls",
+        json={
+            "title": "Rotate market export route",
+            "owner": "cazandra",
+            "change_kind": "connector",
+            "severity": "high",
+            "status": "approved",
+            "summary": "Move the export lane behind a narrower regional review path.",
+            "affected_datasets": ["music_distribution_tail"],
+            "affected_connectors": ["s3_parquet"],
+            "affected_routes": ["/v1/connectors/pipeline-ingest"],
+            "linked_policy_ids": [lifecycle_payload["policy_id"]],
+            "validation_commands": ["pytest -q tests/test_api.py -k stewardship"],
+            "rollback_notes": ["Restore the prior connector only after lineage review."],
+        },
+    )
+    assert change_control.status_code == 200
+    change_payload = change_control.json()
+    assert change_payload["status"] == "approved"
+
+    snapshot = client.post(
+        "/v1/stewardship/supply-chain",
+        json={
+            "label": "music-tail-lane",
+            "owner": "cazandra",
+            "tenant_id": "loopchii-music",
+            "nodes": [
+                {
+                    "node_id": "src-node",
+                    "label": "S3 parquet intake",
+                    "node_kind": "connector",
+                },
+                {
+                    "node_id": "dataset-node",
+                    "label": "Music distribution tail",
+                    "node_kind": "dataset",
+                    "dataset_name": "music_distribution_tail",
+                },
+                {
+                    "node_id": "consumer-node",
+                    "label": "Regional analyst workspace",
+                    "node_kind": "consumer",
+                },
+            ],
+            "edges": [
+                {
+                    "from_node_id": "src-node",
+                    "to_node_id": "dataset-node",
+                    "movement": "ingest",
+                    "carries_data_categories": ["market_signals"],
+                    "governed": True,
+                    "deletion_supported": True,
+                },
+                {
+                    "from_node_id": "dataset-node",
+                    "to_node_id": "consumer-node",
+                    "movement": "export",
+                    "carries_data_categories": ["market_signals"],
+                    "cross_border": True,
+                    "governed": False,
+                    "deletion_supported": False,
+                },
+            ],
+        },
+    )
+    assert snapshot.status_code == 200
+    snapshot_payload = snapshot.json()
+    assert snapshot_payload["cross_border_edge_count"] == 1
+    assert snapshot_payload["ungoverned_edge_count"] == 1
+
+    posture = client.get("/v1/stewardship/posture")
+    assert posture.status_code == 200
+    posture_payload = posture.json()
+    assert posture_payload["policy_count"] >= 1
+    assert posture_payload["approved_change_controls"] >= 1
+    assert posture_payload["cross_border_edge_count"] >= 1
+    assert any(
+        item["dataset_name"] == "music_distribution_tail" and item["has_policy"]
+        for item in posture_payload["datasets"]
     )
 
 

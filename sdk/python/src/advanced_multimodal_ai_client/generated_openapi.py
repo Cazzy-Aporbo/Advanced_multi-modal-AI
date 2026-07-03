@@ -70,6 +70,65 @@ class GeneratedOpenAPIClient:
         path = f"/v1/catalog/evolution"
         return self._request("POST", path, payload=payload)
 
+    def listLifecyclePoliciesV1StewardshipLifecycleGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """List Lifecycle Policies"""
+        path = f"/v1/stewardship/lifecycle"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def registerLifecyclePolicyV1StewardshipLifecyclePost(self, payload: Any) -> Any:
+        """Register Lifecycle Policy"""
+        path = f"/v1/stewardship/lifecycle"
+        return self._request("POST", path, payload=payload)
+
+    def getLifecyclePolicyV1StewardshipLifecyclePolicyIdGet(self, policy_id: str | int) -> Any:
+        """Get Lifecycle Policy"""
+        path = f"/v1/stewardship/lifecycle/{policy_id}"
+        return self._request("GET", path)
+
+    def listChangeControlsV1StewardshipChangeControlsGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """List Change Controls"""
+        path = f"/v1/stewardship/change-controls"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def createChangeControlV1StewardshipChangeControlsPost(self, payload: Any) -> Any:
+        """Create Change Control"""
+        path = f"/v1/stewardship/change-controls"
+        return self._request("POST", path, payload=payload)
+
+    def getChangeControlV1StewardshipChangeControlsChangeIdGet(self, change_id: str | int) -> Any:
+        """Get Change Control"""
+        path = f"/v1/stewardship/change-controls/{change_id}"
+        return self._request("GET", path)
+
+    def listSupplyChainSnapshotsV1StewardshipSupplyChainGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """List Supply Chain Snapshots"""
+        path = f"/v1/stewardship/supply-chain"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def createSupplyChainSnapshotV1StewardshipSupplyChainPost(self, payload: Any) -> Any:
+        """Create Supply Chain Snapshot"""
+        path = f"/v1/stewardship/supply-chain"
+        return self._request("POST", path, payload=payload)
+
+    def getSupplyChainSnapshotV1StewardshipSupplyChainSnapshotIdGet(self, snapshot_id: str | int) -> Any:
+        """Get Supply Chain Snapshot"""
+        path = f"/v1/stewardship/supply-chain/{snapshot_id}"
+        return self._request("GET", path)
+
+    def stewardshipPostureV1StewardshipPostureGet(self) -> Any:
+        """Stewardship Posture"""
+        path = f"/v1/stewardship/posture"
+        return self._request("GET", path)
+
     def registerConnectorDatasetV1ConnectorsRegisterPost(self, payload: Any) -> Any:
         """Register Connector Dataset"""
         path = f"/v1/connectors/register"

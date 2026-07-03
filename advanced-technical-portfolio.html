@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advanced Multi-modal AI · Architecture Surface</title>
   <meta name="description" content="Architecture surface for the Advanced Multi-modal AI repository: API edge, public-web intake, quality profiling, provenance receipts, temporal alignment, retrieval, metrics, and container stack.">
+  <link rel="stylesheet" href="site-controls.css">
   <style>
     :root {
       --bg: #100d0b;
@@ -165,6 +166,10 @@
             <tr><td>/v1/catalog/register</td><td>POST</td><td>save a versioned dataset contract</td></tr>
             <tr><td>/v1/catalog/datasets*</td><td>GET</td><td>list and inspect persisted dataset contracts</td></tr>
             <tr><td>/v1/catalog/evolution</td><td>POST</td><td>compare a candidate schema against the latest saved version</td></tr>
+            <tr><td>/v1/stewardship/lifecycle*</td><td>POST / GET</td><td>persist and inspect review cadence, half-life, retention, and removal intent</td></tr>
+            <tr><td>/v1/stewardship/change-controls*</td><td>POST / GET</td><td>register and inspect operational changes with validation and rollback notes</td></tr>
+            <tr><td>/v1/stewardship/supply-chain*</td><td>POST / GET</td><td>persist and inspect source-to-consumer movement snapshots</td></tr>
+            <tr><td>/v1/stewardship/posture</td><td>GET</td><td>summarize coverage gaps, open change work, and cross-border movement counts</td></tr>
             <tr><td>/v1/connectors/register</td><td>POST</td><td>pull rows from a typed connector or public page and register a dataset contract</td></tr>
             <tr><td>/v1/connectors/pipeline-ingest</td><td>POST</td><td>pull rows, benchmark the ingest, and map them into pipeline events</td></tr>
             <tr><td>/v1/connectors/runs*</td><td>GET</td><td>list and inspect persisted connector benchmark runs</td></tr>
@@ -273,6 +278,10 @@
           <p>API schemas, workflow notes, and governance artifacts can be ingested into a persisted ontology snapshot with entities, relations, and compiled constraints.</p>
         </article>
         <article class="mini">
+          <strong>stewardship</strong>
+          <p>Lifecycle policies, change-control records, and supply-chain snapshots keep review cadence, data half-life, and removal intent visible as persisted backend records.</p>
+        </article>
+        <article class="mini">
           <strong>liability</strong>
           <p>Route traces are compared against compiled constraints such as encryption requirements, regional transfer blocks, reviewed lanes, and region pins.</p>
         </article>
@@ -324,6 +333,7 @@
             <li>Rust multimodal core</li>
             <li>Qdrant for vector storage when enabled</li>
             <li>Typed connector pulls for file, object-store, HTTP, and public web sources</li>
+            <li>Persisted stewardship lanes for retention, change control, and supply-chain review</li>
             <li>S3-shaped Parquet intake with caller-managed credentials</li>
             <li>Public-page intake with allowlists, robots checks, and byte caps</li>
             <li>Compiled recipe manifests with checked export and validation steps</li>
@@ -358,5 +368,6 @@ cargo test -p multimodal-core</pre>
       </p>
     </section>
   </div>
+  <script src="site-controls.js"></script>
 </body>
 </html>

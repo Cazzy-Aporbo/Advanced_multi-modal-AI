@@ -73,6 +73,96 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("POST", path, payload);
   }
 
+  /** List Lifecycle Policies */
+  async listLifecyclePoliciesV1StewardshipLifecycleGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/stewardship/lifecycle`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Register Lifecycle Policy */
+  async registerLifecyclePolicyV1StewardshipLifecyclePost(payload: unknown): Promise<unknown> {
+    let path = `/v1/stewardship/lifecycle`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Get Lifecycle Policy */
+  async getLifecyclePolicyV1StewardshipLifecyclePolicyIdGet(policy_id: string | number): Promise<unknown> {
+    let path = `/v1/stewardship/lifecycle/${encodeURIComponent(String(policy_id))}`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** List Change Controls */
+  async listChangeControlsV1StewardshipChangeControlsGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/stewardship/change-controls`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Create Change Control */
+  async createChangeControlV1StewardshipChangeControlsPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/stewardship/change-controls`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Get Change Control */
+  async getChangeControlV1StewardshipChangeControlsChangeIdGet(change_id: string | number): Promise<unknown> {
+    let path = `/v1/stewardship/change-controls/${encodeURIComponent(String(change_id))}`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** List Supply Chain Snapshots */
+  async listSupplyChainSnapshotsV1StewardshipSupplyChainGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/stewardship/supply-chain`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Create Supply Chain Snapshot */
+  async createSupplyChainSnapshotV1StewardshipSupplyChainPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/stewardship/supply-chain`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Get Supply Chain Snapshot */
+  async getSupplyChainSnapshotV1StewardshipSupplyChainSnapshotIdGet(snapshot_id: string | number): Promise<unknown> {
+    let path = `/v1/stewardship/supply-chain/${encodeURIComponent(String(snapshot_id))}`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Stewardship Posture */
+  async stewardshipPostureV1StewardshipPostureGet(): Promise<unknown> {
+    let path = `/v1/stewardship/posture`;
+    return this.request<unknown>("GET", path);
+  }
+
   /** Register Connector Dataset */
   async registerConnectorDatasetV1ConnectorsRegisterPost(payload: unknown): Promise<unknown> {
     let path = `/v1/connectors/register`;

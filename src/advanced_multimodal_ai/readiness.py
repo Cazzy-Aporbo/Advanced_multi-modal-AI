@@ -97,6 +97,24 @@ def build_readiness_report(
                 f"{attestation.store_counts.get('pipeline_runs', 0)}"
             ),
         ),
+        ReadinessCheck(
+            name="stewardship_surface",
+            state=(
+                "pass"
+                if attestation.store_counts.get("lifecycle_policies", 0) >= 1
+                and attestation.store_counts.get("change_controls", 0) >= 1
+                and attestation.store_counts.get("supply_chain_snapshots", 0) >= 1
+                else "watch"
+            ),
+            detail=(
+                "lifecycle policies="
+                f"{attestation.store_counts.get('lifecycle_policies', 0)}, "
+                "change controls="
+                f"{attestation.store_counts.get('change_controls', 0)}, "
+                "supply snapshots="
+                f"{attestation.store_counts.get('supply_chain_snapshots', 0)}"
+            ),
+        ),
     ]
 
     blockers = [
@@ -139,6 +157,14 @@ def build_readiness_report(
             detail=(
                 "The repository proves a single-service runtime edge with supporting stores, "
                 "not a hidden multi-cluster control plane."
+            ),
+        ),
+        ReadinessBoundary(
+            area="data retirement",
+            detail=(
+                "Lifecycle, change-control, and supply-chain surfaces document review, "
+                "retention, and removal intent, but external schedulers still carry out "
+                "the physical delete or archive operation."
             ),
         ),
     ]

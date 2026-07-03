@@ -1,10 +1,10 @@
 {
-  "created_at": "2026-07-03T06:46:39.227562+00:00",
+  "created_at": "2026-07-03T07:10:53.110385+00:00",
   "service": "advanced-multimodal-ai",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "examples": {
     "inference": {
-      "request_id": "43350ce6-7858-4c9d-927a-b259552e1192",
+      "request_id": "54495e18-e295-4e75-9817-a20b1ab40d40",
       "route": [
         "validate_payloads",
         "encode_audio",
@@ -28,14 +28,14 @@
       "warning_count": 0
     },
     "connector_ingest": {
-      "run_id": "726e98bc-bfd8-4c15-b260-0abeb8bcd43e",
+      "run_id": "37162543-e7f2-46f1-8021-06a587ea2d57",
       "connector_kind": "local_parquet",
       "record_count": 3,
-      "pipeline_run_id": "494467bb-7673-455c-9dcd-89a8538f4ce4",
+      "pipeline_run_id": "af85f057-dbe4-445e-b646-ad0f59c78ccb",
       "pipeline_status": "accepted"
     },
     "web_ingest": {
-      "dataset_id": "118ecca7-774c-49c6-b873-d5aa4f65783b",
+      "dataset_id": "20e2797d-ab32-491e-bced-cfb39bce1b31",
       "record_count": 4,
       "sample_block_kinds": [
         "title",
@@ -46,7 +46,7 @@
       "title": "Example Intake"
     },
     "recipe_manifest": {
-      "recipe_id": "150f8f0b-d145-48a3-b97f-6c392fd66f88",
+      "recipe_id": "67f8564e-53d5-46e9-b0f8-83e1714e6a74",
       "launcher": "python",
       "engine": "local",
       "estimated_global_batch_size": 4,
@@ -59,15 +59,15 @@
       "cut_script_lines": 1
     },
     "smoke_benchmark": {
-      "benchmark_id": "a0b2a85d-bc72-4608-8935-baab1b96eb13",
+      "benchmark_id": "b7bc4c15-b5ae-4c39-ab3e-a6bacd409f54",
       "model_id": "adaptive_transformer",
       "iterations": 3,
-      "median_latency_ms": 15.471917000468238,
-      "p95_latency_ms": 15.471917000468238
+      "median_latency_ms": 15.95399999860092,
+      "p95_latency_ms": 15.95399999860092
     },
     "proof": {
-      "route_count": 48,
-      "test_count": 32,
+      "route_count": 58,
+      "test_count": 33,
       "verification_command_count": 9,
       "connector_kinds": [
         "local_csv",
@@ -81,8 +81,8 @@
     },
     "readiness": {
       "posture": "review_ready",
-      "compiled_recipe_count": 16,
-      "resolved_recipe_count": 16,
+      "compiled_recipe_count": 20,
+      "resolved_recipe_count": 20,
       "check_names": [
         "contract_surface",
         "verification_depth",
@@ -90,7 +90,8 @@
         "connector_coverage",
         "connector_evidence",
         "recipe_resolution",
-        "governance_evidence"
+        "governance_evidence",
+        "stewardship_surface"
       ]
     }
   }

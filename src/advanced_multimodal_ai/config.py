@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     service_name: str = "advanced-multimodal-ai"
-    service_version: str = "0.4.0"
+    service_version: str = "0.5.0"
     environment: str = "development"
     default_runtime_mode: str = "contract"
     default_model_id: str = "adaptive_transformer"
@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     pipeline_run_db_path: str = ".runtime/amai_pipelines.sqlite3"
     ontology_db_path: str = ".runtime/amai_ontology.sqlite3"
     recipe_db_path: str = ".runtime/amai_recipes.sqlite3"
+    stewardship_db_path: str = ".runtime/amai_stewardship.sqlite3"
     repository_theme: str = "signal observatory"
     site_title: str = "Advanced Multi-modal AI"
     default_hidden_dim: int = Field(default=384, ge=64, le=2048)

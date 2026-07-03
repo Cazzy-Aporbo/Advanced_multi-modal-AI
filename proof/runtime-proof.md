@@ -1,10 +1,10 @@
 # Runtime Proof Bundle
 
 - Service: `advanced-multimodal-ai`
-- Version: `0.4.0`
+- Version: `0.5.0`
 - Environment: `development`
-- Route count: `48`
-- Test count: `32`
+- Route count: `58`
+- Test count: `33`
 - Verification artifacts: `5`
 
 ## Connector kinds

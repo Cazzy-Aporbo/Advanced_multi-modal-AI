@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advanced Multi-modal AI · Signal Atlas</title>
   <meta name="description" content="A multimodal signal atlas for orchestration, retrieval, quality profiling, provenance receipts, public-web intake, temporal alignment, and transcript-led video evidence planning.">
+  <link rel="stylesheet" href="site-controls.css">
   <style>
     :root {
       --bg: #120f0d;
-      --surface: rgba(34, 25, 21, 0.78);
-      --surface-strong: rgba(47, 34, 28, 0.96);
+      --surface: rgba(34, 25, 21, 0.76);
+      --surface-strong: rgba(47, 34, 28, 0.94);
       --line: rgba(233, 219, 204, 0.14);
       --text: #f6efe8;
-      --muted: #cbbbaa;
+      --muted: #dbcabc;
       --copper: #df9c5f;
       --jade: #8fc9be;
       --rose: #d7a9b8;
@@ -27,9 +28,9 @@
       min-height: 100vh;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(143, 201, 190, 0.12), transparent 30%),
-        radial-gradient(circle at 85% 15%, rgba(215, 169, 184, 0.13), transparent 28%),
-        radial-gradient(circle at 60% 75%, rgba(223, 156, 95, 0.10), transparent 30%),
+        radial-gradient(circle at top left, rgba(143, 201, 190, 0.15), transparent 32%),
+        radial-gradient(circle at 85% 15%, rgba(215, 169, 184, 0.16), transparent 30%),
+        radial-gradient(circle at 60% 75%, rgba(223, 156, 95, 0.14), transparent 32%),
         linear-gradient(180deg, #120f0d 0%, #181311 48%, #0f0c0a 100%);
       font-family: "Inter", "Segoe UI", system-ui, sans-serif;
       line-height: 1.6;
@@ -185,7 +186,7 @@
     }
 
     .hero-panel {
-      padding: 34px;
+      padding: clamp(24px, 4vw, 34px);
       position: relative;
       overflow: hidden;
     }
@@ -197,7 +198,7 @@
       width: 260px;
       height: 260px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(223, 156, 95, 0.14), transparent 68%);
+      background: radial-gradient(circle, rgba(223, 156, 95, 0.2), transparent 68%);
       filter: blur(6px);
       animation: drift 14s ease-in-out infinite;
     }
@@ -206,8 +207,51 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(125deg, transparent 0%, rgba(143, 201, 190, 0.03) 32%, transparent 70%);
+      background: linear-gradient(125deg, transparent 0%, rgba(143, 201, 190, 0.05) 32%, transparent 70%);
       pointer-events: none;
+    }
+
+    .hero-motes {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-mote {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(246, 239, 232, 0.95), rgba(143, 201, 190, 0.05));
+      box-shadow: 0 0 24px rgba(143, 201, 190, 0.26);
+      opacity: 0.72;
+      animation: moteFloat 11s ease-in-out infinite;
+    }
+
+    .hero-mote:nth-child(1) {
+      left: 58%;
+      top: 18%;
+      width: 12px;
+      height: 12px;
+    }
+
+    .hero-mote:nth-child(2) {
+      left: 76%;
+      top: 44%;
+      background: radial-gradient(circle, rgba(246, 239, 232, 0.95), rgba(223, 156, 95, 0.1));
+      box-shadow: 0 0 26px rgba(223, 156, 95, 0.28);
+      animation-delay: -3.4s;
+    }
+
+    .hero-mote:nth-child(3) {
+      left: 64%;
+      top: 68%;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle, rgba(246, 239, 232, 0.95), rgba(215, 169, 184, 0.12));
+      box-shadow: 0 0 22px rgba(215, 169, 184, 0.24);
+      animation-delay: -6.2s;
     }
 
     .eyebrow,
@@ -224,22 +268,28 @@
       font-weight: 600;
       line-height: 1.05;
       margin: 0;
+      text-wrap: balance;
     }
 
     h1 {
-      font-size: clamp(3rem, 6vw, 5.8rem);
-      max-width: 8ch;
-      background: linear-gradient(135deg, #f6efe8 0%, #f2cfdd 40%, #9fe0d4 100%);
+      font-size: clamp(2.55rem, 5.8vw, 5rem);
+      max-width: 10.5ch;
+      line-height: 0.94;
+      background: linear-gradient(135deg, #f8f1eb 0%, #f3c8da 38%, #a7efe1 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-panel p {
       max-width: 60ch;
       color: var(--muted);
-      font-size: 1.04rem;
+      font-size: clamp(0.98rem, 1.8vw, 1.08rem);
       margin: 20px 0 0;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-actions {
@@ -247,6 +297,8 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 28px;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-ribbon {
@@ -262,7 +314,9 @@
       padding: 14px 16px;
       border-radius: 20px;
       border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)),
+        radial-gradient(circle at top right, rgba(143, 201, 190, 0.12), transparent 48%);
       min-height: 104px;
     }
 
@@ -279,9 +333,9 @@
     }
 
     .primary {
-      background: linear-gradient(135deg, rgba(223, 156, 95, 0.2), rgba(143, 201, 190, 0.15));
+      background: linear-gradient(135deg, rgba(223, 156, 95, 0.24), rgba(143, 201, 190, 0.18));
       border-color: rgba(223, 156, 95, 0.34);
-      box-shadow: 0 0 0 1px rgba(223, 156, 95, 0.08), 0 16px 38px rgba(223, 156, 95, 0.12);
+      box-shadow: 0 0 0 1px rgba(223, 156, 95, 0.1), 0 16px 38px rgba(223, 156, 95, 0.16);
     }
 
     .hero-map {
@@ -317,6 +371,12 @@
     @keyframes breathe {
       0%, 100% { transform: scale(1); opacity: 0.62; }
       50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    @keyframes moteFloat {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.48; }
+      35% { transform: translate3d(10px, -18px, 0) scale(1.08); opacity: 0.9; }
+      70% { transform: translate3d(-8px, 12px, 0) scale(0.92); opacity: 0.6; }
     }
 
     .ring-grid {
@@ -428,6 +488,233 @@
     .list li,
     .map-note {
       color: var(--muted);
+    }
+
+    .connection-shell {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .connection-map {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .connection-map::before {
+      content: "";
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      top: calc(50% - 1px);
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        rgba(143, 201, 190, 0.12),
+        rgba(223, 156, 95, 0.45),
+        rgba(215, 169, 184, 0.45),
+        rgba(143, 201, 190, 0.12)
+      );
+      z-index: 0;
+    }
+
+    .connection-column {
+      position: relative;
+      z-index: 1;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.035);
+      min-height: 220px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .connection-column strong {
+      display: block;
+      font-size: 1.12rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .connection-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 10px;
+    }
+
+    .connection-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 0.84rem;
+      color: var(--text);
+      font-family: "SFMono-Regular", "Consolas", monospace;
+    }
+
+    .connection-column p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .connection-column em {
+      color: var(--rose);
+      font-style: normal;
+    }
+
+    .connection-note-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 18px;
+      margin-top: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .signal-graph {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.035);
+      min-height: 100%;
+    }
+
+    .signal-graph h3 {
+      font-size: 1.55rem;
+      margin-bottom: 10px;
+    }
+
+    .signal-graph p {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .signal-rows {
+      display: grid;
+      gap: 14px;
+    }
+
+    .signal-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .signal-row header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .signal-row small {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .signal-track {
+      width: 100%;
+      height: 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .signal-fill {
+      --target-width: 50%;
+      height: 100%;
+      width: var(--target-width);
+      border-radius: inherit;
+      position: relative;
+      transform-origin: left center;
+      animation: chartGrow 1.25s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+    }
+
+    .signal-fill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      animation: chartSheen 3.2s linear infinite;
+    }
+
+    .signal-fill.entropy {
+      background: linear-gradient(90deg, rgba(223, 156, 95, 0.95), rgba(215, 169, 184, 0.86));
+      box-shadow: 0 0 18px rgba(223, 156, 95, 0.22);
+    }
+
+    .signal-fill.alignment {
+      background: linear-gradient(90deg, rgba(143, 201, 190, 0.96), rgba(169, 196, 255, 0.86));
+      box-shadow: 0 0 18px rgba(143, 201, 190, 0.2);
+    }
+
+    .signal-fill.provenance {
+      background: linear-gradient(90deg, rgba(246, 239, 232, 0.9), rgba(223, 156, 95, 0.86));
+      box-shadow: 0 0 18px rgba(246, 239, 232, 0.12);
+    }
+
+    .signal-fill.stewardship {
+      background: linear-gradient(90deg, rgba(215, 169, 184, 0.9), rgba(143, 201, 190, 0.76));
+      box-shadow: 0 0 18px rgba(215, 169, 184, 0.18);
+    }
+
+    .graph-footnote {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .signal-beam {
+      position: absolute;
+      top: calc(50% - 7px);
+      left: 6%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(246, 239, 232, 0.9), rgba(143, 201, 190, 0.65));
+      box-shadow: 0 0 18px rgba(143, 201, 190, 0.42);
+      z-index: 0;
+      animation: signalTraverse 8.5s linear infinite;
+    }
+
+    .signal-beam:nth-of-type(2) {
+      animation-delay: -4.2s;
+      background: radial-gradient(circle, rgba(246, 239, 232, 0.9), rgba(223, 156, 95, 0.7));
+      box-shadow: 0 0 18px rgba(223, 156, 95, 0.42);
+    }
+
+    @keyframes signalTraverse {
+      0% { transform: translateX(0); opacity: 0; }
+      8% { opacity: 1; }
+      92% { opacity: 1; }
+      100% { transform: translateX(calc(88vw - 220px)); opacity: 0; }
+    }
+
+    @keyframes chartGrow {
+      from {
+        transform: scaleX(0.06);
+        opacity: 0.35;
+      }
+      to {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes chartSheen {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(200%); }
     }
 
     .stats {
@@ -768,6 +1055,8 @@
       .split,
       .proof-shell,
       .cards,
+      .connection-map,
+      .connection-note-grid,
       .stats,
       .job-shell { grid-template-columns: 1fr 1fr; }
       h1 { max-width: none; }
@@ -780,6 +1069,8 @@
       .split,
       .proof-shell,
       .cards,
+      .connection-map,
+      .connection-note-grid,
       .stats,
       .job-shell,
       .ring-grid,
@@ -788,7 +1079,22 @@
       .hero-map,
       .section-panel,
       .card { padding: 22px; }
-      h1 { font-size: 2.8rem; }
+      .hero-actions .pill {
+        width: 100%;
+        justify-content: center;
+      }
+      .hero-panel p {
+        max-width: none;
+      }
+      h1 {
+        font-size: 2.25rem;
+        line-height: 0.98;
+        max-width: 11ch;
+      }
+      .hero-mote:nth-child(1) { left: 72%; top: 16%; }
+      .hero-mote:nth-child(2) { left: 84%; top: 42%; }
+      .hero-mote:nth-child(3) { left: 68%; top: 70%; }
+      .signal-beam { display: none; }
     }
   </style>
 </head>
@@ -798,8 +1104,8 @@
       <div class="brand">
         <div class="brand-mark"></div>
         <div>
-          <div>Advanced Multi-modal AI</div>
-          <div style="letter-spacing:0.1em; text-transform:none; font-size:0.72rem;">signal atlas</div>
+          <div data-translate-key="brand_name">Advanced Multi-modal AI</div>
+          <div data-translate-key="brand_tag" style="letter-spacing:0.1em; text-transform:none; font-size:0.72rem;">signal atlas</div>
         </div>
       </div>
       <div class="nav-links">
@@ -807,17 +1113,22 @@
           <span>local time</span>
           <strong id="live-clock-nav">--:--:--</strong>
         </div>
-        <a href="advanced-technical-portfolio.html">architecture</a>
-        <a href="technical-portfolio.html">catalog</a>
-        <a href="README.md">readme</a>
+        <a href="advanced-technical-portfolio.html" data-translate-key="nav_architecture">architecture</a>
+        <a href="technical-portfolio.html" data-translate-key="nav_catalog">catalog</a>
+        <a href="README.md" data-translate-key="nav_readme">readme</a>
       </div>
     </nav>
 
     <section class="hero">
       <div class="hero-panel">
-        <div class="eyebrow">Runtime atlas</div>
-        <h1>Signals kept legible. Runtime kept answerable.</h1>
-        <p>
+        <div class="hero-motes" aria-hidden="true">
+          <span class="hero-mote"></span>
+          <span class="hero-mote"></span>
+          <span class="hero-mote"></span>
+        </div>
+        <div class="eyebrow" data-translate-key="hero_eyebrow">Runtime atlas</div>
+        <h1 data-translate-key="hero_title">Signals kept legible. Runtime kept answerable.</h1>
+        <p data-translate-key="hero_intro">
           The archive remains visible, but the working edge no longer has to
           hide inside it. Quality checks, provenance receipts, drift baselines,
           web intake receipts, pipeline runs, ontology snapshots, liability
@@ -825,22 +1136,22 @@
           and can be read on their own terms.
         </p>
         <div class="hero-actions">
-          <a class="pill primary" href="advanced-technical-portfolio.html">Read the architecture</a>
-          <a class="pill" href="technical-portfolio.html">Browse the components</a>
-          <a class="pill" href="examples/README.md">Run the examples</a>
+          <a class="pill primary" href="advanced-technical-portfolio.html" data-translate-key="hero_cta_arch">Read the architecture</a>
+          <a class="pill" href="technical-portfolio.html" data-translate-key="hero_cta_catalog">Browse the components</a>
+          <a class="pill" href="examples/README.md" data-translate-key="hero_cta_examples">Run the examples</a>
         </div>
         <div class="hero-ribbon">
           <div class="hero-ribbon-card">
-            <strong>Connector-fed</strong>
-            <div>Rows can enter through typed file, object-store, HTTP, and public web lanes before they become modality tensors.</div>
+            <strong data-translate-key="ribbon_connector_title">Connector-fed</strong>
+            <div data-translate-key="ribbon_connector_body">Rows can enter through typed file, object-store, HTTP, and public web lanes before they become modality tensors.</div>
           </div>
           <div class="hero-ribbon-card">
-            <strong>Replayable</strong>
-            <div>Persisted pipeline runs can now be exported as NDJSON and replayed through the current runtime.</div>
+            <strong data-translate-key="ribbon_replay_title">Replayable</strong>
+            <div data-translate-key="ribbon_replay_body">Persisted pipeline runs can now be exported as NDJSON and replayed through the current runtime.</div>
           </div>
           <div class="hero-ribbon-card">
-            <strong>Proven</strong>
-            <div>Proof, attestation, generated clients, and the acceptance spine now point to the same backend story.</div>
+            <strong data-translate-key="ribbon_proof_title">Proven</strong>
+            <div data-translate-key="ribbon_proof_body">Proof, attestation, generated clients, and the acceptance spine now point to the same backend story.</div>
           </div>
         </div>
       </div>
@@ -873,8 +1184,8 @@
             <p>Compiled manifests can now resolve catalog evidence, shape launch topology, and export a checked handoff record.</p>
           </article>
           <article class="ring-card">
-            <h3>Governance graph</h3>
-            <p>Contracts, schemas, and workflow notes can be compiled into ontology snapshots and compared against live route traces.</p>
+            <h3>Stewardship graph</h3>
+            <p>Contracts, schemas, lifecycle policies, and workflow notes can be kept together and compared against live route traces.</p>
           </article>
           <article class="ring-card">
             <h3>Video packet</h3>
@@ -897,15 +1208,15 @@
     </section>
 
     <div class="filters">
-      <button class="pill active" data-filter="all">all lanes</button>
-      <button class="pill" data-filter="runtime">runtime</button>
-      <button class="pill" data-filter="catalog">catalog</button>
-      <button class="pill" data-filter="connectors">connectors</button>
-      <button class="pill" data-filter="data-plane">data plane</button>
-      <button class="pill" data-filter="governance">governance</button>
-      <button class="pill" data-filter="video">video</button>
-      <button class="pill" data-filter="research">research</button>
-      <button class="pill" data-filter="operations">operations</button>
+      <button class="pill active" data-filter="all" data-translate-key="filter_all">all lanes</button>
+      <button class="pill" data-filter="runtime" data-translate-key="filter_runtime">runtime</button>
+      <button class="pill" data-filter="catalog" data-translate-key="filter_catalog">catalog</button>
+      <button class="pill" data-filter="connectors" data-translate-key="filter_connectors">connectors</button>
+      <button class="pill" data-filter="data-plane" data-translate-key="filter_data_plane">data plane</button>
+      <button class="pill" data-filter="governance" data-translate-key="filter_governance">governance</button>
+      <button class="pill" data-filter="video" data-translate-key="filter_video">video</button>
+      <button class="pill" data-filter="research" data-translate-key="filter_research">research</button>
+      <button class="pill" data-filter="operations" data-translate-key="filter_operations">operations</button>
     </div>
 
     <section class="cards">
@@ -956,9 +1267,9 @@
 
       <article class="card" data-group="governance">
         <div>
-          <div class="section-label">Governance lane</div>
-          <h3>Drift, ontology, liability</h3>
-          <p>Reviewed baselines, enterprise artifact snapshots, and trace comparisons now live in the same runtime instead of in separate slide decks.</p>
+          <div class="section-label">Stewardship lane</div>
+          <h3>Half-life, drift, ontology, liability</h3>
+          <p>Reviewed baselines, lifecycle policies, supply-chain snapshots, and trace comparisons now live in the same runtime instead of in separate notes.</p>
         </div>
         <a class="card-link" href="advanced-technical-portfolio.html#governance-plane">inspect lane</a>
       </article>
@@ -1002,21 +1313,152 @@
 
     <section class="stats">
       <article class="stat">
-        <strong class="live" id="stat-tests-count">29</strong>
+        <strong class="live" id="stat-tests-count" data-counter-target="33">33</strong>
         <div>tests now passing against the runtime surface</div>
       </article>
       <article class="stat">
-        <strong id="stat-routes-count">48</strong>
+        <strong id="stat-routes-count" data-counter-target="58">58</strong>
         <div>public runtime surfaces when the WebSocket stream is counted alongside the HTTP lanes</div>
       </article>
       <article class="stat">
-        <strong id="stat-connectors-count">7</strong>
+        <strong id="stat-connectors-count" data-counter-target="7">7</strong>
         <div>connector kinds proven across files, logs, object stores, and public web intake</div>
       </article>
       <article class="stat">
-        <strong>4</strong>
+        <strong data-counter-target="4">4</strong>
         <div>backend languages now working together across Python, Rust, TypeScript, and SQL</div>
       </article>
+    </section>
+
+    <section class="section">
+      <div class="section-panel connection-shell">
+        <div class="section-label">Connected spines</div>
+        <h2>The Python lanes move in sequence, not by coincidence</h2>
+        <p class="map-note">
+          The backend reads more clearly once each file is placed in the motion it actually supports.
+          <code>connectors.py</code> begins the evidence path, <code>pipelines.py</code> turns rows into
+          multimodal events, <code>service.py</code> keeps the runtime edge composed, and the review lanes
+          decide what is safe to keep, replay, retire, or question.
+        </p>
+        <div class="connection-map">
+          <div class="signal-beam"></div>
+          <div class="signal-beam"></div>
+          <article class="connection-column">
+            <strong>01 · intake and shape</strong>
+            <div class="connection-chip-row">
+              <span class="connection-chip">connectors.py</span>
+              <span class="connection-chip">catalog.py</span>
+              <span class="connection-chip">catalog_store.py</span>
+            </div>
+            <p>
+              These modules decide <em>what arrived</em>, how the fields were typed, and whether a
+              dataset contract can be named before the rows are pushed deeper into the system.
+            </p>
+          </article>
+          <article class="connection-column">
+            <strong>02 · pair and measure</strong>
+            <div class="connection-chip-row">
+              <span class="connection-chip">pipelines.py</span>
+              <span class="connection-chip">quality.py</span>
+              <span class="connection-chip">signal_math.py</span>
+              <span class="connection-chip">alignment.py</span>
+            </div>
+            <p>
+              This is where rows become timed modality events and where entropy, sparsity, alignment,
+              and evidence windows are measured instead of assumed.
+            </p>
+          </article>
+          <article class="connection-column">
+            <strong>03 · infer and persist</strong>
+            <div class="connection-chip-row">
+              <span class="connection-chip">contracts.py</span>
+              <span class="connection-chip">service.py</span>
+              <span class="connection-chip">retrieval.py</span>
+              <span class="connection-chip">video.py</span>
+              <span class="connection-chip">job_store.py</span>
+            </div>
+            <p>
+              The central service keeps inference, retrieval, video cleanup, and async jobs on the same
+              contract spine so the runtime does not splinter into separate mini apps.
+            </p>
+          </article>
+          <article class="connection-column">
+            <strong>04 · review and attest</strong>
+            <div class="connection-chip-row">
+              <span class="connection-chip">drift.py</span>
+              <span class="connection-chip">domain_ontology.py</span>
+              <span class="connection-chip">liability_surface.py</span>
+              <span class="connection-chip">stewardship_store.py</span>
+              <span class="connection-chip">proof.py</span>
+            </div>
+            <p>
+              The later lanes answer a different question: not only <em>can this run</em>, but also what
+              changed, what moved, what aged out, and what should leave an audit mark before it is trusted.
+            </p>
+          </article>
+        </div>
+        <div class="connection-note-grid">
+          <article class="signal-graph">
+            <div class="section-label">Math spine</div>
+            <h3>Signals the runtime keeps close</h3>
+            <p>
+              The measurement layer is small on purpose. Each signal is simple enough to test and strong
+              enough to keep weak data from becoming a confident answer.
+            </p>
+            <div class="signal-rows">
+              <div class="signal-row">
+                <header>
+                  <span>Entropy and sparsity</span>
+                  <small>quality.py + signal_math.py</small>
+                </header>
+                <div class="signal-track"><div class="signal-fill entropy" style="--target-width: 86%;"></div></div>
+              </div>
+              <div class="signal-row">
+                <header>
+                  <span>Pairwise alignment windows</span>
+                  <small>alignment.py + pipelines.py</small>
+                </header>
+                <div class="signal-track"><div class="signal-fill alignment" style="--target-width: 78%;"></div></div>
+              </div>
+              <div class="signal-row">
+                <header>
+                  <span>Provenance and replay match</span>
+                  <small>provenance.py + replay.py</small>
+                </header>
+                <div class="signal-track"><div class="signal-fill provenance" style="--target-width: 92%;"></div></div>
+              </div>
+              <div class="signal-row">
+                <header>
+                  <span>Lifecycle and drift posture</span>
+                  <small>drift.py + stewardship_store.py</small>
+                </header>
+                <div class="signal-track"><div class="signal-fill stewardship" style="--target-width: 74%;"></div></div>
+              </div>
+            </div>
+            <div class="graph-footnote">
+              These bars are not vanity scores. They name the exact places where the repository decides
+              whether a signal can stay in motion or needs another look first.
+            </div>
+          </article>
+          <article class="connection-column">
+            <strong>Why the files stay separate</strong>
+            <div class="connection-chip-row">
+              <span class="connection-chip">api.py → service.py</span>
+              <span class="connection-chip">proof.py → readiness.py</span>
+              <span class="connection-chip">export_openapi.py → sdk/*</span>
+            </div>
+            <p>
+              The separation is part of the discipline. The API edge should not know how SQLite rows are
+              stored. The math lane should not know how a client SDK is packaged. The proof lane should be
+              able to count what exists without pretending to be the runtime itself.
+            </p>
+            <p style="margin-top:14px;">
+              That is why the same repository can explain itself to a researcher, a backend engineer, and
+              an integration team without flattening every concern into one oversized script.
+            </p>
+          </article>
+        </div>
+      </div>
     </section>
 
     <section class="section">
@@ -1030,11 +1472,11 @@
             <p class="map-note">A working runtime is easier to trust when its routes, tests, artifacts, and stores stay in view.</p>
             <div class="proof-monitor-grid">
               <div class="proof-mini">
-                <strong id="proof-mini-routes">48 routes</strong>
+                <strong id="proof-mini-routes">58 routes</strong>
                 <span>root, HTTP, WebSocket, and metrics surfaces counted together</span>
               </div>
               <div class="proof-mini">
-                <strong id="proof-mini-tests">29 tests</strong>
+                <strong id="proof-mini-tests">33 tests</strong>
                 <span>API, connector, replay, retrieval, video, and proof surfaces checked</span>
               </div>
               <div class="proof-mini">
@@ -1125,7 +1567,7 @@
             </button>
             <button class="job-row" data-job-row="governance">
               <strong>governance evidence</strong>
-              <div>Stores drift baselines, pipeline runs, ontology snapshots, and route-level liability findings.</div>
+              <div>Stores lifecycle policies, change-control records, supply snapshots, drift baselines, and route-level liability findings.</div>
             </button>
           </div>
           <div class="job-detail" id="job-detail"></div>
@@ -1207,7 +1649,179 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     </footer>
   </div>
 
+  <script src="site-controls.js"></script>
   <script>
+    window.AMAI_TRANSLATIONS = {
+      en: {
+        brand_name: "Advanced Multi-modal AI",
+        brand_tag: "signal atlas",
+        nav_architecture: "architecture",
+        nav_catalog: "catalog",
+        nav_readme: "readme",
+        hero_eyebrow: "Runtime atlas",
+        hero_title: "Signals kept legible. Runtime kept answerable.",
+        hero_intro: "The archive remains visible, but the working edge no longer has to hide inside it. Quality checks, provenance receipts, drift baselines, web intake receipts, pipeline runs, ontology snapshots, liability checks, and transcript-led video review now sit close to inference and can be read on their own terms.",
+        hero_cta_arch: "Read the architecture",
+        hero_cta_catalog: "Browse the components",
+        hero_cta_examples: "Run the examples",
+        ribbon_connector_title: "Connector-fed",
+        ribbon_connector_body: "Rows can enter through typed file, object-store, HTTP, and public web lanes before they become modality tensors.",
+        ribbon_replay_title: "Replayable",
+        ribbon_replay_body: "Persisted pipeline runs can now be exported as NDJSON and replayed through the current runtime.",
+        ribbon_proof_title: "Proven",
+        ribbon_proof_body: "Proof, attestation, generated clients, and the acceptance spine now point to the same backend story.",
+        filter_all: "all lanes",
+        filter_runtime: "runtime",
+        filter_catalog: "catalog",
+        filter_connectors: "connectors",
+        filter_data_plane: "data plane",
+        filter_governance: "governance",
+        filter_video: "video",
+        filter_research: "research",
+        filter_operations: "operations",
+      },
+      de: {
+        brand_name: "Advanced Multi-modal AI",
+        brand_tag: "Signalatlas",
+        nav_architecture: "Architektur",
+        nav_catalog: "Katalog",
+        nav_readme: "Readme",
+        hero_eyebrow: "Laufzeitatlas",
+        hero_title: "Signale bleiben lesbar. Die Laufzeit bleibt rechenschaftsfähig.",
+        hero_intro: "Das Archiv bleibt sichtbar, doch die aktive Laufzeit muss sich nicht länger darin verstecken. Qualitätsprüfungen, Herkunftsbelege, Drift-Baselines, Web-Aufnahmebelege, Pipeline-Läufe, Ontologie-Schnappschüsse, Haftungsprüfungen und transkriptgeführte Videoprüfung liegen nun dicht an der Inferenz.",
+        hero_cta_arch: "Architektur lesen",
+        hero_cta_catalog: "Komponenten ansehen",
+        hero_cta_examples: "Beispiele ausführen",
+        ribbon_connector_title: "Über Konnektoren geführt",
+        ribbon_connector_body: "Zeilen können über typisierte Datei-, Objektspeicher-, HTTP- und öffentliche Web-Pfade eintreffen, bevor sie zu Modalitätstensoren werden.",
+        ribbon_replay_title: "Wiederholbar",
+        ribbon_replay_body: "Persistierte Pipeline-Läufe lassen sich nun als NDJSON exportieren und durch die aktuelle Laufzeit erneut abspielen.",
+        ribbon_proof_title: "Belegt",
+        ribbon_proof_body: "Proof, Attestation, generierte Clients und die Acceptance-Spine zeigen nun dieselbe Backend-Geschichte.",
+        filter_all: "alle Bahnen",
+        filter_runtime: "Laufzeit",
+        filter_catalog: "Katalog",
+        filter_connectors: "Konnektoren",
+        filter_data_plane: "Datenebene",
+        filter_governance: "Governance",
+        filter_video: "Video",
+        filter_research: "Forschung",
+        filter_operations: "Betrieb",
+      },
+      ru: {
+        brand_name: "Advanced Multi-modal AI",
+        brand_tag: "атлас сигналов",
+        nav_architecture: "архитектура",
+        nav_catalog: "каталог",
+        nav_readme: "readme",
+        hero_eyebrow: "Атлас runtime",
+        hero_title: "Сигналы остаются читаемыми. Runtime остаётся подотчётным.",
+        hero_intro: "Архив остаётся видимым, но рабочему краю больше не нужно прятаться внутри него. Проверки качества, квитанции происхождения, базовые линии дрейфа, квитанции веб-приёма, прогоны pipeline, снимки онтологии, проверки ответственности и обзор видео по транскрипту теперь стоят рядом с выводом.",
+        hero_cta_arch: "Смотреть архитектуру",
+        hero_cta_catalog: "Открыть компоненты",
+        hero_cta_examples: "Запустить примеры",
+        ribbon_connector_title: "Через коннекторы",
+        ribbon_connector_body: "Строки могут входить через типизированные файловые, объектные, HTTP и публичные веб-пути, прежде чем стать тензорами модальностей.",
+        ribbon_replay_title: "Повторяемо",
+        ribbon_replay_body: "Сохранённые прогоны pipeline теперь можно экспортировать в NDJSON и повторно прогонять через текущий runtime.",
+        ribbon_proof_title: "Подтверждено",
+        ribbon_proof_body: "Proof, attestation, сгенерированные клиенты и acceptance spine теперь указывают на одну и ту же backend-историю.",
+        filter_all: "все линии",
+        filter_runtime: "runtime",
+        filter_catalog: "каталог",
+        filter_connectors: "коннекторы",
+        filter_data_plane: "плоскость данных",
+        filter_governance: "governance",
+        filter_video: "видео",
+        filter_research: "исследование",
+        filter_operations: "операции",
+      },
+      ja: {
+        brand_name: "Advanced Multi-modal AI",
+        brand_tag: "シグナル・アトラス",
+        nav_architecture: "アーキテクチャ",
+        nav_catalog: "カタログ",
+        nav_readme: "readme",
+        hero_eyebrow: "ランタイム・アトラス",
+        hero_title: "信号は読みやすく。ランタイムは説明可能に。",
+        hero_intro: "アーカイブはそのまま見えるように保ちつつ、動くエッジはもう中に隠れません。品質チェック、来歴レシート、ドリフト基準、Web取得レシート、パイプライン実行、オントロジースナップショット、責任確認、そして転記主導の動画レビューが推論のすぐそばに置かれます。",
+        hero_cta_arch: "設計面を見る",
+        hero_cta_catalog: "構成を見る",
+        hero_cta_examples: "例を動かす",
+        ribbon_connector_title: "コネクタ起点",
+        ribbon_connector_body: "行データは型付きファイル、オブジェクトストア、HTTP、公開Webの各レーンから入り、モダリティテンソルへ変わります。",
+        ribbon_replay_title: "再実行可能",
+        ribbon_replay_body: "保存したパイプライン実行は NDJSON として書き出し、現在のランタイムで再実行できます。",
+        ribbon_proof_title: "証拠付き",
+        ribbon_proof_body: "Proof、attestation、生成クライアント、acceptance spine が同じ backend の現実を指します。",
+        filter_all: "すべて",
+        filter_runtime: "ランタイム",
+        filter_catalog: "カタログ",
+        filter_connectors: "コネクタ",
+        filter_data_plane: "データ面",
+        filter_governance: "ガバナンス",
+        filter_video: "動画",
+        filter_research: "研究",
+        filter_operations: "運用",
+      },
+      fr: {
+        brand_name: "Advanced Multi-modal AI",
+        brand_tag: "atlas des signaux",
+        nav_architecture: "architecture",
+        nav_catalog: "catalogue",
+        nav_readme: "readme",
+        hero_eyebrow: "Atlas runtime",
+        hero_title: "Des signaux lisibles. Un runtime qui répond de lui-même.",
+        hero_intro: "L’archive reste visible, mais la lisière active n’a plus besoin de s’y cacher. Contrôles de qualité, reçus de provenance, bases de dérive, reçus d’ingestion web, exécutions de pipeline, instantanés d’ontologie, contrôles de responsabilité et revue vidéo guidée par transcription restent désormais proches de l’inférence.",
+        hero_cta_arch: "Lire l’architecture",
+        hero_cta_catalog: "Voir les composants",
+        hero_cta_examples: "Lancer les exemples",
+        ribbon_connector_title: "Alimenté par connecteurs",
+        ribbon_connector_body: "Les lignes peuvent entrer par des voies typées de fichier, d’objet, de HTTP et de web public avant de devenir des tenseurs multimodaux.",
+        ribbon_replay_title: "Rejouable",
+        ribbon_replay_body: "Les exécutions de pipeline persistées peuvent maintenant être exportées en NDJSON puis rejouées dans le runtime courant.",
+        ribbon_proof_title: "Étayé",
+        ribbon_proof_body: "Proof, attestation, clients générés et acceptance spine racontent désormais la même histoire backend.",
+        filter_all: "toutes les voies",
+        filter_runtime: "runtime",
+        filter_catalog: "catalogue",
+        filter_connectors: "connecteurs",
+        filter_data_plane: "plan de données",
+        filter_governance: "gouvernance",
+        filter_video: "vidéo",
+        filter_research: "recherche",
+        filter_operations: "opérations",
+      },
+      es: {
+        brand_name: "Advanced Multi-modal AI",
+        brand_tag: "atlas de señales",
+        nav_architecture: "arquitectura",
+        nav_catalog: "catálogo",
+        nav_readme: "readme",
+        hero_eyebrow: "Atlas runtime",
+        hero_title: "Señales legibles. Runtime responsable.",
+        hero_intro: "El archivo sigue visible, pero el borde operativo ya no tiene que esconderse dentro de él. Controles de calidad, recibos de procedencia, líneas base de deriva, recibos de ingesta web, corridas de pipeline, instantáneas de ontología, verificaciones de responsabilidad y revisión de video guiada por transcripción quedan cerca de la inferencia.",
+        hero_cta_arch: "Leer la arquitectura",
+        hero_cta_catalog: "Ver componentes",
+        hero_cta_examples: "Ejecutar ejemplos",
+        ribbon_connector_title: "Conectores primero",
+        ribbon_connector_body: "Las filas pueden entrar por rutas tipadas de archivos, object store, HTTP y web pública antes de convertirse en tensores multimodales.",
+        ribbon_replay_title: "Repetible",
+        ribbon_replay_body: "Las corridas persistidas de pipeline ahora pueden exportarse como NDJSON y repetirse sobre el runtime actual.",
+        ribbon_proof_title: "Con evidencia",
+        ribbon_proof_body: "Proof, attestation, clientes generados y la acceptance spine apuntan ahora a la misma historia backend.",
+        filter_all: "todas las rutas",
+        filter_runtime: "runtime",
+        filter_catalog: "catálogo",
+        filter_connectors: "conectores",
+        filter_data_plane: "plano de datos",
+        filter_governance: "gobernanza",
+        filter_video: "video",
+        filter_research: "investigación",
+        filter_operations: "operaciones",
+      },
+    };
+
     const pills = [...document.querySelectorAll("[data-filter]")];
     const cards = [...document.querySelectorAll("[data-group]")];
     const flowSteps = [...document.querySelectorAll("[data-flow-step]")];
@@ -1220,6 +1834,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     const proofDots = document.getElementById("proof-dots");
     const proofPrev = document.getElementById("proof-prev");
     const proofNext = document.getElementById("proof-next");
+    const counterNodes = [...document.querySelectorAll("[data-counter-target]")];
 
     const flowContent = {
       listen: {
@@ -1336,9 +1951,9 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       },
       governance: {
         title: "Governance evidence",
-        body: "The engine now persists more than jobs. Connector runs, web receipts, drift baselines, pipeline runs, ontology snapshots, and runtime attestation all leave inspectable records instead of disappearing into runtime memory.",
+        body: "The engine now persists more than jobs. Lifecycle policies, change-control records, supply snapshots, connector runs, drift baselines, pipeline runs, ontology snapshots, and runtime attestation all leave inspectable records instead of disappearing into runtime memory.",
         table: [
-          ["stores", ".runtime/amai_connectors.sqlite3, amai_drift.sqlite3, amai_pipelines.sqlite3, amai_ontology.sqlite3"],
+          ["stores", ".runtime/amai_stewardship.sqlite3, amai_connectors.sqlite3, amai_drift.sqlite3, amai_pipelines.sqlite3, amai_ontology.sqlite3"],
           ["liability", "live trace comparison against compiled constraints"],
           ["attestation", "OpenAPI digest, artifact presence, store counts"],
         ],
@@ -1460,6 +2075,41 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       liveClockPanel.textContent = text;
     }
 
+    function animateCounter(node, target) {
+      const currentTarget = Number(target);
+      if (!Number.isFinite(currentTarget)) return;
+      if (node.dataset.counterRendered === String(currentTarget)) {
+        node.textContent = String(currentTarget);
+        return;
+      }
+
+      const durationMs = 820;
+      const startValue = 0;
+      const startTime = performance.now();
+
+      function frame(now) {
+        const progress = Math.min((now - startTime) / durationMs, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const nextValue = Math.round(startValue + (currentTarget - startValue) * eased);
+        node.textContent = String(nextValue);
+
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          node.dataset.counterRendered = String(currentTarget);
+          node.textContent = String(currentTarget);
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    function animateAllCounters() {
+      counterNodes.forEach((node) => {
+        animateCounter(node, Number(node.dataset.counterTarget));
+      });
+    }
+
     async function hydrateProofBundle() {
       try {
         const response = await fetch("proof/runtime-proof.json", { cache: "no-store" });
@@ -1470,6 +2120,9 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         document.getElementById("stat-tests-count").textContent = String(payload.test_count);
         document.getElementById("stat-routes-count").textContent = String(payload.route_count);
         document.getElementById("stat-connectors-count").textContent = String(connectorCount);
+        document.getElementById("stat-tests-count").dataset.counterTarget = String(payload.test_count);
+        document.getElementById("stat-routes-count").dataset.counterTarget = String(payload.route_count);
+        document.getElementById("stat-connectors-count").dataset.counterTarget = String(connectorCount);
         document.getElementById("proof-mini-routes").textContent = `${payload.route_count} routes`;
         document.getElementById("proof-mini-tests").textContent = `${payload.test_count} tests`;
         document.getElementById("proof-mini-connectors").textContent = `${connectorCount} connectors`;
@@ -1478,6 +2131,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
 
         proofSlides[0].table[0][1] = payload.connector_kinds.join(", ");
         proofSlides[3].table[2][1] = Object.keys(payload.store_counts).join(", ");
+        animateAllCounters();
         renderProofSlide(proofIndex);
       } catch (error) {
         console.warn("proof bundle could not be loaded", error);
@@ -1526,6 +2180,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     renderJobDetail("video");
     renderProofSlide(proofIndex);
     updateClocks();
+    animateAllCounters();
     hydrateProofBundle();
     setInterval(updateClocks, 1000);
     setInterval(() => {

@@ -55,13 +55,13 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Install TypeScript SDK dependencies
         run: npm install --prefix sdk/typescript
 
       - name: TypeScript contract check
-        run: npx tsc --noEmit -p sdk/typescript/tsconfig.json
+        run: npm run --prefix sdk/typescript check
 
   rust-core:
     runs-on: ubuntu-latest

@@ -99,6 +99,10 @@ jobs:
     if: needs.build.outputs.pages_enabled == 'true'
     needs: build
     runs-on: ubuntu-latest
+    continue-on-error: true
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment_third.outputs.page_url || steps.deployment_retry.outputs.page_url || steps.deployment_primary.outputs.page_url }}

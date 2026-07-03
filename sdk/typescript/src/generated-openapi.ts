@@ -313,6 +313,12 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("POST", path, payload);
   }
 
+  /** Data Intercept */
+  async dataInterceptV1DataInterceptPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/data/intercept`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
   /** Data Provenance */
   async dataProvenanceV1DataProvenancePost(payload: unknown): Promise<unknown> {
     let path = `/v1/data/provenance`;

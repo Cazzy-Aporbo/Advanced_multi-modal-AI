@@ -79,6 +79,7 @@ from .contracts import (
     SupplyChainSnapshotRequest,
     TemporalAlignmentRequest,
     TemporalAlignmentResponse,
+    TensorInterceptResponse,
     TimeSpan,
     VideoCleaningRequest,
     VideoCleaningResponse,
@@ -114,6 +115,7 @@ from .retrieval import create_vector_index
 from .rust_bridge import signature_from_payload, video_cuts_from_payload
 from .signal_math import arrays_from_request, output_summary, signature
 from .stewardship_store import StewardshipStore
+from .tensor_guard import build_tensor_intercept_response
 from .video import build_video_cleaning_response, build_video_packet
 
 try:
@@ -125,6 +127,12 @@ except Exception:  # pragma: no cover - optional dependency path
 class PopulationDriftBlockedError(RuntimeError):
     def __init__(self, response: PopulationDriftResponse) -> None:
         super().__init__("population drift gate blocked inference")
+        self.response = response
+
+
+class TensorInterceptBlockedError(RuntimeError):
+    def __init__(self, response: TensorInterceptResponse) -> None:
+        super().__init__("tensor intercept gate blocked inference")
         self.response = response
 
 
@@ -735,7 +743,14 @@ class AdvancedMultimodalService:
 
     def profile_request(self, request: InferenceRequest) -> DataProfileResponse:
         record_data_plane("profile")
-        return build_data_profile(request)
+        profile = build_data_profile(request)
+        intercept = self.inspect_tensor_request(request)
+        return profile.model_copy(
+            update={
+                "tensor_intercepts": intercept.intercept_profiles,
+                "warnings": [*intercept.warnings, *profile.warnings],
+            }
+        )
 
     def build_provenance(self, request: InferenceRequest) -> ProvenanceReceipt:
         record_data_plane("provenance")
@@ -749,7 +764,7 @@ class AdvancedMultimodalService:
 
     def create_drift_baseline(self, request: DriftBaselineRequest) -> DriftBaselineRecord:
         record_data_plane("drift_baseline")
-        profile = build_data_profile(request.request)
+        profile = self.profile_request(request.request)
         record = create_drift_baseline_record(request, profile)
         return self.drift_store.save_baseline(record)
 
@@ -764,7 +779,7 @@ class AdvancedMultimodalService:
         baseline = self.drift_store.get_baseline(request.baseline_label)
         if baseline is None:
             raise ValueError(f"Drift baseline '{request.baseline_label}' was not found")
-        profile = build_data_profile(request.request)
+        profile = self.profile_request(request.request)
         return assess_population_drift(baseline=baseline, current_profile=profile, request=request)
 
     def ingest_pipeline_batch(self, request: PipelineIngestRequest) -> PipelineRunRecord:
@@ -772,7 +787,7 @@ class AdvancedMultimodalService:
         inference_request, modality_counts, dropped_events = (
             build_inference_request_from_pipeline(request)
         )
-        profile = build_data_profile(inference_request)
+        profile = self.profile_request(inference_request)
         provenance = build_provenance_receipt(inference_request)
         notes = list(request.notes)
         if dropped_events:
@@ -919,22 +934,32 @@ class AdvancedMultimodalService:
     def list_jobs(self, limit: int = 20) -> List[AsyncJobRecord]:
         return self.job_store.list_jobs(limit=limit)
 
+    def inspect_tensor_request(self, request: InferenceRequest) -> TensorInterceptResponse:
+        record_data_plane("tensor_intercept")
+        return build_tensor_intercept_response(request=request, settings=self.settings)
+
     def infer(self, request: InferenceRequest) -> InferenceResponse:
+        intercept_result = self.inspect_tensor_request(request)
+        if intercept_result.blocked:
+            raise TensorInterceptBlockedError(intercept_result)
+        intercept_warnings = list(intercept_result.warnings)
         drift_result = self._maybe_run_population_drift_gate(request)
         drift_warnings = self._drift_warnings(drift_result) if drift_result is not None else []
         with observe_inference(request.runtime_mode, request.model_id):
             if request.runtime_mode == "research":
                 research_result = self._try_research_inference(request)
                 if research_result is not None:
-                    if drift_warnings:
-                        research_result.warnings = drift_warnings + research_result.warnings
+                    if intercept_warnings or drift_warnings:
+                        research_result.warnings = (
+                            intercept_warnings + drift_warnings + research_result.warnings
+                        )
                     return research_result
             response = self._contract_inference(
                 request,
                 fallback_from_research=request.runtime_mode == "research",
             )
-            if drift_warnings:
-                response.warnings = drift_warnings + response.warnings
+            if intercept_warnings or drift_warnings:
+                response.warnings = intercept_warnings + drift_warnings + response.warnings
             return response
 
     def upsert_retrieval_records(self, request: RetrievalUpsertRequest) -> Dict[str, Any]:

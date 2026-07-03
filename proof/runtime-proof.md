@@ -3,8 +3,8 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Environment: `development`
-- Route count: `64`
-- Test count: `36`
+- Route count: `65`
+- Test count: `38`
 - Verification artifacts: `8`
 
 ## Connector kinds

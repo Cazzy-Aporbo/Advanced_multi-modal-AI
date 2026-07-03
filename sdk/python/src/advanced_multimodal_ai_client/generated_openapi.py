@@ -238,6 +238,11 @@ class GeneratedOpenAPIClient:
         path = f"/v1/data/profile"
         return self._request("POST", path, payload=payload)
 
+    def dataInterceptV1DataInterceptPost(self, payload: Any) -> Any:
+        """Data Intercept"""
+        path = f"/v1/data/intercept"
+        return self._request("POST", path, payload=payload)
+
     def dataProvenanceV1DataProvenancePost(self, payload: Any) -> Any:
         """Data Provenance"""
         path = f"/v1/data/provenance"

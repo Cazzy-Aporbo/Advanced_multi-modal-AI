@@ -40,13 +40,45 @@
       backdrop-filter: blur(18px);
     }
     .nav {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
       gap: 14px;
       padding: 18px 22px;
       position: sticky;
       top: 14px;
       z-index: 3;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      display: grid;
+      gap: 4px;
+    }
+    .nav-brand strong {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+      color: var(--text);
+    }
+    .nav-brand small {
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    #site-dock-host {
+      width: min(360px, 100%);
+      margin-left: auto;
     }
     .nav a {
       color: var(--text);
@@ -83,6 +115,13 @@
     h1 { font-size: clamp(2.6rem, 5vw, 4.5rem); max-width: 8ch; }
     h2 { font-size: 2rem; }
     p, li, td { color: var(--muted); }
+    .tone-note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+    }
     .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
     .mini {
       padding: 20px;
@@ -130,24 +169,38 @@
     section { margin-top: 20px; }
     @media (max-width: 860px) {
       .hero, .grid, .split { grid-template-columns: 1fr; }
+      .nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #site-dock-host {
+        width: 100%;
+        margin-left: 0;
+      }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <nav class="nav">
-      <div>Architecture surface</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div class="nav-bar">
+        <div class="nav-brand">
+          <strong>Architecture surface</strong>
+          <small>runtime lanes · contracts · proof</small>
+        </div>
+        <div class="nav-links">
         <a href="index.html">atlas</a>
         <a href="technical-portfolio.html">catalog</a>
         <a href="model-observatory.html">models</a>
         <a href="field-notes.html">field notes</a>
         <a href="README.md">readme</a>
+        </div>
       </div>
+      <div id="site-dock-host"></div>
     </nav>
 
     <div class="hero">
-      <section class="panel">
+      <section class="panel page-orbit-field">
         <div class="label">Architecture</div>
         <h1>Operational edge with a steadier multimodal spine.</h1>
         <p>
@@ -155,8 +208,14 @@
           and the part of the system that can be run, tested, measured,
           aligned, and containerized.
         </p>
+        <div class="page-section-nav">
+          <a href="#lane-map">lane map</a>
+          <a href="#api-surface">api surface</a>
+          <a href="#governance-plane">governance</a>
+          <a href="#operations">operations</a>
+        </div>
       </section>
-      <section class="panel">
+      <section class="panel page-orbit-field">
         <div class="label">What this page holds</div>
         <ul>
           <li>API surface and endpoint map</li>
@@ -165,8 +224,36 @@
           <li>retrieval and observability posture</li>
           <li>container stack and local bring-up path</li>
         </ul>
+        <div class="tone-note">
+          The point is not to make the backend sound larger than it is. The point is to let the running parts
+          stand in clear company with the research lanes and the review lanes around them.
+        </div>
       </section>
     </div>
+
+    <section class="page-ribbon" id="architecture-ribbon">
+      <article class="page-ribbon-card">
+        <strong>lane one</strong>
+        <h3>Typed intake stays separate from runtime authority</h3>
+        <p>Connectors, catalog contracts, and pipeline shaping all happen before the inference edge is allowed to lean on a row set.</p>
+        <div class="page-pulse"><span style="--pulse-width:72%;"></span></div>
+        <small>rows, contracts, and replay receipts</small>
+      </article>
+      <article class="page-ribbon-card">
+        <strong>lane two</strong>
+        <h3>Measurement remains visible before fusion</h3>
+        <p>Entropy, sparsity, timing windows, and provenance receipts hold their own ground instead of disappearing behind a model label.</p>
+        <div class="page-pulse"><span style="--pulse-width:81%;"></span></div>
+        <small>quality, alignment, and evidence</small>
+      </article>
+      <article class="page-ribbon-card">
+        <strong>lane three</strong>
+        <h3>Review surfaces are close enough to matter</h3>
+        <p>Readiness, liability, change control, and supply movement sit beside the runtime rather than being left for a late report.</p>
+        <div class="page-pulse"><span style="--pulse-width:78%;"></span></div>
+        <small>governance, liability, and half-life</small>
+      </article>
+    </section>
 
     <section id="lane-map" class="panel">
       <div class="label">Operating lanes</div>
@@ -210,6 +297,7 @@
             <tr><td>/v1/bias/assess</td><td>POST</td><td>stage-aware bias findings for an active system</td></tr>
             <tr><td>/v1/plan</td><td>POST</td><td>orchestration steps before execution</td></tr>
             <tr><td>/v1/data/profile</td><td>POST</td><td>modality quality, pairwise alignment, and fusion readiness</td></tr>
+            <tr><td>/v1/data/intercept</td><td>POST</td><td>pre-inference tensor entropy and spatial-frequency scan with optional halt posture</td></tr>
             <tr><td>/v1/data/provenance</td><td>POST</td><td>deterministic request receipts for repeated payloads</td></tr>
             <tr><td>/v1/drift/baselines</td><td>POST / GET</td><td>save and list reviewed population baselines</td></tr>
             <tr><td>/v1/drift/check</td><td>POST</td><td>measure fresh traffic against a reviewed baseline</td></tr>
@@ -250,6 +338,10 @@
         <article class="mini">
           <strong>alignment</strong>
           <p>Timed observations can be grouped into corroborated windows instead of being left as isolated fragments.</p>
+        </article>
+        <article class="mini">
+          <strong>intercept</strong>
+          <p>A pre-inference tensor guard now measures entropy, spatial frequency, saturation, and modality risk before the model route opens.</p>
         </article>
         <article class="mini">
           <strong>jobs</strong>
@@ -405,11 +497,29 @@ cargo test -p multimodal-core</pre>
   <script>
     (async function hydrateLaneMap() {
       const laneGrid = document.getElementById("lane-grid");
+      const architectureRibbon = document.getElementById("architecture-ribbon");
       if (!laneGrid || !window.AMAIResearch) return;
 
       try {
         const bundle = await window.AMAIResearch.loadResearchSurfaceBundle();
         if (!bundle || !Array.isArray(bundle.lanes) || !bundle.lanes.length) return;
+
+        if (architectureRibbon) {
+          architectureRibbon.innerHTML = bundle.lanes.slice(0, 3).map((lane, index) => {
+            const entryCount = Array.isArray(lane.entry_surfaces) ? lane.entry_surfaces.length : 0;
+            const outputCount = Array.isArray(lane.outputs) ? lane.outputs.length : 0;
+            const pulseWidth = `${Math.max(42, Math.min(92, 48 + (entryCount * 8) + (outputCount * 4)))}%`;
+            return `
+              <article class="page-ribbon-card">
+                <strong>lane ${index + 1}</strong>
+                <h3>${window.AMAIResearch.escapeHtml(lane.label)}</h3>
+                <p>${window.AMAIResearch.escapeHtml(lane.why_it_exists || lane.purpose)}</p>
+                <div class="page-pulse"><span style="--pulse-width:${pulseWidth};"></span></div>
+                <small>${entryCount} entry surfaces · ${outputCount} outputs</small>
+              </article>
+            `;
+          }).join("");
+        }
 
         laneGrid.innerHTML = bundle.lanes
           .map((lane) => {

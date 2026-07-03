@@ -3,8 +3,8 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `64`
-- Test count: `36`
+- Route count: `65`
+- Test count: `38`
 - Connector kinds: `7`
 - Models: `4`
 - Runtime-ready models: `0`
@@ -332,10 +332,10 @@ Open questions:
 - Related surfaces: /v1/connectors/register, /v1/connectors/pipeline-ingest, /v1/catalog/register
 - Related files: src/advanced_multimodal_ai/connectors.py, src/advanced_multimodal_ai/catalog.py, src/advanced_multimodal_ai/pipelines.py
 
-169 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+214 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 Evidence:
-- connector runs recorded: 169
+- connector runs recorded: 214
 - connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html
 
 Why it matters:
@@ -352,14 +352,14 @@ Broaden the evidence base with more repeated connector runs against non-trivial 
 - Related surfaces: /v1/stewardship/posture, /v1/drift/check, /v1/ontology/liability
 - Related files: src/advanced_multimodal_ai/stewardship_store.py, src/advanced_multimodal_ai/drift.py, src/advanced_multimodal_ai/liability_surface.py
 
-Lifecycle policies (10), change controls (10), supply snapshots (10), drift baselines (8), and ontology snapshots (76) are persisted in the same backend story.
+Lifecycle policies (15), change controls (15), supply snapshots (15), drift baselines (8), and ontology snapshots (86) are persisted in the same backend story.
 
 Evidence:
-- lifecycle policies: 10
-- change controls: 10
-- supply snapshots: 10
+- lifecycle policies: 15
+- change controls: 15
+- supply snapshots: 15
 - drift baselines: 8
-- ontology snapshots: 76
+- ontology snapshots: 86
 
 Why it matters:
 It is easier to trust a system when retention, movement, and liability have a code path rather than only a meeting note.
@@ -395,13 +395,13 @@ Add stronger benchmark evidence for the research archive so promotion into the r
 - Related surfaces: /v1/proof/bundle, /v1/runtime/attestation, /v1/readiness/report
 - Related files: src/advanced_multimodal_ai/proof.py, src/advanced_multimodal_ai/attestation.py, scripts/export_readiness_report.py
 
-The bundle currently counts 64 routes, 36 tests, and 8 declared artifacts.
+The bundle currently counts 65 routes, 38 tests, and 8 declared artifacts.
 
 Evidence:
-- route count: 64
-- test count: 36
+- route count: 65
+- test count: 38
 - verification artifacts: 8
-- pipeline runs stored: 142
+- pipeline runs stored: 167
 
 Why it matters:
 Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.
@@ -417,10 +417,10 @@ Keep the export surfaces close to CI and extend replay comparisons so proof cove
 - Related surfaces: /v1/execution/journal, /v1/repository/pulse
 - Related files: src/advanced_multimodal_ai/execution_journal.py, src/advanced_multimodal_ai/execution_journal_store.py, scripts/export_execution_journal.py
 
-11 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
+22 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
 
 Evidence:
-- execution journal runs: 11
+- execution journal runs: 22
 - proof/execution-journal.json is exported from the backend journal surface.
 
 Why it matters:
@@ -441,9 +441,9 @@ The current readiness posture is 'review_ready'. The repo now has a steadier run
 
 Evidence:
 - readiness posture: review_ready
-- connector runs: 169
-- pipeline runs: 142
-- compiled recipes: 33
+- connector runs: 214
+- pipeline runs: 167
+- compiled recipes: 39
 
 Why it matters:
 The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.

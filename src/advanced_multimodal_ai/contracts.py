@@ -432,12 +432,39 @@ class PairwiseAlignmentProfile(BaseModel):
     note: str
 
 
+class TensorInterceptProfile(BaseModel):
+    modality: ModalityKind
+    batch_size: int = Field(ge=1)
+    feature_width: int = Field(ge=1)
+    entropy_score: float = Field(ge=0.0, le=1.0)
+    spatial_frequency: float = Field(ge=0.0, le=1.0)
+    saturation_ratio: float = Field(ge=0.0, le=1.0)
+    zero_ratio: float = Field(ge=0.0, le=1.0)
+    risk_score: float = Field(ge=0.0, le=1.0)
+    status: Literal["ok", "watch", "fail"]
+    notes: List[str] = Field(default_factory=list)
+
+
+class TensorInterceptResponse(BaseModel):
+    request_id: str
+    model_id: str
+    runtime_mode: RuntimeMode
+    policy_mode: Literal["observe", "enforce"]
+    restricted_modalities: List[ModalityKind] = Field(default_factory=list)
+    blocked: bool
+    triggered_modalities: List[ModalityKind] = Field(default_factory=list)
+    intercept_profiles: List[TensorInterceptProfile] = Field(default_factory=list)
+    warnings: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
 class DataProfileResponse(BaseModel):
     request_id: str
     model_id: str
     runtime_mode: RuntimeMode
     modality_profiles: List[ModalityQualityProfile]
     pairwise_alignment: List[PairwiseAlignmentProfile]
+    tensor_intercepts: List[TensorInterceptProfile] = Field(default_factory=list)
     coverage_score: float = Field(ge=0.0, le=1.0)
     fusion_readiness: float = Field(ge=0.0, le=1.0)
     warnings: List[str] = Field(default_factory=list)

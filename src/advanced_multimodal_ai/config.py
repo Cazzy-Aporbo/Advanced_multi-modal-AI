@@ -34,6 +34,15 @@ class Settings(BaseSettings):
     site_title: str = "Advanced Multi-modal AI"
     default_hidden_dim: int = Field(default=384, ge=64, le=2048)
     stream_event_delay_ms: int = Field(default=30, ge=0, le=2000)
+    tensor_intercept_default_mode: str = "observe"
+    tensor_intercept_max_risk: float = Field(default=0.74, ge=0.0, le=1.0)
+    tensor_intercept_max_entropy: float = Field(default=0.92, ge=0.0, le=1.0)
+    tensor_intercept_max_spatial_frequency: float = Field(
+        default=0.58,
+        ge=0.0,
+        le=1.0,
+    )
+    tensor_intercept_watch_margin: float = Field(default=0.1, ge=0.0, le=0.5)
 
     model_config = SettingsConfigDict(
         env_prefix="AMAI_",

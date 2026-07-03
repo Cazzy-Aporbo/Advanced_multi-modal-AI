@@ -29,7 +29,11 @@ from .contracts import (
     VideoPacketRequest,
 )
 from .observability import render_metrics
-from .service import AdvancedMultimodalService, PopulationDriftBlockedError
+from .service import (
+    AdvancedMultimodalService,
+    PopulationDriftBlockedError,
+    TensorInterceptBlockedError,
+)
 
 
 def create_app() -> FastAPI:
@@ -245,6 +249,10 @@ def create_app() -> FastAPI:
     def data_profile(request: InferenceRequest):
         return service.profile_request(request)
 
+    @app.post("/v1/data/intercept")
+    def data_intercept(request: InferenceRequest):
+        return service.inspect_tensor_request(request)
+
     @app.post("/v1/data/provenance")
     def data_provenance(request: InferenceRequest):
         return service.build_provenance(request)
@@ -326,6 +334,11 @@ def create_app() -> FastAPI:
     def infer(request: InferenceRequest):
         try:
             return service.infer(request)
+        except TensorInterceptBlockedError as error:
+            raise HTTPException(
+                status_code=422,
+                detail=error.response.model_dump(mode="json"),
+            ) from error
         except PopulationDriftBlockedError as error:
             raise HTTPException(
                 status_code=409,
@@ -373,6 +386,12 @@ def create_app() -> FastAPI:
                 await websocket.send_json(event)
                 if settings.stream_event_delay_ms:
                     await asyncio.sleep(settings.stream_event_delay_ms / 1000)
+        except TensorInterceptBlockedError as error:
+            await websocket.send_json(
+                {"event": "blocked", "payload": error.response.model_dump(mode="json")}
+            )
+            await websocket.close()
+            return
         except PopulationDriftBlockedError as error:
             await websocket.send_json(
                 {"event": "blocked", "payload": error.response.model_dump(mode="json")}

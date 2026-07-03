@@ -44,13 +44,45 @@
       backdrop-filter: blur(18px);
     }
     .nav {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
       gap: 14px;
       padding: 18px 22px;
       position: sticky;
       top: 14px;
       z-index: 4;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      display: grid;
+      gap: 4px;
+    }
+    .nav-brand strong {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+      color: var(--text);
+    }
+    .nav-brand small {
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    #site-dock-host {
+      width: min(360px, 100%);
+      margin-left: auto;
     }
     .nav a {
       color: var(--text);
@@ -212,13 +244,41 @@
       .hero, .summary-grid, .cards {
         grid-template-columns: 1fr 1fr;
       }
+      .nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #site-dock-host {
+        width: 100%;
+        margin-left: 0;
+      }
     }
     @media (max-width: 720px) {
-      .hero, .summary-grid, .cards {
+      .hero {
         grid-template-columns: 1fr;
+      }
+      .summary-grid {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(220px, 76vw);
+        overflow-x: auto;
+        grid-template-columns: none;
+        padding-bottom: 8px;
+        scroll-snap-type: x proximity;
+      }
+      .cards {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(300px, 88vw);
+        overflow-x: auto;
+        grid-template-columns: none;
+        padding-bottom: 8px;
+        scroll-snap-type: x proximity;
       }
       .panel, .card {
         padding: 22px;
+      }
+      .summary-chip,
+      .card {
+        scroll-snap-align: start;
       }
       h1 {
         font-size: 2.45rem;
@@ -230,18 +290,24 @@
 <body>
   <div class="wrap">
     <nav class="nav">
-      <div>Model observatory</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div class="nav-bar">
+        <div class="nav-brand">
+          <strong>Model observatory</strong>
+          <small>purpose, limits, and open questions</small>
+        </div>
+        <div class="nav-links">
         <a href="index.html">atlas</a>
         <a href="field-notes.html">field notes</a>
         <a href="advanced-technical-portfolio.html">architecture</a>
         <a href="technical-portfolio.html">catalog</a>
         <a href="README.md">readme</a>
+        </div>
       </div>
+      <div id="site-dock-host"></div>
     </nav>
 
     <section class="hero">
-      <div class="panel">
+      <div class="panel page-orbit-field">
         <div class="label">Model observatory</div>
         <h1>Why each model is here, and what would make it stronger.</h1>
         <p>
@@ -249,8 +315,13 @@
           It names the models the repository carries, why they matter, what kind of work they support,
           where they are still thin, and what evidence would make them more persuasive.
         </p>
+        <div class="page-section-nav">
+          <a href="#model-ribbon">study path</a>
+          <a href="#summary-grid">signals</a>
+          <a href="#model-card-grid">model cards</a>
+        </div>
       </div>
-      <div class="panel">
+      <div class="panel page-orbit-field">
         <div class="label">Reading posture</div>
         <p>
           A respectable model surface does not only list capabilities. It should also say what the model
@@ -278,6 +349,30 @@
       </div>
     </section>
 
+    <section class="page-ribbon" id="model-ribbon">
+      <article class="page-ribbon-card">
+        <strong>study one</strong>
+        <h3>Read the model, then read the gap beside it</h3>
+        <p>A model card matters more once its open questions and evidence surfaces are read together instead of as separate tabs.</p>
+        <div class="page-pulse"><span style="--pulse-width:76%;"></span></div>
+        <small>purpose next to uncertainty</small>
+      </article>
+      <article class="page-ribbon-card">
+        <strong>study two</strong>
+        <h3>Keep research bridges visible, but smaller than proof</h3>
+        <p>The page should make it obvious which lanes are runtime-ready today and which ones remain archive-first until stronger evaluation arrives.</p>
+        <div class="page-pulse"><span style="--pulse-width:81%;"></span></div>
+        <small>runtime-ready versus archive-first</small>
+      </article>
+      <article class="page-ribbon-card">
+        <strong>study three</strong>
+        <h3>Improvement paths are part of the model record</h3>
+        <p>The useful question is not only what a model can do, but what data, testing, or boundaries would make its use more defensible.</p>
+        <div class="page-pulse"><span style="--pulse-width:73%;"></span></div>
+        <small>why it helps and what it still lacks</small>
+      </article>
+    </section>
+
     <section class="cards" id="model-card-grid">
       <article class="card">
         <div class="label">Loading</div>
@@ -300,6 +395,7 @@
     const summaryQuestionCount = document.getElementById("summary-question-count");
     const summaryRouteCount = document.getElementById("summary-route-count");
     const modelCardGrid = document.getElementById("model-card-grid");
+    const modelRibbon = document.getElementById("model-ribbon");
 
     function renderCard(card) {
       const readyClass = card.runtime_ready ? "ready" : "archive";
@@ -384,6 +480,22 @@
       summaryRuntimeCount.textContent = String(bundle.summary.runtime_ready_model_count);
       summaryQuestionCount.textContent = String(bundle.summary.open_question_count);
       summaryRouteCount.textContent = String(bundle.summary.route_count);
+
+      if (modelRibbon) {
+        modelRibbon.innerHTML = bundle.model_cards.slice(0, 3).map((card, index) => {
+          const questionCount = Array.isArray(card.open_questions) ? card.open_questions.length : 0;
+          const pulseWidth = `${Math.max(44, Math.min(92, 56 + (questionCount * 6)))}%`;
+          return `
+            <article class="page-ribbon-card">
+              <strong>study ${index + 1}</strong>
+              <h3>${AMAIResearch.escapeHtml(card.label)}</h3>
+              <p>${AMAIResearch.escapeHtml(card.why_used)}</p>
+              <div class="page-pulse"><span style="--pulse-width:${pulseWidth};"></span></div>
+              <small>${card.runtime_ready ? "runtime-ready" : "archive-first"} · ${questionCount} open questions</small>
+            </article>
+          `;
+        }).join("");
+      }
 
       modelCardGrid.innerHTML = bundle.model_cards.map(renderCard).join("");
     }

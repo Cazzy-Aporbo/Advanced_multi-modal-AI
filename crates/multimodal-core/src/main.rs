@@ -82,6 +82,27 @@ struct SchemaFingerprintResponse {
     fingerprint: String,
 }
 
+#[derive(Debug, Deserialize)]
+struct TensorGuardRequest {
+    shape: Vec<usize>,
+    values: Vec<f64>,
+    max_risk: Option<f64>,
+    max_entropy: Option<f64>,
+    max_spatial_frequency: Option<f64>,
+    watch_margin: Option<f64>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
+struct TensorGuardResponse {
+    entropy_score: f64,
+    spatial_frequency: f64,
+    saturation_ratio: f64,
+    zero_ratio: f64,
+    risk_score: f64,
+    status: String,
+    notes: Vec<String>,
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let command = args.get(1).map(|value| value.as_str()).unwrap_or("");
@@ -104,8 +125,15 @@ fn main() {
             let response = schema_fingerprint(&payload);
             println!("{}", serde_json::to_string(&response).unwrap());
         }
+        "tensor-guard" => {
+            let payload: TensorGuardRequest = serde_json::from_str(&input).unwrap();
+            let response = tensor_guard(&payload);
+            println!("{}", serde_json::to_string(&response).unwrap());
+        }
         _ => {
-            eprintln!("expected one of: signature, video-cuts, schema-fingerprint");
+            eprintln!(
+                "expected one of: signature, video-cuts, schema-fingerprint, tensor-guard"
+            );
             std::process::exit(1);
         }
     }
@@ -265,6 +293,61 @@ fn schema_fingerprint(payload: &SchemaFingerprintRequest) -> SchemaFingerprintRe
     }
 }
 
+fn tensor_guard(payload: &TensorGuardRequest) -> TensorGuardResponse {
+    let batch = payload.shape.first().copied().unwrap_or(1).max(1);
+    let flat_width = (payload.values.len() / batch).max(1);
+    let rows: Vec<&[f64]> = payload.values.chunks(flat_width).collect();
+    let entropy_score = normalized_entropy(&payload.values, 12);
+    let zero_ratio = payload
+        .values
+        .iter()
+        .filter(|value| value.abs() < 1e-6)
+        .count() as f64
+        / payload.values.len().max(1) as f64;
+    let spatial_frequency = normalized_spatial_frequency(&rows);
+    let saturation_ratio = saturation_ratio(&payload.values);
+    let risk_score = risk_score(entropy_score, spatial_frequency, saturation_ratio, zero_ratio);
+
+    let max_risk = payload.max_risk.unwrap_or(0.74);
+    let max_entropy = payload.max_entropy.unwrap_or(0.92);
+    let max_spatial_frequency = payload.max_spatial_frequency.unwrap_or(0.58);
+    let watch_margin = payload.watch_margin.unwrap_or(0.10);
+    let mut status = "ok".to_string();
+    let mut notes = Vec::new();
+
+    if entropy_score >= max_entropy {
+        notes.push("Entropy is high enough that the tensor carries a dense signal field.".to_string());
+        status = "watch".to_string();
+    }
+    if spatial_frequency >= max_spatial_frequency {
+        notes.push(
+            "Spatial frequency is elevated, which often marks image- or waveform-heavy content."
+                .to_string(),
+        );
+        status = "watch".to_string();
+    }
+    if risk_score >= max_risk {
+        notes.push("The combined geometric risk crossed the current intercept threshold.".to_string());
+        status = "fail".to_string();
+    } else if risk_score >= (max_risk - watch_margin).max(0.0) && status == "ok" {
+        notes.push(
+            "The combined geometric risk is close to the configured intercept threshold."
+                .to_string(),
+        );
+        status = "watch".to_string();
+    }
+
+    TensorGuardResponse {
+        entropy_score,
+        spatial_frequency,
+        saturation_ratio,
+        zero_ratio,
+        risk_score,
+        status,
+        notes,
+    }
+}
+
 fn mean(values: &[f64]) -> f64 {
     if values.is_empty() {
         return 0.0;
@@ -285,6 +368,96 @@ fn std(values: &[f64], mean: f64) -> f64 {
         .sum::<f64>()
         / values.len() as f64;
     variance.sqrt()
+}
+
+fn normalized_entropy(values: &[f64], bins: usize) -> f64 {
+    if values.len() <= 1 {
+        return 0.0;
+    }
+    let lower = values.iter().copied().fold(f64::INFINITY, f64::min);
+    let upper = values.iter().copied().fold(f64::NEG_INFINITY, f64::max);
+    if (upper - lower).abs() <= 1e-12 {
+        return 0.0;
+    }
+    let bin_count = bins.max(2).min(values.len());
+    let mut counts = vec![0_usize; bin_count];
+    let scale = (bin_count - 1) as f64 / (upper - lower);
+    for value in values {
+        let normalized = ((value - lower) * scale).floor();
+        let index = normalized.clamp(0.0, (bin_count - 1) as f64) as usize;
+        counts[index] += 1;
+    }
+    let total = values.len() as f64;
+    let entropy = counts
+        .iter()
+        .filter(|count| **count > 0)
+        .map(|count| {
+            let probability = *count as f64 / total;
+            -(probability * probability.log2())
+        })
+        .sum::<f64>();
+    let max_entropy = (bin_count as f64).log2();
+    if max_entropy <= 0.0 {
+        return 0.0;
+    }
+    (entropy / max_entropy).clamp(0.0, 1.0)
+}
+
+fn normalized_spatial_frequency(rows: &[&[f64]]) -> f64 {
+    let mut diff_energy = 0.0;
+    let mut diff_count = 0_usize;
+    let mut lower = f64::INFINITY;
+    let mut upper = f64::NEG_INFINITY;
+    for row in rows {
+        for value in *row {
+            lower = lower.min(*value);
+            upper = upper.max(*value);
+        }
+        for pair in row.windows(2) {
+            let diff = pair[1] - pair[0];
+            diff_energy += diff * diff;
+            diff_count += 1;
+        }
+    }
+    if diff_count == 0 {
+        return 0.0;
+    }
+    let dynamic_range = upper - lower;
+    if dynamic_range.abs() <= 1e-12 {
+        return 0.0;
+    }
+    let rms = (diff_energy / diff_count as f64).sqrt();
+    (rms / dynamic_range).clamp(0.0, 1.0)
+}
+
+fn saturation_ratio(values: &[f64]) -> f64 {
+    let max_abs = values
+        .iter()
+        .map(|value| value.abs())
+        .fold(0.0_f64, f64::max);
+    if max_abs <= 1e-12 {
+        return 0.0;
+    }
+    let threshold = max_abs * 0.92;
+    values
+        .iter()
+        .filter(|value| value.abs() >= threshold)
+        .count() as f64
+        / values.len().max(1) as f64
+}
+
+fn risk_score(
+    entropy_score: f64,
+    spatial_frequency: f64,
+    saturation_ratio: f64,
+    zero_ratio: f64,
+) -> f64 {
+    let density_score = 1.0 - zero_ratio;
+    ((entropy_score * 0.34)
+        + (spatial_frequency * 0.34)
+        + (saturation_ratio * 0.18)
+        + (density_score * 0.14))
+        .clamp(0.0, 1.0)
 }
 
 #[cfg(test)]
@@ -365,5 +538,25 @@ mod tests {
         let second = schema_fingerprint(&payload);
         assert_eq!(first, second);
         assert!(first.fingerprint.len() >= 32);
+    }
+
+    #[test]
+    fn tensor_guard_flags_dense_high_frequency_rows() {
+        let payload = TensorGuardRequest {
+            shape: vec![1, 16],
+            values: vec![
+                -1.0, 1.0, -0.95, 0.95, -1.0, 1.0, -0.92, 0.92, -1.0, 1.0, -0.95, 0.95,
+                -1.0, 1.0, -0.9, 0.9,
+            ],
+            max_risk: Some(0.55),
+            max_entropy: Some(0.75),
+            max_spatial_frequency: Some(0.45),
+            watch_margin: Some(0.05),
+        };
+
+        let response = tensor_guard(&payload);
+        assert_eq!(response.status, "fail");
+        assert!(response.risk_score >= 0.55);
+        assert!(response.spatial_frequency >= 0.45);
     }
 }

@@ -3,13 +3,13 @@
   "version": "0.5.0",
   "readiness_posture": "review_ready",
   "summary": {
-    "route_count": 64,
-    "test_count": 36,
+    "route_count": 65,
+    "test_count": 38,
     "connector_kind_count": 7,
     "model_count": 4,
     "runtime_ready_model_count": 0,
     "open_question_count": 5,
-    "generated_at": "2026-07-03T08:13:00.298889+00:00"
+    "generated_at": "2026-07-03T08:49:15.648215+00:00"
   },
   "lanes": [
     {
@@ -337,9 +337,9 @@
       "finding_id": "connector-spine-is-real",
       "lens": "data",
       "title": "The repository now begins with measured intake instead of hand-shaped payloads alone",
-      "summary": "169 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
+      "summary": "214 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
       "evidence": [
-        "connector runs recorded: 169",
+        "connector runs recorded: 214",
         "connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html"
       ],
       "why_it_matters": "A multimodal repository becomes more credible when data entry is a first-class engineering problem rather than an invisible notebook precondition.",
@@ -359,13 +359,13 @@
       "finding_id": "review-lives-next-to-runtime",
       "lens": "governance",
       "title": "Review work now sits beside inference instead of after it",
-      "summary": "Lifecycle policies (10), change controls (10), supply snapshots (10), drift baselines (8), and ontology snapshots (76) are persisted in the same backend story.",
+      "summary": "Lifecycle policies (15), change controls (15), supply snapshots (15), drift baselines (8), and ontology snapshots (86) are persisted in the same backend story.",
       "evidence": [
-        "lifecycle policies: 10",
-        "change controls: 10",
-        "supply snapshots: 10",
+        "lifecycle policies: 15",
+        "change controls: 15",
+        "supply snapshots: 15",
         "drift baselines: 8",
-        "ontology snapshots: 76"
+        "ontology snapshots: 86"
       ],
       "why_it_matters": "It is easier to trust a system when retention, movement, and liability have a code path rather than only a meeting note.",
       "next_step": "Keep tying review surfaces to real route traces so the governance lane reflects operational movement, not just intended policy.",
@@ -406,12 +406,12 @@
       "finding_id": "proof-is-now-a-backend-surface",
       "lens": "evaluation",
       "title": "Proof is no longer only a README habit",
-      "summary": "The bundle currently counts 64 routes, 36 tests, and 8 declared artifacts.",
+      "summary": "The bundle currently counts 65 routes, 38 tests, and 8 declared artifacts.",
       "evidence": [
-        "route count: 64",
-        "test count: 36",
+        "route count: 65",
+        "test count: 38",
         "verification artifacts: 8",
-        "pipeline runs stored: 142"
+        "pipeline runs stored: 167"
       ],
       "why_it_matters": "Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.",
       "next_step": "Keep the export surfaces close to CI and extend replay comparisons so proof covers behavioral continuity, not only route and artifact presence.",
@@ -430,9 +430,9 @@
       "finding_id": "execution-memory-is-persisted",
       "lens": "evaluation",
       "title": "Export and verification work now leaves its own operational memory",
-      "summary": "11 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
+      "summary": "22 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
       "evidence": [
-        "execution journal runs: 11",
+        "execution journal runs: 22",
         "proof/execution-journal.json is exported from the backend journal surface."
       ],
       "why_it_matters": "A repository feels more trustworthy when its export and verification lanes can be revisited as records instead of being remembered only because someone ran them recently.",
@@ -454,9 +454,9 @@
       "summary": "The current readiness posture is 'review_ready'. The repo now has a steadier runtime edge, though the strongest next step remains more repeated evidence under varied real inputs.",
       "evidence": [
         "readiness posture: review_ready",
-        "connector runs: 169",
-        "pipeline runs: 142",
-        "compiled recipes: 33"
+        "connector runs: 214",
+        "pipeline runs: 167",
+        "compiled recipes: 39"
       ],
       "why_it_matters": "The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.",
       "next_step": "Bring in more repeated warehouse, object-store, and mixed-modality examples so the runtime is exercised under broader operational texture.",
@@ -560,5 +560,5 @@
       ]
     }
   ],
-  "created_at": "2026-07-03T08:13:00.298906+00:00"
+  "created_at": "2026-07-03T08:49:15.648223+00:00"
 }

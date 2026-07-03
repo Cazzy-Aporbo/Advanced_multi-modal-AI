@@ -17,6 +17,93 @@ def test_health_endpoint():
     assert payload["status"] in {"ok", "degraded"}
 
 
+def test_tensor_intercept_surfaces_high_frequency_modalities():
+    response = client.post(
+        "/v1/data/intercept",
+        json={
+            "model_id": "adaptive_transformer",
+            "runtime_mode": "contract",
+            "target": "embedding",
+            "modalities": {
+                "image": {
+                    "shape": [1, 16],
+                    "values": [
+                        -1.0,
+                        1.0,
+                        -0.95,
+                        0.95,
+                        -1.0,
+                        1.0,
+                        -0.92,
+                        0.92,
+                        -1.0,
+                        1.0,
+                        -0.95,
+                        0.95,
+                        -1.0,
+                        1.0,
+                        -0.9,
+                        0.9,
+                    ],
+                }
+            },
+            "metadata": {
+                "restricted_modalities": ["image"],
+                "max_intercept_risk": 0.55,
+            },
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["policy_mode"] == "enforce"
+    assert payload["triggered_modalities"] == ["image"]
+    assert payload["intercept_profiles"][0]["status"] == "fail"
+    assert payload["intercept_profiles"][0]["spatial_frequency"] >= 0.45
+
+
+def test_infer_blocks_when_tensor_intercept_is_enforced():
+    response = client.post(
+        "/v1/infer",
+        json={
+            "model_id": "adaptive_transformer",
+            "runtime_mode": "contract",
+            "target": "embedding",
+            "modalities": {
+                "image": {
+                    "shape": [1, 16],
+                    "values": [
+                        -1.0,
+                        1.0,
+                        -0.95,
+                        0.95,
+                        -1.0,
+                        1.0,
+                        -0.92,
+                        0.92,
+                        -1.0,
+                        1.0,
+                        -0.95,
+                        0.95,
+                        -1.0,
+                        1.0,
+                        -0.9,
+                        0.9,
+                    ],
+                }
+            },
+            "metadata": {
+                "restricted_modalities": ["image"],
+                "block_tensor_intercept": True,
+                "max_intercept_risk": 0.55,
+            },
+        },
+    )
+    assert response.status_code == 422
+    payload = response.json()["detail"]
+    assert payload["blocked"] is True
+    assert payload["triggered_modalities"] == ["image"]
+
+
 def test_runtime_attestation_reports_artifacts_and_store_counts():
     response = client.get("/v1/runtime/attestation")
     assert response.status_code == 200

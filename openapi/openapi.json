@@ -1108,6 +1108,42 @@
         }
       }
     },
+    "/v1/data/intercept": {
+      "post": {
+        "summary": "Data Intercept",
+        "operationId": "data_intercept_v1_data_intercept_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InferenceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/data/provenance": {
       "post": {
         "summary": "Data Provenance",

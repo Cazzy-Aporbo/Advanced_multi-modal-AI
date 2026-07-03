@@ -42,13 +42,45 @@
       backdrop-filter: blur(18px);
     }
     .nav {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
       gap: 14px;
       padding: 18px 22px;
       position: sticky;
       top: 14px;
       z-index: 4;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      display: grid;
+      gap: 4px;
+    }
+    .nav-brand strong {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+      color: var(--text);
+    }
+    .nav-brand small {
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    #site-dock-host {
+      width: min(360px, 100%);
+      margin-left: auto;
     }
     .nav a {
       color: var(--text);
@@ -172,13 +204,34 @@
       .hero, .insight-grid, .connection-grid {
         grid-template-columns: 1fr 1fr;
       }
+      .nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #site-dock-host {
+        width: 100%;
+        margin-left: 0;
+      }
     }
     @media (max-width: 720px) {
-      .hero, .insight-grid, .connection-grid {
+      .hero {
         grid-template-columns: 1fr;
+      }
+      .insight-grid,
+      .connection-grid {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(300px, 88vw);
+        overflow-x: auto;
+        grid-template-columns: none;
+        padding-bottom: 8px;
+        scroll-snap-type: x proximity;
       }
       .panel, .finding, .connection {
         padding: 22px;
+      }
+      .finding,
+      .connection {
+        scroll-snap-align: start;
       }
       h1 {
         font-size: 2.4rem;
@@ -190,18 +243,24 @@
 <body>
   <div class="wrap">
     <nav class="nav">
-      <div>Field notes</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div class="nav-bar">
+        <div class="nav-brand">
+          <strong>Field notes</strong>
+          <small>findings, evidence, and connection lines</small>
+        </div>
+        <div class="nav-links">
         <a href="index.html">atlas</a>
         <a href="model-observatory.html">models</a>
         <a href="advanced-technical-portfolio.html">architecture</a>
         <a href="technical-portfolio.html">catalog</a>
         <a href="README.md">readme</a>
+        </div>
       </div>
+      <div id="site-dock-host"></div>
     </nav>
 
     <section class="hero">
-      <div class="panel">
+      <div class="panel page-orbit-field">
         <div class="label">Field notes</div>
         <h1>What held up, what still needs more proof.</h1>
         <p>
@@ -209,8 +268,13 @@
           report. They are not meant to dazzle. They are meant to help a reader understand what the repository
           has actually earned, what it is learning, and where more pressure would be useful.
         </p>
+        <div class="page-section-nav">
+          <a href="#field-ribbon">reading path</a>
+          <a href="#finding-grid">findings</a>
+          <a href="#connection-grid">connections</a>
+        </div>
       </div>
-      <div class="panel">
+      <div class="panel page-orbit-field">
         <div class="label">What this page keeps together</div>
         <ul>
           <li>current findings from the runtime, evidence, and stores</li>
@@ -218,6 +282,30 @@
           <li>the next questions that would deepen credibility instead of merely enlarging the codebase</li>
         </ul>
       </div>
+    </section>
+
+    <section class="page-ribbon" id="field-ribbon">
+      <article class="page-ribbon-card">
+        <strong>note one</strong>
+        <h3>Findings are smaller than claims on purpose</h3>
+        <p>The page keeps the current result next to the evidence, the reason it matters, and the next step rather than inflating one sentence into a grand conclusion.</p>
+        <div class="page-pulse"><span style="--pulse-width:71%;"></span></div>
+        <small>evidence before closure</small>
+      </article>
+      <article class="page-ribbon-card">
+        <strong>note two</strong>
+        <h3>Connections show why files sit near one another</h3>
+        <p>These links are meant to make the backend legible to another engineer who wants to understand the flow instead of only memorizing filenames.</p>
+        <div class="page-pulse"><span style="--pulse-width:77%;"></span></div>
+        <small>backend relation, not just inventory</small>
+      </article>
+      <article class="page-ribbon-card">
+        <strong>note three</strong>
+        <h3>Questions stay open where pressure is still useful</h3>
+        <p>A thin area is allowed to remain visible. The repository becomes more trustworthy when it does not hide where another round of testing would help.</p>
+        <div class="page-pulse"><span style="--pulse-width:74%;"></span></div>
+        <small>credibility through restraint</small>
+      </article>
     </section>
 
     <section class="insight-grid" id="finding-grid">
@@ -247,6 +335,7 @@
   <script>
     const findingGrid = document.getElementById("finding-grid");
     const connectionGrid = document.getElementById("connection-grid");
+    const fieldRibbon = document.getElementById("field-ribbon");
 
     function renderFinding(item) {
       return `
@@ -319,6 +408,22 @@
         `;
         connectionGrid.innerHTML = "";
         return;
+      }
+
+      if (fieldRibbon) {
+        fieldRibbon.innerHTML = bundle.findings.slice(0, 3).map((item, index) => {
+          const evidenceCount = Array.isArray(item.evidence) ? item.evidence.length : 0;
+          const pulseWidth = `${Math.max(46, Math.min(92, 52 + (evidenceCount * 8)))}%`;
+          return `
+            <article class="page-ribbon-card">
+              <strong>note ${index + 1}</strong>
+              <h3>${AMAIResearch.escapeHtml(item.title)}</h3>
+              <p>${AMAIResearch.escapeHtml(item.why_it_matters)}</p>
+              <div class="page-pulse"><span style="--pulse-width:${pulseWidth};"></span></div>
+              <small>${AMAIResearch.escapeHtml(item.lens)} · ${evidenceCount} evidence points</small>
+            </article>
+          `;
+        }).join("");
       }
 
       findingGrid.innerHTML = bundle.findings.map(renderFinding).join("");

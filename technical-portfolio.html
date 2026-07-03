@@ -36,13 +36,45 @@
       backdrop-filter: blur(18px);
     }
     .nav {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
+      display: grid;
+      gap: 14px;
       padding: 18px 22px;
       position: sticky;
       top: 14px;
       z-index: 3;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      display: grid;
+      gap: 4px;
+    }
+    .nav-brand strong {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+      color: var(--text);
+    }
+    .nav-brand small {
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    #site-dock-host {
+      width: min(360px, 100%);
+      margin-left: auto;
     }
     .nav a {
       text-decoration: none;
@@ -198,33 +230,63 @@
       white-space: pre-wrap;
     }
     @media (max-width: 860px) {
-      .hero, .catalog, .weave { grid-template-columns: 1fr; }
+      .hero, .weave { grid-template-columns: 1fr; }
+      .catalog {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(280px, 84vw);
+        overflow-x: auto;
+        grid-template-columns: none;
+        padding-bottom: 8px;
+        scroll-snap-type: x proximity;
+      }
+      .catalog-card {
+        scroll-snap-align: start;
+      }
+      .nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #site-dock-host {
+        width: 100%;
+        margin-left: 0;
+      }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <nav class="nav">
-      <div>Component catalog</div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div class="nav-bar">
+        <div class="nav-brand">
+          <strong>Component catalog</strong>
+          <small>files, lanes, and proof surfaces</small>
+        </div>
+        <div class="nav-links">
         <a href="index.html">atlas</a>
         <a href="advanced-technical-portfolio.html">architecture</a>
         <a href="model-observatory.html">models</a>
         <a href="field-notes.html">field notes</a>
         <a href="README.md">readme</a>
+        </div>
       </div>
+      <div id="site-dock-host"></div>
     </nav>
 
     <section class="hero">
-      <div class="panel">
+      <div class="panel page-orbit-field">
         <div class="label">Catalog</div>
         <h1>Files with a clearer purpose.</h1>
         <p>
           This page sits beside the README and names the
           most important runtime components and the role each one plays.
         </p>
+        <div class="page-section-nav">
+          <a href="#python-weave">python weave</a>
+          <a href="#component-catalog">catalog</a>
+          <a href="#video-payload">video payload</a>
+        </div>
       </div>
-      <div class="panel" id="video-lane">
+      <div class="panel page-orbit-field" id="video-lane">
         <div class="label">Video lane</div>
         <h2>Transcript-led temporal work</h2>
         <p>
@@ -233,6 +295,30 @@
           transcripts, frame signals, and audio energy traces.
         </p>
       </div>
+    </section>
+
+    <section class="page-ribbon">
+      <article class="page-ribbon-card">
+        <strong>reading route</strong>
+        <h3>Start with the weave, then drop into individual files</h3>
+        <p>The weave names why the files stay together. The catalog cards are there for closer inspection, not as a substitute for that logic.</p>
+        <div class="page-pulse"><span style="--pulse-width:74%;"></span></div>
+        <small>flow before file names</small>
+      </article>
+      <article class="page-ribbon-card">
+        <strong>practical use</strong>
+        <h3>Every measure is tied to a real operational choice</h3>
+        <p>The lane matters when it changes whether rows can fuse, whether a schema should pause, or whether a video span deserves another pass.</p>
+        <div class="page-pulse"><span style="--pulse-width:79%;"></span></div>
+        <small>review rhythm over decorative numerics</small>
+      </article>
+      <article class="page-ribbon-card">
+        <strong>delivery</strong>
+        <h3>One contract becomes several truthful surfaces</h3>
+        <p>The generated clients, static pages, and proof exports stay closer to the live runtime contract so the public face does not drift away from the code.</p>
+        <div class="page-pulse"><span style="--pulse-width:83%;"></span></div>
+        <small>runtime, sdk, and static pages</small>
+      </article>
     </section>
 
     <section class="panel" id="python-weave" style="margin-top:20px;">
@@ -374,7 +460,7 @@
       </div>
     </section>
 
-    <section class="catalog">
+    <section class="catalog" id="component-catalog">
       <article class="catalog-card">
         <div class="label">contracts</div>
         <h3>`contracts.py`</h3>
@@ -404,6 +490,11 @@
         <div class="label">data quality</div>
         <h3>`quality.py` and `signal_math.py`</h3>
         <p>Shared tensor summaries, modality health checks, fusion-readiness scoring, and pairwise alignment readings.</p>
+      </article>
+      <article class="catalog-card">
+        <div class="label">tensor guard</div>
+        <h3>`tensor_guard.py`</h3>
+        <p>A pre-inference intercept lane for entropy, spatial frequency, saturation, and risk scoring before a restricted modality reaches inference.</p>
       </article>
       <article class="catalog-card">
         <div class="label">drift</div>
@@ -482,7 +573,7 @@
       </article>
     </section>
 
-    <section class="panel" style="margin-top:20px;">
+    <section class="panel" id="video-payload" style="margin-top:20px;">
       <div class="label">Example payload</div>
       <h2>Video cleanup request</h2>
       <pre>{

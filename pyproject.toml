@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "advanced-multimodal-ai"
 version = "0.4.0"
-description = "A production-oriented multimodal AI workbench with orchestration, retrieval, observability, and visual documentation."
+description = "A multimodal runtime workbench with orchestration, retrieval, observability, and visual documentation."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }

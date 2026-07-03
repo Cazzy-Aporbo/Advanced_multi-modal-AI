@@ -4,7 +4,7 @@
 - Version: `0.4.0`
 - Environment: `development`
 - Route count: `48`
-- Test count: `29`
+- Test count: `32`
 - Verification artifacts: `5`
 
 ## Connector kinds
@@ -14,6 +14,7 @@
 - `s3_parquet`
 - `http_json`
 - `http_ndjson`
+- `web_html`
 
 ## Verification commands
 - `python3 -m ruff check src tests scripts`

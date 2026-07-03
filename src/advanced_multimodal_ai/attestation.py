@@ -43,6 +43,7 @@ def build_runtime_attestation(
             "research_bridge",
             "dataset_catalog",
             "connector_ingest",
+            "web_ingest",
             "recipe_registry",
             "readiness_report",
             "retrieval",

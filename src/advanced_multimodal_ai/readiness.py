@@ -51,7 +51,12 @@ def build_readiness_report(
         ),
         ReadinessCheck(
             name="connector_coverage",
-            state="pass" if "s3_parquet" in proof_bundle.connector_kinds else "watch",
+            state=(
+                "pass"
+                if "s3_parquet" in proof_bundle.connector_kinds
+                and "web_html" in proof_bundle.connector_kinds
+                else "watch"
+            ),
             detail=", ".join(proof_bundle.connector_kinds),
         ),
         ReadinessCheck(
@@ -120,6 +125,13 @@ def build_readiness_report(
             detail=(
                 "The S3 Parquet lane depends on caller-managed credentials and does not "
                 "store secrets inside the runtime."
+            ),
+        ),
+        ReadinessBoundary(
+            area="public web intake",
+            detail=(
+                "The web_html lane is limited to public pages, domain allowlists, "
+                "robots-aware fetch rules, and byte-capped extraction."
             ),
         ),
         ReadinessBoundary(

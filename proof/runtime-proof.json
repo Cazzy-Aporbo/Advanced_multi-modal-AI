@@ -5,26 +5,28 @@
     "local_parquet",
     "s3_parquet",
     "http_json",
-    "http_ndjson"
+    "http_ndjson",
+    "web_html"
   ],
-  "created_at": "2026-07-03T06:16:18.816206+00:00",
+  "created_at": "2026-07-03T06:46:38.467185+00:00",
   "environment": "development",
   "route_count": 48,
   "service": "advanced-multimodal-ai",
   "store_counts": {
-    "async_jobs": 44,
-    "connector_runs": 46,
-    "dataset_catalog": 79,
+    "async_jobs": 48,
+    "connector_runs": 64,
+    "dataset_catalog": 104,
     "drift_baselines": 8,
-    "ontology_snapshots": 49,
-    "pipeline_runs": 65,
-    "recipe_registry": 11
+    "ontology_snapshots": 53,
+    "pipeline_runs": 76,
+    "recipe_registry": 14
   },
   "supported_lanes": [
     "contract_inference",
     "research_bridge",
     "dataset_catalog",
     "connector_ingest",
+    "web_ingest",
     "recipe_registry",
     "readiness_report",
     "retrieval",
@@ -37,7 +39,7 @@
     "liability_surface",
     "bias_taxonomy"
   ],
-  "test_count": 29,
+  "test_count": 32,
   "verification_artifact_count": 5,
   "verification_artifacts": [
     {

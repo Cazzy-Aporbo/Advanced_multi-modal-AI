@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Literal, Optional
+from urllib.parse import urlparse
 from uuid import uuid4
 
 from pydantic import BaseModel, Field, field_validator, model_validator
@@ -761,7 +762,59 @@ ConnectorKind = Literal[
     "s3_parquet",
     "http_json",
     "http_ndjson",
+    "web_html",
 ]
+
+
+WebExtractMode = Literal["article_blocks", "paragraphs", "headings"]
+
+
+class WebIngestPolicy(BaseModel):
+    user_agent: str = (
+        "AdvancedMultimodalAI/0.4 "
+        "(public research runtime; repository contact through GitHub)"
+    )
+    respect_robots: bool = True
+    allowed_domains: List[str] = Field(default_factory=list, max_length=64)
+    min_interval_ms: int = Field(default=1500, ge=0, le=600000)
+    max_bytes: int = Field(default=1_500_000, ge=1024, le=10_000_000)
+    extract_mode: WebExtractMode = "article_blocks"
+    include_title: bool = True
+    include_headings: bool = True
+
+    @field_validator("allowed_domains")
+    @classmethod
+    def normalize_domains(cls, value: List[str]) -> List[str]:
+        normalized: List[str] = []
+        seen: set[str] = set()
+        for item in value:
+            cleaned = item.strip().lower()
+            if cleaned.startswith("www."):
+                cleaned = cleaned[4:]
+            if not cleaned or cleaned in seen:
+                continue
+            seen.add(cleaned)
+            normalized.append(cleaned)
+        return normalized
+
+
+class WebFetchReceipt(BaseModel):
+    url: str
+    final_url: str
+    domain: str
+    status_code: int = Field(ge=0)
+    content_type: str = ""
+    robots_url: str = ""
+    robots_allowed: bool = True
+    crawl_delay_seconds: Optional[float] = Field(default=None, ge=0.0)
+    request_rate: str = ""
+    sitemap_urls: List[str] = Field(default_factory=list)
+    bytes_read: int = Field(ge=0)
+    extracted_record_count: int = Field(ge=0)
+    policy_user_agent: str
+    title: str = ""
+    notes: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
 
 
 class ConnectorConfig(BaseModel):
@@ -773,6 +826,24 @@ class ConnectorConfig(BaseModel):
     region: str = ""
     endpoint_url: str = ""
     timeout_seconds: float = Field(default=10.0, ge=0.5, le=60.0)
+    web_policy: Optional[WebIngestPolicy] = None
+
+    @model_validator(mode="after")
+    def validate_shape(self) -> "ConnectorConfig":
+        if self.kind != "web_html":
+            return self
+
+        parsed = urlparse(self.source)
+        if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+            raise ValueError("web_html connectors require an http or https source URL.")
+        if self.headers_env or self.secret_env:
+            raise ValueError(
+                "web_html connectors are limited to public pages. "
+                "Use http_json or http_ndjson for authenticated HTTP sources."
+            )
+        if self.records_path:
+            raise ValueError("web_html connectors do not use records_path.")
+        return self
 
 
 ReadinessState = Literal["pass", "watch", "fail"]
@@ -851,6 +922,7 @@ class ConnectorRunRecord(BaseModel):
     benchmark: ConnectorBenchmark
     dataset_id: str
     pipeline_run_id: str = ""
+    web_receipt: Optional[WebFetchReceipt] = None
     notes: List[str] = Field(default_factory=list)
     created_at: str = Field(default_factory=utc_now)
 

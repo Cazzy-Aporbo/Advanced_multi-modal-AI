@@ -1,6 +1,6 @@
 # Executable examples
 
-These examples are meant to reduce guessing.
+These examples are meant to reduce guesswork.
 
 They do not describe an imaginary platform. They run against the repository's
 actual FastAPI surface and write generated artifacts into `proof/`.
@@ -21,6 +21,7 @@ The bundle includes:
 - contract-mode inference
 - modality quality profiling
 - connector-backed Parquet ingest
+- public-web intake receipts
 - compiled recipe manifest output
 - transcript-first video cleanup
 - smoke benchmark output

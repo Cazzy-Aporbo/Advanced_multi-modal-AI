@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Advanced Multi-modal AI",
-    "summary": "A multimodal runtime surface for orchestration, retrieval, quality profiling, provenance, temporal alignment, and video evidence planning.",
+    "summary": "A multimodal runtime surface for orchestration, retrieval, quality profiling, provenance, temporal alignment, public-web intake, and video evidence planning.",
     "version": "0.4.0"
   },
   "paths": {
@@ -1705,7 +1705,8 @@
               "local_parquet",
               "s3_parquet",
               "http_json",
-              "http_ndjson"
+              "http_ndjson",
+              "web_html"
             ],
             "title": "Kind"
           },
@@ -1749,6 +1750,16 @@
             "minimum": 0.5,
             "title": "Timeout Seconds",
             "default": 10.0
+          },
+          "web_policy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WebIngestPolicy"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -2935,7 +2946,8 @@
                   "local_parquet",
                   "s3_parquet",
                   "http_json",
-                  "http_ndjson"
+                  "http_ndjson",
+                  "web_html"
                 ]
               },
               {
@@ -3463,6 +3475,64 @@
           "duration_ms"
         ],
         "title": "VideoPacketRequest"
+      },
+      "WebIngestPolicy": {
+        "properties": {
+          "user_agent": {
+            "type": "string",
+            "title": "User Agent",
+            "default": "AdvancedMultimodalAI/0.4 (public research runtime; repository contact through GitHub)"
+          },
+          "respect_robots": {
+            "type": "boolean",
+            "title": "Respect Robots",
+            "default": true
+          },
+          "allowed_domains": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Allowed Domains"
+          },
+          "min_interval_ms": {
+            "type": "integer",
+            "maximum": 600000.0,
+            "minimum": 0.0,
+            "title": "Min Interval Ms",
+            "default": 1500
+          },
+          "max_bytes": {
+            "type": "integer",
+            "maximum": 10000000.0,
+            "minimum": 1024.0,
+            "title": "Max Bytes",
+            "default": 1500000
+          },
+          "extract_mode": {
+            "type": "string",
+            "enum": [
+              "article_blocks",
+              "paragraphs",
+              "headings"
+            ],
+            "title": "Extract Mode",
+            "default": "article_blocks"
+          },
+          "include_title": {
+            "type": "boolean",
+            "title": "Include Title",
+            "default": true
+          },
+          "include_headings": {
+            "type": "boolean",
+            "title": "Include Headings",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "WebIngestPolicy"
       }
     }
   }

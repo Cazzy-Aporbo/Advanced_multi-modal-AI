@@ -1,6 +1,6 @@
 # Advanced Multi-modal AI
 
-A quieter multimodal systems repository for people who need to see how
+A multimodal systems repository for people who need to see how
 different signals are gathered, cleaned, aligned, and carried forward without
 losing the evidence along the way.
 
@@ -32,8 +32,6 @@ This repository now holds two things in a clearer arrangement:
 
 ## What this repository is
 
-This is not a generic “multimodal demo,” and it is not only a notebook shelf.
-
 It is a polyglot repository with a practical runtime spine:
 
 - Python for the service edge, contract validation, orchestration, and
@@ -41,10 +39,8 @@ It is a polyglot repository with a practical runtime spine:
 - Rust for deterministic signal primitives that benefit from a compiled lane
 - TypeScript for a small client SDK that downstream applications can use
 
-The larger aim is not to claim that every modality can already be translated
-into every other one. That would be an easy thing to say and a difficult thing
-to defend. The stronger claim is more useful: this repository now provides the
-typed surfaces a serious any-to-any system would need in order to grow honestly.
+The larger aim is straightforward. Keep the research visible, keep the runtime
+clear, and make the interfaces small enough to verify.
 
 ## What runs today
 
@@ -63,7 +59,8 @@ is operational today.
 - dataset contract registration, deterministic schema fingerprinting, and
   schema evolution checks
 - typed dataset connectors for local CSV, local Parquet, S3-hosted Parquet,
-  local NDJSON, HTTP JSON, and HTTP NDJSON
+  local NDJSON, HTTP JSON, HTTP NDJSON, and public HTML pages with robots-aware
+  intake rules
 - benchmarked connector runs with persisted records
 - compiled recipe manifests with persisted launch topology and export checks
 - runtime attestation and readiness reporting tied to the generated artifacts
@@ -102,9 +99,8 @@ The runtime now has a persisted catalog lane for datasets as well.
 - candidate revisions can be compared against the latest saved contract to
   separate additive changes from breaking ones
 
-This is smaller than a full lakehouse catalog, but it is a real backend
-surface and a better starting point for serious ingestion governance than a
-spreadsheet of column names.
+This is a real backend surface and a better starting point for ingestion
+governance than a spreadsheet of column names.
 
 ## Connector-fed ingestion
 
@@ -124,6 +120,7 @@ Supported connector kinds today:
 - `s3_parquet`
 - `http_json`
 - `http_ndjson`
+- `web_html`
 
 Each connector run records:
 
@@ -142,9 +139,17 @@ Parquet is now part of the same proof path, including an S3-shaped object-store
 lane, so a columnar batch extract can be registered and ingested without first
 being flattened into CSV.
 
-This is still smaller than a full warehouse connector suite, but it is more
-defensible than a repo that only accepts carefully prepared local request
-bodies.
+The web lane adds a more careful intake path for public pages:
+
+- domain allowlists can be declared before a fetch begins
+- `robots.txt` can be checked before any page body is read
+- minimum request intervals are enforced per domain when a recent fetch receipt
+  is already on record
+- byte caps prevent oversized page pulls from becoming the default path
+- extracted rows keep text blocks, counts, and page-level receipts together
+
+That keeps web intake useful for research and review work without turning the
+repository into an indiscriminate crawler.
 
 ## Recipe registry
 
@@ -159,8 +164,7 @@ The runtime can now compile a typed recipe manifest that:
 - records verified export and manifest-validation commands
 - leaves a persisted handoff record instead of a loose training note
 
-This lane is deliberately careful. It does not pretend to run a distributed
-trainer inside this repository. It proves the handoff surface, the evidence
+This lane is deliberately careful. It proves the handoff surface, the evidence
 resolution, and the manifest discipline before an external runner takes over.
 
 ### 1. Quality profiling
@@ -216,9 +220,8 @@ of ephemeral numeric inserts, which makes repeated writes less fragile.
 `POST /v1/video/packet`  
 `POST /v1/video/clean`
 
-The video lane does not pretend to “understand cinema.” It reads transcript
-timing first, then folds frame and audio signals into the places where they are
-actually useful:
+The video lane reads transcript timing first, then folds frame and audio
+signals into the places where they are actually useful:
 
 - evidence windows
 - filler detection
@@ -250,7 +253,7 @@ The job lane is backed by a persisted SQLite record under `.runtime/`.
 `POST /v1/drift/check`
 
 The runtime can now save a reviewed population baseline and compare new traffic
-against it before that traffic quietly becomes the new normal.
+against it before that traffic is folded into a familiar lane.
 
 - modality-level entropy, sparsity, finite coverage, range, and temporal motion
   are compared against the saved baseline
@@ -303,8 +306,8 @@ is entering the system rather than compressing bias into one generic score.
 `GET /v1/runtime/attestation`
 `GET /v1/readiness/report`
 
-This surface returns a small evidence bundle about what the repo can verify
-today: OpenAPI digest, generated client artifacts, runtime schema, Rust core
+This surface returns an evidence bundle about what the repo can verify today:
+OpenAPI digest, generated client artifacts, runtime schema, Rust core
 presence, and persisted record counts across the local stores.
 
 The readiness report stays adjacent to that attestation. It assembles route
@@ -322,7 +325,7 @@ what still needs evidence, and where the runtime is intentionally restrained.
 | `/v1/catalog/datasets` | `GET` | list persisted dataset contracts |
 | `/v1/catalog/datasets/{dataset_id}` | `GET` | read one persisted dataset contract |
 | `/v1/catalog/evolution` | `POST` | compare a candidate schema against the latest saved version |
-| `/v1/connectors/register` | `POST` | infer and persist a dataset contract from connector rows |
+| `/v1/connectors/register` | `POST` | infer and persist a dataset contract from file, object-store, HTTP, or public-web rows |
 | `/v1/connectors/pipeline-ingest` | `POST` | fetch rows, map features into modalities, and persist a pipeline run |
 | `/v1/connectors/runs` | `GET` | list benchmarked connector runs |
 | `/v1/connectors/runs/{run_id}` | `GET` | read one persisted connector run |
@@ -381,7 +384,7 @@ Advanced_multi-modal-AI/
 │   ├── cli.py                    # local serve and benchmark commands
 │   ├── config.py                 # environment-backed settings
 │   ├── connector_store.py        # persisted connector benchmark records
-│   ├── connectors.py             # typed connector pulls and row mapping
+│   ├── connectors.py             # typed connector pulls, web intake policy checks, and row mapping
 │   ├── contracts.py              # API, runtime, quality, and provenance schemas
 │   ├── domain_ontology.py        # artifact ingestion and contract compilation
 │   ├── drift.py                  # population-entry drift scoring

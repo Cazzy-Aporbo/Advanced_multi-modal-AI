@@ -37,8 +37,8 @@ def create_app() -> FastAPI:
         version=settings.service_version,
         summary=(
             "A multimodal runtime surface for orchestration, retrieval, "
-            "quality profiling, provenance, temporal alignment, and "
-            "video evidence planning."
+            "quality profiling, provenance, temporal alignment, "
+            "public-web intake, and video evidence planning."
         ),
     )
     app.state.service = service

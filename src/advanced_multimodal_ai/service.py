@@ -17,6 +17,7 @@ from .config import Settings
 from .connector_store import ConnectorStore
 from .connectors import (
     build_pipeline_events_from_rows,
+    connector_source_domain,
     infer_dataset_fields,
     materialize_connector_rows,
 )
@@ -213,7 +214,18 @@ class AdvancedMultimodalService:
         self, request: ConnectorRegistrationRequest
     ) -> ConnectorRegistrationResponse:
         record_data_plane("connector_register")
-        rows, benchmark = materialize_connector_rows(request.connector, request.limit)
+        prior_web_receipt = None
+        if request.connector.kind == "web_html":
+            prior_web_receipt = self.connector_store.get_latest_web_receipt(
+                connector_source_domain(request.connector.source)
+            )
+        materialized = materialize_connector_rows(
+            request.connector,
+            request.limit,
+            prior_web_receipt=prior_web_receipt,
+        )
+        rows = materialized.rows
+        benchmark = materialized.benchmark
         fields = infer_dataset_fields(rows)
         dataset_record = self.catalog_store.save_dataset(
             register_dataset(
@@ -239,6 +251,7 @@ class AdvancedMultimodalService:
             dropped_rows=0,
             benchmark=benchmark,
             dataset_id=dataset_record.dataset_id,
+            web_receipt=materialized.web_receipt,
             notes=["dataset contract registered from connector rows"],
         )
         self.connector_store.save_run(connector_run)
@@ -253,7 +266,18 @@ class AdvancedMultimodalService:
         self, request: ConnectorPipelineIngestRequest
     ) -> ConnectorPipelineIngestResponse:
         record_data_plane("connector_pipeline_ingest")
-        rows, benchmark = materialize_connector_rows(request.connector, request.limit)
+        prior_web_receipt = None
+        if request.connector.kind == "web_html":
+            prior_web_receipt = self.connector_store.get_latest_web_receipt(
+                connector_source_domain(request.connector.source)
+            )
+        materialized = materialize_connector_rows(
+            request.connector,
+            request.limit,
+            prior_web_receipt=prior_web_receipt,
+        )
+        rows = materialized.rows
+        benchmark = materialized.benchmark
         fields = infer_dataset_fields(rows)
         dataset_record = self.catalog_store.save_dataset(
             register_dataset(
@@ -308,6 +332,7 @@ class AdvancedMultimodalService:
                 benchmark=benchmark,
                 dataset_id=dataset_record.dataset_id,
                 pipeline_run_id=pipeline_run.run_id,
+                web_receipt=materialized.web_receipt,
                 notes=[
                     f"sample rows returned: {min(len(rows), request.sample_size)}",
                     f"pipeline events created: {len(events)}",

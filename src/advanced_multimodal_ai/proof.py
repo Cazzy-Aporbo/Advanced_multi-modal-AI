@@ -1,9 +1,14 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, get_args
 
-from .contracts import RuntimeAttestationResponse, RuntimeProofBundle, VerificationCommand
+from .contracts import (
+    ConnectorKind,
+    RuntimeAttestationResponse,
+    RuntimeProofBundle,
+    VerificationCommand,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -20,14 +25,7 @@ def build_runtime_proof_bundle(
         route_count=route_count,
         test_count=_count_test_functions(REPO_ROOT / "tests"),
         verification_artifact_count=len(attestation.verification_artifacts),
-        connector_kinds=[
-            "local_csv",
-            "local_jsonl",
-            "local_parquet",
-            "s3_parquet",
-            "http_json",
-            "http_ndjson",
-        ],
+        connector_kinds=list(get_args(ConnectorKind)),
         supported_lanes=attestation.supported_lanes,
         store_counts=attestation.store_counts,
         verification_commands=[

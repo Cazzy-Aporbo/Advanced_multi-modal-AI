@@ -17,6 +17,7 @@ if str(SRC) not in sys.path:
 
 
 def main() -> None:
+    import advanced_multimodal_ai.connectors as connector_module
     from advanced_multimodal_ai.api import create_app
 
     client = TestClient(create_app())
@@ -124,6 +125,80 @@ def main() -> None:
         connector_response.raise_for_status()
         connector_payload = connector_response.json()
 
+    original_urlopen = connector_module.urlopen
+
+    class _FakeResponse:
+        def __init__(self, body: bytes, url: str, status_code: int, content_type: str) -> None:
+            self._body = body
+            self._url = url
+            self._status_code = status_code
+            self.headers = {"Content-Type": content_type}
+
+        def read(self, amount: int | None = None) -> bytes:
+            if amount is None:
+                return self._body
+            return self._body[:amount]
+
+        def geturl(self) -> str:
+            return self._url
+
+        def getcode(self) -> int:
+            return self._status_code
+
+        def __enter__(self) -> "_FakeResponse":
+            return self
+
+        def __exit__(self, exc_type, exc, tb) -> None:
+            return None
+
+    def fake_urlopen(request, timeout=0):  # noqa: ARG001
+        url = request.full_url
+        if url.endswith("/robots.txt"):
+            return _FakeResponse(
+                b"User-agent: *\nAllow: /\nCrawl-delay: 2\n",
+                url,
+                200,
+                "text/plain; charset=utf-8",
+            )
+        html = b"""
+        <html>
+          <head><title>Example Intake</title></head>
+          <body>
+            <h1>Example Intake</h1>
+            <p>Measured public pages can become typed records.</p>
+            <p>That keeps web research closer to the same runtime surface.</p>
+          </body>
+        </html>
+        """
+        return _FakeResponse(html, url, 200, "text/html; charset=utf-8")
+
+    connector_module.urlopen = fake_urlopen
+    try:
+        web_response = client.post(
+            "/v1/connectors/register",
+            json={
+                "connector": {
+                    "kind": "web_html",
+                    "source": "https://example.com/research/example-intake",
+                    "web_policy": {
+                        "allowed_domains": ["example.com"],
+                        "min_interval_ms": 0,
+                        "extract_mode": "article_blocks",
+                    },
+                },
+                "dataset_name": "example_web_rows",
+                "owner": "cazandra",
+                "version": "2026.07.03",
+                "partition_keys": ["source_url"],
+                "primary_keys": ["record_id"],
+                "tags": ["example", "public-web"],
+            },
+        )
+        web_response.raise_for_status()
+        web_payload = web_response.json()
+    finally:
+        connector_module.urlopen = original_urlopen
+
     infer_response = client.post(
         "/v1/infer",
         json={
@@ -228,6 +303,16 @@ def main() -> None:
                 "pipeline_run_id": connector_payload["pipeline_run"]["run_id"],
                 "pipeline_status": connector_payload["pipeline_run"]["status"],
             },
+            "web_ingest": {
+                "dataset_id": web_payload["dataset"]["dataset_id"],
+                "record_count": web_payload["record_count"],
+                "sample_block_kinds": [row["block_kind"] for row in web_payload["sample_rows"]],
+                "title": next(
+                    row["text"]
+                    for row in web_payload["sample_rows"]
+                    if row["block_kind"] == "title"
+                ),
+            },
             "recipe_manifest": {
                 "recipe_id": recipe_payload["recipe_id"],
                 "launcher": recipe_payload["launch_profile"]["launcher"],
@@ -280,6 +365,7 @@ def _render_markdown(payload: dict) -> str:
     inference = payload["examples"]["inference"]
     profile = payload["examples"]["quality_profile"]
     connector = payload["examples"]["connector_ingest"]
+    web_ingest = payload["examples"]["web_ingest"]
     recipe = payload["examples"]["recipe_manifest"]
     video = payload["examples"]["video_cleanup"]
     benchmark = payload["examples"]["smoke_benchmark"]
@@ -308,6 +394,13 @@ def _render_markdown(payload: dict) -> str:
 - Connector kind: `{connector['connector_kind']}`
 - Record count: `{connector['record_count']}`
 - Pipeline status: `{connector['pipeline_status']}`
+
+## Public web intake
+
+- Dataset id: `{web_ingest['dataset_id']}`
+- Record count: `{web_ingest['record_count']}`
+- Title row: `{web_ingest['title']}`
+- Block kinds: `{', '.join(web_ingest['sample_block_kinds'])}`
 
 ## Recipe manifest
 

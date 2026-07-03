@@ -34,6 +34,7 @@ def test_runtime_proof_bundle_reports_routes_tests_and_connector_kinds():
     assert "local_csv" in payload["connector_kinds"]
     assert "local_parquet" in payload["connector_kinds"]
     assert "s3_parquet" in payload["connector_kinds"]
+    assert "web_html" in payload["connector_kinds"]
     assert any(
         item["label"] == "acceptance" for item in payload["verification_commands"]
     )
@@ -49,12 +50,14 @@ def test_runtime_readiness_report_surfaces_limits_and_live_checks():
     assert payload["route_count"] >= 40
     assert payload["test_count"] >= 1
     assert "s3_parquet" in payload["connector_kinds"]
+    assert "web_html" in payload["connector_kinds"]
     assert payload["checks"]
     assert payload["boundaries"]
     check_names = {item["name"] for item in payload["checks"]}
     assert "connector_coverage" in check_names
     assert "recipe_resolution" in check_names
     assert any(boundary["area"] == "cloud credentials" for boundary in payload["boundaries"])
+    assert any(boundary["area"] == "public web intake" for boundary in payload["boundaries"])
 
 
 def test_dataset_catalog_registration_and_evolution_report():

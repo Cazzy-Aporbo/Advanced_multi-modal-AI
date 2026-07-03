@@ -6,7 +6,7 @@ import sqlite3
 import threading
 from contextlib import contextmanager
 
-from .contracts import ConnectorRunRecord
+from .contracts import ConnectorRunRecord, WebFetchReceipt
 
 
 class ConnectorStore:
@@ -91,6 +91,21 @@ class ConnectorStore:
             ConnectorRunRecord.model_validate(json.loads(row["record_payload"]))
             for row in rows
         ]
+
+    def get_latest_web_receipt(self, domain: str, limit: int = 200) -> WebFetchReceipt | None:
+        normalized = domain.strip().lower()
+        if normalized.startswith("www."):
+            normalized = normalized[4:]
+        for record in self.list_runs(limit=limit):
+            receipt = record.web_receipt
+            if receipt is None:
+                continue
+            receipt_domain = receipt.domain.strip().lower()
+            if receipt_domain.startswith("www."):
+                receipt_domain = receipt_domain[4:]
+            if receipt_domain == normalized:
+                return receipt
+        return None
 
     def count_runs(self) -> int:
         with self._connect() as connection:

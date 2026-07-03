@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advanced Multi-modal AI · Signal Atlas</title>
-  <meta name="description" content="A multimodal signal atlas for orchestration, retrieval, quality profiling, provenance receipts, temporal alignment, and transcript-first video evidence planning.">
+  <meta name="description" content="A multimodal signal atlas for orchestration, retrieval, quality profiling, provenance receipts, public-web intake, temporal alignment, and transcript-led video evidence planning.">
   <style>
     :root {
       --bg: #120f0d;
@@ -153,6 +153,16 @@
       transform: translateY(-1px);
       border-color: rgba(223, 156, 95, 0.45);
       background: rgba(223, 156, 95, 0.12);
+    }
+
+    .nav-links a:focus-visible,
+    .pill:focus-visible,
+    .card-link:focus-visible,
+    .proof-button:focus-visible,
+    .flow-step-button:focus-visible,
+    .job-row:focus-visible {
+      outline: 2px solid rgba(143, 201, 190, 0.82);
+      outline-offset: 3px;
     }
 
     .hero {
@@ -398,6 +408,20 @@
     .card h3 {
       font-size: 1.55rem;
       margin-bottom: 8px;
+    }
+
+    .card-link {
+      align-self: flex-start;
+      margin-top: 18px;
+      border-color: rgba(246, 239, 232, 0.18);
+      background: linear-gradient(135deg, rgba(246, 239, 232, 0.09), rgba(223, 156, 95, 0.11));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 10px 26px rgba(0, 0, 0, 0.18);
+    }
+
+    .card-link::after {
+      content: "→";
+      font-size: 0.96rem;
+      opacity: 0.82;
     }
 
     .card p,
@@ -734,7 +758,7 @@
 
     [data-group] { transition: opacity 180ms ease, transform 180ms ease; }
     [data-group].hidden {
-      opacity: 0.18;
+      opacity: 0.34;
       transform: scale(0.985);
       pointer-events: none;
     }
@@ -792,13 +816,13 @@
     <section class="hero">
       <div class="hero-panel">
         <div class="eyebrow">Runtime atlas</div>
-        <h1>Research kept visible. Runtime kept accountable.</h1>
+        <h1>Signals kept legible. Runtime kept answerable.</h1>
         <p>
-          The repository now keeps its experimental archive and its working edge
-          in better order. Quality checks, provenance receipts, drift baselines,
-          pipeline runs, ontology snapshots, liability checks, and transcript-first
-          video review all sit beside inference instead of being treated as an
-          afterthought.
+          The archive remains visible, but the working edge no longer has to
+          hide inside it. Quality checks, provenance receipts, drift baselines,
+          web intake receipts, pipeline runs, ontology snapshots, liability
+          checks, and transcript-led video review now sit close to inference
+          and can be read on their own terms.
         </p>
         <div class="hero-actions">
           <a class="pill primary" href="advanced-technical-portfolio.html">Read the architecture</a>
@@ -808,7 +832,7 @@
         <div class="hero-ribbon">
           <div class="hero-ribbon-card">
             <strong>Connector-fed</strong>
-            <div>Rows can enter through typed file and HTTP lanes before they become modality tensors.</div>
+            <div>Rows can enter through typed file, object-store, HTTP, and public web lanes before they become modality tensors.</div>
           </div>
           <div class="hero-ribbon-card">
             <strong>Replayable</strong>
@@ -834,7 +858,7 @@
           </article>
           <article class="ring-card">
             <h3>Population drift</h3>
-            <p>Reviewed baselines can be saved and compared against new traffic before a new cohort quietly becomes normal.</p>
+            <p>Reviewed baselines can be saved and compared against new traffic before a new cohort is treated as normal.</p>
           </article>
           <article class="ring-card">
             <h3>Dataset contracts</h3>
@@ -842,7 +866,7 @@
           </article>
           <article class="ring-card">
             <h3>Connector lane</h3>
-            <p>Typed CSV, Parquet, NDJSON, and HTTP row pulls can now register contracts and feed measured pipeline runs.</p>
+            <p>Typed CSV, Parquet, NDJSON, HTTP rows, and public web pages can now register contracts and feed measured pipeline runs.</p>
           </article>
           <article class="ring-card">
             <h3>Recipe registry</h3>
@@ -862,11 +886,11 @@
           </article>
           <article class="ring-card">
             <h3>Research bridge</h3>
-            <p>Existing PyTorch assets remain visible and loadable where the runtime can honestly support them.</p>
+            <p>Existing PyTorch assets remain visible and loadable where the runtime can support them cleanly.</p>
           </article>
           <article class="ring-card">
             <h3>Operations</h3>
-            <p>Docker, Compose, Qdrant, Prometheus, CI, a TypeScript SDK, and a cleaner GitHub Pages surface.</p>
+            <p>Docker, Compose, Qdrant, Prometheus, CI, generated SDKs, and a calmer GitHub Pages surface.</p>
           </article>
         </div>
       </div>
@@ -951,8 +975,8 @@
       <article class="card" data-group="research">
         <div>
           <div class="section-label">Model archive</div>
-          <h3>Registry over mythology</h3>
-          <p>The repo names which models are bridged, which are contract-ready, and which remain research assets.</p>
+          <h3>Model register</h3>
+          <p>The repo names which models are bridged, which are contract-ready, and which remain part of the research archive.</p>
         </div>
         <a class="card-link" href="advanced-technical-portfolio.html#model-registry">inspect registry</a>
       </article>
@@ -970,7 +994,7 @@
         <div>
           <div class="section-label">Examples</div>
           <h3>Generated example bundle</h3>
-          <p>One worked bundle now shows inference, profiling, connector ingest, recipe compilation, video cleanup, benchmark output, proof, and readiness in a single exported artifact.</p>
+          <p>One worked bundle now shows inference, profiling, connector ingest, recipe compilation, video cleanup, benchmark output, proof, and readiness in one exported artifact.</p>
         </div>
         <a class="card-link" href="proof/example-bundle.md">open example bundle</a>
       </article>
@@ -986,8 +1010,8 @@
         <div>public runtime surfaces when the WebSocket stream is counted alongside the HTTP lanes</div>
       </article>
       <article class="stat">
-        <strong id="stat-connectors-count">6</strong>
-        <div>connector kinds proven across file, log, and object-style row intake</div>
+        <strong id="stat-connectors-count">7</strong>
+        <div>connector kinds proven across files, logs, object stores, and public web intake</div>
       </article>
       <article class="stat">
         <strong>4</strong>
@@ -998,12 +1022,12 @@
     <section class="section">
       <div class="section-panel">
         <div class="section-label">Proof ribbon</div>
-        <h2>Visible evidence, not a decorative claim</h2>
+        <h2>Evidence kept close to the work</h2>
         <div class="proof-shell">
           <div class="proof-monitor">
             <div class="section-label">Proof monitor</div>
             <div class="proof-clock" id="live-clock-panel">--:--:--</div>
-            <p class="map-note">A smaller runtime can still be serious when it shows its routes, tests, artifacts, and stores plainly.</p>
+            <p class="map-note">A working runtime is easier to trust when its routes, tests, artifacts, and stores stay in view.</p>
             <div class="proof-monitor-grid">
               <div class="proof-mini">
                 <strong id="proof-mini-routes">48 routes</strong>
@@ -1014,8 +1038,8 @@
                 <span>API, connector, replay, retrieval, video, and proof surfaces checked</span>
               </div>
               <div class="proof-mini">
-                <strong id="proof-mini-connectors">6 connectors</strong>
-                <span>CSV, Parquet, NDJSON, JSON, and NDJSON-over-HTTP typed into one lane</span>
+                <strong id="proof-mini-connectors">7 connectors</strong>
+                <span>CSV, Parquet, NDJSON, JSON, public web intake, and object-style rows typed into one lane</span>
               </div>
               <div class="proof-mini">
                 <strong id="proof-mini-proofs">9 proofs</strong>
@@ -1112,23 +1136,24 @@
     <section class="section">
       <div class="section-panel">
         <div class="section-label">Runtime posture</div>
-        <h2>What changed, structurally</h2>
+        <h2>What changed in the codebase</h2>
         <div class="split">
           <div>
             <p class="map-note">
-              The earlier repository mixed ambitious language, model experiments,
-              and static portfolio material too closely. The new spine makes the
-              boundaries easier to read.
+              The earlier repository kept its research archive and runtime edge
+              too close together. The current spine gives each layer a clearer
+              place.
             </p>
             <ul class="list">
               <li>A package-backed runtime now lives in <code>src/advanced_multimodal_ai</code>.</li>
               <li>Inference can be planned before it runs, not only observed afterward.</li>
               <li>Retrieval has an actual backend path instead of only a concept.</li>
-              <li>Dataset schemas can be versioned, fingerprinted, and compared before a pipeline changes quietly in production.</li>
+              <li>Dataset schemas can be versioned, fingerprinted, and compared before a pipeline shifts in production.</li>
+              <li>Public web intake now respects allowlists, robots checks, byte caps, and request spacing.</li>
               <li>Quality, provenance, and timed alignment now sit beside inference instead of outside it.</li>
               <li>Population-entry drift can be checked before a new cohort is folded into a stable lane.</li>
               <li>Enterprise artifacts can be compiled into ontology snapshots and compared against live traces.</li>
-              <li>The video lane works with transcripts, frame signals, and audio energy rather than vague captions about “multimodality.”</li>
+              <li>The video lane works with transcripts, frame signals, and audio energy rather than vague captions.</li>
             </ul>
           </div>
           <div class="timeline">
@@ -1143,7 +1168,7 @@
               <span>02</span>
               <div>
                 <strong>route</strong>
-                <div class="map-note">Contract mode always runs. Research mode opens only when the environment can support it honestly.</div>
+                <div class="map-note">Contract mode always runs. Research mode opens only when the environment can support it cleanly.</div>
               </div>
             </div>
             <div class="timeline-step">
@@ -1177,8 +1202,8 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     </section>
 
     <footer class="footer">
-      <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · Apache License 2.0</div>
-      <div>GitHub Pages, runtime edge, multimodal data plane, video evidence packet</div>
+      <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · <a href="LICENSE" style="color:inherit;">Apache License 2.0</a></div>
+      <div><a href="README.md" style="color:inherit;">readme</a> · <a href="advanced-technical-portfolio.html" style="color:inherit;">architecture</a> · <a href="technical-portfolio.html" style="color:inherit;">catalog</a></div>
     </footer>
   </div>
 
@@ -1208,7 +1233,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       },
       profile: {
         title: "Profile the lanes",
-        body: "Every modality can now be measured for finite-value coverage, zero pressure, entropy, dynamic range, energy, and temporal change. That gives the repo a real cleaning surface rather than a decorative claim about data quality.",
+        body: "Every modality can now be measured for finite-value coverage, zero pressure, entropy, dynamic range, energy, and temporal change. That gives the repo a real cleaning surface rather than a vague promise about data quality.",
         table: [
           ["surface", "/v1/data/profile"],
           ["signals", "entropy, sparsity, coverage, pairwise alignment"],
@@ -1217,7 +1242,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       },
       align: {
         title: "Align what happened when",
-        body: "Timed observations from text, audio, image, video, or sensor lanes can be grouped into one corroborated window. This is where a multi-modal repo starts becoming useful to investigators, editors, and field teams rather than only to model demos.",
+        body: "Timed observations from text, audio, image, video, or sensor lanes can be grouped into one corroborated window. This is where a multimodal repository becomes useful to editors, investigators, and field teams who need sequence as much as content.",
         table: [
           ["surface", "/v1/alignment/windows"],
           ["window rule", "merge by time gap and modality count"],
@@ -1226,7 +1251,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       },
       infer: {
         title: "Infer with restraint",
-        body: "Contract-mode inference compresses each modality into a deterministic signature before fusion. Research mode remains visible where the environment can load it honestly, but it no longer blurs the line between experimentation and runtime truth.",
+        body: "Contract-mode inference compresses each modality into a deterministic signature before fusion. Research mode remains visible where the environment can load it cleanly, but it no longer blurs the line between experimentation and the working edge.",
         table: [
           ["surface", "/v1/infer and /v1/stream"],
           ["core", "Python orchestration with Rust signal primitives"],
@@ -1274,11 +1299,11 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       },
       connectors: {
         title: "Connector-backed ingestion",
-        body: "The connector lane gives the runtime a less fragile way to start. A file or HTTP row source can be pulled, benchmarked, turned into a dataset contract, and mapped into modality events without an extra one-off preparation script.",
+        body: "The connector lane gives the runtime a steadier way to begin. A file, object-store extract, HTTP row source, or public page can be pulled, benchmarked, turned into a dataset contract, and mapped into modality events without a separate preparation ritual.",
         table: [
           ["register", "/v1/connectors/register"],
           ["ingest", "/v1/connectors/pipeline-ingest"],
-          ["connector kinds", "local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson"],
+          ["connector kinds", "local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html"],
           ["records", "connector_runs + linked pipeline_run_id"],
         ],
       },
@@ -1293,7 +1318,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       },
       clients: {
         title: "OpenAPI-derived client surfaces",
-        body: "The runtime can now export its OpenAPI contract and regenerate both Python and TypeScript client surfaces from that export. That keeps the SDK packaging tied to the live contract instead of drifting quietly.",
+        body: "The runtime can now export its OpenAPI contract and regenerate both Python and TypeScript client surfaces from that export. That keeps the SDK packaging tied to the live contract instead of letting it wander.",
         table: [
           ["export", "python3 scripts/export_openapi.py"],
           ["generate", "python3 scripts/generate_sdk_surfaces.py"],
@@ -1311,7 +1336,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       },
       governance: {
         title: "Governance evidence",
-        body: "The engine now persists more than jobs. Connector runs, drift baselines, pipeline runs, ontology snapshots, and runtime attestation all leave inspectable records instead of disappearing into runtime memory.",
+        body: "The engine now persists more than jobs. Connector runs, web receipts, drift baselines, pipeline runs, ontology snapshots, and runtime attestation all leave inspectable records instead of disappearing into runtime memory.",
         table: [
           ["stores", ".runtime/amai_connectors.sqlite3, amai_drift.sqlite3, amai_pipelines.sqlite3, amai_ontology.sqlite3"],
           ["liability", "live trace comparison against compiled constraints"],
@@ -1325,8 +1350,8 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         title: "Connector-fed rows with measurable intake",
         body: "The runtime can now start from typed row sources instead of only from hand-shaped request bodies. Each pull records fetch time, parse time, bytes read, and rows per second before those rows are mapped into modality events.",
         table: [
-          ["connector kinds", "local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson"],
-          ["records", "persisted connector runs with dataset_id and pipeline_run_id"],
+          ["connector kinds", "local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html"],
+          ["records", "persisted connector runs with dataset_id, pipeline_run_id, and optional web receipt"],
           ["purpose", "less luck in how data enters the runtime"],
         ],
       },

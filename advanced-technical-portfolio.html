@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advanced Multi-modal AI · Architecture Surface</title>
-  <meta name="description" content="Architecture surface for the Advanced Multi-modal AI repository: API edge, quality profiling, provenance receipts, temporal alignment, retrieval, metrics, and container stack.">
+  <meta name="description" content="Architecture surface for the Advanced Multi-modal AI repository: API edge, public-web intake, quality profiling, provenance receipts, temporal alignment, retrieval, metrics, and container stack.">
   <style>
     :root {
       --bg: #100d0b;
@@ -134,8 +134,8 @@
         <div class="label">Architecture</div>
         <h1>Operational edge with a steadier multimodal spine.</h1>
         <p>
-          The repository now exposes a clearer boundary between model research
-          and the part of the system that can actually be run, tested, measured,
+          The repository now keeps a clearer boundary between model research
+          and the part of the system that can be run, tested, measured,
           aligned, and containerized.
         </p>
       </section>
@@ -165,7 +165,7 @@
             <tr><td>/v1/catalog/register</td><td>POST</td><td>save a versioned dataset contract</td></tr>
             <tr><td>/v1/catalog/datasets*</td><td>GET</td><td>list and inspect persisted dataset contracts</td></tr>
             <tr><td>/v1/catalog/evolution</td><td>POST</td><td>compare a candidate schema against the latest saved version</td></tr>
-            <tr><td>/v1/connectors/register</td><td>POST</td><td>pull rows from a typed connector and register a dataset contract</td></tr>
+            <tr><td>/v1/connectors/register</td><td>POST</td><td>pull rows from a typed connector or public page and register a dataset contract</td></tr>
             <tr><td>/v1/connectors/pipeline-ingest</td><td>POST</td><td>pull rows, benchmark the ingest, and map them into pipeline events</td></tr>
             <tr><td>/v1/connectors/runs*</td><td>GET</td><td>list and inspect persisted connector benchmark runs</td></tr>
             <tr><td>/v1/recipes/compile</td><td>POST</td><td>compile a typed recipe manifest with launch topology and proof obligations</td></tr>
@@ -224,7 +224,7 @@
         </article>
         <article class="mini">
           <strong>drift</strong>
-          <p>Reviewed population baselines can be saved, listed, and checked before a new cohort quietly becomes the new default.</p>
+          <p>Reviewed population baselines can be saved, listed, and checked before a new cohort is folded into the default lane.</p>
         </article>
         <article class="mini">
           <strong>bias</strong>
@@ -251,7 +251,7 @@
         </article>
         <article class="mini">
           <strong>connectors</strong>
-          <p>Local CSV, local Parquet, S3-backed Parquet, local NDJSON, HTTP JSON, and HTTP NDJSON rows can be pulled into the runtime through one typed registration surface.</p>
+          <p>Local CSV, local Parquet, S3-backed Parquet, local NDJSON, HTTP JSON, HTTP NDJSON, and public HTML rows can be pulled into the runtime through one typed registration surface.</p>
         </article>
         <article class="mini">
           <strong>benchmarks</strong>
@@ -323,8 +323,9 @@
             <li>FastAPI service</li>
             <li>Rust multimodal core</li>
             <li>Qdrant for vector storage when enabled</li>
-            <li>Typed connector pulls for file and HTTP row sources</li>
+            <li>Typed connector pulls for file, object-store, HTTP, and public web sources</li>
             <li>S3-shaped Parquet intake with caller-managed credentials</li>
+            <li>Public-page intake with allowlists, robots checks, and byte caps</li>
             <li>Compiled recipe manifests with checked export and validation steps</li>
             <li>Prometheus scrape configuration</li>
             <li>OpenAPI export and generated client surfaces</li>
@@ -347,6 +348,14 @@ python3 scripts/export_openapi.py
 python3 scripts/generate_sdk_surfaces.py
 cargo test -p multimodal-core</pre>
       </div>
+    </section>
+    <section class="panel" style="margin-top:20px;">
+      <div class="label">Reference</div>
+      <p style="margin:0;">
+        Advanced Multi-modal AI · © 2026 Cazandra Aporbo ·
+        <a href="LICENSE" style="color:inherit;">Apache License 2.0</a> ·
+        <a href="README.md" style="color:inherit;">readme</a>
+      </p>
     </section>
   </div>
 </body>

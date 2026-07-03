@@ -1,1751 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cazzy Aporbo - Systems Architecture & ML Engineering Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --primary: #2563eb;
-            --secondary: #7c3aed;
-            --accent: #06b6d4;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --dark: #111827;
-            --light: #f9fafb;
-            --gray: #6b7280;
-            --card-bg: rgba(255, 255, 255, 0.98);
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #0891b2 100%);
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .main-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .header-section {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header-gradient {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-        }
-        
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            color: var(--gray);
-            font-weight: 500;
-            margin-bottom: 2rem;
-        }
-        
-        .nav-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            background: white;
-            padding: 0.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow-x: auto;
-        }
-        
-        .nav-tab {
-            padding: 1rem 2rem;
-            background: transparent;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--gray);
-            white-space: nowrap;
-        }
-        
-        .nav-tab:hover {
-            background: var(--light);
-        }
-        
-        .nav-tab.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        .metric-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-        
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--primary), var(--secondary));
-        }
-        
-        .metric-label {
-            font-size: 0.875rem;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
-        }
-        
-        .metric-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1;
-        }
-        
-        .metric-detail {
-            font-size: 0.875rem;
-            color: var(--gray);
-            margin-top: 0.5rem;
-        }
-        
-        .project-showcase {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--light);
-        }
-        
-        .project-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .project-status {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, var(--success), var(--accent));
-            color: white;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-        
-        .tech-table {
-            width: 100%;
-            margin: 2rem 0;
-            border-collapse: separate;
-            border-spacing: 0;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-        
-        .tech-table thead {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        
-        .tech-table th {
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.875rem;
-            letter-spacing: 0.5px;
-        }
-        
-        .tech-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--light);
-        }
-        
-        .tech-table tbody tr:hover {
-            background: var(--light);
-        }
-        
-        .tech-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .expandable-section {
-            margin: 2rem 0;
-        }
-        
-        .expandable-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, var(--light), white);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .expandable-header:hover {
-            border-color: var(--primary);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .expandable-header h3 {
-            font-size: 1.2rem;
-            color: var(--dark);
-        }
-        
-        .expand-icon {
-            font-size: 1.5rem;
-            color: var(--primary);
-            transition: transform 0.3s ease;
-        }
-        
-        .expandable-header.expanded .expand-icon {
-            transform: rotate(180deg);
-        }
-        
-        .expandable-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease, padding 0.5s ease;
-        }
-        
-        .expandable-content.expanded {
-            max-height: 3000px;
-            padding: 1.5rem;
-        }
-        
-        .code-block {
-            background: #1e293b;
-            color: #e2e8f0;
-            padding: 1.5rem;
-            border-radius: 10px;
-            font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-            position: relative;
-        }
-        
-        .code-block::before {
-            content: attr(data-language);
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            padding: 0.25rem 0.75rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 5px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-        }
-        
-        .architecture-diagram {
-            background: #f8fafc;
-            padding: 2rem;
-            border-radius: 10px;
-            margin: 2rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            overflow-x: auto;
-            border: 2px solid #e2e8f0;
-        }
-        
-        .skills-matrix-advanced {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .skill-category-card {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .skill-category-header {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 3px solid var(--primary);
-        }
-        
-        .skill-item-detailed {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--light);
-        }
-        
-        .skill-item-detailed:last-child {
-            border-bottom: none;
-        }
-        
-        .skill-name {
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .skill-level {
-            display: flex;
-            gap: 0.25rem;
-        }
-        
-        .skill-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--light);
-        }
-        
-        .skill-dot.filled {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-        }
-        
-        .performance-benchmark {
-            background: linear-gradient(135deg, #1e293b, #334155);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-        }
-        
-        .benchmark-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-        
-        .benchmark-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .benchmark-item {
-            text-align: center;
-        }
-        
-        .benchmark-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--success));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .benchmark-label {
-            font-size: 0.875rem;
-            opacity: 0.8;
-            margin-top: 0.5rem;
-        }
-        
-        .timeline-section {
-            position: relative;
-            padding: 2rem 0;
-        }
-        
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--primary), var(--secondary));
-        }
-        
-        .timeline-item {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .timeline-content {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            width: 45%;
-            position: relative;
-        }
-        
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-right: auto;
-            margin-left: 0;
-        }
-        
-        .timeline-item:nth-child(even) .timeline-content {
-            margin-left: auto;
-            margin-right: 0;
-        }
-        
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background: white;
-            border: 4px solid var(--primary);
-            border-radius: 50%;
-            z-index: 1;
-        }
-        
-        .footer-section {
-            text-align: center;
-            padding: 3rem;
-            color: white;
-            margin-top: 4rem;
-        }
-        
-        .footer-name {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-tagline {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .nav-tabs { flex-wrap: wrap; }
-            .timeline-content { width: 90%; }
-            .timeline-line { left: 20px; }
-            .timeline-dot { left: 20px; }
-        }
-        
-        .interactive-demo {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 2rem 0;
-        }
-        
-        .demo-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .demo-button {
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .demo-button:hover {
-            transform: translateY(-2px);
-        }
-        
-        .demo-output {
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            font-family: monospace;
-            min-height: 100px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Multi-modal AI · Architecture Surface</title>
+  <meta name="description" content="Architecture surface for the Advanced Multi-modal AI repository: API edge, quality profiling, provenance receipts, temporal alignment, retrieval, metrics, and container stack.">
+  <style>
+    :root {
+      --bg: #100d0b;
+      --surface: rgba(29, 22, 18, 0.84);
+      --line: rgba(246, 239, 232, 0.12);
+      --text: #f6efe8;
+      --muted: #cebbaa;
+      --copper: #df9c5f;
+      --jade: #8fc9be;
+      --rose: #d7a9b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(143, 201, 190, 0.10), transparent 26%),
+        radial-gradient(circle at 80% 10%, rgba(223, 156, 95, 0.13), transparent 26%),
+        linear-gradient(180deg, #100d0b 0%, #171210 55%, #0c0908 100%);
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.65;
+    }
+    .wrap {
+      width: min(1120px, calc(100vw - 28px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+    .nav, .panel, .table-shell {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 22px;
+      position: sticky;
+      top: 14px;
+      z-index: 3;
+    }
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.03);
+    }
+    .hero, .grid, .split {
+      display: grid;
+      gap: 18px;
+    }
+    .hero {
+      grid-template-columns: 1.1fr 0.9fr;
+      margin-top: 24px;
+    }
+    .panel {
+      padding: 28px;
+    }
+    .label {
+      color: var(--copper);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+    h1, h2, h3 {
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.08;
+    }
+    h1 { font-size: clamp(2.6rem, 5vw, 4.5rem); max-width: 8ch; }
+    h2 { font-size: 2rem; }
+    p, li, td { color: var(--muted); }
+    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
+    .mini {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.03);
+    }
+    .mini strong {
+      display: block;
+      font-size: 1.28rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .split { grid-template-columns: 1fr 1fr; margin-top: 22px; }
+    .table-shell { margin-top: 18px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--line); }
+    th { color: var(--text); font-size: 0.84rem; letter-spacing: 0.18em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: none; }
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      background: rgba(8, 6, 5, 0.7);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 18px;
+      color: #f3e5d4;
+      font-family: "SFMono-Regular", Consolas, monospace;
+    }
+    section { margin-top: 20px; }
+    @media (max-width: 860px) {
+      .hero, .grid, .split { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <div class="main-container">
-        <header class="header-section">
-            <div class="header-gradient"></div>
-            <h1>Cazzy Aporbo</h1>
-            <p class="subtitle">Systems Architect | Machine Learning Engineer | Infrastructure Specialist</p>
-            
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-label">Systems Built</div>
-                    <div class="metric-value">50+</div>
-                    <div class="metric-detail">Production-grade infrastructure</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Performance Scale</div>
-                    <div class="metric-value">1M+</div>
-                    <div class="metric-detail">Requests per second</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">ML Models Deployed</div>
-                    <div class="metric-value">100+</div>
-                    <div class="metric-detail">From research to production</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Code Efficiency</div>
-                    <div class="metric-value">75%</div>
-                    <div class="metric-detail">Average optimization gain</div>
-                </div>
-            </div>
-        </header>
+  <div class="wrap">
+    <nav class="nav">
+      <div>Architecture surface</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="index.html">atlas</a>
+        <a href="technical-portfolio.html">catalog</a>
+        <a href="README.md">readme</a>
+      </div>
+    </nav>
 
-        <nav class="nav-tabs">
-            <button class="nav-tab active" onclick="switchTab('overview')">Overview</button>
-            <button class="nav-tab" onclick="switchTab('infrastructure')">Infrastructure Projects</button>
-            <button class="nav-tab" onclick="switchTab('ml-systems')">ML Systems</button>
-            <button class="nav-tab" onclick="switchTab('data-engineering')">Data Engineering</button>
-            <button class="nav-tab" onclick="switchTab('technical-skills')">Technical Skills</button>
-            <button class="nav-tab" onclick="switchTab('architecture')">System Architecture</button>
-            <button class="nav-tab" onclick="switchTab('benchmarks')">Performance Benchmarks</button>
-        </nav>
-
-        <div id="overview" class="tab-content active">
-            <div class="project-showcase">
-                <h2 style="font-size: 2rem; margin-bottom: 2rem; text-align: center;">Engineering Excellence Portfolio</h2>
-                
-                <table class="tech-table">
-                    <thead>
-                        <tr>
-                            <th>Domain</th>
-                            <th>Core Technologies</th>
-                            <th>Key Achievements</th>
-                            <th>Impact</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Distributed Systems</strong></td>
-                            <td>Redis, RocksDB, Kafka, gRPC, Protocol Buffers</td>
-                            <td>Built fault-tolerant systems with exactly-once semantics</td>
-                            <td>99.99% uptime, <1ms p99 latency</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Machine Learning</strong></td>
-                            <td>PyTorch, TensorFlow, ONNX, TensorRT, Triton</td>
-                            <td>Deployed 100+ models from research to production</td>
-                            <td>75% inference cost reduction</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Stream Processing</strong></td>
-                            <td>Apache Flink, Kafka Streams, Apache Beam</td>
-                            <td>Real-time analytics processing 1M+ events/sec</td>
-                            <td>Sub-second insight generation</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Cloud Infrastructure</strong></td>
-                            <td>Kubernetes, Terraform, AWS/GCP/Azure, Istio</td>
-                            <td>Multi-region deployment with automatic failover</td>
-                            <td>Zero-downtime deployments</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Data Engineering</strong></td>
-                            <td>Apache Spark, Presto, Airflow, dbt, Delta Lake</td>
-                            <td>Petabyte-scale data pipelines</td>
-                            <td>10x query performance improvement</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Performance Engineering</strong></td>
-                            <td>SIMD, Lock-free algorithms, Memory pooling</td>
-                            <td>Microsecond-latency systems</td>
-                            <td>100x throughput increase</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="timeline-section">
-                    <div class="timeline-line"></div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <h3>Distributed Rate Limiter</h3>
-                            <p>Lock-free algorithms achieving 100K+ ops/sec with Redis backend</p>
-                        </div>
-                        <div class="timeline-dot"></div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <h3>Stream Processing Engine</h3>
-                            <p>Event-time processing with exactly-once guarantees</p>
-                        </div>
-                        <div class="timeline-dot"></div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <h3>Advanced LLM Framework</h3>
-                            <p>QLoRA, DoRA, and MoE implementations for efficient fine-tuning</p>
-                        </div>
-                        <div class="timeline-dot"></div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <h3>Domain-Specific AI</h3>
-                            <p>Procedural understanding with constraint enforcement</p>
-                        </div>
-                        <div class="timeline-dot"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="infrastructure" class="tab-content">
-            <div class="project-showcase">
-                <div class="project-header">
-                    <h2 class="project-title">Distributed Rate Limiting System</h2>
-                    <span class="project-status">Production Ready</span>
-                </div>
-                
-                <div class="expandable-section">
-                    <div class="expandable-header" onclick="toggleExpand(this)">
-                        <h3>Technical Architecture</h3>
-                        <span class="expand-icon">▼</span>
-                    </div>
-                    <div class="expandable-content">
-                        <div class="architecture-diagram">
-┌─────────────────────────────────────────────────────────────┐
-│                   Rate Limiter Architecture                 │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Client Request → Load Balancer → Rate Limiter Service     │
-│                                          │                  │
-│                                          ↓                  │
-│                              ┌──────────────────────┐       │
-│                              │   Algorithm Engine   │       │
-│                              ├──────────────────────┤       │
-│                              │ • Token Bucket       │       │
-│                              │ • Sliding Window     │       │
-│                              │ • Leaky Bucket       │       │
-│                              │ • Fixed Window       │       │
-│                              │ • Sliding Log        │       │
-│                              └──────────┬───────────┘       │
-│                                          │                  │
-│                   ┌──────────────────────┼──────────────┐   │
-│                   ↓                      ↓              ↓   │
-│          ┌──────────────┐    ┌──────────────┐   ┌─────────┐│
-│          │ Local Cache  │    │  Redis Cluster│   │ RocksDB ││
-│          │ (In-Memory)  │    │  (Distributed)│   │ (Persist)││
-│          └──────────────┘    └──────────────┘   └─────────┘│
-└─────────────────────────────────────────────────────────────┘
-                        </div>
-                        
-                        <table class="tech-table">
-                            <thead>
-                                <tr>
-                                    <th>Component</th>
-                                    <th>Technology</th>
-                                    <th>Purpose</th>
-                                    <th>Performance</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Atomic Counter</td>
-                                    <td>Lock-free CAS operations</td>
-                                    <td>Thread-safe counting without locks</td>
-                                    <td>1M+ ops/sec</td>
-                                </tr>
-                                <tr>
-                                    <td>Bloom Filter</td>
-                                    <td>MurmurHash3, Bit arrays</td>
-                                    <td>Space-efficient probabilistic filtering</td>
-                                    <td>O(1) lookup, 0.1% false positive</td>
-                                </tr>
-                                <tr>
-                                    <td>Circular Buffer</td>
-                                    <td>Memory-mapped ring buffer</td>
-                                    <td>Fixed memory sliding window</td>
-                                    <td>Zero allocation after init</td>
-                                </tr>
-                                <tr>
-                                    <td>Redis Backend</td>
-                                    <td>Lua scripting, Pipelining</td>
-                                    <td>Distributed state management</td>
-                                    <td>100K ops/sec per node</td>
-                                </tr>
-                                <tr>
-                                    <td>Cache Layer</td>
-                                    <td>LRU with TTL</td>
-                                    <td>Reduce backend calls</td>
-                                    <td>99% cache hit rate</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <div class="code-block" data-language="Python">
-# Advanced Token Bucket Implementation
-class TokenBucket:
-    def __init__(self, rate: float, capacity: int):
-        self.rate = rate
-        self.capacity = capacity
-        self.tokens = capacity
-        self.last_update = time.monotonic()
-        self._lock = threading.Lock()
-    
-    def consume(self, tokens: int = 1) -> Tuple[bool, float]:
-        with self._lock:
-            now = time.monotonic()
-            elapsed = now - self.last_update
-            
-            # Precise token generation
-            self.tokens = min(
-                self.capacity,
-                self.tokens + elapsed * self.rate
-            )
-            self.last_update = now
-            
-            if self.tokens >= tokens:
-                self.tokens -= tokens
-                return True, 0
-            
-            # Calculate exact wait time
-            deficit = tokens - self.tokens
-            wait_time = deficit / self.rate
-            return False, wait_time
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="expandable-section">
-                    <div class="expandable-header" onclick="toggleExpand(this)">
-                        <h3>Performance Optimizations</h3>
-                        <span class="expand-icon">▼</span>
-                    </div>
-                    <div class="expandable-content">
-                        <table class="tech-table">
-                            <thead>
-                                <tr>
-                                    <th>Optimization</th>
-                                    <th>Technique</th>
-                                    <th>Impact</th>
-                                    <th>Trade-off</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Lock-free Operations</td>
-                                    <td>Compare-and-swap, Memory barriers</td>
-                                    <td>10x throughput increase</td>
-                                    <td>Complexity</td>
-                                </tr>
-                                <tr>
-                                    <td>Batch Processing</td>
-                                    <td>Pipeline Redis commands</td>
-                                    <td>5x latency reduction</td>
-                                    <td>Batch wait time</td>
-                                </tr>
-                                <tr>
-                                    <td>Memory Pooling</td>
-                                    <td>Pre-allocated object pools</td>
-                                    <td>Zero GC pressure</td>
-                                    <td>Memory usage</td>
-                                </tr>
-                                <tr>
-                                    <td>CPU Affinity</td>
-                                    <td>Pin threads to cores</td>
-                                    <td>Reduced context switches</td>
-                                    <td>Less flexibility</td>
-                                </tr>
-                                <tr>
-                                    <td>SIMD Operations</td>
-                                    <td>Vectorized comparisons</td>
-                                    <td>4x faster filtering</td>
-                                    <td>Platform specific</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="project-showcase">
-                <div class="project-header">
-                    <h2 class="project-title">Real-time Stream Processing Engine</h2>
-                    <span class="project-status">Production Ready</span>
-                </div>
-                
-                <div class="expandable-section">
-                    <div class="expandable-header" onclick="toggleExpand(this)">
-                        <h3>Core Features</h3>
-                        <span class="expand-icon">▼</span>
-                    </div>
-                    <div class="expandable-content">
-                        <table class="tech-table">
-                            <thead>
-                                <tr>
-                                    <th>Feature</th>
-                                    <th>Implementation</th>
-                                    <th>Guarantees</th>
-                                    <th>Use Cases</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Event-time Processing</td>
-                                    <td>Watermarks, Late data handling</td>
-                                    <td>Exactly-once semantics</td>
-                                    <td>Out-of-order events</td>
-                                </tr>
-                                <tr>
-                                    <td>Windowing</td>
-                                    <td>Tumbling, Sliding, Session</td>
-                                    <td>Deterministic results</td>
-                                    <td>Aggregations, Analytics</td>
-                                </tr>
-                                <tr>
-                                    <td>State Management</td>
-                                    <td>RocksDB with checkpointing</td>
-                                    <td>Fault tolerance</td>
-                                    <td>Stateful computations</td>
-                                </tr>
-                                <tr>
-                                    <td>Stream Joins</td>
-                                    <td>Time-synchronized buffers</td>
-                                    <td>Temporal alignment</td>
-                                    <td>Event correlation</td>
-                                </tr>
-                                <tr>
-                                    <td>Back Pressure</td>
-                                    <td>Credit-based flow control</td>
-                                    <td>System stability</td>
-                                    <td>Load management</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <div class="performance-benchmark">
-                            <h3 class="benchmark-title">Stream Processing Performance</h3>
-                            <div class="benchmark-grid">
-                                <div class="benchmark-item">
-                                    <div class="benchmark-value">1M+</div>
-                                    <div class="benchmark-label">Events/Second</div>
-                                </div>
-                                <div class="benchmark-item">
-                                    <div class="benchmark-value"><10ms</div>
-                                    <div class="benchmark-label">End-to-End Latency</div>
-                                </div>
-                                <div class="benchmark-item">
-                                    <div class="benchmark-value">99.99%</div>
-                                    <div class="benchmark-label">Processing Accuracy</div>
-                                </div>
-                                <div class="benchmark-item">
-                                    <div class="benchmark-value">Zero</div>
-                                    <div class="benchmark-label">Data Loss</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="ml-systems" class="tab-content">
-            <div class="project-showcase">
-                <div class="project-header">
-                    <h2 class="project-title">Advanced LLM Fine-Tuning Framework</h2>
-                    <span class="project-status">Research Grade</span>
-                </div>
-                
-                <table class="tech-table">
-                    <thead>
-                        <tr>
-                            <th>Technique</th>
-                            <th>Implementation</th>
-                            <th>Memory Saving</th>
-                            <th>Performance Impact</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>QLoRA</strong></td>
-                            <td>4-bit quantization + LoRA adapters</td>
-                            <td>75% reduction</td>
-                            <td>~95% of full precision</td>
-                        </tr>
-                        <tr>
-                            <td><strong>DoRA</strong></td>
-                            <td>Weight decomposition into magnitude/direction</td>
-                            <td>60% reduction</td>
-                            <td>Better than LoRA</td>
-                        </tr>
-                        <tr>
-                            <td><strong>LASER</strong></td>
-                            <td>Layer-selective rank reduction</td>
-                            <td>50% reduction</td>
-                            <td>Task-dependent</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Model Soups</strong></td>
-                            <td>Weight averaging with DARE</td>
-                            <td>No overhead</td>
-                            <td>+2-5% accuracy</td>
-                        </tr>
-                        <tr>
-                            <td><strong>MoE Routing</strong></td>
-                            <td>Learned expert selection</td>
-                            <td>Sparse activation</td>
-                            <td>10x inference speed</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Flash Attention</strong></td>
-                            <td>Tiled computation, reduced HBM access</td>
-                            <td>Linear memory</td>
-                            <td>2-4x faster</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="expandable-section">
-                    <div class="expandable-header" onclick="toggleExpand(this)">
-                        <h3>Training Optimizations</h3>
-                        <span class="expand-icon">▼</span>
-                    </div>
-                    <div class="expandable-content">
-                        <div class="code-block" data-language="Python">
-# Advanced Training Configuration
-class AdvancedTrainingConfig:
-    # Memory Optimization
-    gradient_checkpointing: bool = True
-    mixed_precision: str = "bf16"
-    use_8bit_adam: bool = True
-    offload_optimizer: bool = True
-    
-    # Distributed Training
-    use_deepspeed: bool = True
-    use_fsdp: bool = True
-    tensor_parallel_size: int = 4
-    pipeline_parallel_size: int = 2
-    
-    # Efficiency Techniques
-    compile_model: bool = True  # PyTorch 2.0
-    use_flash_attention: bool = True
-    use_xformers: bool = True
-    fused_adam: bool = True
-    
-    # Learning Rate Schedule
-    lr_scheduler: str = "cosine_with_restarts"
-    warmup_ratio: float = 0.1
-    weight_decay: float = 0.01
-    label_smoothing: float = 0.1
-                        </div>
-                        
-                        <table class="tech-table">
-                            <thead>
-                                <tr>
-                                    <th>Hardware</th>
-                                    <th>Model Size</th>
-                                    <th>Batch Size</th>
-                                    <th>Training Speed</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>4x A100 80GB</td>
-                                    <td>70B parameters</td>
-                                    <td>256 (gradient accumulation)</td>
-                                    <td>1000 tokens/sec</td>
-                                </tr>
-                                <tr>
-                                    <td>8x V100 32GB</td>
-                                    <td>13B parameters</td>
-                                    <td>128</td>
-                                    <td>500 tokens/sec</td>
-                                </tr>
-                                <tr>
-                                    <td>1x RTX 4090</td>
-                                    <td>7B parameters (QLoRA)</td>
-                                    <td>16</td>
-                                    <td>100 tokens/sec</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="project-showcase">
-                <div class="project-header">
-                    <h2 class="project-title">Domain-Specific Language Model</h2>
-                    <span class="project-status">Enterprise Grade</span>
-                </div>
-                
-                <div class="expandable-section">
-                    <div class="expandable-header" onclick="toggleExpand(this)">
-                        <h3>Procedural Understanding System</h3>
-                        <span class="expand-icon">▼</span>
-                    </div>
-                    <div class="expandable-content">
-                        <div class="architecture-diagram">
-┌────────────────────────────────────────────────────────────┐
-│              Domain-Specific AI Architecture               │
-├────────────────────────────────────────────────────────────┤
-│                                                            │
-│  Input → Tokenizer → Encoder → Procedural Attention       │
-│                                        │                   │
-│                                        ↓                   │
-│                          ┌─────────────────────────┐       │
-│                          │  Knowledge Graph Layer  │       │
-│                          ├─────────────────────────┤       │
-│                          │ • Entity Recognition    │       │
-│                          │ • Relation Extraction   │       │
-│                          │ • Constraint Validation │       │
-│                          └───────────┬─────────────┘       │
-│                                      ↓                     │
-│                          ┌─────────────────────────┐       │
-│                          │  Variable Grounding     │       │
-│                          ├─────────────────────────┤       │
-│                          │ • Numerical Reasoning   │       │
-│                          │ • Unit Normalization    │       │
-│                          │ • Range Validation      │       │
-│                          └───────────┬─────────────┘       │
-│                                      ↓                     │
-│                          ┌─────────────────────────┐       │
-│                          │  Output Generation      │       │
-│                          ├─────────────────────────┤       │
-│                          │ • Constraint-aware      │       │
-│                          │ • Watermarked          │       │
-│                          │ • Validated            │       │
-│                          └─────────────────────────┘       │
-└────────────────────────────────────────────────────────────┘
-                        </div>
-                        
-                        <table class="tech-table">
-                            <thead>
-                                <tr>
-                                    <th>Component</th>
-                                    <th>Function</th>
-                                    <th>Accuracy</th>
-                                    <th>Domain</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Procedural Graph</td>
-                                    <td>Step sequence validation</td>
-                                    <td>99.9%</td>
-                                    <td>Medical, Legal, Manufacturing</td>
-                                </tr>
-                                <tr>
-                                    <td>Variable Grounding</td>
-                                    <td>Numerical constraint checking</td>
-                                    <td>98.5%</td>
-                                    <td>Clinical dosages, Engineering specs</td>
-                                </tr>
-                                <tr>
-                                    <td>Spatial Encoding</td>
-                                    <td>3D coordinate understanding</td>
-                                    <td>97.2%</td>
-                                    <td>Anatomical, Architectural</td>
-                                </tr>
-                                <tr>
-                                    <td>Temporal Reasoning</td>
-                                    <td>Time-based constraint enforcement</td>
-                                    <td>99.1%</td>
-                                    <td>Scheduling, Protocols</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="data-engineering" class="tab-content">
-            <div class="project-showcase">
-                <div class="project-header">
-                    <h2 class="project-title">Data Analysis AI System</h2>
-                    <span class="project-status">Production Ready</span>
-                </div>
-                
-                <table class="tech-table">
-                    <thead>
-                        <tr>
-                            <th>Capability</th>
-                            <th>Technologies</th>
-                            <th>Output Quality</th>
-                            <th>Speed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Exploratory Analysis</strong></td>
-                            <td>Pandas, NumPy, SciPy</td>
-                            <td>Publication-ready</td>
-                            <td>Real-time</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Visualization</strong></td>
-                            <td>Matplotlib, Seaborn, Plotly</td>
-                            <td>Interactive dashboards</td>
-                            <td><1 sec generation</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Statistical Testing</strong></td>
-                            <td>T-tests, ANOVA, Chi-square, Regression</td>
-                            <td>With interpretation</td>
-                            <td>Instant</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Machine Learning</strong></td>
-                            <td>Scikit-learn, XGBoost, AutoML</td>
-                            <td>Production models</td>
-                            <td>Automated pipeline</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Code Generation</strong></td>
-                            <td>AST manipulation, Template engines</td>
-                            <td>Executable, documented</td>
-                            <td>100 lines/sec</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="interactive-demo">
-                    <h3>Live Demo: Data Analysis Code Generation</h3>
-                    <div class="demo-controls">
-                        <button class="demo-button" onclick="generateAnalysis('eda')">Generate EDA</button>
-                        <button class="demo-button" onclick="generateAnalysis('viz')">Generate Visualization</button>
-                        <button class="demo-button" onclick="generateAnalysis('ml')">Generate ML Pipeline</button>
-                    </div>
-                    <div class="demo-output" id="analysis-output">
-                        Click a button to generate analysis code...
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="technical-skills" class="tab-content">
-            <div class="project-showcase">
-                <h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem;">Comprehensive Technical Skillset</h2>
-                
-                <div class="skills-matrix-advanced">
-                    <div class="skill-category-card">
-                        <h3 class="skill-category-header">Systems Programming</h3>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Memory Management</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Concurrency Control</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Lock-free Algorithms</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Network Programming</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category-card">
-                        <h3 class="skill-category-header">Machine Learning</h3>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Deep Learning (PyTorch)</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Transformers/LLMs</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Distributed Training</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Model Optimization</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category-card">
-                        <h3 class="skill-category-header">Data Systems</h3>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Stream Processing</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Distributed Databases</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Data Pipelines</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                            </div>
-                        </div>
-                        <div class="skill-item-detailed">
-                            <span class="skill-name">Real-time Analytics</span>
-                            <div class="skill-level">
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                                <span class="skill-dot filled"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <table class="tech-table" style="margin-top: 3rem;">
-                    <thead>
-                        <tr>
-                            <th>Language/Tool</th>
-                            <th>Proficiency</th>
-                            <th>Years</th>
-                            <th>Production Projects</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Python</strong></td>
-                            <td>Advanced</td>
-                            <td>4+</td>
-                            <td>100+ systems</td>
-                        </tr>
-                        <tr>
-                            <td><strong>C/C++</strong></td>
-                            <td>Intermediate</td>
-                            <td>5+</td>
-                            <td>Performance-critical components</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Go</strong></td>
-                            <td>Intermediate</td>
-                            <td>4+</td>
-                            <td>Microservices, CLI tools</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Rust</strong></td>
-                            <td>Intermediate</td>
-                            <td>2+</td>
-                            <td>Systems programming</td>
-                        </tr>
-                        <tr>
-                            <td><strong>SQL</strong></td>
-                            <td>Intermediate</td>
-                            <td>4+</td>
-                            <td>Petabyte-scale queries</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Kubernetes</strong></td>
-                            <td>Intermediate</td>
-                            <td>4+</td>
-                            <td>Multi-region deployments</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="architecture" class="tab-content">
-            <div class="project-showcase">
-                <h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem;">System Architecture Expertise</h2>
-                
-                <div class="architecture-diagram">
-┌─────────────────────────────────────────────────────────────────┐
-│                    Distributed System Architecture              │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐        │
-│  │   Client    │───▶│Load Balancer│───▶│  API Gateway │        │
-│  │Applications │    │   (Nginx)   │    │   (Kong)     │        │
-│  └─────────────┘    └─────────────┘    └──────┬──────┘        │
-│                                                │                │
-│                                    ┌───────────┴───────────┐    │
-│                                    │                       │    │
-│                          ┌─────────▼──────┐    ┌──────────▼──┐ │
-│                          │  Service Mesh  │    │   Message   │ │
-│                          │    (Istio)     │    │    Queue    │ │
-│                          └─────────┬──────┘    │   (Kafka)   │ │
-│                                    │           └──────┬──────┘ │
-│                     ┌──────────────┼───────────────────┤       │
-│                     │              │                   │       │
-│           ┌─────────▼──┐  ┌───────▼─────┐  ┌─────────▼──┐     │
-│           │Microservice│  │Microservice │  │   Stream   │     │
-│           │     A      │  │      B      │  │ Processor  │     │
-│           │  (Python)  │  │    (Go)     │  │  (Flink)   │     │
-│           └──────┬─────┘  └───────┬─────┘  └─────┬──────┘     │
-│                  │                │              │             │
-│           ┌──────▼────────────────▼──────────────▼──────┐     │
-│           │           Data Layer (Cassandra)             │     │
-│           │           Cache Layer (Redis)                │     │
-│           │           Search Layer (Elasticsearch)       │     │
-│           └──────────────────────────────────────────────┘     │
-│                                                                 │
-│  Monitoring: Prometheus + Grafana                              │
-│  Logging: ELK Stack                                            │
-│  Tracing: Jaeger                                               │
-└─────────────────────────────────────────────────────────────────┘
-                </div>
-                
-                <table class="tech-table">
-                    <thead>
-                        <tr>
-                            <th>Pattern</th>
-                            <th>Implementation</th>
-                            <th>Benefits</th>
-                            <th>Projects Used</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Event Sourcing</strong></td>
-                            <td>Kafka + Event Store</td>
-                            <td>Complete audit trail, replay capability</td>
-                            <td>Financial systems, Healthcare</td>
-                        </tr>
-                        <tr>
-                            <td><strong>CQRS</strong></td>
-                            <td>Separate read/write models</td>
-                            <td>Optimized queries, scalability</td>
-                            <td>E-commerce, Analytics</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Saga Pattern</strong></td>
-                            <td>Choreography & Orchestration</td>
-                            <td>Distributed transactions</td>
-                            <td>Order processing, Workflows</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Circuit Breaker</strong></td>
-                            <td>Hystrix, Resilience4j</td>
-                            <td>Fault tolerance</td>
-                            <td>All microservices</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Bulkhead</strong></td>
-                            <td>Thread pool isolation</td>
-                            <td>Failure isolation</td>
-                            <td>Critical services</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Service Mesh</strong></td>
-                            <td>Istio, Linkerd</td>
-                            <td>Traffic management, security</td>
-                            <td>Kubernetes deployments</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="benchmarks" class="tab-content">
-            <div class="project-showcase">
-                <h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem;">Performance Benchmarks & Achievements</h2>
-                
-                <div class="performance-benchmark">
-                    <h3 class="benchmark-title">System Performance Metrics</h3>
-                    <div class="benchmark-grid">
-                        <div class="benchmark-item">
-                            <div class="benchmark-value">100K+</div>
-                            <div class="benchmark-label">Requests/Second</div>
-                        </div>
-                        <div class="benchmark-item">
-                            <div class="benchmark-value"><1ms</div>
-                            <div class="benchmark-label">P99 Latency</div>
-                        </div>
-                        <div class="benchmark-item">
-                            <div class="benchmark-value">99.99%</div>
-                            <div class="benchmark-label">Uptime SLA</div>
-                        </div>
-                        <div class="benchmark-item">
-                            <div class="benchmark-value">PB+</div>
-                            <div class="benchmark-label">Data Processed</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <table class="tech-table">
-                    <thead>
-                        <tr>
-                            <th>Project</th>
-                            <th>Metric</th>
-                            <th>Before</th>
-                            <th>After</th>
-                            <th>Improvement</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Rate Limiter</td>
-                            <td>Throughput</td>
-                            <td>10K ops/sec</td>
-                            <td>100K+ ops/sec</td>
-                            <td>10x</td>
-                        </tr>
-                        <tr>
-                            <td>Stream Processor</td>
-                            <td>Latency</td>
-                            <td>100ms</td>
-                            <td>10ms</td>
-                            <td>90% reduction</td>
-                        </tr>
-                        <tr>
-                            <td>ML Pipeline</td>
-                            <td>Training Time</td>
-                            <td>48 hours</td>
-                            <td>2 hours</td>
-                            <td>24x faster</td>
-                        </tr>
-                        <tr>
-                            <td>Data Pipeline</td>
-                            <td>Processing Cost</td>
-                            <td>$10,000/month</td>
-                            <td>$1,000/month</td>
-                            <td>90% reduction</td>
-                        </tr>
-                        <tr>
-                            <td>API Gateway</td>
-                            <td>Response Time</td>
-                            <td>500ms</td>
-                            <td>50ms</td>
-                            <td>10x faster</td>
-                        </tr>
-                        <tr>
-                            <td>Search System</td>
-                            <td>Query Speed</td>
-                            <td>5 seconds</td>
-                            <td>100ms</td>
-                            <td>50x faster</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="expandable-section">
-                    <div class="expandable-header" onclick="toggleExpand(this)">
-                        <h3>Optimization Techniques Applied</h3>
-                        <span class="expand-icon">▼</span>
-                    </div>
-                    <div class="expandable-content">
-                        <table class="tech-table">
-                            <thead>
-                                <tr>
-                                    <th>Technique</th>
-                                    <th>Description</th>
-                                    <th>Impact</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Cache-line Optimization</td>
-                                    <td>Aligned data structures to CPU cache boundaries</td>
-                                    <td>3x memory throughput</td>
-                                </tr>
-                                <tr>
-                                    <td>SIMD Vectorization</td>
-                                    <td>Used AVX2/AVX512 instructions for parallel processing</td>
-                                    <td>4-8x computation speed</td>
-                                </tr>
-                                <tr>
-                                    <td>Memory Pooling</td>
-                                    <td>Pre-allocated object pools to avoid allocation overhead</td>
-                                    <td>Zero GC pauses</td>
-                                </tr>
-                                <tr>
-                                    <td>Lock-free Queues</td>
-                                    <td>Implemented MPMC queues with CAS operations</td>
-                                    <td>10x throughput</td>
-                                </tr>
-                                <tr>
-                                    <td>Batch Processing</td>
-                                    <td>Grouped operations to amortize overhead</td>
-                                    <td>5x efficiency</td>
-                                </tr>
-                                <tr>
-                                    <td>Index Optimization</td>
-                                    <td>Custom indexes for specific query patterns</td>
-                                    <td>100x query speed</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer class="footer-section">
-            <h2 class="footer-name">Cazzy Aporbo</h2>
-            <p class="footer-tagline">Building the future of intelligent infrastructure, one system at a time</p>
-            <p style="margin-top: 1rem; opacity: 0.8;">Transforming complex problems into elegant, scalable solutions</p>
-        </footer>
+    <div class="hero">
+      <section class="panel">
+        <div class="label">Architecture</div>
+        <h1>Operational edge with a steadier multimodal spine.</h1>
+        <p>
+          The repository now exposes a clearer boundary between model research
+          and the part of the system that can actually be run, tested, measured,
+          aligned, and containerized.
+        </p>
+      </section>
+      <section class="panel">
+        <div class="label">What this page holds</div>
+        <ul>
+          <li>API surface and endpoint map</li>
+          <li>registry view of the bridged model files</li>
+          <li>quality, provenance, and alignment surfaces</li>
+          <li>retrieval and observability posture</li>
+          <li>container stack and local bring-up path</li>
+        </ul>
+      </section>
     </div>
 
-    <script>
-        function switchTab(tabName) {
-            // Hide all tabs
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            // Remove active class from all nav tabs
-            const navTabs = document.querySelectorAll('.nav-tab');
-            navTabs.forEach(tab => tab.classList.remove('active'));
-            
-            // Show selected tab
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to clicked nav tab
-            event.target.classList.add('active');
-        }
-        
-        function toggleExpand(header) {
-            header.classList.toggle('expanded');
-            const content = header.nextElementSibling;
-            content.classList.toggle('expanded');
-        }
-        
-        function generateAnalysis(type) {
-            const output = document.getElementById('analysis-output');
-            
-            const codeTemplates = {
-                'eda': `# Exploratory Data Analysis
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+    <section id="api-surface" class="panel">
+      <div class="label">API surface</div>
+      <h2>Endpoints with a narrower claim</h2>
+      <div class="table-shell">
+        <table>
+          <thead>
+            <tr><th>path</th><th>method</th><th>purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>/v1/health</td><td>GET</td><td>service health, environment, and metrics posture</td></tr>
+            <tr><td>/v1/models</td><td>GET</td><td>registered model inventory</td></tr>
+            <tr><td>/v1/catalog/register</td><td>POST</td><td>save a versioned dataset contract</td></tr>
+            <tr><td>/v1/catalog/datasets*</td><td>GET</td><td>list and inspect persisted dataset contracts</td></tr>
+            <tr><td>/v1/catalog/evolution</td><td>POST</td><td>compare a candidate schema against the latest saved version</td></tr>
+            <tr><td>/v1/connectors/register</td><td>POST</td><td>pull rows from a typed connector and register a dataset contract</td></tr>
+            <tr><td>/v1/connectors/pipeline-ingest</td><td>POST</td><td>pull rows, benchmark the ingest, and map them into pipeline events</td></tr>
+            <tr><td>/v1/connectors/runs*</td><td>GET</td><td>list and inspect persisted connector benchmark runs</td></tr>
+            <tr><td>/v1/recipes/compile</td><td>POST</td><td>compile a typed recipe manifest with launch topology and proof obligations</td></tr>
+            <tr><td>/v1/recipes*</td><td>GET</td><td>list and inspect persisted recipe manifests</td></tr>
+            <tr><td>/v1/runtime/attestation</td><td>GET</td><td>present-tense evidence for generated artifacts and persisted stores</td></tr>
+            <tr><td>/v1/readiness/report</td><td>GET</td><td>assemble live checks, recipe evidence, connector coverage, and explicit operating boundaries</td></tr>
+            <tr><td>/v1/proof/bundle</td><td>GET</td><td>summarize routes, tests, commands, connectors, artifacts, and store counts</td></tr>
+            <tr><td>/v1/bias/taxonomy</td><td>GET</td><td>sixty-category bias register across the system lifecycle</td></tr>
+            <tr><td>/v1/bias/assess</td><td>POST</td><td>stage-aware bias findings for an active system</td></tr>
+            <tr><td>/v1/plan</td><td>POST</td><td>orchestration steps before execution</td></tr>
+            <tr><td>/v1/data/profile</td><td>POST</td><td>modality quality, pairwise alignment, and fusion readiness</td></tr>
+            <tr><td>/v1/data/provenance</td><td>POST</td><td>deterministic request receipts for repeated payloads</td></tr>
+            <tr><td>/v1/drift/baselines</td><td>POST / GET</td><td>save and list reviewed population baselines</td></tr>
+            <tr><td>/v1/drift/check</td><td>POST</td><td>measure fresh traffic against a reviewed baseline</td></tr>
+            <tr><td>/v1/pipelines/ingest</td><td>POST</td><td>pair raw multimodal events into a persisted pipeline run</td></tr>
+            <tr><td>/v1/pipelines/runs*</td><td>GET</td><td>list and inspect persisted pipeline runs</td></tr>
+            <tr><td>/v1/pipelines/runs/{run_id}/export</td><td>GET</td><td>export NDJSON lineage and deterministic digests for one run</td></tr>
+            <tr><td>/v1/pipelines/runs/{run_id}/replay</td><td>POST</td><td>rerun a saved request snapshot through the current runtime</td></tr>
+            <tr><td>/v1/ontology/ingest</td><td>POST</td><td>compile enterprise artifacts into an ontology snapshot</td></tr>
+            <tr><td>/v1/ontology/snapshots*</td><td>GET</td><td>list and inspect persisted ontology snapshots</td></tr>
+            <tr><td>/v1/ontology/liability</td><td>POST</td><td>compare live traces against compiled governance constraints</td></tr>
+            <tr><td>/v1/infer</td><td>POST</td><td>contract-mode or research-mode multimodal inference</td></tr>
+            <tr><td>/v1/stream</td><td>WebSocket</td><td>accepted, plan, progress, and result events in one live sequence</td></tr>
+            <tr><td>/v1/alignment/windows</td><td>POST</td><td>temporal grouping across timed observations</td></tr>
+            <tr><td>/v1/jobs/video-clean</td><td>POST</td><td>enqueue a persisted video cleanup run</td></tr>
+            <tr><td>/v1/jobs/batch-infer</td><td>POST</td><td>enqueue a persisted multimodal batch run</td></tr>
+            <tr><td>/v1/jobs</td><td>GET</td><td>list persisted run records</td></tr>
+            <tr><td>/v1/jobs/{job_id}</td><td>GET</td><td>read one persisted run record</td></tr>
+            <tr><td>/v1/retrieval/*</td><td>POST</td><td>vector write and nearest-neighbor read</td></tr>
+            <tr><td>/v1/video/*</td><td>POST</td><td>video evidence packet and cleanup suggestion lane</td></tr>
+            <tr><td>/metrics</td><td>GET</td><td>Prometheus scrape target</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-# Load data
-df = pd.read_csv('data.csv')
+    <section id="data-plane" class="panel">
+      <div class="label">Data plane</div>
+      <h2>Modality care before fusion</h2>
+      <div class="grid">
+        <article class="mini">
+          <strong>profile</strong>
+          <p>Sparsity, entropy, finite-value coverage, dynamic range, temporal change, and pairwise alignment are surfaced before the runtime leans on a modality.</p>
+        </article>
+        <article class="mini">
+          <strong>provenance</strong>
+          <p>Payloads, metadata, and modality bodies receive separate deterministic receipts so repeated runs remain comparable.</p>
+        </article>
+        <article class="mini">
+          <strong>alignment</strong>
+          <p>Timed observations can be grouped into corroborated windows instead of being left as isolated fragments.</p>
+        </article>
+        <article class="mini">
+          <strong>jobs</strong>
+          <p>Long-running cleanup and batch inference runs are stored with status transitions and result payloads in a persisted SQLite lane.</p>
+        </article>
+        <article class="mini">
+          <strong>drift</strong>
+          <p>Reviewed population baselines can be saved, listed, and checked before a new cohort quietly becomes the new default.</p>
+        </article>
+        <article class="mini">
+          <strong>bias</strong>
+          <p>A sixty-category taxonomy keeps bias tied to entry points such as collection, measurement, retrieval, interface, and governance.</p>
+        </article>
+      </div>
+    </section>
 
-# Basic statistics
-print(df.describe())
-print(f"Shape: {df.shape}")
-print(f"Missing values:\\n{df.isnull().sum()}")
+    <section id="catalog-plane" class="panel">
+      <div class="label">Catalog plane</div>
+      <h2>Schema changes can be reviewed before they become operational drift</h2>
+      <div class="grid">
+        <article class="mini">
+          <strong>registration</strong>
+          <p>Dataset contracts now carry owner, modality, partition keys, primary keys, and field-level schemas in a persisted store.</p>
+        </article>
+        <article class="mini">
+          <strong>fingerprinting</strong>
+          <p>Canonical schemas receive deterministic fingerprints, using the Rust lane when it is available.</p>
+        </article>
+        <article class="mini">
+          <strong>evolution</strong>
+          <p>Candidate schema revisions are classified into additive and breaking changes before a pipeline rolls forward.</p>
+        </article>
+        <article class="mini">
+          <strong>connectors</strong>
+          <p>Local CSV, local Parquet, S3-backed Parquet, local NDJSON, HTTP JSON, and HTTP NDJSON rows can be pulled into the runtime through one typed registration surface.</p>
+        </article>
+        <article class="mini">
+          <strong>benchmarks</strong>
+          <p>Each connector run records fetch time, parse time, bytes read, and rows per second so a data path can be inspected instead of simply trusted.</p>
+        </article>
+        <article class="mini">
+          <strong>replay</strong>
+          <p>Persisted pipeline runs can now be exported and replayed to compare provenance and summary-shape stability against the current runtime.</p>
+        </article>
+      </div>
+    </section>
 
-# Correlation analysis
-corr_matrix = df.corr()
-plt.figure(figsize=(12, 8))
-sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
-plt.title('Correlation Matrix')
-plt.show()
+    <section id="governance-plane" class="panel">
+      <div class="label">Governance plane</div>
+      <h2>Enterprise reality can be compiled and checked</h2>
+      <div class="grid">
+        <article class="mini">
+          <strong>ontology</strong>
+          <p>API schemas, workflow notes, and governance artifacts can be ingested into a persisted ontology snapshot with entities, relations, and compiled constraints.</p>
+        </article>
+        <article class="mini">
+          <strong>liability</strong>
+          <p>Route traces are compared against compiled constraints such as encryption requirements, regional transfer blocks, reviewed lanes, and region pins.</p>
+        </article>
+        <article class="mini">
+          <strong>attestation</strong>
+          <p>The runtime can return an evidence bundle covering OpenAPI digest, generated clients, runtime schema, Rust core presence, and persisted store counts.</p>
+        </article>
+        <article class="mini">
+          <strong>proof bundle</strong>
+          <p>A second surface summarizes route count, test count, verification commands, supported connector kinds, and artifact presence in one typed response.</p>
+        </article>
+        <article class="mini">
+          <strong>readiness</strong>
+          <p>A companion report states where evidence is complete, where more proof is still needed, and which operating boundaries remain intentionally narrow.</p>
+        </article>
+      </div>
+    </section>
 
-# Distribution plots
-fig, axes = plt.subplots(2, 2, figsize=(15, 12))
-for i, col in enumerate(df.select_dtypes(include=[np.number]).columns[:4]):
-    ax = axes[i//2, i%2]
-    df[col].hist(ax=ax, bins=30)
-    ax.set_title(f'Distribution of {col}')
-plt.tight_layout()
-plt.show()`,
-                
-                'viz': `# Professional Visualization
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+    <section id="model-registry" class="panel">
+      <div class="label">Model registry</div>
+      <h2>Files the runtime can name explicitly</h2>
+      <div class="grid">
+        <article class="mini">
+          <strong>adaptive_transformer</strong>
+          <div>`dynamic_transformer.py`</div>
+          <p>Research bridge available when torch is present.</p>
+        </article>
+        <article class="mini">
+          <strong>complete_multimodal</strong>
+          <div>`complete_model.py`</div>
+          <p>Research bridge available when torch is present.</p>
+        </article>
+        <article class="mini">
+          <strong>fusion_lab + attention_core</strong>
+          <div>`fusion_strategies.py` and `core/attention_mechanisms.py`</div>
+          <p>Cataloged as reusable research assets with contract visibility.</p>
+        </article>
+      </div>
+    </section>
 
-# Create interactive dashboard
-fig = make_subplots(
-    rows=2, cols=2,
-    subplot_titles=('Time Series', 'Distribution', 'Correlation', 'Metrics'),
-    specs=[[{'type': 'scatter'}, {'type': 'histogram'}],
-           [{'type': 'heatmap'}, {'type': 'indicator'}]]
-)
+    <section id="operations" class="panel">
+      <div class="label">Operations</div>
+      <h2>Local stack</h2>
+      <div class="split">
+        <div>
+          <p>The local operations path is intentionally modest and direct.</p>
+          <ul>
+            <li>FastAPI service</li>
+            <li>Rust multimodal core</li>
+            <li>Qdrant for vector storage when enabled</li>
+            <li>Typed connector pulls for file and HTTP row sources</li>
+            <li>S3-shaped Parquet intake with caller-managed credentials</li>
+            <li>Compiled recipe manifests with checked export and validation steps</li>
+            <li>Prometheus scrape configuration</li>
+            <li>OpenAPI export and generated client surfaces</li>
+            <li>Persisted connector, drift, pipeline, and ontology stores</li>
+            <li>Bias taxonomy, runtime attestation, and readiness reporting</li>
+            <li>Persisted async jobs for longer-running work</li>
+            <li>CI for lint and tests</li>
+            <li>TypeScript SDK for downstream consumers</li>
+            <li>Pages deployment for the public static surfaces</li>
+          </ul>
+        </div>
+        <pre>docker compose up --build
 
-# Add traces
-fig.add_trace(go.Scatter(x=df.index, y=df['value'], name='Trend'), row=1, col=1)
-fig.add_trace(go.Histogram(x=df['value'], name='Distribution'), row=1, col=2)
-fig.add_trace(go.Heatmap(z=corr_matrix.values), row=2, col=1)
-fig.add_trace(go.Indicator(value=df['value'].mean(), title='Average'), row=2, col=2)
+uvicorn advanced_multimodal_ai.api:create_app \
+  --factory \
+  --host 0.0.0.0 \
+  --port 8000
 
-fig.update_layout(height=800, showlegend=False, title='Data Dashboard')
-fig.show()`,
-                
-                'ml': `# Machine Learning Pipeline
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, r2_score
-
-# Prepare data
-X = df.drop('target', axis=1)
-y = df['target']
-
-# Split data
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-# Scale features
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-
-# Train model with hyperparameter tuning
-param_grid = {
-    'n_estimators': [100, 200, 300],
-    'max_depth': [10, 20, None],
-    'min_samples_split': [2, 5, 10]
-}
-
-rf = RandomForestRegressor(random_state=42)
-grid_search = GridSearchCV(rf, param_grid, cv=5, scoring='r2')
-grid_search.fit(X_train_scaled, y_train)
-
-# Evaluate
-y_pred = grid_search.predict(X_test_scaled)
-print(f"R² Score: {r2_score(y_test, y_pred):.4f}")
-print(f"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}")
-print(f"Best params: {grid_search.best_params_}")`
-            };
-            
-            output.textContent = codeTemplates[type] || 'Select an analysis type...';
-        }
-    </script>
+python3 scripts/export_openapi.py
+python3 scripts/generate_sdk_surfaces.py
+cargo test -p multimodal-core</pre>
+      </div>
+    </section>
+  </div>
 </body>
 </html>

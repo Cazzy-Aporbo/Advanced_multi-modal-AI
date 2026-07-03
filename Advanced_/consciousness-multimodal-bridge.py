@@ -21,7 +21,7 @@ states into AI-understandable multimodal representations and generating
 experiences that can influence consciousness states in return.
 
 Author: Cazandra Aporbo
-License: MIT
+License: Apache 2.0
 Requirements: See requirements.txt for full list of packages
 """
 

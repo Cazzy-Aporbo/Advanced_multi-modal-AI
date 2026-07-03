@@ -1,0 +1,3469 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Advanced Multi-modal AI",
+    "summary": "A multimodal runtime surface for orchestration, retrieval, quality profiling, provenance, temporal alignment, and video evidence planning.",
+    "version": "0.4.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/ready": {
+      "get": {
+        "summary": "Ready",
+        "operationId": "ready_v1_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/models": {
+      "get": {
+        "summary": "Models",
+        "operationId": "models_v1_models_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/catalog/register": {
+      "post": {
+        "summary": "Register Dataset",
+        "operationId": "register_dataset_v1_catalog_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetRegistrationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/catalog/datasets": {
+      "get": {
+        "summary": "List Datasets",
+        "operationId": "list_datasets_v1_catalog_datasets_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/catalog/datasets/{dataset_id}": {
+      "get": {
+        "summary": "Get Dataset",
+        "operationId": "get_dataset_v1_catalog_datasets__dataset_id__get",
+        "parameters": [
+          {
+            "name": "dataset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dataset Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/catalog/evolution": {
+      "post": {
+        "summary": "Compare Dataset Evolution",
+        "operationId": "compare_dataset_evolution_v1_catalog_evolution_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetEvolutionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/connectors/register": {
+      "post": {
+        "summary": "Register Connector Dataset",
+        "operationId": "register_connector_dataset_v1_connectors_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConnectorRegistrationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/connectors/pipeline-ingest": {
+      "post": {
+        "summary": "Connector Pipeline Ingest",
+        "operationId": "connector_pipeline_ingest_v1_connectors_pipeline_ingest_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConnectorPipelineIngestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/connectors/runs": {
+      "get": {
+        "summary": "List Connector Runs",
+        "operationId": "list_connector_runs_v1_connectors_runs_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/connectors/runs/{run_id}": {
+      "get": {
+        "summary": "Get Connector Run",
+        "operationId": "get_connector_run_v1_connectors_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/runtime/attestation": {
+      "get": {
+        "summary": "Runtime Attestation",
+        "operationId": "runtime_attestation_v1_runtime_attestation_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/proof/bundle": {
+      "get": {
+        "summary": "Runtime Proof Bundle",
+        "operationId": "runtime_proof_bundle_v1_proof_bundle_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/readiness/report": {
+      "get": {
+        "summary": "Readiness Report",
+        "operationId": "readiness_report_v1_readiness_report_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/bias/taxonomy": {
+      "get": {
+        "summary": "Bias Taxonomy",
+        "operationId": "bias_taxonomy_v1_bias_taxonomy_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/bias/assess": {
+      "post": {
+        "summary": "Bias Assessment",
+        "operationId": "bias_assessment_v1_bias_assess_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BiasAssessmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/plan": {
+      "post": {
+        "summary": "Plan",
+        "operationId": "plan_v1_plan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InferenceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/recipes/compile": {
+      "post": {
+        "summary": "Compile Recipe",
+        "operationId": "compile_recipe_v1_recipes_compile_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipeCompileRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/recipes": {
+      "get": {
+        "summary": "List Recipes",
+        "operationId": "list_recipes_v1_recipes_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/recipes/{recipe_id}": {
+      "get": {
+        "summary": "Get Recipe",
+        "operationId": "get_recipe_v1_recipes__recipe_id__get",
+        "parameters": [
+          {
+            "name": "recipe_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Recipe Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/data/profile": {
+      "post": {
+        "summary": "Data Profile",
+        "operationId": "data_profile_v1_data_profile_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InferenceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/data/provenance": {
+      "post": {
+        "summary": "Data Provenance",
+        "operationId": "data_provenance_v1_data_provenance_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InferenceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alignment/windows": {
+      "post": {
+        "summary": "Alignment Windows",
+        "operationId": "alignment_windows_v1_alignment_windows_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemporalAlignmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/drift/baselines": {
+      "post": {
+        "summary": "Create Drift Baseline",
+        "operationId": "create_drift_baseline_v1_drift_baselines_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DriftBaselineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Drift Baselines",
+        "operationId": "list_drift_baselines_v1_drift_baselines_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/drift/check": {
+      "post": {
+        "summary": "Population Drift Check",
+        "operationId": "population_drift_check_v1_drift_check_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PopulationDriftRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pipelines/ingest": {
+      "post": {
+        "summary": "Pipeline Ingest",
+        "operationId": "pipeline_ingest_v1_pipelines_ingest_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PipelineIngestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pipelines/runs": {
+      "get": {
+        "summary": "List Pipeline Runs",
+        "operationId": "list_pipeline_runs_v1_pipelines_runs_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pipelines/runs/{run_id}": {
+      "get": {
+        "summary": "Get Pipeline Run",
+        "operationId": "get_pipeline_run_v1_pipelines_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pipelines/runs/{run_id}/export": {
+      "get": {
+        "summary": "Export Pipeline Run",
+        "operationId": "export_pipeline_run_v1_pipelines_runs__run_id__export_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pipelines/runs/{run_id}/replay": {
+      "post": {
+        "summary": "Replay Pipeline Run",
+        "operationId": "replay_pipeline_run_v1_pipelines_runs__run_id__replay_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/ontology/ingest": {
+      "post": {
+        "summary": "Ontology Ingest",
+        "operationId": "ontology_ingest_v1_ontology_ingest_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OntologyIngestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/ontology/snapshots": {
+      "get": {
+        "summary": "List Ontology Snapshots",
+        "operationId": "list_ontology_snapshots_v1_ontology_snapshots_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/ontology/snapshots/{snapshot_id}": {
+      "get": {
+        "summary": "Get Ontology Snapshot",
+        "operationId": "get_ontology_snapshot_v1_ontology_snapshots__snapshot_id__get",
+        "parameters": [
+          {
+            "name": "snapshot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Snapshot Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/ontology/liability": {
+      "post": {
+        "summary": "Ontology Liability",
+        "operationId": "ontology_liability_v1_ontology_liability_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LiabilitySurfacingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/infer": {
+      "post": {
+        "summary": "Infer",
+        "operationId": "infer_v1_infer_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InferenceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs/video-clean": {
+      "post": {
+        "summary": "Enqueue Video Clean",
+        "operationId": "enqueue_video_clean_v1_jobs_video_clean_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VideoCleaningRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs/batch-infer": {
+      "post": {
+        "summary": "Enqueue Batch Infer",
+        "operationId": "enqueue_batch_infer_v1_jobs_batch_infer_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchInferenceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs": {
+      "get": {
+        "summary": "List Jobs",
+        "operationId": "list_jobs_v1_jobs_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs/{job_id}": {
+      "get": {
+        "summary": "Get Job",
+        "operationId": "get_job_v1_jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/retrieval/upsert": {
+      "post": {
+        "summary": "Retrieval Upsert",
+        "operationId": "retrieval_upsert_v1_retrieval_upsert_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetrievalUpsertRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/retrieval/query": {
+      "post": {
+        "summary": "Retrieval Query",
+        "operationId": "retrieval_query_v1_retrieval_query_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetrievalQueryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/video/packet": {
+      "post": {
+        "summary": "Video Packet",
+        "operationId": "video_packet_v1_video_packet_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VideoPacketRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/video/clean": {
+      "post": {
+        "summary": "Video Clean",
+        "operationId": "video_clean_v1_video_clean_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VideoCleaningRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/benchmarks/smoke": {
+      "get": {
+        "summary": "Smoke Benchmark",
+        "operationId": "smoke_benchmark_v1_benchmarks_smoke_get",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "adaptive_transformer",
+              "title": "Model Id"
+            }
+          },
+          {
+            "name": "iterations",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Iterations"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "summary": "Metrics",
+        "operationId": "metrics_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiTraceRecord": {
+        "properties": {
+          "trace_id": {
+            "type": "string",
+            "title": "Trace Id"
+          },
+          "route": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Route"
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Action"
+          },
+          "source_region": {
+            "type": "string",
+            "title": "Source Region",
+            "default": ""
+          },
+          "destination_region": {
+            "type": "string",
+            "title": "Destination Region",
+            "default": ""
+          },
+          "transport_encrypted": {
+            "type": "boolean",
+            "title": "Transport Encrypted",
+            "default": true
+          },
+          "data_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Data Categories"
+          },
+          "actor": {
+            "type": "string",
+            "title": "Actor",
+            "default": ""
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "route",
+          "action"
+        ],
+        "title": "ApiTraceRecord"
+      },
+      "AudioEnergyPoint": {
+        "properties": {
+          "timestamp_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Timestamp Ms"
+          },
+          "energy": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Energy"
+          }
+        },
+        "type": "object",
+        "required": [
+          "timestamp_ms",
+          "energy"
+        ],
+        "title": "AudioEnergyPoint"
+      },
+      "BatchInferenceRequest": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label",
+            "default": "batch-inference"
+          },
+          "requests": {
+            "items": {
+              "$ref": "#/components/schemas/InferenceRequest"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "minItems": 1,
+            "title": "Requests"
+          }
+        },
+        "type": "object",
+        "required": [
+          "requests"
+        ],
+        "title": "BatchInferenceRequest"
+      },
+      "BiasAssessmentRequest": {
+        "properties": {
+          "system_name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "System Name"
+          },
+          "active_stages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Active Stages"
+          },
+          "observed_signals": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Observed Signals"
+          },
+          "data_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Data Categories"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "system_name",
+          "active_stages"
+        ],
+        "title": "BiasAssessmentRequest"
+      },
+      "ConnectorConfig": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "local_csv",
+              "local_jsonl",
+              "local_parquet",
+              "s3_parquet",
+              "http_json",
+              "http_ndjson"
+            ],
+            "title": "Kind"
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Source"
+          },
+          "records_path": {
+            "type": "string",
+            "title": "Records Path",
+            "default": ""
+          },
+          "headers_env": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Headers Env"
+          },
+          "secret_env": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Secret Env"
+          },
+          "region": {
+            "type": "string",
+            "title": "Region",
+            "default": ""
+          },
+          "endpoint_url": {
+            "type": "string",
+            "title": "Endpoint Url",
+            "default": ""
+          },
+          "timeout_seconds": {
+            "type": "number",
+            "maximum": 60.0,
+            "minimum": 0.5,
+            "title": "Timeout Seconds",
+            "default": 10.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "source"
+        ],
+        "title": "ConnectorConfig"
+      },
+      "ConnectorModalityMapping": {
+        "properties": {
+          "modality": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "sensor",
+              "tabular"
+            ],
+            "title": "Modality"
+          },
+          "feature_fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 256,
+            "minItems": 1,
+            "title": "Feature Fields"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "modality",
+          "feature_fields"
+        ],
+        "title": "ConnectorModalityMapping"
+      },
+      "ConnectorPipelineIngestRequest": {
+        "properties": {
+          "connector": {
+            "$ref": "#/components/schemas/ConnectorConfig"
+          },
+          "dataset_name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Dataset Name"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Owner"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Version"
+          },
+          "stream_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Stream Id"
+          },
+          "batch_label": {
+            "type": "string",
+            "title": "Batch Label",
+            "default": "default"
+          },
+          "model_id": {
+            "type": "string",
+            "title": "Model Id",
+            "default": "adaptive_transformer"
+          },
+          "runtime_mode": {
+            "type": "string",
+            "enum": [
+              "contract",
+              "research"
+            ],
+            "title": "Runtime Mode",
+            "default": "contract"
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "embedding",
+              "classification",
+              "retrieval",
+              "translation"
+            ],
+            "title": "Target",
+            "default": "embedding"
+          },
+          "num_classes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 2.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Num Classes"
+          },
+          "modality_mappings": {
+            "items": {
+              "$ref": "#/components/schemas/ConnectorModalityMapping"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Modality Mappings"
+          },
+          "partition_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Partition Keys"
+          },
+          "primary_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Primary Keys"
+          },
+          "baseline_label": {
+            "type": "string",
+            "title": "Baseline Label",
+            "default": ""
+          },
+          "block_population_drift": {
+            "type": "boolean",
+            "title": "Block Population Drift",
+            "default": true
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 5000.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 256
+          },
+          "sample_size": {
+            "type": "integer",
+            "maximum": 25.0,
+            "minimum": 1.0,
+            "title": "Sample Size",
+            "default": 5
+          },
+          "partition_key_field": {
+            "type": "string",
+            "title": "Partition Key Field",
+            "default": ""
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "drop_invalid_rows": {
+            "type": "boolean",
+            "title": "Drop Invalid Rows",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "connector",
+          "dataset_name",
+          "owner",
+          "version",
+          "stream_id",
+          "modality_mappings"
+        ],
+        "title": "ConnectorPipelineIngestRequest"
+      },
+      "ConnectorRegistrationRequest": {
+        "properties": {
+          "connector": {
+            "$ref": "#/components/schemas/ConnectorConfig"
+          },
+          "dataset_name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Dataset Name"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Owner"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Version"
+          },
+          "modality": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "sensor",
+              "tabular"
+            ],
+            "title": "Modality",
+            "default": "tabular"
+          },
+          "partition_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Partition Keys"
+          },
+          "primary_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Primary Keys"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 5000.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 256
+          },
+          "sample_size": {
+            "type": "integer",
+            "maximum": 25.0,
+            "minimum": 1.0,
+            "title": "Sample Size",
+            "default": 5
+          }
+        },
+        "type": "object",
+        "required": [
+          "connector",
+          "dataset_name",
+          "owner",
+          "version"
+        ],
+        "title": "ConnectorRegistrationRequest"
+      },
+      "DatasetEvolutionRequest": {
+        "properties": {
+          "dataset_name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Dataset Name"
+          },
+          "candidate_version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Candidate Version"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/DatasetField"
+            },
+            "type": "array",
+            "maxItems": 512,
+            "minItems": 1,
+            "title": "Fields"
+          }
+        },
+        "type": "object",
+        "required": [
+          "dataset_name",
+          "candidate_version",
+          "fields"
+        ],
+        "title": "DatasetEvolutionRequest"
+      },
+      "DatasetField": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "dtype": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Dtype"
+          },
+          "nullable": {
+            "type": "boolean",
+            "title": "Nullable",
+            "default": true
+          },
+          "semantic_role": {
+            "type": "string",
+            "title": "Semantic Role",
+            "default": ""
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "dtype"
+        ],
+        "title": "DatasetField"
+      },
+      "DatasetRegistrationRequest": {
+        "properties": {
+          "dataset_name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Dataset Name"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Owner"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Version"
+          },
+          "modality": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "sensor",
+              "tabular"
+            ],
+            "title": "Modality"
+          },
+          "partition_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Partition Keys"
+          },
+          "primary_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Primary Keys"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/DatasetField"
+            },
+            "type": "array",
+            "maxItems": 512,
+            "minItems": 1,
+            "title": "Fields"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "dataset_name",
+          "owner",
+          "version",
+          "modality",
+          "fields"
+        ],
+        "title": "DatasetRegistrationRequest"
+      },
+      "DomainArtifact": {
+        "properties": {
+          "artifact_id": {
+            "type": "string",
+            "title": "Artifact Id"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Title"
+          },
+          "artifact_type": {
+            "type": "string",
+            "enum": [
+              "api_schema",
+              "workflow",
+              "contract",
+              "policy",
+              "repo_manifest",
+              "data_dictionary"
+            ],
+            "title": "Artifact Type"
+          },
+          "control_depth": {
+            "type": "string",
+            "enum": [
+              "surface",
+              "context",
+              "governance"
+            ],
+            "title": "Control Depth"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Body"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "artifact_type",
+          "control_depth",
+          "body"
+        ],
+        "title": "DomainArtifact"
+      },
+      "DriftBaselineRequest": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Label"
+          },
+          "request": {
+            "$ref": "#/components/schemas/InferenceRequest"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "request"
+        ],
+        "title": "DriftBaselineRequest"
+      },
+      "FrameSignal": {
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Index"
+          },
+          "timestamp_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Timestamp Ms"
+          },
+          "motion_score": {
+            "type": "number",
+            "title": "Motion Score",
+            "default": 0.0
+          },
+          "focus_score": {
+            "type": "number",
+            "title": "Focus Score",
+            "default": 0.0
+          },
+          "brightness": {
+            "type": "number",
+            "title": "Brightness",
+            "default": 0.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "index",
+          "timestamp_ms"
+        ],
+        "title": "FrameSignal"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "InferenceRequest": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "title": "Model Id",
+            "default": "adaptive_transformer"
+          },
+          "runtime_mode": {
+            "type": "string",
+            "enum": [
+              "contract",
+              "research"
+            ],
+            "title": "Runtime Mode",
+            "default": "contract"
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "embedding",
+              "classification",
+              "retrieval",
+              "translation"
+            ],
+            "title": "Target",
+            "default": "embedding"
+          },
+          "num_classes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 2.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Num Classes"
+          },
+          "return_embeddings": {
+            "type": "boolean",
+            "title": "Return Embeddings",
+            "default": true
+          },
+          "return_uncertainty": {
+            "type": "boolean",
+            "title": "Return Uncertainty",
+            "default": false
+          },
+          "modalities": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/TensorPayload"
+            },
+            "propertyNames": {
+              "enum": [
+                "text",
+                "image",
+                "audio",
+                "video",
+                "sensor",
+                "tabular"
+              ]
+            },
+            "type": "object",
+            "title": "Modalities"
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "modalities"
+        ],
+        "title": "InferenceRequest"
+      },
+      "LiabilitySurfacingRequest": {
+        "properties": {
+          "snapshot_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Snapshot Id"
+          },
+          "traces": {
+            "items": {
+              "$ref": "#/components/schemas/ApiTraceRecord"
+            },
+            "type": "array",
+            "maxItems": 1024,
+            "minItems": 1,
+            "title": "Traces"
+          }
+        },
+        "type": "object",
+        "required": [
+          "snapshot_id",
+          "traces"
+        ],
+        "title": "LiabilitySurfacingRequest"
+      },
+      "OntologyIngestRequest": {
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Tenant Id"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Label"
+          },
+          "artifacts": {
+            "items": {
+              "$ref": "#/components/schemas/DomainArtifact"
+            },
+            "type": "array",
+            "maxItems": 256,
+            "minItems": 1,
+            "title": "Artifacts"
+          },
+          "zone_cells": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Zone Cells"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tenant_id",
+          "label",
+          "artifacts"
+        ],
+        "title": "OntologyIngestRequest"
+      },
+      "PipelineEvent": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "title": "Event Id"
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Source"
+          },
+          "modality": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "sensor",
+              "tabular"
+            ],
+            "title": "Modality"
+          },
+          "observed_at": {
+            "type": "string",
+            "title": "Observed At"
+          },
+          "tensor": {
+            "$ref": "#/components/schemas/TensorPayload"
+          },
+          "partition_key": {
+            "type": "string",
+            "title": "Partition Key",
+            "default": ""
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "modality",
+          "tensor"
+        ],
+        "title": "PipelineEvent"
+      },
+      "PipelineIngestRequest": {
+        "properties": {
+          "stream_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Stream Id"
+          },
+          "batch_label": {
+            "type": "string",
+            "title": "Batch Label",
+            "default": "default"
+          },
+          "model_id": {
+            "type": "string",
+            "title": "Model Id",
+            "default": "adaptive_transformer"
+          },
+          "runtime_mode": {
+            "type": "string",
+            "enum": [
+              "contract",
+              "research"
+            ],
+            "title": "Runtime Mode",
+            "default": "contract"
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "embedding",
+              "classification",
+              "retrieval",
+              "translation"
+            ],
+            "title": "Target",
+            "default": "embedding"
+          },
+          "num_classes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 2.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Num Classes"
+          },
+          "baseline_label": {
+            "type": "string",
+            "title": "Baseline Label",
+            "default": ""
+          },
+          "block_population_drift": {
+            "type": "boolean",
+            "title": "Block Population Drift",
+            "default": true
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/PipelineEvent"
+            },
+            "type": "array",
+            "maxItems": 512,
+            "minItems": 1,
+            "title": "Events"
+          }
+        },
+        "type": "object",
+        "required": [
+          "stream_id",
+          "events"
+        ],
+        "title": "PipelineIngestRequest"
+      },
+      "PopulationDriftRequest": {
+        "properties": {
+          "baseline_label": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Baseline Label"
+          },
+          "request": {
+            "$ref": "#/components/schemas/InferenceRequest"
+          },
+          "max_entropy_shift": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Max Entropy Shift",
+            "default": 0.25
+          },
+          "max_zero_shift": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Max Zero Shift",
+            "default": 0.25
+          },
+          "min_finite_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Min Finite Ratio",
+            "default": 0.98
+          },
+          "max_alignment_drop": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Max Alignment Drop",
+            "default": 0.35
+          },
+          "block_on_failure": {
+            "type": "boolean",
+            "title": "Block On Failure",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "baseline_label",
+          "request"
+        ],
+        "title": "PopulationDriftRequest"
+      },
+      "RecipeCompileRequest": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Label"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Owner"
+          },
+          "objective": {
+            "type": "string",
+            "enum": [
+              "finetune",
+              "alignment_eval",
+              "retrieval_index",
+              "video_cleanup_batch",
+              "cross_modal_qa"
+            ],
+            "title": "Objective",
+            "default": "finetune"
+          },
+          "model": {
+            "$ref": "#/components/schemas/RecipeModelSpec"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/RecipeSourceSpec"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "minItems": 1,
+            "title": "Sources"
+          },
+          "training": {
+            "$ref": "#/components/schemas/RecipeTrainingSpec"
+          },
+          "distributed": {
+            "$ref": "#/components/schemas/RecipeDistributedSpec"
+          },
+          "evaluation": {
+            "$ref": "#/components/schemas/RecipeEvaluationSpec"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "owner",
+          "model",
+          "sources"
+        ],
+        "title": "RecipeCompileRequest"
+      },
+      "RecipeDistributedSpec": {
+        "properties": {
+          "engine": {
+            "type": "string",
+            "enum": [
+              "local",
+              "ddp",
+              "deepspeed",
+              "fsdp"
+            ],
+            "title": "Engine",
+            "default": "local"
+          },
+          "node_count": {
+            "type": "integer",
+            "maximum": 256.0,
+            "minimum": 1.0,
+            "title": "Node Count",
+            "default": 1
+          },
+          "devices_per_node": {
+            "type": "integer",
+            "maximum": 64.0,
+            "minimum": 1.0,
+            "title": "Devices Per Node",
+            "default": 1
+          },
+          "zero_stage": {
+            "type": "integer",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Zero Stage",
+            "default": 0
+          },
+          "gradient_checkpointing": {
+            "type": "boolean",
+            "title": "Gradient Checkpointing",
+            "default": true
+          },
+          "offload_optimizer": {
+            "type": "boolean",
+            "title": "Offload Optimizer",
+            "default": false
+          },
+          "launcher_env": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Launcher Env"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "title": "RecipeDistributedSpec"
+      },
+      "RecipeEvaluationSpec": {
+        "properties": {
+          "metrics": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Metrics"
+          },
+          "primary_metric": {
+            "type": "string",
+            "title": "Primary Metric",
+            "default": "loss"
+          },
+          "minimum_thresholds": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Minimum Thresholds"
+          },
+          "holdout_split": {
+            "type": "number",
+            "maximum": 0.9,
+            "minimum": 0.0,
+            "title": "Holdout Split",
+            "default": 0.1
+          },
+          "latency_budget_ms": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latency Budget Ms"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "title": "RecipeEvaluationSpec"
+      },
+      "RecipeModelSpec": {
+        "properties": {
+          "model_ref": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Model Ref"
+          },
+          "family": {
+            "type": "string",
+            "title": "Family",
+            "default": "vision-language"
+          },
+          "context_length": {
+            "type": "integer",
+            "maximum": 262144.0,
+            "minimum": 256.0,
+            "title": "Context Length",
+            "default": 8192
+          },
+          "adapter_kind": {
+            "type": "string",
+            "enum": [
+              "none",
+              "lora",
+              "qlora",
+              "full_finetune"
+            ],
+            "title": "Adapter Kind",
+            "default": "lora"
+          },
+          "precision": {
+            "type": "string",
+            "enum": [
+              "fp32",
+              "fp16",
+              "bf16",
+              "int8",
+              "int4"
+            ],
+            "title": "Precision",
+            "default": "bf16"
+          },
+          "freeze_vision_tower": {
+            "type": "boolean",
+            "title": "Freeze Vision Tower",
+            "default": true
+          },
+          "freeze_projector": {
+            "type": "boolean",
+            "title": "Freeze Projector",
+            "default": false
+          },
+          "target_modules": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Target Modules"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model_ref"
+        ],
+        "title": "RecipeModelSpec"
+      },
+      "RecipeSourceSpec": {
+        "properties": {
+          "split": {
+            "type": "string",
+            "enum": [
+              "train",
+              "eval",
+              "test",
+              "predict"
+            ],
+            "title": "Split",
+            "default": "train"
+          },
+          "modality": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "sensor",
+              "tabular"
+            ],
+            "title": "Modality"
+          },
+          "dataset_name": {
+            "type": "string",
+            "title": "Dataset Name",
+            "default": ""
+          },
+          "dataset_version": {
+            "type": "string",
+            "title": "Dataset Version",
+            "default": ""
+          },
+          "dataset_id": {
+            "type": "string",
+            "title": "Dataset Id",
+            "default": ""
+          },
+          "source_uri": {
+            "type": "string",
+            "title": "Source Uri",
+            "default": ""
+          },
+          "connector_kind": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "local_csv",
+                  "local_jsonl",
+                  "local_parquet",
+                  "s3_parquet",
+                  "http_json",
+                  "http_ndjson"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Connector Kind"
+          },
+          "expected_rows": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Rows"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "modality"
+        ],
+        "title": "RecipeSourceSpec"
+      },
+      "RecipeTrainingSpec": {
+        "properties": {
+          "epochs": {
+            "type": "number",
+            "maximum": 100.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Epochs",
+            "default": 1.0
+          },
+          "micro_batch_size": {
+            "type": "integer",
+            "maximum": 2048.0,
+            "minimum": 1.0,
+            "title": "Micro Batch Size",
+            "default": 1
+          },
+          "gradient_accumulation_steps": {
+            "type": "integer",
+            "maximum": 4096.0,
+            "minimum": 1.0,
+            "title": "Gradient Accumulation Steps",
+            "default": 1
+          },
+          "learning_rate": {
+            "type": "number",
+            "exclusiveMaximum": 10.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Learning Rate",
+            "default": 2e-05
+          },
+          "weight_decay": {
+            "type": "number",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Weight Decay",
+            "default": 0.0
+          },
+          "warmup_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Warmup Ratio",
+            "default": 0.03
+          },
+          "max_steps": {
+            "type": "integer",
+            "maximum": 10000000.0,
+            "minimum": 0.0,
+            "title": "Max Steps",
+            "default": 0
+          },
+          "eval_interval_steps": {
+            "type": "integer",
+            "maximum": 10000000.0,
+            "minimum": 0.0,
+            "title": "Eval Interval Steps",
+            "default": 250
+          },
+          "save_interval_steps": {
+            "type": "integer",
+            "maximum": 10000000.0,
+            "minimum": 0.0,
+            "title": "Save Interval Steps",
+            "default": 500
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Seed",
+            "default": 42
+          }
+        },
+        "type": "object",
+        "title": "RecipeTrainingSpec"
+      },
+      "RetrievalQueryRequest": {
+        "properties": {
+          "modality": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "sensor",
+              "tabular"
+            ],
+            "title": "Modality"
+          },
+          "vector": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Vector"
+          },
+          "top_k": {
+            "type": "integer",
+            "maximum": 25.0,
+            "minimum": 1.0,
+            "title": "Top K",
+            "default": 5
+          },
+          "metadata_filter": {
+            "type": "object",
+            "title": "Metadata Filter"
+          }
+        },
+        "type": "object",
+        "required": [
+          "modality",
+          "vector"
+        ],
+        "title": "RetrievalQueryRequest"
+      },
+      "RetrievalRecord": {
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "title": "Record Id"
+          },
+          "modality": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "sensor",
+              "tabular"
+            ],
+            "title": "Modality"
+          },
+          "vector": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Vector"
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "record_id",
+          "modality",
+          "vector"
+        ],
+        "title": "RetrievalRecord"
+      },
+      "RetrievalUpsertRequest": {
+        "properties": {
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/RetrievalRecord"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Records"
+          }
+        },
+        "type": "object",
+        "required": [
+          "records"
+        ],
+        "title": "RetrievalUpsertRequest"
+      },
+      "TemporalAlignmentRequest": {
+        "properties": {
+          "observations": {
+            "items": {
+              "$ref": "#/components/schemas/TemporalObservation"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Observations"
+          },
+          "merge_gap_ms": {
+            "type": "integer",
+            "maximum": 3000.0,
+            "minimum": 0.0,
+            "title": "Merge Gap Ms",
+            "default": 120
+          },
+          "minimum_modalities": {
+            "type": "integer",
+            "maximum": 6.0,
+            "minimum": 1.0,
+            "title": "Minimum Modalities",
+            "default": 2
+          },
+          "include_singletons": {
+            "type": "boolean",
+            "title": "Include Singletons",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "observations"
+        ],
+        "title": "TemporalAlignmentRequest"
+      },
+      "TemporalObservation": {
+        "properties": {
+          "modality": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "sensor",
+              "tabular"
+            ],
+            "title": "Modality"
+          },
+          "start_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Start Ms"
+          },
+          "end_ms": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "End Ms"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "default": 1.0
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id",
+            "default": ""
+          },
+          "note": {
+            "type": "string",
+            "title": "Note",
+            "default": ""
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "modality",
+          "start_ms",
+          "end_ms"
+        ],
+        "title": "TemporalObservation"
+      },
+      "TensorPayload": {
+        "properties": {
+          "shape": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "minItems": 2,
+            "title": "Shape",
+            "description": "Tensor shape, e.g. [batch, seq, dim]"
+          },
+          "values": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Values",
+            "description": "Flattened tensor values in row-major order"
+          },
+          "dtype": {
+            "type": "string",
+            "title": "Dtype",
+            "default": "float32"
+          }
+        },
+        "type": "object",
+        "required": [
+          "shape",
+          "values"
+        ],
+        "title": "TensorPayload"
+      },
+      "TranscriptToken": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Token"
+          },
+          "start_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Start Ms"
+          },
+          "end_ms": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "End Ms"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "default": 1.0
+          },
+          "speaker": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speaker"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token",
+          "start_ms",
+          "end_ms"
+        ],
+        "title": "TranscriptToken"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VideoCleaningRequest": {
+        "properties": {
+          "clip_id": {
+            "type": "string",
+            "title": "Clip Id"
+          },
+          "duration_ms": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Duration Ms"
+          },
+          "transcript": {
+            "items": {
+              "$ref": "#/components/schemas/TranscriptToken"
+            },
+            "type": "array",
+            "title": "Transcript"
+          },
+          "frames": {
+            "items": {
+              "$ref": "#/components/schemas/FrameSignal"
+            },
+            "type": "array",
+            "title": "Frames"
+          },
+          "audio_energy": {
+            "items": {
+              "$ref": "#/components/schemas/AudioEnergyPoint"
+            },
+            "type": "array",
+            "title": "Audio Energy"
+          },
+          "objective": {
+            "type": "string",
+            "enum": [
+              "cleanup",
+              "summary",
+              "retrieval",
+              "qa"
+            ],
+            "title": "Objective",
+            "default": "cleanup"
+          },
+          "silence_threshold_ms": {
+            "type": "integer",
+            "maximum": 3000.0,
+            "minimum": 150.0,
+            "title": "Silence Threshold Ms",
+            "default": 650
+          },
+          "filler_words": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Filler Words"
+          },
+          "max_cut_ms": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 100.0,
+            "title": "Max Cut Ms",
+            "default": 2200
+          }
+        },
+        "type": "object",
+        "required": [
+          "clip_id",
+          "duration_ms"
+        ],
+        "title": "VideoCleaningRequest"
+      },
+      "VideoPacketRequest": {
+        "properties": {
+          "clip_id": {
+            "type": "string",
+            "title": "Clip Id"
+          },
+          "duration_ms": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Duration Ms"
+          },
+          "transcript": {
+            "items": {
+              "$ref": "#/components/schemas/TranscriptToken"
+            },
+            "type": "array",
+            "title": "Transcript"
+          },
+          "frames": {
+            "items": {
+              "$ref": "#/components/schemas/FrameSignal"
+            },
+            "type": "array",
+            "title": "Frames"
+          },
+          "audio_energy": {
+            "items": {
+              "$ref": "#/components/schemas/AudioEnergyPoint"
+            },
+            "type": "array",
+            "title": "Audio Energy"
+          },
+          "objective": {
+            "type": "string",
+            "enum": [
+              "cleanup",
+              "summary",
+              "retrieval",
+              "qa"
+            ],
+            "title": "Objective",
+            "default": "cleanup"
+          }
+        },
+        "type": "object",
+        "required": [
+          "clip_id",
+          "duration_ms"
+        ],
+        "title": "VideoPacketRequest"
+      }
+    }
+  }
+}

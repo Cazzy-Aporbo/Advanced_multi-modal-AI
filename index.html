@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Multi-modal AI · Signal Atlas</title>
+  <meta name="description" content="A multimodal signal atlas for orchestration, retrieval, quality profiling, provenance receipts, temporal alignment, and transcript-first video evidence planning.">
+  <style>
+    :root {
+      --bg: #120f0d;
+      --surface: rgba(34, 25, 21, 0.78);
+      --surface-strong: rgba(47, 34, 28, 0.96);
+      --line: rgba(233, 219, 204, 0.14);
+      --text: #f6efe8;
+      --muted: #cbbbaa;
+      --copper: #df9c5f;
+      --jade: #8fc9be;
+      --rose: #d7a9b8;
+      --glow: rgba(223, 156, 95, 0.28);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(143, 201, 190, 0.12), transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(215, 169, 184, 0.13), transparent 28%),
+        radial-gradient(circle at 60% 75%, rgba(223, 156, 95, 0.10), transparent 30%),
+        linear-gradient(180deg, #120f0d 0%, #181311 48%, #0f0c0a 100%);
+      font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(circle at center, black, transparent 80%);
+      pointer-events: none;
+      opacity: 0.32;
+    }
+
+    .shell {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 24px 0 88px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(17, 13, 11, 0.78);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 16px;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 28% 28%, rgba(143, 201, 190, 0.95), transparent 28%),
+        radial-gradient(circle at 72% 38%, rgba(223, 156, 95, 0.95), transparent 24%),
+        radial-gradient(circle at 48% 72%, rgba(215, 169, 184, 0.9), transparent 24%),
+        rgba(255, 255, 255, 0.03);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 0 28px rgba(143, 201, 190, 0.16);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, rgba(143, 201, 190, 0.1), rgba(215, 169, 184, 0.08));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+      min-width: 180px;
+    }
+
+    .nav-meta strong {
+      font-size: 0.95rem;
+      color: var(--text);
+      letter-spacing: 0.08em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nav-meta span {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links a,
+    .pill,
+    .card-link {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.06);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .pill:hover,
+    .card-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(223, 156, 95, 0.45);
+      background: rgba(223, 156, 95, 0.12);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      margin-top: 28px;
+      align-items: stretch;
+    }
+
+    .hero-panel,
+    .hero-map,
+    .section-panel,
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: auto -120px -120px auto;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(223, 156, 95, 0.14), transparent 68%);
+      filter: blur(6px);
+      animation: drift 14s ease-in-out infinite;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(125deg, transparent 0%, rgba(143, 201, 190, 0.03) 32%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow,
+    .section-label {
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--copper);
+      margin-bottom: 14px;
+    }
+
+    h1, h2, h3 {
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      font-weight: 600;
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 6vw, 5.8rem);
+      max-width: 8ch;
+      background: linear-gradient(135deg, #f6efe8 0%, #f2cfdd 40%, #9fe0d4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-panel p {
+      max-width: 60ch;
+      color: var(--muted);
+      font-size: 1.04rem;
+      margin: 20px 0 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-ribbon {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-ribbon-card {
+      padding: 14px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      min-height: 104px;
+    }
+
+    .hero-ribbon-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-size: 1.02rem;
+    }
+
+    .hero-ribbon-card div {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, rgba(223, 156, 95, 0.2), rgba(143, 201, 190, 0.15));
+      border-color: rgba(223, 156, 95, 0.34);
+      box-shadow: 0 0 0 1px rgba(223, 156, 95, 0.08), 0 16px 38px rgba(223, 156, 95, 0.12);
+    }
+
+    .hero-map {
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-map::before,
+    .hero-map::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(143, 201, 190, 0.18);
+      animation: breathe 7s ease-in-out infinite;
+    }
+
+    .hero-map::before {
+      width: 220px;
+      height: 220px;
+      right: -20px;
+      top: 22px;
+    }
+
+    .hero-map::after {
+      width: 320px;
+      height: 320px;
+      left: 24px;
+      bottom: -120px;
+      animation-delay: -3s;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: 0.62; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    .ring-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ring-card {
+      min-height: 158px;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      transform-style: preserve-3d;
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+
+    .ring-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .ring-card p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 0.96rem;
+    }
+
+    .ring-card:hover {
+      transform: translateY(-2px) rotateX(2deg) rotateY(-2deg);
+      border-color: rgba(223, 156, 95, 0.28);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 36px 0 16px;
+    }
+
+    .pill.active {
+      border-color: rgba(143, 201, 190, 0.45);
+      background: rgba(143, 201, 190, 0.12);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 22px;
+      min-height: 270px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto -30px -30px auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(143, 201, 190, 0.16), transparent 66%);
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(223, 156, 95, 0.26);
+      background: rgba(44, 31, 27, 0.84);
+    }
+
+    .card[data-group="connectors"]::after { background: radial-gradient(circle, rgba(143, 201, 190, 0.2), transparent 66%); }
+    .card[data-group="catalog"]::after { background: radial-gradient(circle, rgba(223, 156, 95, 0.2), transparent 66%); }
+    .card[data-group="governance"]::after { background: radial-gradient(circle, rgba(215, 169, 184, 0.2), transparent 66%); }
+    .card[data-group="video"]::after { background: radial-gradient(circle, rgba(169, 196, 255, 0.18), transparent 66%); }
+
+    .card h3 {
+      font-size: 1.55rem;
+      margin-bottom: 8px;
+    }
+
+    .card p,
+    .list li,
+    .map-note {
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .stat {
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 2.4rem;
+      font-family: "Iowan Old Style", Georgia, serif;
+      color: var(--jade);
+      margin-bottom: 8px;
+    }
+
+    .stat strong.live {
+      background: linear-gradient(135deg, #f6efe8 0%, #9fe0d4 40%, #f0c2d8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section {
+      margin-top: 44px;
+    }
+
+    .section-panel {
+      padding: 30px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      margin-top: 18px;
+    }
+
+    .list {
+      margin: 18px 0 0;
+      padding-left: 18px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .timeline-step span {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(223, 156, 95, 0.14);
+      border: 1px solid rgba(223, 156, 95, 0.3);
+      color: var(--copper);
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .code-block {
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: rgba(9, 7, 6, 0.7);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #f3e5d4;
+      overflow-x: auto;
+      white-space: pre;
+      font-family: "SFMono-Regular", "Consolas", monospace;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .proof-shell {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .proof-monitor,
+    .proof-stage {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proof-monitor::after,
+    .proof-stage::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -48px;
+      bottom: -72px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(143, 201, 190, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .proof-clock {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.06em;
+      margin: 8px 0 4px;
+      color: #f5d7e5;
+    }
+
+    .proof-monitor-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .proof-mini {
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .proof-mini strong {
+      display: block;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .proof-mini span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .proof-stage h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .proof-stage p {
+      color: var(--muted);
+      margin: 0;
+      min-height: 110px;
+    }
+
+    .proof-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+
+    .proof-table th,
+    .proof-table td {
+      text-align: left;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+    }
+
+    .proof-table th {
+      color: var(--text);
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      width: 34%;
+    }
+
+    .proof-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .proof-nav {
+      display: inline-flex;
+      gap: 10px;
+    }
+
+    .proof-button {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .proof-button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(223, 156, 95, 0.35);
+    }
+
+    .proof-dots {
+      display: inline-flex;
+      gap: 8px;
+    }
+
+    .proof-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.16);
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    .proof-dot.active {
+      background: linear-gradient(135deg, var(--copper), var(--jade));
+      transform: scale(1.2);
+    }
+
+    .flow-shell,
+    .job-shell {
+      display: grid;
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .flow-rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(220px, 1fr);
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .flow-step-button,
+    .job-row {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      padding: 16px 18px;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+    }
+
+    .flow-step-button:hover,
+    .job-row:hover,
+    .flow-step-button.active,
+    .job-row.active {
+      border-color: rgba(143, 201, 190, 0.45);
+      background: rgba(143, 201, 190, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .flow-step-button strong,
+    .job-row strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .flow-detail,
+    .job-detail {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .job-shell {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    }
+
+    .job-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    .mini-table th,
+    .mini-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align: left;
+      color: var(--muted);
+    }
+
+    .mini-table th {
+      color: var(--text);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    [data-group] { transition: opacity 180ms ease, transform 180ms ease; }
+    [data-group].hidden {
+      opacity: 0.18;
+      transform: scale(0.985);
+      pointer-events: none;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .split,
+      .proof-shell,
+      .cards,
+      .stats,
+      .job-shell { grid-template-columns: 1fr 1fr; }
+      h1 { max-width: none; }
+    }
+
+    @media (max-width: 720px) {
+      .shell { width: min(100vw - 18px, 100%); padding-top: 14px; }
+      .nav { border-radius: 26px; align-items: flex-start; }
+      .hero,
+      .split,
+      .proof-shell,
+      .cards,
+      .stats,
+      .job-shell,
+      .ring-grid,
+      .hero-ribbon { grid-template-columns: 1fr; }
+      .hero-panel,
+      .hero-map,
+      .section-panel,
+      .card { padding: 22px; }
+      h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div>
+          <div>Advanced Multi-modal AI</div>
+          <div style="letter-spacing:0.1em; text-transform:none; font-size:0.72rem;">signal atlas</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <div class="nav-meta">
+          <span>local time</span>
+          <strong id="live-clock-nav">--:--:--</strong>
+        </div>
+        <a href="advanced-technical-portfolio.html">architecture</a>
+        <a href="technical-portfolio.html">catalog</a>
+        <a href="README.md">readme</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-panel">
+        <div class="eyebrow">Runtime atlas</div>
+        <h1>Research kept visible. Runtime kept accountable.</h1>
+        <p>
+          The repository now keeps its experimental archive and its working edge
+          in better order. Quality checks, provenance receipts, drift baselines,
+          pipeline runs, ontology snapshots, liability checks, and transcript-first
+          video review all sit beside inference instead of being treated as an
+          afterthought.
+        </p>
+        <div class="hero-actions">
+          <a class="pill primary" href="advanced-technical-portfolio.html">Read the architecture</a>
+          <a class="pill" href="technical-portfolio.html">Browse the components</a>
+          <a class="pill" href="examples/README.md">Run the examples</a>
+        </div>
+        <div class="hero-ribbon">
+          <div class="hero-ribbon-card">
+            <strong>Connector-fed</strong>
+            <div>Rows can enter through typed file and HTTP lanes before they become modality tensors.</div>
+          </div>
+          <div class="hero-ribbon-card">
+            <strong>Replayable</strong>
+            <div>Persisted pipeline runs can now be exported as NDJSON and replayed through the current runtime.</div>
+          </div>
+          <div class="hero-ribbon-card">
+            <strong>Proven</strong>
+            <div>Proof, attestation, generated clients, and the acceptance spine now point to the same backend story.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-map">
+        <div class="section-label">Four active lanes</div>
+        <div class="ring-grid">
+          <article class="ring-card">
+            <h3>Runtime edge</h3>
+            <p>FastAPI contracts for planning, inference, streaming, retrieval, quality, provenance, health, and metrics.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Data plane</h3>
+            <p>Each modality can now be profiled, aligned, and hashed before a fused story is trusted.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Population drift</h3>
+            <p>Reviewed baselines can be saved and compared against new traffic before a new cohort quietly becomes normal.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Dataset contracts</h3>
+            <p>Versioned dataset schemas, deterministic fingerprints, and evolution checks now live in the runtime instead of in notes around it.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Connector lane</h3>
+            <p>Typed CSV, Parquet, NDJSON, and HTTP row pulls can now register contracts and feed measured pipeline runs.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Recipe registry</h3>
+            <p>Compiled manifests can now resolve catalog evidence, shape launch topology, and export a checked handoff record.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Governance graph</h3>
+            <p>Contracts, schemas, and workflow notes can be compiled into ontology snapshots and compared against live route traces.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Video packet</h3>
+            <p>Transcript timing first, frame and audio signals second, cleanup suggestions returned with evidence.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Rust signal core</h3>
+            <p>Deterministic tensor signatures and temporal cut logic now live in a compiled lane instead of only Python helpers.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Research bridge</h3>
+            <p>Existing PyTorch assets remain visible and loadable where the runtime can honestly support them.</p>
+          </article>
+          <article class="ring-card">
+            <h3>Operations</h3>
+            <p>Docker, Compose, Qdrant, Prometheus, CI, a TypeScript SDK, and a cleaner GitHub Pages surface.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="filters">
+      <button class="pill active" data-filter="all">all lanes</button>
+      <button class="pill" data-filter="runtime">runtime</button>
+      <button class="pill" data-filter="catalog">catalog</button>
+      <button class="pill" data-filter="connectors">connectors</button>
+      <button class="pill" data-filter="data-plane">data plane</button>
+      <button class="pill" data-filter="governance">governance</button>
+      <button class="pill" data-filter="video">video</button>
+      <button class="pill" data-filter="research">research</button>
+      <button class="pill" data-filter="operations">operations</button>
+    </div>
+
+    <section class="cards">
+      <article class="card" data-group="runtime">
+        <div>
+          <div class="section-label">API edge</div>
+          <h3>FastAPI surface</h3>
+          <p>Health, readiness, plan, infer, stream, retrieval, benchmark, and metrics live behind one schema-driven edge.</p>
+        </div>
+        <a class="card-link" href="advanced-technical-portfolio.html#api-surface">open surface</a>
+      </article>
+
+      <article class="card" data-group="data-plane">
+        <div>
+          <div class="section-label">Data plane</div>
+          <h3>Quality, provenance, alignment</h3>
+          <p>Before fusion, the runtime can score modality health, group timed observations, and produce deterministic receipts for repeated payloads.</p>
+        </div>
+        <a class="card-link" href="advanced-technical-portfolio.html#data-plane">inspect lane</a>
+      </article>
+
+      <article class="card" data-group="catalog">
+        <div>
+          <div class="section-label">Catalog lane</div>
+          <h3>Dataset contracts and evolution</h3>
+          <p>Schema versions, fingerprints, partition keys, and breaking-change checks are now part of the backend instead of a manual side ritual.</p>
+        </div>
+        <a class="card-link" href="advanced-technical-portfolio.html#catalog-plane">inspect lane</a>
+      </article>
+
+      <article class="card" data-group="connectors">
+        <div>
+          <div class="section-label">Connector lane</div>
+          <h3>Measured row pulls before tensorization</h3>
+          <p>CSV, Parquet, NDJSON, and HTTP row sources can be profiled, registered, benchmarked, and mapped into pipeline events without a separate preprocessing script.</p>
+        </div>
+        <a class="card-link" href="advanced-technical-portfolio.html#catalog-plane">inspect connectors</a>
+      </article>
+
+      <article class="card" data-group="operations">
+        <div>
+          <div class="section-label">Recipe lane</div>
+          <h3>Compiled recipe registry</h3>
+          <p>Typed manifests can now resolve catalog sources, compute launch topology, export a versioned record, and validate the handoff surface.</p>
+        </div>
+        <a class="card-link" href="advanced-technical-portfolio.html#operations">inspect recipes</a>
+      </article>
+
+      <article class="card" data-group="governance">
+        <div>
+          <div class="section-label">Governance lane</div>
+          <h3>Drift, ontology, liability</h3>
+          <p>Reviewed baselines, enterprise artifact snapshots, and trace comparisons now live in the same runtime instead of in separate slide decks.</p>
+        </div>
+        <a class="card-link" href="advanced-technical-portfolio.html#governance-plane">inspect lane</a>
+      </article>
+
+      <article class="card" data-group="video">
+        <div>
+          <div class="section-label">Temporal lane</div>
+          <h3>Video packet and cleanup</h3>
+          <p>The clip lane builds evidence windows, marks silence gaps, and proposes removable filler spans.</p>
+        </div>
+        <a class="card-link" href="technical-portfolio.html#video-lane">view lane</a>
+      </article>
+
+      <article class="card" data-group="research">
+        <div>
+          <div class="section-label">Model archive</div>
+          <h3>Registry over mythology</h3>
+          <p>The repo names which models are bridged, which are contract-ready, and which remain research assets.</p>
+        </div>
+        <a class="card-link" href="advanced-technical-portfolio.html#model-registry">inspect registry</a>
+      </article>
+
+      <article class="card" data-group="operations">
+        <div>
+          <div class="section-label">Observability</div>
+          <h3>Metrics, retrieval, and SDKs</h3>
+          <p>Prometheus counters, a memory vector index, an optional Qdrant lane, and a TypeScript client make the runtime easier to integrate.</p>
+        </div>
+        <a class="card-link" href="advanced-technical-portfolio.html#operations">inspect stack</a>
+      </article>
+
+      <article class="card" data-group="operations">
+        <div>
+          <div class="section-label">Examples</div>
+          <h3>Generated example bundle</h3>
+          <p>One worked bundle now shows inference, profiling, connector ingest, recipe compilation, video cleanup, benchmark output, proof, and readiness in a single exported artifact.</p>
+        </div>
+        <a class="card-link" href="proof/example-bundle.md">open example bundle</a>
+      </article>
+    </section>
+
+    <section class="stats">
+      <article class="stat">
+        <strong class="live" id="stat-tests-count">29</strong>
+        <div>tests now passing against the runtime surface</div>
+      </article>
+      <article class="stat">
+        <strong id="stat-routes-count">48</strong>
+        <div>public runtime surfaces when the WebSocket stream is counted alongside the HTTP lanes</div>
+      </article>
+      <article class="stat">
+        <strong id="stat-connectors-count">6</strong>
+        <div>connector kinds proven across file, log, and object-style row intake</div>
+      </article>
+      <article class="stat">
+        <strong>4</strong>
+        <div>backend languages now working together across Python, Rust, TypeScript, and SQL</div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-panel">
+        <div class="section-label">Proof ribbon</div>
+        <h2>Visible evidence, not a decorative claim</h2>
+        <div class="proof-shell">
+          <div class="proof-monitor">
+            <div class="section-label">Proof monitor</div>
+            <div class="proof-clock" id="live-clock-panel">--:--:--</div>
+            <p class="map-note">A smaller runtime can still be serious when it shows its routes, tests, artifacts, and stores plainly.</p>
+            <div class="proof-monitor-grid">
+              <div class="proof-mini">
+                <strong id="proof-mini-routes">48 routes</strong>
+                <span>root, HTTP, WebSocket, and metrics surfaces counted together</span>
+              </div>
+              <div class="proof-mini">
+                <strong id="proof-mini-tests">29 tests</strong>
+                <span>API, connector, replay, retrieval, video, and proof surfaces checked</span>
+              </div>
+              <div class="proof-mini">
+                <strong id="proof-mini-connectors">6 connectors</strong>
+                <span>CSV, Parquet, NDJSON, JSON, and NDJSON-over-HTTP typed into one lane</span>
+              </div>
+              <div class="proof-mini">
+                <strong id="proof-mini-proofs">9 proofs</strong>
+                <span>lint, tests, Rust, OpenAPI, SDK generation, readiness export, examples export, acceptance, and TypeScript checks</span>
+              </div>
+            </div>
+          </div>
+          <div class="proof-stage">
+            <div class="section-label">Rotating surface</div>
+            <div id="proof-slide"></div>
+            <div class="proof-controls">
+              <div class="proof-nav">
+                <button class="proof-button" id="proof-prev" aria-label="Previous proof">‹</button>
+                <button class="proof-button" id="proof-next" aria-label="Next proof">›</button>
+              </div>
+              <div class="proof-dots" id="proof-dots"></div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-actions" style="margin-top:18px;">
+          <a class="pill" href="proof/runtime-proof.md">open proof report</a>
+          <a class="pill" href="proof/readiness-report.md">open readiness report</a>
+          <a class="pill" href="proof/example-bundle.md">open worked example</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-panel">
+        <div class="section-label">Interactive lane</div>
+        <h2>Walk one request through the runtime</h2>
+        <div class="flow-shell">
+          <div class="flow-rail">
+            <button class="flow-step-button active" data-flow-step="listen">
+              <strong>01 · listen</strong>
+              <div>Read the incoming modalities without pretending they agree yet.</div>
+            </button>
+            <button class="flow-step-button" data-flow-step="profile">
+              <strong>02 · profile</strong>
+              <div>Score sparsity, entropy, finite coverage, and signal movement.</div>
+            </button>
+            <button class="flow-step-button" data-flow-step="align">
+              <strong>03 · align</strong>
+              <div>Group timed observations into corroborated windows.</div>
+            </button>
+            <button class="flow-step-button" data-flow-step="infer">
+              <strong>04 · infer</strong>
+              <div>Fuse signatures only after the lanes have been read clearly.</div>
+            </button>
+            <button class="flow-step-button" data-flow-step="persist">
+              <strong>05 · persist</strong>
+              <div>Store receipts and long-running job records for later review.</div>
+            </button>
+            <button class="flow-step-button" data-flow-step="govern">
+              <strong>06 · govern</strong>
+              <div>Check population drift, ontology constraints, and liability before a route is trusted.</div>
+            </button>
+          </div>
+          <div class="flow-detail" id="flow-detail"></div>
+        </div>
+
+        <div class="job-shell">
+          <div class="job-list">
+            <button class="job-row active" data-job-row="video">
+              <strong>video-clean job</strong>
+              <div>Persists one cleanup run with removed spans, kept spans, and a cut script.</div>
+            </button>
+            <button class="job-row" data-job-row="batch">
+              <strong>batch-infer job</strong>
+              <div>Runs a sequence of multimodal requests and stores the full result set.</div>
+            </button>
+            <button class="job-row" data-job-row="connectors">
+              <strong>connector ingest</strong>
+              <div>Pulls rows from a typed source, benchmarks the pull, and maps the rows into persisted pipeline work.</div>
+            </button>
+            <button class="job-row" data-job-row="recipes">
+              <strong>recipe registry</strong>
+              <div>Compiles a typed recipe, resolves its source evidence, and exports a checked manifest before handoff.</div>
+            </button>
+            <button class="job-row" data-job-row="clients">
+              <strong>openapi clients</strong>
+              <div>Exports the live contract and regenerates Python and TypeScript client surfaces from it.</div>
+            </button>
+            <button class="job-row" data-job-row="governance">
+              <strong>governance evidence</strong>
+              <div>Stores drift baselines, pipeline runs, ontology snapshots, and route-level liability findings.</div>
+            </button>
+          </div>
+          <div class="job-detail" id="job-detail"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-panel">
+        <div class="section-label">Runtime posture</div>
+        <h2>What changed, structurally</h2>
+        <div class="split">
+          <div>
+            <p class="map-note">
+              The earlier repository mixed ambitious language, model experiments,
+              and static portfolio material too closely. The new spine makes the
+              boundaries easier to read.
+            </p>
+            <ul class="list">
+              <li>A package-backed runtime now lives in <code>src/advanced_multimodal_ai</code>.</li>
+              <li>Inference can be planned before it runs, not only observed afterward.</li>
+              <li>Retrieval has an actual backend path instead of only a concept.</li>
+              <li>Dataset schemas can be versioned, fingerprinted, and compared before a pipeline changes quietly in production.</li>
+              <li>Quality, provenance, and timed alignment now sit beside inference instead of outside it.</li>
+              <li>Population-entry drift can be checked before a new cohort is folded into a stable lane.</li>
+              <li>Enterprise artifacts can be compiled into ontology snapshots and compared against live traces.</li>
+              <li>The video lane works with transcripts, frame signals, and audio energy rather than vague captions about “multimodality.”</li>
+            </ul>
+          </div>
+          <div class="timeline">
+            <div class="timeline-step">
+              <span>01</span>
+              <div>
+                <strong>validate</strong>
+                <div class="map-note">Tensor shapes, modality count, and batch alignment are checked first.</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <span>02</span>
+              <div>
+                <strong>route</strong>
+                <div class="map-note">Contract mode always runs. Research mode opens only when the environment can support it honestly.</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <span>03</span>
+              <div>
+                <strong>fuse</strong>
+                <div class="map-note">Per-modality signatures are composed into one shared embedding surface.</div>
+              </div>
+            </div>
+            <div class="timeline-step">
+              <span>04</span>
+              <div>
+                <strong>measure</strong>
+                <div class="map-note">Metrics, provenance receipts, retrieval writes, and smoke benchmarks stay visible from the same edge.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-panel">
+        <div class="section-label">One local start</div>
+        <h2>Run the runtime in a minute</h2>
+        <div class="code-block">python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .[dev]
+uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 8000</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · Apache License 2.0</div>
+      <div>GitHub Pages, runtime edge, multimodal data plane, video evidence packet</div>
+    </footer>
+  </div>
+
+  <script>
+    const pills = [...document.querySelectorAll("[data-filter]")];
+    const cards = [...document.querySelectorAll("[data-group]")];
+    const flowSteps = [...document.querySelectorAll("[data-flow-step]")];
+    const flowDetail = document.getElementById("flow-detail");
+    const jobRows = [...document.querySelectorAll("[data-job-row]")];
+    const jobDetail = document.getElementById("job-detail");
+    const liveClockNav = document.getElementById("live-clock-nav");
+    const liveClockPanel = document.getElementById("live-clock-panel");
+    const proofSlide = document.getElementById("proof-slide");
+    const proofDots = document.getElementById("proof-dots");
+    const proofPrev = document.getElementById("proof-prev");
+    const proofNext = document.getElementById("proof-next");
+
+    const flowContent = {
+      listen: {
+        title: "Listen before fusion",
+        body: "The runtime accepts each modality in its own shape. It does not force agreement early. A text lane can be sparse while an audio lane is dense; the job of the contract layer is to notice that before the fused story begins.",
+        table: [
+          ["input", "tensor payloads or timed observations"],
+          ["checks", "shape, batch width, modality count"],
+          ["output", "typed request accepted for profiling"],
+        ],
+      },
+      profile: {
+        title: "Profile the lanes",
+        body: "Every modality can now be measured for finite-value coverage, zero pressure, entropy, dynamic range, energy, and temporal change. That gives the repo a real cleaning surface rather than a decorative claim about data quality.",
+        table: [
+          ["surface", "/v1/data/profile"],
+          ["signals", "entropy, sparsity, coverage, pairwise alignment"],
+          ["decision", "fusion-readiness stays explicit"],
+        ],
+      },
+      align: {
+        title: "Align what happened when",
+        body: "Timed observations from text, audio, image, video, or sensor lanes can be grouped into one corroborated window. This is where a multi-modal repo starts becoming useful to investigators, editors, and field teams rather than only to model demos.",
+        table: [
+          ["surface", "/v1/alignment/windows"],
+          ["window rule", "merge by time gap and modality count"],
+          ["result", "cross-modal evidence windows"],
+        ],
+      },
+      infer: {
+        title: "Infer with restraint",
+        body: "Contract-mode inference compresses each modality into a deterministic signature before fusion. Research mode remains visible where the environment can load it honestly, but it no longer blurs the line between experimentation and runtime truth.",
+        table: [
+          ["surface", "/v1/infer and /v1/stream"],
+          ["core", "Python orchestration with Rust signal primitives"],
+          ["result", "fused embedding or class surface"],
+        ],
+      },
+      persist: {
+        title: "Persist what mattered",
+        body: "The repository now has a proper async job lane for long-running video cleanup and multimodal batch inference. Runs are written into a persisted SQLite-backed record so the work can be revisited instead of disappearing with the request.",
+        table: [
+          ["surfaces", "/v1/jobs/video-clean, /v1/jobs/batch-infer"],
+          ["records", "queued, running, completed, failed"],
+          ["storage", ".runtime/amai_jobs.sqlite3"],
+        ],
+      },
+      govern: {
+        title: "Govern before normalizing",
+        body: "The runtime can save reviewed population baselines, compare fresh traffic against them, compile enterprise artifacts into ontology snapshots, and surface route-level liability when live traces contradict contractual handling rules.",
+        table: [
+          ["drift", "/v1/drift/*"],
+          ["ontology", "/v1/ontology/*"],
+          ["bias", "/v1/bias/*"],
+        ],
+      },
+    };
+
+    const jobContent = {
+      video: {
+        title: "video-clean job",
+        body: "A persisted run record stores the original request, the cleanup result, status transitions, and any failure message. It is modest on purpose: one clip, one review lane, clear artifacts.",
+        table: [
+          ["request", "VideoCleaningRequest"],
+          ["result", "removed spans, retained spans, cut script"],
+          ["recorded", "request payload, result payload, timestamps"],
+        ],
+      },
+      batch: {
+        title: "batch-infer job",
+        body: "The batch lane handles long-running multimodal sequences without asking the caller to hold the connection open. Each request still uses the same contract-mode or research bridge the synchronous path uses.",
+        table: [
+          ["request", "BatchInferenceRequest"],
+          ["result", "stored list of per-request inference outputs"],
+          ["review", "GET /v1/jobs and GET /v1/jobs/{job_id}"],
+        ],
+      },
+      connectors: {
+        title: "Connector-backed ingestion",
+        body: "The connector lane gives the runtime a less fragile way to start. A file or HTTP row source can be pulled, benchmarked, turned into a dataset contract, and mapped into modality events without an extra one-off preparation script.",
+        table: [
+          ["register", "/v1/connectors/register"],
+          ["ingest", "/v1/connectors/pipeline-ingest"],
+          ["connector kinds", "local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson"],
+          ["records", "connector_runs + linked pipeline_run_id"],
+        ],
+      },
+      recipes: {
+        title: "Compiled recipe registry",
+        body: "The runtime can now compile a recipe into a persisted manifest that resolves dataset evidence, estimates launch topology, and emits checked export and validation commands before any external runner takes over.",
+        table: [
+          ["compile", "/v1/recipes/compile"],
+          ["inspect", "/v1/recipes + /v1/recipes/{recipe_id}"],
+          ["verified", "recipe-export + validate_recipe_manifest + acceptance spine"],
+        ],
+      },
+      clients: {
+        title: "OpenAPI-derived client surfaces",
+        body: "The runtime can now export its OpenAPI contract and regenerate both Python and TypeScript client surfaces from that export. That keeps the SDK packaging tied to the live contract instead of drifting quietly.",
+        table: [
+          ["export", "python3 scripts/export_openapi.py"],
+          ["generate", "python3 scripts/generate_sdk_surfaces.py"],
+          ["outputs", "openapi/openapi.json, sdk/python, sdk/typescript"],
+        ],
+      },
+      examplesBundle: {
+        title: "Executable example bundle",
+        body: "A generated bundle now walks through inference, quality profiling, connector-backed ingest, recipe compilation, video cleanup, smoke benchmarking, proof export, and readiness export in one repeatable pass.",
+        table: [
+          ["command", "python3 scripts/export_example_bundle.py"],
+          ["outputs", "proof/example-bundle.json + proof/example-bundle.md"],
+          ["purpose", "a direct worked example for Pages and IDE review"],
+        ],
+      },
+      governance: {
+        title: "Governance evidence",
+        body: "The engine now persists more than jobs. Connector runs, drift baselines, pipeline runs, ontology snapshots, and runtime attestation all leave inspectable records instead of disappearing into runtime memory.",
+        table: [
+          ["stores", ".runtime/amai_connectors.sqlite3, amai_drift.sqlite3, amai_pipelines.sqlite3, amai_ontology.sqlite3"],
+          ["liability", "live trace comparison against compiled constraints"],
+          ["attestation", "OpenAPI digest, artifact presence, store counts"],
+        ],
+      },
+    };
+
+    const proofSlides = [
+      {
+        title: "Connector-fed rows with measurable intake",
+        body: "The runtime can now start from typed row sources instead of only from hand-shaped request bodies. Each pull records fetch time, parse time, bytes read, and rows per second before those rows are mapped into modality events.",
+        table: [
+          ["connector kinds", "local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson"],
+          ["records", "persisted connector runs with dataset_id and pipeline_run_id"],
+          ["purpose", "less luck in how data enters the runtime"],
+        ],
+      },
+      {
+        title: "Recipe manifests that can be exported and checked",
+        body: "A typed recipe lane now resolves catalog-backed sources, estimates global batch shape, records launch topology, and emits manifest export and validation commands that the acceptance spine actually runs.",
+        table: [
+          ["compile", "/v1/recipes/compile"],
+          ["inspect", "/v1/recipes/{recipe_id}"],
+          ["checked", "recipe-export + validate_recipe_manifest"],
+        ],
+      },
+      {
+        title: "Replay after ingest, not only during it",
+        body: "Saved pipeline runs can now be exported with NDJSON lineage and deterministic artifact digests, then replayed through the current runtime to compare provenance and summary-shape stability.",
+        table: [
+          ["export", "/v1/pipelines/runs/{run_id}/export"],
+          ["replay", "/v1/pipelines/runs/{run_id}/replay"],
+          ["checks", "provenance match, route match, summary shape match"],
+        ],
+      },
+      {
+        title: "Proof gathered from code paths that really exist",
+        body: "The proof bundle is no longer implied by the README alone. The backend now exposes a typed proof surface that reports route count, test count, connector kinds, commands, artifact presence, and persisted store counts.",
+        table: [
+          ["surface", "/v1/proof/bundle"],
+          ["artifacts", "OpenAPI, generated clients, runtime schema, Rust core"],
+          ["stores", "catalog, connectors, drift, pipelines, ontology, jobs, recipes"],
+        ],
+      },
+      {
+        title: "Generated surfaces tied back to the live contract",
+        body: "OpenAPI export and SDK regeneration still matter, but they matter more when they stay close to the runtime and are included in the proof chain instead of drifting off as stale packaging.",
+        table: [
+          ["contract", "openapi/openapi.json"],
+          ["python", "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py"],
+          ["typescript", "sdk/typescript/src/generated-openapi.ts"],
+        ],
+      },
+      {
+        title: "Worked examples published beside the proof",
+        body: "The repository now exports a concrete example bundle that shows the runtime performing real work across its main lanes. That keeps the public surface tied to execution instead of suggestion.",
+        table: [
+          ["surface", "proof/example-bundle.json"],
+          ["includes", "inference, profile, connector ingest, recipe, video, benchmark"],
+          ["purpose", "show the runtime doing real work"],
+        ],
+      },
+    ];
+
+    function renderMiniTable(rows) {
+      return `
+        <table class="mini-table">
+          <tbody>
+            ${rows.map(([left, right]) => `
+              <tr>
+                <th>${left}</th>
+                <td>${right}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function renderFlowDetail(key) {
+      const item = flowContent[key];
+      flowDetail.innerHTML = `
+        <div class="section-label">Flow detail</div>
+        <h3>${item.title}</h3>
+        <p class="map-note">${item.body}</p>
+        ${renderMiniTable(item.table)}
+      `;
+    }
+
+    function renderJobDetail(key) {
+      const item = jobContent[key];
+      jobDetail.innerHTML = `
+        <div class="section-label">Job detail</div>
+        <h3>${item.title}</h3>
+        <p class="map-note">${item.body}</p>
+        ${renderMiniTable(item.table)}
+      `;
+    }
+
+    function renderProofSlide(index) {
+      const item = proofSlides[index];
+      proofSlide.innerHTML = `
+        <h3>${item.title}</h3>
+        <p>${item.body}</p>
+        ${renderMiniTable(item.table)}
+      `;
+      proofDots.innerHTML = proofSlides
+        .map((_, dotIndex) => `<span class="proof-dot ${dotIndex === index ? "active" : ""}"></span>`)
+        .join("");
+    }
+
+    function updateClocks() {
+      const now = new Date();
+      const text = now.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+      liveClockNav.textContent = text;
+      liveClockPanel.textContent = text;
+    }
+
+    async function hydrateProofBundle() {
+      try {
+        const response = await fetch("proof/runtime-proof.json", { cache: "no-store" });
+        if (!response.ok) return;
+        const payload = await response.json();
+        const connectorCount = payload.connector_kinds.length;
+
+        document.getElementById("stat-tests-count").textContent = String(payload.test_count);
+        document.getElementById("stat-routes-count").textContent = String(payload.route_count);
+        document.getElementById("stat-connectors-count").textContent = String(connectorCount);
+        document.getElementById("proof-mini-routes").textContent = `${payload.route_count} routes`;
+        document.getElementById("proof-mini-tests").textContent = `${payload.test_count} tests`;
+        document.getElementById("proof-mini-connectors").textContent = `${connectorCount} connectors`;
+        document.getElementById("proof-mini-proofs").textContent =
+          `${payload.verification_commands.length} proofs`;
+
+        proofSlides[0].table[0][1] = payload.connector_kinds.join(", ");
+        proofSlides[3].table[2][1] = Object.keys(payload.store_counts).join(", ");
+        renderProofSlide(proofIndex);
+      } catch (error) {
+        console.warn("proof bundle could not be loaded", error);
+      }
+    }
+
+    pills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        pills.forEach((node) => node.classList.remove("active"));
+        pill.classList.add("active");
+        const filter = pill.dataset.filter;
+        cards.forEach((card) => {
+          const visible = filter === "all" || card.dataset.group === filter;
+          card.classList.toggle("hidden", !visible);
+        });
+      });
+    });
+
+    flowSteps.forEach((button) => {
+      button.addEventListener("click", () => {
+        flowSteps.forEach((node) => node.classList.remove("active"));
+        button.classList.add("active");
+        renderFlowDetail(button.dataset.flowStep);
+      });
+    });
+
+    jobRows.forEach((button) => {
+      button.addEventListener("click", () => {
+        jobRows.forEach((node) => node.classList.remove("active"));
+        button.classList.add("active");
+        renderJobDetail(button.dataset.jobRow);
+      });
+    });
+
+    let proofIndex = 0;
+    proofPrev.addEventListener("click", () => {
+      proofIndex = (proofIndex - 1 + proofSlides.length) % proofSlides.length;
+      renderProofSlide(proofIndex);
+    });
+    proofNext.addEventListener("click", () => {
+      proofIndex = (proofIndex + 1) % proofSlides.length;
+      renderProofSlide(proofIndex);
+    });
+
+    renderFlowDetail("listen");
+    renderJobDetail("video");
+    renderProofSlide(proofIndex);
+    updateClocks();
+    hydrateProofBundle();
+    setInterval(updateClocks, 1000);
+    setInterval(() => {
+      proofIndex = (proofIndex + 1) % proofSlides.length;
+      renderProofSlide(proofIndex);
+    }, 6500);
+  </script>
+</body>
+</html>

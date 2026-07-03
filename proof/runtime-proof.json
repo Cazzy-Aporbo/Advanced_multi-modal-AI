@@ -1,0 +1,108 @@
+{
+  "connector_kinds": [
+    "local_csv",
+    "local_jsonl",
+    "local_parquet",
+    "s3_parquet",
+    "http_json",
+    "http_ndjson"
+  ],
+  "created_at": "2026-07-03T06:16:18.816206+00:00",
+  "environment": "development",
+  "route_count": 48,
+  "service": "advanced-multimodal-ai",
+  "store_counts": {
+    "async_jobs": 44,
+    "connector_runs": 46,
+    "dataset_catalog": 79,
+    "drift_baselines": 8,
+    "ontology_snapshots": 49,
+    "pipeline_runs": 65,
+    "recipe_registry": 11
+  },
+  "supported_lanes": [
+    "contract_inference",
+    "research_bridge",
+    "dataset_catalog",
+    "connector_ingest",
+    "recipe_registry",
+    "readiness_report",
+    "retrieval",
+    "video_cleanup",
+    "temporal_alignment",
+    "drift_baselines",
+    "pipeline_ingest",
+    "pipeline_export_replay",
+    "domain_ontology",
+    "liability_surface",
+    "bias_taxonomy"
+  ],
+  "test_count": 29,
+  "verification_artifact_count": 5,
+  "verification_artifacts": [
+    {
+      "detail": "openapi/openapi.json",
+      "name": "OpenAPI contract",
+      "status": "present"
+    },
+    {
+      "detail": "sdk/typescript/src/generated-openapi.ts",
+      "name": "TypeScript generated client",
+      "status": "present"
+    },
+    {
+      "detail": "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
+      "name": "Python generated client",
+      "status": "present"
+    },
+    {
+      "detail": "sql/runtime_schema.sql",
+      "name": "Runtime schema",
+      "status": "present"
+    },
+    {
+      "detail": "crates/multimodal-core/Cargo.toml",
+      "name": "Rust core",
+      "status": "present"
+    }
+  ],
+  "verification_commands": [
+    {
+      "command": "python3 -m ruff check src tests scripts",
+      "label": "lint"
+    },
+    {
+      "command": "python3 -m pytest -q",
+      "label": "tests"
+    },
+    {
+      "command": "cargo test -p multimodal-core",
+      "label": "rust"
+    },
+    {
+      "command": "python3 scripts/export_openapi.py",
+      "label": "openapi"
+    },
+    {
+      "command": "python3 scripts/generate_sdk_surfaces.py",
+      "label": "sdk"
+    },
+    {
+      "command": "python3 scripts/run_acceptance_spine.py",
+      "label": "acceptance"
+    },
+    {
+      "command": "python3 scripts/export_readiness_report.py",
+      "label": "readiness"
+    },
+    {
+      "command": "python3 scripts/export_example_bundle.py",
+      "label": "examples"
+    },
+    {
+      "command": "npx tsc --noEmit -p sdk/typescript/tsconfig.json",
+      "label": "typescript"
+    }
+  ],
+  "version": "0.4.0"
+}

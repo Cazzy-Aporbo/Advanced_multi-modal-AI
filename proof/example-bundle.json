@@ -1,0 +1,85 @@
+{
+  "created_at": "2026-07-03T06:16:19.365022+00:00",
+  "service": "advanced-multimodal-ai",
+  "version": "0.4.0",
+  "examples": {
+    "inference": {
+      "request_id": "e8fc3013-d2ca-436d-bf97-b0366a8ef5b8",
+      "route": [
+        "validate_payloads",
+        "encode_audio",
+        "encode_text",
+        "fuse_modalities",
+        "emit_target"
+      ],
+      "output_keys": [
+        "class_logits",
+        "class_probabilities",
+        "fused_embedding",
+        "modality_embeddings",
+        "predicted_index"
+      ],
+      "warning_count": 0
+    },
+    "quality_profile": {
+      "request_id": "example-profile-01",
+      "fusion_readiness": 0.9751953959465026,
+      "modality_count": 2,
+      "warning_count": 0
+    },
+    "connector_ingest": {
+      "run_id": "9010b91f-1adf-4593-8983-42a97038c47c",
+      "connector_kind": "local_parquet",
+      "record_count": 3,
+      "pipeline_run_id": "16f630aa-e6fc-4c9f-8b16-db248c8fa602",
+      "pipeline_status": "accepted"
+    },
+    "recipe_manifest": {
+      "recipe_id": "32a80a72-642e-4e4b-b060-00a7e9cd8ad4",
+      "launcher": "python",
+      "engine": "local",
+      "estimated_global_batch_size": 4,
+      "resolved_sources": 1
+    },
+    "video_cleanup": {
+      "clip_id": "example-clip-01",
+      "removed_span_count": 1,
+      "retained_span_count": 1,
+      "cut_script_lines": 1
+    },
+    "smoke_benchmark": {
+      "benchmark_id": "1168643d-9344-493f-96a6-b649ede0619b",
+      "model_id": "adaptive_transformer",
+      "iterations": 3,
+      "median_latency_ms": 13.754333998804213,
+      "p95_latency_ms": 13.754333998804213
+    },
+    "proof": {
+      "route_count": 48,
+      "test_count": 29,
+      "verification_command_count": 9,
+      "connector_kinds": [
+        "local_csv",
+        "local_jsonl",
+        "local_parquet",
+        "s3_parquet",
+        "http_json",
+        "http_ndjson"
+      ]
+    },
+    "readiness": {
+      "posture": "review_ready",
+      "compiled_recipe_count": 12,
+      "resolved_recipe_count": 12,
+      "check_names": [
+        "contract_surface",
+        "verification_depth",
+        "artifact_evidence",
+        "connector_coverage",
+        "connector_evidence",
+        "recipe_resolution",
+        "governance_evidence"
+      ]
+    }
+  }
+}

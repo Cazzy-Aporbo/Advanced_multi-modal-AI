@@ -1,0 +1,15 @@
+.git
+__pycache__
+.pytest_cache
+.ruff_cache
+.venv
+venv
+build
+dist
+*.egg-info
+Advanced_/data
+*.ipynb
+site
+target
+sdk/typescript/node_modules
+sdk/typescript/dist

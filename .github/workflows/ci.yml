@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .[dev]
+
+      - name: Lint
+        run: ruff check src tests
+
+      - name: Test
+        run: pytest
+
+      - name: Acceptance spine
+        run: python scripts/run_acceptance_spine.py
+
+      - name: Export OpenAPI
+        run: python scripts/export_openapi.py
+
+      - name: Generate SDK surfaces
+        run: python scripts/generate_sdk_surfaces.py
+
+      - name: Export readiness report
+        run: python scripts/export_readiness_report.py
+
+      - name: Export example bundle
+        run: python scripts/export_example_bundle.py
+
+      - name: Build runtime proof bundle
+        run: python scripts/build_runtime_proof_bundle.py
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install TypeScript SDK dependencies
+        run: npm install --prefix sdk/typescript
+
+      - name: TypeScript contract check
+        run: npx tsc --noEmit -p sdk/typescript/tsconfig.json
+
+  rust-core:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust tests
+        run: cargo test -p multimodal-core

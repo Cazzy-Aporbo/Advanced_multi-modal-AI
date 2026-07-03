@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "advanced-multimodal-ai-client"
+version = "0.4.0"
+description = "Python client surfaces generated from the Advanced Multi-modal AI OpenAPI contract."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [
+  { name = "Cazandra Aporbo" }
+]
+dependencies = [
+  "httpx>=0.27,<1.0"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

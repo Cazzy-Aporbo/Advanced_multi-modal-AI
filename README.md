@@ -1,653 +1,595 @@
-# **Multi-Modal AI**
+# Advanced Multi-modal AI
 
-<div align="center">
+A quieter multimodal systems repository for people who need to see how
+different signals are gathered, cleaned, aligned, and carried forward without
+losing the evidence along the way.
 
-[![Deep Learning](https://img.shields.io/badge/Deep%20Learning-E8DFF5?style=for-the-badge&logo=tensorflow&logoColor=9C89B8)](https://tensorflow.org)
-[![PyTorch](https://img.shields.io/badge/PyTorch-FFE5CC?style=for-the-badge&logo=pytorch&logoColor=EE4C2C)](https://pytorch.org)
-[![Transformers](https://img.shields.io/badge/Transformers-D4E4FC?style=for-the-badge&logo=huggingface&logoColor=7393B3)](https://huggingface.co)
-[![Computer Vision](https://img.shields.io/badge/Computer%20Vision-E7F3E7?style=for-the-badge&logo=opencv&logoColor=5C8A5C)](https://opencv.org)
-[![NLP](https://img.shields.io/badge/NLP-FADADD?style=for-the-badge&logo=spacy&logoColor=CD919E)](https://spacy.io)
+This repository now holds two things in a clearer arrangement:
 
-</div>
+- a research archive of models and experiments already present in the project,
+- a working runtime edge with typed contracts, retrieval, temporal alignment,
+  provenance receipts, and transcript-first video tooling.
 
-<div align="center">
-  
-![separator](https://img.shields.io/badge/-E8DFF5?style=flat-square&color=E8DFF5)
-![separator](https://img.shields.io/badge/-FFE5CC?style=flat-square&color=FFE5CC)
-![separator](https://img.shields.io/badge/-D4E4FC?style=flat-square&color=D4E4FC)
-![separator](https://img.shields.io/badge/-E7F3E7?style=flat-square&color=E7F3E7)
-![separator](https://img.shields.io/badge/-FADADD?style=flat-square&color=FADADD)
+[Signal Atlas](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html)  
+[Architecture Surface](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html)  
+[Component Catalog](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html)
 
-</div>
+## Table of contents
 
-### **A Multi-Modal Deep Learning Implementation**
+- [What this repository is](#what-this-repository-is)
+- [What runs today](#what-runs-today)
+- [The multimodal data plane](#the-multimodal-data-plane)
+- [Dataset contracts and evolution](#dataset-contracts-and-evolution)
+- [Connector-fed ingestion](#connector-fed-ingestion)
+- [Runtime surfaces](#runtime-surfaces)
+- [Repository layout](#repository-layout)
+- [Quick start](#quick-start)
+- [Rust core and TypeScript SDK](#rust-core-and-typescript-sdk)
+- [Research registry](#research-registry)
+- [Verification](#verification)
+- [License and authorship](#license-and-authorship)
+- [Acknowledgment](#acknowledgment)
 
-This repository showcases my implementation of advanced multi-modal deep learning systms that integrate diverse data modalities. I've designed this architecture to push the boundaries of what's possible when combining visual, textual, and structured data streams, creating a unified intelligence framework that exceeds single-modality limitations.
+## What this repository is
 
-The project represents my research in multi-modal fusion, implementing attention mechanisms and cross-modal transformers that enable deep semantic understanding across different data types. Every component has been engineered for both research and production readiness.
+This is not a generic “multimodal demo,” and it is not only a notebook shelf.
 
-<div align="center">
-  
-![separator](https://img.shields.io/badge/-FFF4E6?style=flat&color=FFF4E6)
-![separator](https://img.shields.io/badge/-E6E6FA?style=flat&color=E6E6FA)
-![separator](https://img.shields.io/badge/-F0FFF0?style=flat&color=F0FFF0)
+It is a polyglot repository with a practical runtime spine:
 
-</div>
+- Python for the service edge, contract validation, orchestration, and
+  integration logic
+- Rust for deterministic signal primitives that benefit from a compiled lane
+- TypeScript for a small client SDK that downstream applications can use
 
-<div align="center">
+The larger aim is not to claim that every modality can already be translated
+into every other one. That would be an easy thing to say and a difficult thing
+to defend. The stronger claim is more useful: this repository now provides the
+typed surfaces a serious any-to-any system would need in order to grow honestly.
 
-### [View Advanced Technical Portfolio](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html)
-<sub>Comprehensive technical portfolio showcasing systems architecture, ML engineering, and infrastructure expertise</sub>
+## What runs today
 
-### [View Technical Skills Portfolio](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html)
-<sub>Full stack engineering excellence with production-grade implementations</sub>
+The runtime under [`src/advanced_multimodal_ai`](./src/advanced_multimodal_ai)
+is operational today.
 
-</div>
+- FastAPI application with health, readiness, registry, planning, inference,
+  retrieval, video, data quality, provenance, alignment, and metrics surfaces
+- deterministic contract-mode inference for multimodal tensor payloads
+- optional research-mode bridge to existing PyTorch assets already in the repo
+- in-memory vector retrieval with stricter dimensional validation
+- optional Qdrant retrieval backend
+- transcript-first video packeting and cleanup planning
+- data quality profiling for modality sparsity, entropy, finite-value coverage,
+  and fusion readiness
+- dataset contract registration, deterministic schema fingerprinting, and
+  schema evolution checks
+- typed dataset connectors for local CSV, local Parquet, S3-hosted Parquet,
+  local NDJSON, HTTP JSON, and HTTP NDJSON
+- benchmarked connector runs with persisted records
+- compiled recipe manifests with persisted launch topology and export checks
+- runtime attestation and readiness reporting tied to the generated artifacts
+- deterministic provenance receipts for repeated payload verification
+- temporal alignment windows for cross-modal evidence stitching
+- persisted drift baselines and population-entry checks before reuse
+- pipeline ingestion with persisted run records and modality pairing discipline
+- domain ontology ingestion for contracts, schemas, and workflow artifacts
+- liability surfacing against saved governance snapshots and live trace records
+- a sixty-category bias taxonomy with stage-aware assessment
+- persisted async job records for long-running video cleanup and batch inference
+- Prometheus metrics
+- a Rust algorithm core for tensor signatures and transcript-led cut logic
+- OpenAPI export and generated Python and TypeScript client surfaces
+- a TypeScript SDK for browser and application integration
+- Docker, Compose, CI, and GitHub Pages assets that match the actual project
 
----
+## The multimodal data plane
 
-## **Table of Contents**
+The real value of a multimodal system is not only inference. It is the care
+that happens before and around inference.
 
-<table>
-<tr style="background-color:#E8DFF5;">
-<td><strong>Section</strong></td>
-<td><strong>Description</strong></td>
-<td><strong>Key Components</strong></td>
-</tr>
-<tr style="background-color:#F0E6FF;">
-<td><a href="#introduction">1. Introduction</a></td>
-<td>Project vision and objectives</td>
-<td>Multi-modal fusion, research goals, innovation highlights</td>
-</tr>
-<tr style="background-color:#FFE5CC;">
-<td><a href="#environment-setup--dependencies">2. Environment Setup</a></td>
-<td>Configuration and dependencies</td>
-<td>Framework requirements, GPU setup, container deployment</td>
-</tr>
-<tr style="background-color:#D4E4FC;">
-<td><a href="#data-preprocessing">3. Data Preprocessing</a></td>
-<td>Multi-modal data pipeline</td>
-<td>Normalization, augmentation, feature engineering</td>
-</tr>
-<tr style="background-color:#E7F3E7;">
-<td><a href="#model-architecture">4. Model Architecture</a></td>
-<td>Neural network design</td>
-<td>CNNs, Transformers, fusion layers, attention mechanisms</td>
-</tr>
-<tr style="background-color:#FADADD;">
-<td><a href="#training-process">5. Training Process</a></td>
-<td>Optimization pipeline</td>
-<td>Distributed training, hyperparameter tuning, checkpointing</td>
-</tr>
-<tr style="background-color:#FFF4E6;">
-<td><a href="#evaluation--metrics">6. Evaluation</a></td>
-<td>Performance assessment</td>
-<td>Multi-modal metrics, ablation studies, benchmarks</td>
-</tr>
-<tr style="background-color:#E6E6FA;">
-<td><a href="#function-definitions--utilities">7. Utilities</a></td>
-<td>Helper functions</td>
-<td>Data loaders, visualization tools, metric calculators</td>
-</tr>
-<tr style="background-color:#F0FFF0;">
-<td><a href="#model-interpretability">8. Interpretability</a></td>
-<td>Explainability methods</td>
-<td>SHAP, Grad-CAM, attention visualization</td>
-</tr>
-<tr style="background-color:#FFE8E8;">
-<td><a href="#deployment-guide">9. Deployment</a></td>
-<td>Production implementation</td>
-<td>Model serving, API design, scaling strategies</td>
-</tr>
-<tr style="background-color:#E0F2F1;">
-<td><a href="#conclusion--future-work">10. Future Work</a></td>
-<td>Research directions</td>
-<td>Planned enhancements, experimental features</td>
-</tr>
-</table>
+## Dataset contracts and evolution
 
----
+`POST /v1/catalog/register`  
+`GET /v1/catalog/datasets`  
+`GET /v1/catalog/datasets/{dataset_id}`  
+`POST /v1/catalog/evolution`
 
-## **Introduction**
+The runtime now has a persisted catalog lane for datasets as well.
 
-### **Project Vision**
+- each dataset contract stores owner, version, modality, primary keys,
+  partition keys, and field-level schema
+- schema fingerprints are deterministic and can use the Rust core when it is
+  available
+- candidate revisions can be compared against the latest saved contract to
+  separate additive changes from breaking ones
 
-I developed this multi-modal deep learning framework to address the fundamental challenge of integrating heterogeneous data sources into a unified intelligent system. Traditional single-modality approaches often miss crucial contextual information that emerges from the interplay between different data types. This implementation bridges that gap through sophisticated fusion strategies.
+This is smaller than a full lakehouse catalog, but it is a real backend
+surface and a better starting point for serious ingestion governance than a
+spreadsheet of column names.
 
-<table>
-<tr style="background-color:#DCC9E8;">
-<td><strong>Modality</strong></td>
-<td><strong>Data Type</strong></td>
-<td><strong>Processing Pipeline</strong></td>
-<td><strong>Feature Dimension</strong></td>
-</tr>
-<tr style="background-color:#E8DFF5;">
-<td><strong>Visual</strong></td>
-<td>Images, Videos</td>
-<td>ResNet + Vision Transformer</td>
-<td>2048-D</td>
-</tr>
-<tr style="background-color:#F0E6FF;">
-<td><strong>Textual</strong></td>
-<td>Documents, Captions</td>
-<td>BERT + Custom Embeddings</td>
-<td>768-D</td>
-</tr>
-<tr style="background-color:#F5F0FF;">
-<td><strong>Audio</strong></td>
-<td>Speech, Soundscapes</td>
-<td>Wav2Vec2 + Spectrogram CNN</td>
-<td>512-D</td>
-</tr>
-<tr style="background-color:#FAF8FF;">
-<td><strong>Structured</strong></td>
-<td>Tabular, Time-series</td>
-<td>Feature Engineering + LSTM</td>
-<td>256-D</td>
-</tr>
-</table>
+## Connector-fed ingestion
 
----
+`POST /v1/connectors/register`  
+`POST /v1/connectors/pipeline-ingest`  
+`GET /v1/connectors/runs`  
+`GET /v1/connectors/runs/{run_id}`
 
-## **Environment Setup & Dependencies**
+The runtime can now materialize rows from typed connectors instead of asking
+every caller to prepare tensors by hand first.
 
-### **Core Requirements**
+Supported connector kinds today:
 
-I've optimized the environment configuration for both research flexibility and production stability:
+- `local_csv`
+- `local_jsonl`
+- `local_parquet`
+- `s3_parquet`
+- `http_json`
+- `http_ndjson`
 
-<table>
-<tr style="background-color:#FFE5CC;">
-<td><strong>Category</strong></td>
-<td><strong>Package</strong></td>
-<td><strong>Version</strong></td>
-<td><strong>Purpose</strong></td>
-</tr>
-<tr style="background-color:#FFE8D9;">
-<td rowspan="2"><strong>Deep Learning</strong></td>
-<td>PyTorch</td>
-<td>≥ 2.0.0</td>
-<td>Core neural network framework</td>
-</tr>
-<tr style="background-color:#FFEEE0;">
-<td>TorchVision</td>
-<td>≥ 0.15.0</td>
-<td>Computer vision utilities</td>
-</tr>
-<tr style="background-color:#FFF0E8;">
-<td rowspan="2"><strong>NLP</strong></td>
-<td>Transformers</td>
-<td>≥ 4.30.0</td>
-<td>Pre-trained language models</td>
-</tr>
-<tr style="background-color:#FFF5F0;">
-<td>Tokenizers</td>
-<td>≥ 0.13.0</td>
-<td>Fast text processing</td>
-</tr>
-<tr style="background-color:#FFF8F5;">
-<td rowspan="3"><strong>Data Processing</strong></td>
-<td>Pandas</td>
-<td>≥ 2.0.0</td>
-<td>Structured data manipulation</td>
-</tr>
-<tr style="background-color:#FFFAF8;">
-<td>NumPy</td>
-<td>≥ 1.24.0</td>
-<td>Numerical operations</td>
-</tr>
-<tr style="background-color:#FFFCFA;">
-<td>Scikit-learn</td>
-<td>≥ 1.3.0</td>
-<td>Preprocessing and metrics</td>
-</tr>
-</table>
+Each connector run records:
 
-### **Installation**
+- fetch time
+- parse time
+- total time
+- bytes read
+- rows per second
+
+The registration lane infers a dataset contract from real rows and persists
+that contract into the catalog. The pipeline-ingest lane goes further: it maps
+selected numeric fields into modality tensors, builds pipeline events, and
+writes a persisted pipeline run that can later be exported or replayed.
+
+Parquet is now part of the same proof path, including an S3-shaped object-store
+lane, so a columnar batch extract can be registered and ingested without first
+being flattened into CSV.
+
+This is still smaller than a full warehouse connector suite, but it is more
+defensible than a repo that only accepts carefully prepared local request
+bodies.
+
+## Recipe registry
+
+`POST /v1/recipes/compile`  
+`GET /v1/recipes`  
+`GET /v1/recipes/{recipe_id}`
+
+The runtime can now compile a typed recipe manifest that:
+
+- resolves dataset references against the persisted catalog
+- estimates batch topology from node, device, and accumulation settings
+- records verified export and manifest-validation commands
+- leaves a persisted handoff record instead of a loose training note
+
+This lane is deliberately careful. It does not pretend to run a distributed
+trainer inside this repository. It proves the handoff surface, the evidence
+resolution, and the manifest discipline before an external runner takes over.
+
+### 1. Quality profiling
+
+`POST /v1/data/profile`
+
+This surface inspects each modality before fusion:
+
+- batch size and feature width
+- finite-value coverage
+- zero-density and sparsity pressure
+- normalized entropy
+- signal energy
+- dynamic range
+- temporal change across the current window
+- pairwise signature alignment between modalities
+
+The response includes a fusion-readiness score and explicit warnings when a lane
+is too flat, too sparse, or too unstable to carry much weight.
+
+### 2. Provenance receipts
+
+`POST /v1/data/provenance`
+
+This surface produces deterministic SHA-256 receipts for:
+
+- each modality payload
+- request metadata
+- the full request body
+
+Identical payloads produce identical receipts. Small upstream changes remain
+visible because the metadata and modality tensors are hashed separately.
+
+### 3. Temporal alignment
+
+`POST /v1/alignment/windows`
+
+This surface groups timed observations into aligned windows so text, audio,
+image, video, or sensor events can be read together instead of as isolated
+moments. It is meant for corroboration, not spectacle.
+
+### 4. Retrieval with cleaner boundaries
+
+`POST /v1/retrieval/upsert`  
+`POST /v1/retrieval/query`
+
+The retrieval lane now enforces vector width consistency per modality in the
+in-memory index. The Qdrant path uses a deterministic point identifier instead
+of ephemeral numeric inserts, which makes repeated writes less fragile.
+
+### 5. Video as a temporal modality
+
+`POST /v1/video/packet`  
+`POST /v1/video/clean`
+
+The video lane does not pretend to “understand cinema.” It reads transcript
+timing first, then folds frame and audio signals into the places where they are
+actually useful:
+
+- evidence windows
+- filler detection
+- silence-gap detection
+- retained spans
+- cut-script preparation
+
+That keeps the surface modest and still useful for review, retrieval, and edit
+handoff.
+
+### 6. Long-running work without a theatrical queue
+
+`POST /v1/jobs/video-clean`  
+`POST /v1/jobs/batch-infer`  
+`GET /v1/jobs`  
+`GET /v1/jobs/{job_id}`
+
+The job lane is backed by a persisted SQLite record under `.runtime/`.
+
+- video cleanup can run as an asynchronous job
+- multimodal batch inference can run as an asynchronous job
+- queued, running, completed, and failed states are stored
+- request payloads and result payloads remain inspectable after completion
+
+### 7. Population-entry drift control
+
+`POST /v1/drift/baselines`  
+`GET /v1/drift/baselines`  
+`POST /v1/drift/check`
+
+The runtime can now save a reviewed population baseline and compare new traffic
+against it before that traffic quietly becomes the new normal.
+
+- modality-level entropy, sparsity, finite coverage, range, and temporal motion
+  are compared against the saved baseline
+- cross-modal alignment drop is measured explicitly
+- the runtime can warn or block when a new population drifts outside the
+  prepared lane
+
+### 8. Pipeline ingestion with persisted run records
+
+`POST /v1/pipelines/ingest`  
+`GET /v1/pipelines/runs`  
+`GET /v1/pipelines/runs/{run_id}`  
+`GET /v1/pipelines/runs/{run_id}/export`  
+`POST /v1/pipelines/runs/{run_id}/replay`
+
+This lane turns raw multimodal events into a paired inference batch, records
+what was dropped to preserve alignment, and saves the full run with provenance,
+quality, optional drift findings, and inference output.
+
+The export and replay surfaces add a practical audit path:
+
+- rerun the stored request snapshot through the current runtime
+- compare provenance and summary shape stability
+- export event lineage as NDJSON with deterministic artifact digests
+
+### 9. Domain ontology and liability surfacing
+
+`POST /v1/ontology/ingest`  
+`GET /v1/ontology/snapshots`  
+`GET /v1/ontology/snapshots/{snapshot_id}`  
+`POST /v1/ontology/liability`
+
+This lane ingests API schemas, workflow notes, and governance artifacts into a
+persisted ontology snapshot. The liability surface then compares live route
+traces against compiled constraints such as encryption requirements,
+cross-border transfer boundaries, and reviewed handling lanes.
+
+### 10. Bias as a staged system problem
+
+`GET /v1/bias/taxonomy`  
+`POST /v1/bias/assess`
+
+The repository now carries a sixty-category bias taxonomy across collection,
+consent, sampling, measurement, labeling, feature shaping, retrieval,
+evaluation, interface, and governance. The assessment lane reports where risk
+is entering the system rather than compressing bias into one generic score.
+
+### 11. Runtime attestation
+
+`GET /v1/runtime/attestation`
+`GET /v1/readiness/report`
+
+This surface returns a small evidence bundle about what the repo can verify
+today: OpenAPI digest, generated client artifacts, runtime schema, Rust core
+presence, and persisted record counts across the local stores.
+
+The readiness report stays adjacent to that attestation. It assembles route
+count, test count, connector coverage, resolved recipe evidence, and operating
+boundaries into one typed response so the repo can state what is review-ready,
+what still needs evidence, and where the runtime is intentionally restrained.
+
+## Runtime surfaces
+
+| Surface | Method | Purpose |
+| --- | --- | --- |
+| `/v1/health` | `GET` | service health, environment, and metrics posture |
+| `/v1/ready` | `GET` | runtime readiness, model count, and retrieval backend |
+| `/v1/catalog/register` | `POST` | save a versioned dataset contract |
+| `/v1/catalog/datasets` | `GET` | list persisted dataset contracts |
+| `/v1/catalog/datasets/{dataset_id}` | `GET` | read one persisted dataset contract |
+| `/v1/catalog/evolution` | `POST` | compare a candidate schema against the latest saved version |
+| `/v1/connectors/register` | `POST` | infer and persist a dataset contract from connector rows |
+| `/v1/connectors/pipeline-ingest` | `POST` | fetch rows, map features into modalities, and persist a pipeline run |
+| `/v1/connectors/runs` | `GET` | list benchmarked connector runs |
+| `/v1/connectors/runs/{run_id}` | `GET` | read one persisted connector run |
+| `/v1/recipes/compile` | `POST` | compile a typed recipe manifest with launch topology and proof obligations |
+| `/v1/recipes` | `GET` | list persisted recipe manifests |
+| `/v1/recipes/{recipe_id}` | `GET` | read one persisted recipe manifest |
+| `/v1/runtime/attestation` | `GET` | present-tense evidence of generated artifacts and persisted stores |
+| `/v1/proof/bundle` | `GET` | summarize routes, tests, verification commands, connectors, artifacts, and store counts |
+| `/v1/readiness/report` | `GET` | assemble evidence checks, connector coverage, recipe resolution, and operating boundaries |
+| `/v1/models` | `GET` | registered runtime and research model inventory |
+| `/v1/bias/taxonomy` | `GET` | sixty-category bias register across the system lifecycle |
+| `/v1/bias/assess` | `POST` | stage-aware bias findings for an active system |
+| `/v1/plan` | `POST` | orchestration steps before execution |
+| `/v1/data/profile` | `POST` | modality quality, pairwise alignment, and fusion readiness |
+| `/v1/data/provenance` | `POST` | deterministic request receipts |
+| `/v1/drift/baselines` | `POST` | save a reviewed population baseline |
+| `/v1/drift/baselines` | `GET` | list saved drift baselines |
+| `/v1/drift/check` | `POST` | compare a new population to a reviewed baseline |
+| `/v1/pipelines/ingest` | `POST` | ingest multimodal events into a persisted pipeline run |
+| `/v1/pipelines/runs` | `GET` | list persisted pipeline runs |
+| `/v1/pipelines/runs/{run_id}` | `GET` | read one persisted pipeline run |
+| `/v1/pipelines/runs/{run_id}/export` | `GET` | export event lineage and artifact digests for one run |
+| `/v1/pipelines/runs/{run_id}/replay` | `POST` | rerun a saved request snapshot through the current runtime |
+| `/v1/ontology/ingest` | `POST` | compile enterprise artifacts into an ontology snapshot |
+| `/v1/ontology/snapshots` | `GET` | list persisted ontology snapshots |
+| `/v1/ontology/snapshots/{snapshot_id}` | `GET` | read one ontology snapshot |
+| `/v1/ontology/liability` | `POST` | compare live traces against compiled governance constraints |
+| `/v1/infer` | `POST` | contract-mode or research-mode multimodal inference |
+| `/v1/stream` | `WebSocket` | accepted → plan → progress → result stream |
+| `/v1/alignment/windows` | `POST` | temporal grouping across modalities |
+| `/v1/jobs/video-clean` | `POST` | enqueue a persisted video cleanup job |
+| `/v1/jobs/batch-infer` | `POST` | enqueue a persisted batch inference job |
+| `/v1/jobs` | `GET` | list persisted run records |
+| `/v1/jobs/{job_id}` | `GET` | read one persisted run record |
+| `/v1/retrieval/upsert` | `POST` | vector write into the active retrieval backend |
+| `/v1/retrieval/query` | `POST` | nearest-neighbor multimodal context read |
+| `/v1/video/packet` | `POST` | transcript-led evidence window assembly |
+| `/v1/video/clean` | `POST` | cleanup suggestions for filler and silence |
+| `/v1/benchmarks/smoke` | `GET` | deterministic smoke benchmark |
+| `/metrics` | `GET` | Prometheus scrape target |
+
+## Repository layout
+
+```text
+Advanced_multi-modal-AI/
+├── crates/multimodal-core/       # Rust signal core for signatures and temporal cuts
+├── sdk/typescript/               # TypeScript client SDK
+├── src/advanced_multimodal_ai/
+│   ├── alignment.py              # timed observation grouping across modalities
+│   ├── api.py                    # FastAPI entrypoint
+│   ├── attestation.py            # runtime evidence and artifact verification
+│   ├── bias_taxonomy.py          # sixty-category bias register and assessment
+│   ├── catalog.py                # dataset contract registration and evolution logic
+│   ├── catalog_store.py          # persisted dataset catalog records
+│   ├── benchmarks.py             # deterministic smoke benchmark
+│   ├── cli.py                    # local serve and benchmark commands
+│   ├── config.py                 # environment-backed settings
+│   ├── connector_store.py        # persisted connector benchmark records
+│   ├── connectors.py             # typed connector pulls and row mapping
+│   ├── contracts.py              # API, runtime, quality, and provenance schemas
+│   ├── domain_ontology.py        # artifact ingestion and contract compilation
+│   ├── drift.py                  # population-entry drift scoring
+│   ├── drift_store.py            # persisted baseline registry
+│   ├── job_store.py              # SQLite-backed persisted async run records
+│   ├── legacy.py                 # bridge to existing research models
+│   ├── liability_surface.py      # route trace comparison against constraints
+│   ├── observability.py          # Prometheus counters and histograms
+│   ├── ontology_store.py         # persisted ontology snapshots
+│   ├── orchestration.py          # runtime planning steps
+│   ├── pipeline_store.py         # persisted multimodal pipeline runs
+│   ├── pipelines.py              # raw event pairing into inference batches
+│   ├── provenance.py             # deterministic receipt generation
+│   ├── quality.py                # modality quality and fusion readiness
+│   ├── recipe_store.py           # persisted recipe manifests
+│   ├── recipes.py                # recipe compilation and launch shaping
+│   ├── replay.py                 # pipeline export and replay comparison
+│   ├── registry.py               # model inventory surface
+│   ├── retrieval.py              # vector index implementations
+│   ├── rust_bridge.py            # optional bridge into the Rust core
+│   ├── service.py                # inference and coordination logic
+│   ├── signal_math.py            # shared tensor summaries and signature math
+│   └── video.py                  # transcript-first video packet and cleanup lane
+├── tests/                        # API, retrieval, and video verification
+├── monitoring/prometheus.yml     # scrape configuration
+├── examples/README.md            # direct runbook for executable examples
+├── sql/runtime_schema.sql        # persisted runtime tables
+├── prompts/elite_engineer_transformation_v3.md
+├── proof/example-bundle.json
+├── proof/example-bundle.md
+├── proof/runtime-proof.json
+├── proof/runtime-proof.md
+├── Dockerfile
+├── compose.yaml
+├── openapi/openapi.json
+├── scripts/build_runtime_proof_bundle.py
+├── scripts/export_example_bundle.py
+├── scripts/export_openapi.py
+├── scripts/generate_sdk_surfaces.py
+├── scripts/run_acceptance_spine.py
+├── complete_model.py
+├── dynamic_transformer.py
+├── fusion_strategies.py
+└── core/attention_mechanisms.py
+```
+
+## Quick start
+
+### 1. Install
 
 ```bash
-# Create virtual environment
-python -m venv multimodal_env
-source multimodal_env/bin/activate  # Linux/Mac
-# or
-multimodal_env\Scripts\activate  # Windows
-
-# Install core dependencies
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-pip install transformers pandas numpy scikit-learn
-pip install matplotlib seaborn tqdm tensorboard
-
-# Optional: Install for interpretability
-pip install shap grad-cam captum
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -e .[dev]
 ```
 
----
+### 2. Run the API
 
-## **Data Preprocessing**
-
-### **Multi-Modal Pipeline Architecture**
-
-I've engineered a sophisticated preprocessing pipeline that handles diverse data types while maintaining synchronization across modalities:
-
-<table>
-<tr style="background-color:#D4E4FC;">
-<td><strong>Stage</strong></td>
-<td><strong>Operations</strong></td>
-<td><strong>Techniques Applied</strong></td>
-</tr>
-<tr style="background-color:#E0EFFF;">
-<td><strong>Data Ingestion</strong></td>
-<td>Multi-source loading</td>
-<td>Parallel I/O, lazy loading, memory mapping</td>
-</tr>
-<tr style="background-color:#E8F3FF;">
-<td><strong>Normalization</strong></td>
-<td>Modality-specific scaling</td>
-<td>Z-score, min-max, robust scaling</td>
-</tr>
-<tr style="background-color:#F0F7FF;">
-<td><strong>Augmentation</strong></td>
-<td>Data diversity enhancement</td>
-<td>MixUp, CutMix, SpecAugment, back-translation</td>
-</tr>
-<tr style="background-color:#F5FAFF;">
-<td><strong>Feature Engineering</strong></td>
-<td>Cross-modal features</td>
-<td>Attention pooling, contrastive learning embeddings</td>
-</tr>
-<tr style="background-color:#FAFCFF;">
-<td><strong>Alignment</strong></td>
-<td>Temporal/spatial sync</td>
-<td>Dynamic time warping, frame interpolation</td>
-</tr>
-</table>
-
----
-
-## **Model Architecture**
-
-### **Neural Network Design**
-
-The architecture I've developed represents a novel approach to multi-modal fusion, incorporating hierarchical attention mechanisms and adaptive fusion gates:
-
-<table>
-<tr style="background-color:#E7F3E7;">
-<td><strong>Component</strong></td>
-<td><strong>Architecture</strong></td>
-<td><strong>Parameters</strong></td>
-<td><strong>Innovation</strong></td>
-</tr>
-<tr style="background-color:#EDF6ED;">
-<td><strong>Visual Encoder</strong></td>
-<td>EfficientNet-B7 + ViT</td>
-<td>66M</td>
-<td>Hybrid CNN-Transformer design</td>
-</tr>
-<tr style="background-color:#F0F8F0;">
-<td><strong>Text Encoder</strong></td>
-<td>RoBERTa-Large</td>
-<td>355M</td>
-<td>Domain-adapted pretraining</td>
-</tr>
-<tr style="background-color:#F5FAF5;">
-<td><strong>Audio Encoder</strong></td>
-<td>Conformer</td>
-<td>90M</td>
-<td>Convolution-augmented transformer</td>
-</tr>
-<tr style="background-color:#F8FCF8;">
-<td><strong>Fusion Network</strong></td>
-<td>Cross-Modal Transformer</td>
-<td>120M</td>
-<td>Learnable modality weights</td>
-</tr>
-<tr style="background-color:#FAFEFA;">
-<td><strong>Output Head</strong></td>
-<td>Task-Specific MLP</td>
-<td>10M</td>
-<td>Multi-task learning support</td>
-</tr>
-</table>
-
-### **Attention Mechanisms**
-
-<table>
-<tr style="background-color:#FADADD;">
-<td><strong>Mechanism Type</strong></td>
-<td><strong>Application</strong></td>
-<td><strong>Computational Complexity</strong></td>
-</tr>
-<tr style="background-color:#FCE4E7;">
-<td>Self-Attention</td>
-<td>Within-modality relationships</td>
-<td>O(n²d)</td>
-</tr>
-<tr style="background-color:#FDEAED;">
-<td>Cross-Attention</td>
-<td>Between-modality interactions</td>
-<td>O(nmd)</td>
-</tr>
-<tr style="background-color:#FEF0F2;">
-<td>Hierarchical Attention</td>
-<td>Multi-scale feature fusion</td>
-<td>O(n log n · d)</td>
-</tr>
-</table>
-
----
-
-## **Training Process**
-
-### **Optimization Strategy**
-
-I've implemented a sophisticated training pipeline with adaptive learning and distributed computation support:
-
-<table>
-<tr style="background-color:#FFF4E6;">
-<td><strong>Training Aspect</strong></td>
-<td><strong>Configuration</strong></td>
-<td><strong>Rationale</strong></td>
-</tr>
-<tr style="background-color:#FFF6EA;">
-<td><strong>Optimizer</strong></td>
-<td>AdamW with gradient clipping</td>
-<td>Stable training for large models</td>
-</tr>
-<tr style="background-color:#FFF8EE;">
-<td><strong>Learning Rate</strong></td>
-<td>Cosine annealing with warmup</td>
-<td>Smooth convergence</td>
-</tr>
-<tr style="background-color:#FFFAF2;">
-<td><strong>Batch Size</strong></td>
-<td>Dynamic (16-64) with accumulation</td>
-<td>Memory efficiency</td>
-</tr>
-<tr style="background-color:#FFFCF6;">
-<td><strong>Regularization</strong></td>
-<td>Dropout + LayerNorm + Weight decay</td>
-<td>Prevent overfitting</td>
-</tr>
-<tr style="background-color:#FFFEFA;">
-<td><strong>Loss Function</strong></td>
-<td>Multi-task weighted loss</td>
-<td>Balanced learning across objectives</td>
-</tr>
-</table>
-
----
-
-## **Evaluation & Metrics**
-
-### **Performance Assessment Framework**
-
-I evaluate the model using comprehensive metrics tailored to multi-modal performance:
-
-<table>
-<tr style="background-color:#E6E6FA;">
-<td><strong>Metric Category</strong></td>
-<td><strong>Specific Metrics</strong></td>
-<td><strong>Target Performance</strong></td>
-</tr>
-<tr style="background-color:#EDEDFF;">
-<td><strong>Classification</strong></td>
-<td>Accuracy, F1, AUC-ROC, Precision@k</td>
-<td>> 95% accuracy</td>
-</tr>
-<tr style="background-color:#F0F0FF;">
-<td><strong>Regression</strong></td>
-<td>MSE, MAE, R², MAPE</td>
-<td>< 0.05 MSE</td>
-</tr>
-<tr style="background-color:#F5F5FF;">
-<td><strong>Generation</strong></td>
-<td>BLEU, ROUGE, Perplexity</td>
-<td>> 0.8 BLEU-4</td>
-</tr>
-<tr style="background-color:#F8F8FF;">
-<td><strong>Cross-Modal</strong></td>
-<td>Alignment score, Retrieval MRR</td>
-<td>> 0.9 MRR</td>
-</tr>
-<tr style="background-color:#FAFAFF;">
-<td><strong>Efficiency</strong></td>
-<td>Inference time, Memory usage</td>
-<td>< 100ms latency</td>
-</tr>
-</table>
-
----
-
-## **Function Definitions & Utilities**
-
-### **Core Utility Functions**
-
-I've developed a comprehensive suite of helper functions to streamline development:
-
-<table>
-<tr style="background-color:#F0FFF0;">
-<td><strong>Function Category</strong></td>
-<td><strong>Key Functions</strong></td>
-<td><strong>Description</strong></td>
-</tr>
-<tr style="background-color:#F5FFF5;">
-<td><strong>Data Loading</strong></td>
-<td><code>MultiModalDataLoader</code></td>
-<td>Efficient parallel loading with prefetching</td>
-</tr>
-<tr style="background-color:#F8FFF8;">
-<td><strong>Preprocessing</strong></td>
-<td><code>normalize_modalities()</code></td>
-<td>Modality-specific normalization</td>
-</tr>
-<tr style="background-color:#FAFFFA;">
-<td><strong>Visualization</strong></td>
-<td><code>plot_attention_maps()</code></td>
-<td>Cross-modal attention visualization</td>
-</tr>
-<tr style="background-color:#FCFFFC;">
-<td><strong>Metrics</strong></td>
-<td><code>calculate_multimodal_metrics()</code></td>
-<td>Comprehensive evaluation suite</td>
-</tr>
-<tr style="background-color:#FEFFFE;">
-<td><strong>Checkpointing</strong></td>
-<td><code>save_best_model()</code></td>
-<td>Automatic best model preservation</td>
-</tr>
-</table>
-
----
-
-## **Model Interpretability**
-
-### **Explainability Methods**
-
-Understanding model decisions is crucial for trust and debugging. I've integrated multiple interpretability techniques:
-
-<table>
-<tr style="background-color:#FFE8E8;">
-<td><strong>Technique</strong></td>
-<td><strong>Application</strong></td>
-<td><strong>Insights Provided</strong></td>
-</tr>
-<tr style="background-color:#FFEDED;">
-<td><strong>SHAP</strong></td>
-<td>Feature importance</td>
-<td>Contribution of each modality to predictions</td>
-</tr>
-<tr style="background-color:#FFF0F0;">
-<td><strong>Grad-CAM</strong></td>
-<td>Visual attention</td>
-<td>Spatial regions influencing decisions</td>
-</tr>
-<tr style="background-color:#FFF5F5;">
-<td><strong>Attention Weights</strong></td>
-<td>Cross-modal focus</td>
-<td>Inter-modality relationship strength</td>
-</tr>
-<tr style="background-color:#FFF8F8;">
-<td><strong>Counterfactuals</strong></td>
-<td>Decision boundaries</td>
-<td>Minimal changes for different outcomes</td>
-</tr>
-<tr style="background-color:#FFFAFA;">
-<td><strong>Ablation Studies</strong></td>
-<td>Component importance</td>
-<td>Impact of removing specific modalities</td>
-</tr>
-</table>
-
----
-
-## **Deployment Guide**
-
-### **Production Implementation**
-
-I've designed the deployment pipeline for scalability and reliability:
-
-<table>
-<tr style="background-color:#E0F2F1;">
-<td><strong>Deployment Stage</strong></td>
-<td><strong>Technology Stack</strong></td>
-<td><strong>Key Considerations</strong></td>
-</tr>
-<tr style="background-color:#E8F5F4;">
-<td><strong>Model Serialization</strong></td>
-<td>ONNX, TorchScript</td>
-<td>Cross-platform compatibility</td>
-</tr>
-<tr style="background-color:#F0F8F7;">
-<td><strong>API Development</strong></td>
-<td>FastAPI + Redis</td>
-<td>Async processing, caching</td>
-</tr>
-<tr style="background-color:#F5FAF9;">
-<td><strong>Containerization</strong></td>
-<td>Docker + Kubernetes</td>
-<td>Scalable orchestration</td>
-</tr>
-<tr style="background-color:#F8FCFB;">
-<td><strong>Model Serving</strong></td>
-<td>TorchServe / Triton</td>
-<td>High-throughput inference</td>
-</tr>
-<tr style="background-color:#FBFDFC;">
-<td><strong>Monitoring</strong></td>
-<td>Prometheus + Grafana</td>
-<td>Performance tracking, alerting</td>
-</tr>
-</table>
-
-### **API Endpoints**
-
-```python
-# Example API structure
-POST /predict/multimodal
-{
-    "image": "base64_encoded_image",
-    "text": "description or query",
-    "audio": "audio_file_url",
-    "metadata": {}
-}
-
-# Response
-{
-    "predictions": {...},
-    "confidence": 0.95,
-    "processing_time": 87.3,
-    "model_version": "v2.1.0"
-}
+```bash
+uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 8000
 ```
 
----
+Open:
 
-## **Conclusion & Future Work**
+- `http://127.0.0.1:8000/docs`
+- `http://127.0.0.1:8000/v1/health`
+- `http://127.0.0.1:8000/metrics`
 
-### **Key Achievements**
+### 3. Run tests
 
-<table>
-<tr style="background-color:#D8BFD8;">
-<td><strong>Achievement</strong></td>
-<td><strong>Impact</strong></td>
-</tr>
-<tr style="background-color:#E6D6E6;">
-<td>State-of-the-art fusion architecture</td>
-<td>15% improvement over single-modality baselines</td>
-</tr>
-<tr style="background-color:#F0E8F0;">
-<td>Efficient cross-modal attention</td>
-<td>3x faster than naive concatenation approaches</td>
-</tr>
-<tr style="background-color:#F5F0F5;">
-<td>Production-ready implementation</td>
-<td>Successfully deployed handling 10K+ requests/day</td>
-</tr>
-</table>
-
-### **Roadmap**
-
-<table>
-<tr style="background-color:#FFF9C4;">
-<td><strong>Timeline</strong></td>
-<td><strong>Planned Enhancement</strong></td>
-<td><strong>Expected Outcome</strong></td>
-</tr>
-<tr style="background-color:#FFFBD1;">
-<td><strong>Q1 2025</strong></td>
-<td>Add video understanding capabilities</td>
-<td>Temporal modeling improvements</td>
-</tr>
-<tr style="background-color:#FFFDD8;">
-<td><strong>Q2 2025</strong></td>
-<td>Implement few-shot learning</td>
-<td>Reduced data requirements</td>
-</tr>
-<tr style="background-color:#FFFEDF;">
-<td><strong>Q3 2025</strong></td>
-<td>Edge device optimization</td>
-<td>Mobile deployment support</td>
-</tr>
-<tr style="background-color:#FFFFE6;">
-<td><strong>Q4 2025</strong></td>
-<td>Self-supervised pretraining</td>
-<td>Enhanced zero-shot performance</td>
-</tr>
-</table>
-
----
-
-## **Citation**
-
-If you use this work in your research, please cite:
-
-```bibtex
-@software{advanced_multimodal_ai_2025,
-  title = {Advanced Multi-Modal Deep Learning Framework},
-  author = {[Your Name]},
-  year = {2025},
-  url = {https://github.com/[username]/Advanced_multi-modal-AI}
-}
+```bash
+pytest
+ruff check src tests
+cargo test -p multimodal-core
+python3 scripts/run_acceptance_spine.py
 ```
 
----
+### 4. Run the benchmark
 
-<div align="center">
+```bash
+python -m advanced_multimodal_ai.cli benchmark --iterations 10
+```
 
-<strong>Pushing the boundaries of multi-modal intelligence</strong>
+### 5. Export the example bundle
 
-![separator](https://img.shields.io/badge/-E8DFF5?style=flat-square&color=E8DFF5)
-![separator](https://img.shields.io/badge/-FFE5CC?style=flat-square&color=FFE5CC)
-![separator](https://img.shields.io/badge/-D4E4FC?style=flat-square&color=D4E4FC)
-![separator](https://img.shields.io/badge/-E7F3E7?style=flat-square&color=E7F3E7)
-![separator](https://img.shields.io/badge/-FADADD?style=flat-square&color=FADADD)
+```bash
+python3 scripts/export_example_bundle.py
+```
 
-![separator](https://img.shields.io/badge/-FFE0E0?style=flat&color=FFE0E0)
-![separator](https://img.shields.io/badge/-E0E0FF?style=flat&color=E0E0FF)
-![separator](https://img.shields.io/badge/-E0FFE0?style=flat&color=E0FFE0)
-![separator](https://img.shields.io/badge/-FFE0FF?style=flat&color=FFE0FF)
-![separator](https://img.shields.io/badge/-FFFFE0?style=flat&color=FFFFE0)
-![separator](https://img.shields.io/badge/-E0FFFF?style=flat&color=E0FFFF)
+That writes:
 
-**Stay tuned for continuous improvements and breakthroughs!**
+- `proof/example-bundle.json`
+- `proof/example-bundle.md`
 
-</div>
+### 6. Run the acceptance spine
+
+```bash
+python3 scripts/run_acceptance_spine.py
+```
+
+### 7. Start the full local stack
+
+```bash
+docker compose up --build
+```
+
+This brings up:
+
+- the FastAPI service
+- Qdrant
+- Prometheus
+
+## Rust core and TypeScript SDK
+
+### Rust core
+
+```bash
+cargo test -p multimodal-core
+```
+
+The Rust crate handles two deterministic surfaces today:
+
+- tensor signature extraction for contract-mode inference
+- transcript-led cleanup cut detection for the video lane
+
+### TypeScript SDK
+
+The client under [`sdk/typescript`](./sdk/typescript) covers:
+
+- health checks
+- model registry reads
+- data quality profiling
+- provenance receipts
+- alignment windows
+- connector-backed dataset registration
+- connector-fed pipeline ingestion
+- persisted job submission and job inspection
+- inference requests
+- orchestration planning
+- WebSocket inference streaming
+
+Build check:
+
+```bash
+cd sdk/typescript
+npx tsc --noEmit -p tsconfig.json
+```
+
+### OpenAPI export and generated clients
+
+```bash
+python3 scripts/export_openapi.py
+python3 scripts/generate_sdk_surfaces.py
+python3 scripts/export_readiness_report.py
+python3 scripts/export_example_bundle.py
+python3 scripts/build_runtime_proof_bundle.py
+```
+
+Generated outputs:
+
+- `openapi/openapi.json`
+- `sdk/typescript/src/generated-openapi.ts`
+- `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py`
+- `proof/readiness-report.json`
+- `proof/example-bundle.json`
+
+## Research registry
+
+Some parts of the repository remain research assets rather than finished runtime
+components.
+
+- `complete_model.py`
+- `dynamic_transformer.py`
+- `fusion_strategies.py`
+- `core/attention_mechanisms.py`
+- several `Advanced_/` experiments
+
+Those files are still useful. They are simply no longer described as though
+they were already a distributed production engine on their own.
+
+## Verification
+
+This pass was validated locally with:
+
+- `python3 -m pytest -q`
+- `python3 -m ruff check src tests scripts`
+- `cargo test -p multimodal-core`
+- `python3 scripts/export_openapi.py`
+- `python3 scripts/generate_sdk_surfaces.py`
+- `python3 scripts/export_readiness_report.py`
+- `python3 scripts/export_example_bundle.py`
+- `python3 scripts/build_runtime_proof_bundle.py`
+- `python3 scripts/run_acceptance_spine.py`
+- `npx tsc --noEmit -p sdk/typescript/tsconfig.json`
+
+## License and authorship
+
+This repository is licensed under the Apache License 2.0. See
+[`LICENSE`](./LICENSE) and [`NOTICE`](./NOTICE).
+
+The runtime spine, public documentation, and multimodal data-plane contracts in
+this refactor are attributed to Cazandra Aporbo.
+
+## Acknowledgment
+
+The transcript-first video lane was informed in part by the structured editing
+posture demonstrated in [browser-use/video-use](https://github.com/browser-use/video-use),
+especially its preference for readable timeline packets over indiscriminate
+frame dumping. This repository adapts that idea into a narrower multimodal
+evidence and cleanup surface rather than copying its editing workflow.

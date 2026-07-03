@@ -30,6 +30,7 @@ def build_repository_pulse(
     lanes = [
         _frontend_lane(),
         _backend_lane(attestation=attestation, proof_bundle=proof_bundle),
+        _benchmark_lane(),
         _compiled_lane(),
         _client_lane(),
         _evidence_lane(),
@@ -55,6 +56,10 @@ def _frontend_lane() -> PulseLane:
         "technical-portfolio.html",
         "model-observatory.html",
         "field-notes.html",
+        "benchmark-observatory.html",
+        "cymatic-media-engine.html",
+        "cymatic-surface.css",
+        "cymatic-surface.js",
         "research-surfaces.js",
         "site-controls.css",
         "site-controls.js",
@@ -73,6 +78,36 @@ def _frontend_lane() -> PulseLane:
         suggested_actions=[
             "Keep the browser lane reading generated evidence files.",
             "Prefer live bundle hydration over static text repetition.",
+        ],
+    )
+
+
+def _benchmark_lane() -> PulseLane:
+    files = [
+        "src/advanced_multimodal_ai/benchmarks.py",
+        "src/advanced_multimodal_ai/service.py",
+        "scripts/export_benchmark_surfaces.py",
+        "proof/benchmark-surfaces.json",
+        "proof/benchmark-surfaces.md",
+    ]
+    artifacts = [
+        _artifact(path, note="Benchmark lane source or generated artifact.")
+        for path in files
+    ]
+    return _lane(
+        lane_id="benchmark_lane",
+        label="Reference benchmark lane",
+        emphasis="backend",
+        summary=(
+            "A typed reference workload now exercises connector ingest, "
+            "profiling, provenance, batch execution, recipe compilation, "
+            "and proof refresh together."
+        ),
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Keep the benchmark tied to real persisted lanes, not stand-alone timers.",
+            "Prefer repeated reference workloads over one-off smoke claims.",
         ],
     )
 
@@ -185,9 +220,13 @@ def _evidence_lane() -> PulseLane:
         "proof/runtime-proof.json",
         "proof/readiness-report.json",
         "proof/example-bundle.json",
+        "proof/benchmark-surfaces.json",
+        "proof/cymatic-surface.json",
         "proof/research-surfaces.json",
         "proof/execution-journal.json",
         "scripts/build_runtime_proof_bundle.py",
+        "scripts/export_benchmark_surfaces.py",
+        "scripts/export_cymatic_surface.py",
         "scripts/export_execution_journal.py",
         "scripts/export_readiness_report.py",
         "scripts/export_example_bundle.py",

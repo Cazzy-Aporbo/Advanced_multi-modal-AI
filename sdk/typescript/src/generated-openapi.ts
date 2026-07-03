@@ -63,6 +63,12 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("GET", path);
   }
 
+  /** Research Cymatic Surface */
+  async researchCymaticSurfaceV1ResearchCymaticSurfaceGet(): Promise<unknown> {
+    let path = `/v1/research/cymatic-surface`;
+    return this.request<unknown>("GET", path);
+  }
+
   /** Repository Pulse */
   async repositoryPulseV1RepositoryPulseGet(): Promise<unknown> {
     let path = `/v1/repository/pulse`;
@@ -246,6 +252,22 @@ export class GeneratedOpenAPIClient {
   /** Runtime Attestation */
   async runtimeAttestationV1RuntimeAttestationGet(): Promise<unknown> {
     let path = `/v1/runtime/attestation`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Runtime Compliance Ledger */
+  async runtimeComplianceLedgerV1RuntimeComplianceLedgerGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/runtime/compliance-ledger`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
     return this.request<unknown>("GET", path);
   }
 
@@ -511,6 +533,18 @@ export class GeneratedOpenAPIClient {
       path += `?${queryString}`;
     }
     return this.request<unknown>("GET", path);
+  }
+
+  /** Reference Benchmark Default */
+  async referenceBenchmarkDefaultV1BenchmarksReferenceGet(): Promise<unknown> {
+    let path = `/v1/benchmarks/reference`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Reference Benchmark */
+  async referenceBenchmarkV1BenchmarksReferencePost(payload: unknown): Promise<unknown> {
+    let path = `/v1/benchmarks/reference`;
+    return this.request<unknown>("POST", path, payload);
   }
 
   /** Metrics */

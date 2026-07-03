@@ -91,6 +91,10 @@
       document.querySelector(".wrap");
     if (!target) return;
 
+    document.body.dataset.navPattern = document.querySelector(".nav-disclosure")
+      ? "disclosure"
+      : "inline";
+
     const theme = getStored(THEME_KEY, "ember");
     const contrast = getStored(CONTRAST_KEY, "standard");
     const locale = getStored(LOCALE_KEY, "en");

@@ -67,6 +67,11 @@ class GeneratedOpenAPIClient:
         path = f"/v1/research/surfaces"
         return self._request("GET", path)
 
+    def researchCymaticSurfaceV1ResearchCymaticSurfaceGet(self) -> Any:
+        """Research Cymatic Surface"""
+        path = f"/v1/research/cymatic-surface"
+        return self._request("GET", path)
+
     def repositoryPulseV1RepositoryPulseGet(self) -> Any:
         """Repository Pulse"""
         path = f"/v1/repository/pulse"
@@ -188,6 +193,14 @@ class GeneratedOpenAPIClient:
     def runtimeAttestationV1RuntimeAttestationGet(self) -> Any:
         """Runtime Attestation"""
         path = f"/v1/runtime/attestation"
+        return self._request("GET", path)
+
+    def runtimeComplianceLedgerV1RuntimeComplianceLedgerGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """Runtime Compliance Ledger"""
+        path = f"/v1/runtime/compliance-ledger"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
         return self._request("GET", path)
 
     def runtimeProofBundleV1ProofBundleGet(self) -> Any:
@@ -377,6 +390,16 @@ class GeneratedOpenAPIClient:
             encoded = httpx.QueryParams(query)
             path = f"{path}?{encoded}"
         return self._request("GET", path)
+
+    def referenceBenchmarkDefaultV1BenchmarksReferenceGet(self) -> Any:
+        """Reference Benchmark Default"""
+        path = f"/v1/benchmarks/reference"
+        return self._request("GET", path)
+
+    def referenceBenchmarkV1BenchmarksReferencePost(self, payload: Any) -> Any:
+        """Reference Benchmark"""
+        path = f"/v1/benchmarks/reference"
+        return self._request("POST", path, payload=payload)
 
     def metricsMetricsGet(self) -> Any:
         """Metrics"""

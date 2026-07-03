@@ -1,28 +1,30 @@
 {
-  "total_runs": 14,
-  "passing_runs": 14,
+  "total_runs": 57,
+  "passing_runs": 57,
   "failing_runs": 0,
   "lane_counts": {
-    "proof_export": 2,
-    "readiness_export": 2,
-    "repository_pulse_export": 2,
-    "research_surface_export": 2,
-    "test_export_lane": 2,
-    "client_generation": 1,
-    "example_bundle_export": 1,
-    "execution_journal_export": 1,
-    "openapi_export": 1
+    "test_export_lane": 13,
+    "proof_export": 6,
+    "research_surface_export": 6,
+    "client_generation": 5,
+    "openapi_export": 5,
+    "readiness_export": 5,
+    "repository_pulse_export": 5,
+    "example_bundle_export": 4,
+    "execution_journal_export": 4,
+    "benchmark_surface_export": 3,
+    "cymatic_surface_export": 1
   },
   "recent_runs": [
     {
-      "journal_id": "5ef90378-efe8-4500-bb10-010d6db80699",
+      "journal_id": "8a8c240a-e77e-4452-9e2b-e573c26ec05b",
       "lane": "proof_export",
       "source_kind": "script",
       "command": "python3 scripts/build_runtime_proof_bundle.py",
       "status": "pass",
-      "started_at": "2026-07-03T08:13:22.433437+00:00",
-      "completed_at": "2026-07-03T08:13:22.499342+00:00",
-      "duration_ms": 65.9001249987341,
+      "started_at": "2026-07-03T18:27:21.844240+00:00",
+      "completed_at": "2026-07-03T18:27:21.875773+00:00",
+      "duration_ms": 31.52974999829894,
       "notes": [
         "Runtime proof bundle regenerated from the live backend."
       ],
@@ -31,29 +33,439 @@
           "label": "runtime-proof.json",
           "path": "proof/runtime-proof.json",
           "status": "present",
-          "bytes": 3542,
-          "modified_at": "2026-07-03T08:13:22.499149+00:00",
+          "bytes": 4004,
+          "modified_at": "2026-07-03T18:27:21.875590+00:00",
           "note": "Exported runtime proof bundle."
         },
         {
           "label": "runtime-proof.md",
           "path": "proof/runtime-proof.md",
           "status": "present",
-          "bytes": 1460,
-          "modified_at": "2026-07-03T08:13:22.499311+00:00",
+          "bytes": 1678,
+          "modified_at": "2026-07-03T18:27:21.875736+00:00",
           "note": "Readable runtime proof bundle."
         }
       ]
     },
     {
-      "journal_id": "d8278c26-afd9-4e5b-9c27-f715ad0e8572",
+      "journal_id": "0536ad0a-22f6-410f-b18b-c4248546c1a8",
+      "lane": "example_bundle_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_example_bundle.py",
+      "status": "pass",
+      "started_at": "2026-07-03T18:27:19.501361+00:00",
+      "completed_at": "2026-07-03T18:27:20.174880+00:00",
+      "duration_ms": 673.5105830011889,
+      "notes": [
+        "Example bundle regenerated from live routes."
+      ],
+      "artifacts": [
+        {
+          "label": "example-bundle.json",
+          "path": "proof/example-bundle.json",
+          "status": "present",
+          "bytes": 2598,
+          "modified_at": "2026-07-03T18:27:20.174650+00:00",
+          "note": "Executable example bundle snapshot."
+        },
+        {
+          "label": "example-bundle.md",
+          "path": "proof/example-bundle.md",
+          "status": "present",
+          "bytes": 1650,
+          "modified_at": "2026-07-03T18:27:20.174837+00:00",
+          "note": "Readable example bundle summary."
+        }
+      ]
+    },
+    {
+      "journal_id": "57597aa4-25a1-4075-8e84-73bbcd3b5ac0",
       "lane": "readiness_export",
       "source_kind": "script",
       "command": "python3 scripts/export_readiness_report.py",
       "status": "pass",
-      "started_at": "2026-07-03T08:13:00.296271+00:00",
-      "completed_at": "2026-07-03T08:13:00.419335+00:00",
-      "duration_ms": 123.0626670003403,
+      "started_at": "2026-07-03T18:27:17.993580+00:00",
+      "completed_at": "2026-07-03T18:27:18.025400+00:00",
+      "duration_ms": 31.817625000257976,
+      "notes": [
+        "Readiness report regenerated from the live backend."
+      ],
+      "artifacts": [
+        {
+          "label": "readiness-report.json",
+          "path": "proof/readiness-report.json",
+          "status": "present",
+          "bytes": 2785,
+          "modified_at": "2026-07-03T18:27:18.025224+00:00",
+          "note": "Exported readiness report."
+        },
+        {
+          "label": "readiness-report.md",
+          "path": "proof/readiness-report.md",
+          "status": "present",
+          "bytes": 1845,
+          "modified_at": "2026-07-03T18:27:18.025362+00:00",
+          "note": "Readable readiness report."
+        }
+      ]
+    },
+    {
+      "journal_id": "31e028e1-506e-4485-8185-29482eb896db",
+      "lane": "repository_pulse_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_repository_pulse.py",
+      "status": "pass",
+      "started_at": "2026-07-03T18:27:16.527899+00:00",
+      "completed_at": "2026-07-03T18:27:16.563203+00:00",
+      "duration_ms": 35.29770799650578,
+      "notes": [
+        "Repository pulse regenerated from the live backend."
+      ],
+      "artifacts": [
+        {
+          "label": "repository-pulse.json",
+          "path": "proof/repository-pulse.json",
+          "status": "present",
+          "bytes": 23210,
+          "modified_at": "2026-07-03T18:27:16.562960+00:00",
+          "note": "Exported repository pulse."
+        },
+        {
+          "label": "repository-pulse.md",
+          "path": "proof/repository-pulse.md",
+          "status": "present",
+          "bytes": 10767,
+          "modified_at": "2026-07-03T18:27:16.563165+00:00",
+          "note": "Readable repository pulse."
+        }
+      ]
+    },
+    {
+      "journal_id": "1c3882e8-22c9-4e24-8211-39294cdb95c4",
+      "lane": "cymatic_surface_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_cymatic_surface.py",
+      "status": "pass",
+      "started_at": "2026-07-03T18:27:14.348546+00:00",
+      "completed_at": "2026-07-03T18:27:15.033384+00:00",
+      "duration_ms": 684.8293750008452,
+      "notes": [
+        "Cymatic evidence bundle regenerated from benchmark, pulse, and research surfaces."
+      ],
+      "artifacts": [
+        {
+          "label": "cymatic-surface.json",
+          "path": "proof/cymatic-surface.json",
+          "status": "present",
+          "bytes": 12222,
+          "modified_at": "2026-07-03T18:27:15.033190+00:00",
+          "note": "Exported cymatic evidence bundle."
+        },
+        {
+          "label": "cymatic-surface.md",
+          "path": "proof/cymatic-surface.md",
+          "status": "present",
+          "bytes": 7107,
+          "modified_at": "2026-07-03T18:27:15.033364+00:00",
+          "note": "Readable cymatic evidence report."
+        }
+      ]
+    },
+    {
+      "journal_id": "1ed74d9a-2ecd-4005-ba6a-344d09dfa51d",
+      "lane": "benchmark_surface_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_benchmark_surfaces.py",
+      "status": "pass",
+      "started_at": "2026-07-03T18:27:12.148562+00:00",
+      "completed_at": "2026-07-03T18:27:12.780201+00:00",
+      "duration_ms": 631.6315000003669,
+      "notes": [
+        "Reference benchmark surface regenerated from the live backend."
+      ],
+      "artifacts": [
+        {
+          "label": "benchmark-surfaces.json",
+          "path": "proof/benchmark-surfaces.json",
+          "status": "present",
+          "bytes": 3980,
+          "modified_at": "2026-07-03T18:27:12.780013+00:00",
+          "note": "Exported reference benchmark surface."
+        },
+        {
+          "label": "benchmark-surfaces.md",
+          "path": "proof/benchmark-surfaces.md",
+          "status": "present",
+          "bytes": 2843,
+          "modified_at": "2026-07-03T18:27:12.780168+00:00",
+          "note": "Readable reference benchmark surface."
+        }
+      ]
+    },
+    {
+      "journal_id": "ab0b8ec3-edab-453b-9084-78d1c24dfffd",
+      "lane": "research_surface_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_research_surfaces.py",
+      "status": "pass",
+      "started_at": "2026-07-03T18:27:10.479200+00:00",
+      "completed_at": "2026-07-03T18:27:10.515334+00:00",
+      "duration_ms": 36.132749999524094,
+      "notes": [
+        "Research surface bundle regenerated from the live backend."
+      ],
+      "artifacts": [
+        {
+          "label": "research-surfaces.json",
+          "path": "proof/research-surfaces.json",
+          "status": "present",
+          "bytes": 29922,
+          "modified_at": "2026-07-03T18:27:10.514918+00:00",
+          "note": "Exported research surface bundle."
+        },
+        {
+          "label": "research-surfaces.md",
+          "path": "proof/research-surfaces.md",
+          "status": "present",
+          "bytes": 24294,
+          "modified_at": "2026-07-03T18:27:10.515299+00:00",
+          "note": "Readable research surface bundle."
+        }
+      ]
+    },
+    {
+      "journal_id": "6c56f4ea-0b65-437a-8c37-36a75e62863c",
+      "lane": "client_generation",
+      "source_kind": "script",
+      "command": "python3 scripts/generate_sdk_surfaces.py",
+      "status": "pass",
+      "started_at": "2026-07-03T18:27:08.617816+00:00",
+      "completed_at": "2026-07-03T18:27:08.619520+00:00",
+      "duration_ms": 1.7044999985955656,
+      "notes": [
+        "Python and TypeScript client surfaces regenerated."
+      ],
+      "artifacts": [
+        {
+          "label": "generated-openapi.ts",
+          "path": "sdk/typescript/src/generated-openapi.ts",
+          "status": "present",
+          "bytes": 19233,
+          "modified_at": "2026-07-03T18:27:08.619073+00:00",
+          "note": "Generated TypeScript client surface."
+        },
+        {
+          "label": "generated_openapi.py",
+          "path": "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
+          "status": "present",
+          "bytes": 15753,
+          "modified_at": "2026-07-03T18:27:08.619488+00:00",
+          "note": "Generated Python client surface."
+        }
+      ]
+    },
+    {
+      "journal_id": "01db5ea9-8ba7-4a62-922d-5f36e0c2c630",
+      "lane": "test_export_lane",
+      "source_kind": "script",
+      "command": "python3 scripts/test_export_lane.py",
+      "status": "pass",
+      "started_at": "2026-07-03T18:27:07.607016+00:00",
+      "completed_at": "2026-07-03T18:27:07.607020+00:00",
+      "duration_ms": 0.003792003553826362,
+      "notes": [
+        "journal route test"
+      ],
+      "artifacts": [
+        {
+          "label": "README.md",
+          "path": "README.md",
+          "status": "present",
+          "bytes": 41511,
+          "modified_at": "2026-07-03T18:22:09.369188+00:00",
+          "note": "Repository overview file."
+        }
+      ]
+    },
+    {
+      "journal_id": "90c89077-c143-440a-92b3-b46f2d4e657c",
+      "lane": "openapi_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_openapi.py",
+      "status": "pass",
+      "started_at": "2026-07-03T18:27:06.738280+00:00",
+      "completed_at": "2026-07-03T18:27:06.797640+00:00",
+      "duration_ms": 59.35587499698158,
+      "notes": [
+        "OpenAPI contract regenerated."
+      ],
+      "artifacts": [
+        {
+          "label": "openapi.json",
+          "path": "openapi/openapi.json",
+          "status": "present",
+          "bytes": 127993,
+          "modified_at": "2026-07-03T18:27:06.797543+00:00",
+          "note": "Generated OpenAPI contract."
+        }
+      ]
+    },
+    {
+      "journal_id": "be535678-71ac-4605-9d54-e7c32f6ba20e",
+      "lane": "test_export_lane",
+      "source_kind": "script",
+      "command": "python3 scripts/test_export_lane.py",
+      "status": "pass",
+      "started_at": "2026-07-03T18:23:51.991067+00:00",
+      "completed_at": "2026-07-03T18:23:51.991072+00:00",
+      "duration_ms": 0.0032080060918815434,
+      "notes": [
+        "journal route test"
+      ],
+      "artifacts": [
+        {
+          "label": "README.md",
+          "path": "README.md",
+          "status": "present",
+          "bytes": 41511,
+          "modified_at": "2026-07-03T18:22:09.369188+00:00",
+          "note": "Repository overview file."
+        }
+      ]
+    },
+    {
+      "journal_id": "89c52b61-6c40-474c-aa5f-30d0100065a1",
+      "lane": "proof_export",
+      "source_kind": "script",
+      "command": "python3 scripts/build_runtime_proof_bundle.py",
+      "status": "pass",
+      "started_at": "2026-07-03T17:32:56.611171+00:00",
+      "completed_at": "2026-07-03T17:32:56.661281+00:00",
+      "duration_ms": 50.10599999513943,
+      "notes": [
+        "Runtime proof bundle regenerated from the live backend."
+      ],
+      "artifacts": [
+        {
+          "label": "runtime-proof.json",
+          "path": "proof/runtime-proof.json",
+          "status": "present",
+          "bytes": 3769,
+          "modified_at": "2026-07-03T17:32:56.661111+00:00",
+          "note": "Exported runtime proof bundle."
+        },
+        {
+          "label": "runtime-proof.md",
+          "path": "proof/runtime-proof.md",
+          "status": "present",
+          "bytes": 1562,
+          "modified_at": "2026-07-03T17:32:56.661246+00:00",
+          "note": "Readable runtime proof bundle."
+        }
+      ]
+    },
+    {
+      "journal_id": "7f7c400b-8091-411a-ab7f-64216936a2bb",
+      "lane": "benchmark_surface_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_benchmark_surfaces.py",
+      "status": "pass",
+      "started_at": "2026-07-03T17:31:53.355392+00:00",
+      "completed_at": "2026-07-03T17:31:54.100584+00:00",
+      "duration_ms": 745.1855839972268,
+      "notes": [
+        "Reference benchmark surface regenerated from the live backend."
+      ],
+      "artifacts": [
+        {
+          "label": "benchmark-surfaces.json",
+          "path": "proof/benchmark-surfaces.json",
+          "status": "present",
+          "bytes": 3979,
+          "modified_at": "2026-07-03T17:31:54.100403+00:00",
+          "note": "Exported reference benchmark surface."
+        },
+        {
+          "label": "benchmark-surfaces.md",
+          "path": "proof/benchmark-surfaces.md",
+          "status": "present",
+          "bytes": 2842,
+          "modified_at": "2026-07-03T17:31:54.100549+00:00",
+          "note": "Readable reference benchmark surface."
+        }
+      ]
+    },
+    {
+      "journal_id": "d420c8c1-d3b4-46f3-989e-2c1f3c3c9f89",
+      "lane": "execution_journal_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_execution_journal.py",
+      "status": "pass",
+      "started_at": "2026-07-03T17:31:17.432648+00:00",
+      "completed_at": "2026-07-03T17:31:17.469054+00:00",
+      "duration_ms": 36.403582998900674,
+      "notes": [
+        "Execution journal exported from persisted run records."
+      ],
+      "artifacts": [
+        {
+          "label": "execution-journal.json",
+          "path": "proof/execution-journal.json",
+          "status": "present",
+          "bytes": 19702,
+          "modified_at": "2026-07-03T17:31:17.468737+00:00",
+          "note": "Exported execution journal."
+        },
+        {
+          "label": "execution-journal.md",
+          "path": "proof/execution-journal.md",
+          "status": "present",
+          "bytes": 7732,
+          "modified_at": "2026-07-03T17:31:17.468991+00:00",
+          "note": "Readable execution journal."
+        }
+      ]
+    },
+    {
+      "journal_id": "b1742e59-2032-4e51-a9ca-e0a9dc26b8bf",
+      "lane": "example_bundle_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_example_bundle.py",
+      "status": "pass",
+      "started_at": "2026-07-03T17:30:46.935545+00:00",
+      "completed_at": "2026-07-03T17:30:47.672040+00:00",
+      "duration_ms": 736.4891250035726,
+      "notes": [
+        "Example bundle regenerated from live routes."
+      ],
+      "artifacts": [
+        {
+          "label": "example-bundle.json",
+          "path": "proof/example-bundle.json",
+          "status": "present",
+          "bytes": 2600,
+          "modified_at": "2026-07-03T17:30:47.671905+00:00",
+          "note": "Executable example bundle snapshot."
+        },
+        {
+          "label": "example-bundle.md",
+          "path": "proof/example-bundle.md",
+          "status": "present",
+          "bytes": 1652,
+          "modified_at": "2026-07-03T17:30:47.672010+00:00",
+          "note": "Readable example bundle summary."
+        }
+      ]
+    },
+    {
+      "journal_id": "1000c3a3-eb55-4768-ad27-78b7b2c19ab2",
+      "lane": "readiness_export",
+      "source_kind": "script",
+      "command": "python3 scripts/export_readiness_report.py",
+      "status": "pass",
+      "started_at": "2026-07-03T17:30:10.556667+00:00",
+      "completed_at": "2026-07-03T17:30:10.588191+00:00",
+      "duration_ms": 31.520415999693796,
       "notes": [
         "Readiness report regenerated from the live backend."
       ],
@@ -63,7 +475,7 @@
           "path": "proof/readiness-report.json",
           "status": "present",
           "bytes": 2784,
-          "modified_at": "2026-07-03T08:13:00.419102+00:00",
+          "modified_at": "2026-07-03T17:30:10.588031+00:00",
           "note": "Exported readiness report."
         },
         {
@@ -71,51 +483,20 @@
           "path": "proof/readiness-report.md",
           "status": "present",
           "bytes": 1844,
-          "modified_at": "2026-07-03T08:13:00.419294+00:00",
+          "modified_at": "2026-07-03T17:30:10.588157+00:00",
           "note": "Readable readiness report."
         }
       ]
     },
     {
-      "journal_id": "32c07f1e-1907-4c32-b491-76adc28ce497",
-      "lane": "research_surface_export",
-      "source_kind": "script",
-      "command": "python3 scripts/export_research_surfaces.py",
-      "status": "pass",
-      "started_at": "2026-07-03T08:13:00.201313+00:00",
-      "completed_at": "2026-07-03T08:13:00.301598+00:00",
-      "duration_ms": 100.28066700033378,
-      "notes": [
-        "Research surface bundle regenerated from the live backend."
-      ],
-      "artifacts": [
-        {
-          "label": "research-surfaces.json",
-          "path": "proof/research-surfaces.json",
-          "status": "present",
-          "bytes": 25981,
-          "modified_at": "2026-07-03T08:13:00.301237+00:00",
-          "note": "Exported research surface bundle."
-        },
-        {
-          "label": "research-surfaces.md",
-          "path": "proof/research-surfaces.md",
-          "status": "present",
-          "bytes": 21046,
-          "modified_at": "2026-07-03T08:13:00.301537+00:00",
-          "note": "Readable research surface bundle."
-        }
-      ]
-    },
-    {
-      "journal_id": "845e4d72-4fa3-465b-a91a-6f45835b7156",
+      "journal_id": "c6c66ae5-84ed-4ed8-92a4-782aa7df16f4",
       "lane": "repository_pulse_export",
       "source_kind": "script",
       "command": "python3 scripts/export_repository_pulse.py",
       "status": "pass",
-      "started_at": "2026-07-03T08:13:00.145369+00:00",
-      "completed_at": "2026-07-03T08:13:00.234497+00:00",
-      "duration_ms": 89.12575000067591,
+      "started_at": "2026-07-03T17:29:37.268665+00:00",
+      "completed_at": "2026-07-03T17:29:37.303337+00:00",
+      "duration_ms": 34.67100000125356,
       "notes": [
         "Repository pulse regenerated from the live backend."
       ],
@@ -124,184 +505,29 @@
           "label": "repository-pulse.json",
           "path": "proof/repository-pulse.json",
           "status": "present",
-          "bytes": 17949,
-          "modified_at": "2026-07-03T08:13:00.234150+00:00",
+          "bytes": 21512,
+          "modified_at": "2026-07-03T17:29:37.302394+00:00",
           "note": "Exported repository pulse."
         },
         {
           "label": "repository-pulse.md",
           "path": "proof/repository-pulse.md",
           "status": "present",
-          "bytes": 8489,
-          "modified_at": "2026-07-03T08:13:00.234401+00:00",
+          "bytes": 10139,
+          "modified_at": "2026-07-03T17:29:37.303298+00:00",
           "note": "Readable repository pulse."
         }
       ]
     },
     {
-      "journal_id": "5e517021-15fe-49e6-838c-7ec29d870ee9",
-      "lane": "execution_journal_export",
-      "source_kind": "script",
-      "command": "python3 scripts/export_execution_journal.py",
-      "status": "pass",
-      "started_at": "2026-07-03T08:12:39.088248+00:00",
-      "completed_at": "2026-07-03T08:12:39.153876+00:00",
-      "duration_ms": 65.62358400333324,
-      "notes": [
-        "Execution journal exported from persisted run records."
-      ],
-      "artifacts": [
-        {
-          "label": "execution-journal.json",
-          "path": "proof/execution-journal.json",
-          "status": "present",
-          "bytes": 8924,
-          "modified_at": "2026-07-03T08:12:39.153687+00:00",
-          "note": "Exported execution journal."
-        },
-        {
-          "label": "execution-journal.md",
-          "path": "proof/execution-journal.md",
-          "status": "present",
-          "bytes": 3578,
-          "modified_at": "2026-07-03T08:12:39.153860+00:00",
-          "note": "Readable execution journal."
-        }
-      ]
-    },
-    {
-      "journal_id": "12da22aa-a359-46c4-a228-95506c420bf0",
-      "lane": "example_bundle_export",
-      "source_kind": "script",
-      "command": "python3 scripts/export_example_bundle.py",
-      "status": "pass",
-      "started_at": "2026-07-03T08:12:18.475544+00:00",
-      "completed_at": "2026-07-03T08:12:18.973420+00:00",
-      "duration_ms": 497.8615410000202,
-      "notes": [
-        "Example bundle regenerated from live routes."
-      ],
-      "artifacts": [
-        {
-          "label": "example-bundle.json",
-          "path": "proof/example-bundle.json",
-          "status": "present",
-          "bytes": 2602,
-          "modified_at": "2026-07-03T08:12:18.973218+00:00",
-          "note": "Executable example bundle snapshot."
-        },
-        {
-          "label": "example-bundle.md",
-          "path": "proof/example-bundle.md",
-          "status": "present",
-          "bytes": 1654,
-          "modified_at": "2026-07-03T08:12:18.973374+00:00",
-          "note": "Readable example bundle summary."
-        }
-      ]
-    },
-    {
-      "journal_id": "a3ae8f9e-258f-486d-8e8e-fb99b7e39bb0",
-      "lane": "proof_export",
-      "source_kind": "script",
-      "command": "python3 scripts/build_runtime_proof_bundle.py",
-      "status": "pass",
-      "started_at": "2026-07-03T08:12:01.351480+00:00",
-      "completed_at": "2026-07-03T08:12:01.417428+00:00",
-      "duration_ms": 65.94537500131992,
-      "notes": [
-        "Runtime proof bundle regenerated from the live backend."
-      ],
-      "artifacts": [
-        {
-          "label": "runtime-proof.json",
-          "path": "proof/runtime-proof.json",
-          "status": "present",
-          "bytes": 3544,
-          "modified_at": "2026-07-03T08:12:01.417255+00:00",
-          "note": "Exported runtime proof bundle."
-        },
-        {
-          "label": "runtime-proof.md",
-          "path": "proof/runtime-proof.md",
-          "status": "present",
-          "bytes": 1463,
-          "modified_at": "2026-07-03T08:12:01.417393+00:00",
-          "note": "Readable runtime proof bundle."
-        }
-      ]
-    },
-    {
-      "journal_id": "0d41eeed-ec5f-4e2a-9e80-cb9bd09161e1",
-      "lane": "readiness_export",
-      "source_kind": "script",
-      "command": "python3 scripts/export_readiness_report.py",
-      "status": "pass",
-      "started_at": "2026-07-03T08:11:44.077820+00:00",
-      "completed_at": "2026-07-03T08:11:44.147766+00:00",
-      "duration_ms": 69.94449999911012,
-      "notes": [
-        "Readiness report regenerated from the live backend."
-      ],
-      "artifacts": [
-        {
-          "label": "readiness-report.json",
-          "path": "proof/readiness-report.json",
-          "status": "present",
-          "bytes": 2846,
-          "modified_at": "2026-07-03T08:11:44.147556+00:00",
-          "note": "Exported readiness report."
-        },
-        {
-          "label": "readiness-report.md",
-          "path": "proof/readiness-report.md",
-          "status": "present",
-          "bytes": 1892,
-          "modified_at": "2026-07-03T08:11:44.147736+00:00",
-          "note": "Readable readiness report."
-        }
-      ]
-    },
-    {
-      "journal_id": "ade4671e-3f36-4136-b03e-1768c8537ce0",
-      "lane": "repository_pulse_export",
-      "source_kind": "script",
-      "command": "python3 scripts/export_repository_pulse.py",
-      "status": "pass",
-      "started_at": "2026-07-03T08:11:24.204243+00:00",
-      "completed_at": "2026-07-03T08:11:24.276172+00:00",
-      "duration_ms": 71.9287499996426,
-      "notes": [
-        "Repository pulse regenerated from the live backend."
-      ],
-      "artifacts": [
-        {
-          "label": "repository-pulse.json",
-          "path": "proof/repository-pulse.json",
-          "status": "present",
-          "bytes": 17860,
-          "modified_at": "2026-07-03T08:11:24.275817+00:00",
-          "note": "Exported repository pulse."
-        },
-        {
-          "label": "repository-pulse.md",
-          "path": "proof/repository-pulse.md",
-          "status": "present",
-          "bytes": 8355,
-          "modified_at": "2026-07-03T08:11:24.276055+00:00",
-          "note": "Readable repository pulse."
-        }
-      ]
-    },
-    {
-      "journal_id": "aa8e20f0-fa7b-4214-9229-2d98b1008350",
+      "journal_id": "19dcdd76-46f7-4b2c-b85f-f47fe7d79e56",
       "lane": "research_surface_export",
       "source_kind": "script",
       "command": "python3 scripts/export_research_surfaces.py",
       "status": "pass",
-      "started_at": "2026-07-03T08:11:05.404926+00:00",
-      "completed_at": "2026-07-03T08:11:05.475614+00:00",
-      "duration_ms": 70.68529200114426,
+      "started_at": "2026-07-03T17:29:02.665380+00:00",
+      "completed_at": "2026-07-03T17:29:02.698214+00:00",
+      "duration_ms": 32.83129199553514,
       "notes": [
         "Research surface bundle regenerated from the live backend."
       ],
@@ -310,29 +536,29 @@
           "label": "research-surfaces.json",
           "path": "proof/research-surfaces.json",
           "status": "present",
-          "bytes": 25985,
-          "modified_at": "2026-07-03T08:11:05.475333+00:00",
+          "bytes": 29746,
+          "modified_at": "2026-07-03T17:29:02.697977+00:00",
           "note": "Exported research surface bundle."
         },
         {
           "label": "research-surfaces.md",
           "path": "proof/research-surfaces.md",
           "status": "present",
-          "bytes": 21050,
-          "modified_at": "2026-07-03T08:11:05.475577+00:00",
+          "bytes": 24155,
+          "modified_at": "2026-07-03T17:29:02.698172+00:00",
           "note": "Readable research surface bundle."
         }
       ]
     },
     {
-      "journal_id": "d3212a32-7b09-4683-a0a7-2973db277768",
+      "journal_id": "8262280c-3342-415b-a63e-3955ae2ffec0",
       "lane": "client_generation",
       "source_kind": "script",
       "command": "python3 scripts/generate_sdk_surfaces.py",
       "status": "pass",
-      "started_at": "2026-07-03T08:10:34.728686+00:00",
-      "completed_at": "2026-07-03T08:10:34.730706+00:00",
-      "duration_ms": 2.017833998252172,
+      "started_at": "2026-07-03T17:28:20.584649+00:00",
+      "completed_at": "2026-07-03T17:28:20.586939+00:00",
+      "duration_ms": 2.289666997967288,
       "notes": [
         "Python and TypeScript client surfaces regenerated."
       ],
@@ -341,29 +567,29 @@
           "label": "generated-openapi.ts",
           "path": "sdk/typescript/src/generated-openapi.ts",
           "status": "present",
-          "bytes": 17810,
-          "modified_at": "2026-07-03T08:10:34.729777+00:00",
+          "bytes": 19020,
+          "modified_at": "2026-07-03T17:28:20.586177+00:00",
           "note": "Generated TypeScript client surface."
         },
         {
           "label": "generated_openapi.py",
           "path": "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
           "status": "present",
-          "bytes": 14571,
-          "modified_at": "2026-07-03T08:10:34.730672+00:00",
+          "bytes": 15552,
+          "modified_at": "2026-07-03T17:28:20.586904+00:00",
           "note": "Generated Python client surface."
         }
       ]
     },
     {
-      "journal_id": "edcdbc1b-1a00-44ff-9f43-3d3e77e53c4a",
+      "journal_id": "3dd7fe87-1dfa-4b89-bd88-e4a21d5d659a",
       "lane": "openapi_export",
       "source_kind": "script",
       "command": "python3 scripts/export_openapi.py",
       "status": "pass",
-      "started_at": "2026-07-03T08:10:16.512706+00:00",
-      "completed_at": "2026-07-03T08:10:16.600093+00:00",
-      "duration_ms": 87.38845900006709,
+      "started_at": "2026-07-03T17:28:19.890173+00:00",
+      "completed_at": "2026-07-03T17:28:19.945789+00:00",
+      "duration_ms": 55.616582998482045,
       "notes": [
         "OpenAPI contract regenerated."
       ],
@@ -372,58 +598,12 @@
           "label": "openapi.json",
           "path": "openapi/openapi.json",
           "status": "present",
-          "bytes": 112591,
-          "modified_at": "2026-07-03T08:10:16.600022+00:00",
+          "bytes": 120066,
+          "modified_at": "2026-07-03T17:28:19.945700+00:00",
           "note": "Generated OpenAPI contract."
-        }
-      ]
-    },
-    {
-      "journal_id": "be9b208e-6e37-4fdb-963d-024dd2728835",
-      "lane": "test_export_lane",
-      "source_kind": "script",
-      "command": "python3 scripts/test_export_lane.py",
-      "status": "pass",
-      "started_at": "2026-07-03T08:08:52.815438+00:00",
-      "completed_at": "2026-07-03T08:08:52.815444+00:00",
-      "duration_ms": 0.00291700052912347,
-      "notes": [
-        "journal route test"
-      ],
-      "artifacts": [
-        {
-          "label": "README.md",
-          "path": "README.md",
-          "status": "present",
-          "bytes": 32018,
-          "modified_at": "2026-07-03T08:04:21.145213+00:00",
-          "note": "Repository overview file."
-        }
-      ]
-    },
-    {
-      "journal_id": "dadcfd4d-7578-48d0-8ed1-93346090774f",
-      "lane": "test_export_lane",
-      "source_kind": "script",
-      "command": "python3 scripts/test_export_lane.py",
-      "status": "pass",
-      "started_at": "2026-07-03T08:06:44.497597+00:00",
-      "completed_at": "2026-07-03T08:06:44.497600+00:00",
-      "duration_ms": 0.0018749997252598405,
-      "notes": [
-        "journal route test"
-      ],
-      "artifacts": [
-        {
-          "label": "README.md",
-          "path": "README.md",
-          "status": "present",
-          "bytes": 32018,
-          "modified_at": "2026-07-03T08:04:21.145213+00:00",
-          "note": "Repository overview file."
         }
       ]
     }
   ],
-  "created_at": "2026-07-03T08:13:42.572400+00:00"
+  "created_at": "2026-07-03T18:27:23.421346+00:00"
 }

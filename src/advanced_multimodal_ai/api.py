@@ -2,15 +2,17 @@ from __future__ import annotations
 
 import asyncio
 
-from fastapi import BackgroundTasks, FastAPI, HTTPException, Response, WebSocket
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Request, Response, WebSocket
 
 from .config import get_settings
 from .contracts import (
     BatchInferenceRequest,
     BiasAssessmentRequest,
     ChangeControlRequest,
+    ComplianceLedgerToken,
     ConnectorPipelineIngestRequest,
     ConnectorRegistrationRequest,
+    CymaticSurfaceBundle,
     DataLifecyclePolicyRequest,
     DatasetEvolutionRequest,
     DatasetRegistrationRequest,
@@ -21,6 +23,7 @@ from .contracts import (
     PipelineIngestRequest,
     PopulationDriftRequest,
     RecipeCompileRequest,
+    ReferenceBenchmarkRequest,
     RetrievalQueryRequest,
     RetrievalUpsertRequest,
     SupplyChainSnapshotRequest,
@@ -49,6 +52,23 @@ def create_app() -> FastAPI:
         ),
     )
     app.state.service = service
+
+    @app.middleware("http")
+    async def emit_compliance_ledger_token(request: Request, call_next):
+        response = await call_next(request)
+        if request.url.path.startswith("/v1/"):
+            ledger_token = service.compliance_ledger_token(
+                route=request.url.path,
+                method=request.method,
+                status_code=response.status_code,
+            )
+            response.headers["X-AMAI-Ledger-Token"] = ledger_token.token_id
+            response.headers["X-AMAI-Ledger-Scope"] = ledger_token.governance_scope
+            response.headers["X-AMAI-Ledger-Lanes"] = ",".join(ledger_token.governance_lanes)
+            response.headers["X-AMAI-Ledger-OpenAPI"] = ledger_token.openapi_sha256
+            response.headers["X-AMAI-Ledger-Stores"] = ledger_token.store_counts_hash
+            response.headers["X-AMAI-Ledger-Payload"] = ledger_token.compact_payload
+        return response
 
     @app.get("/")
     def root():
@@ -92,6 +112,10 @@ def create_app() -> FastAPI:
     @app.get("/v1/research/surfaces")
     def research_surfaces():
         return service.research_surface_bundle(route_count=_runtime_route_count(app))
+
+    @app.get("/v1/research/cymatic-surface")
+    def research_cymatic_surface() -> CymaticSurfaceBundle:
+        return service.cymatic_surface_bundle(route_count=_runtime_route_count(app))
 
     @app.get("/v1/repository/pulse")
     def repository_pulse():
@@ -209,6 +233,18 @@ def create_app() -> FastAPI:
     @app.get("/v1/runtime/attestation")
     def runtime_attestation():
         return service.runtime_attestation()
+
+    @app.get("/v1/runtime/compliance-ledger")
+    def runtime_compliance_ledger(
+        route: str = "/v1/infer",
+        method: str = "POST",
+        status_code: int = 200,
+    ) -> ComplianceLedgerToken:
+        return service.compliance_ledger_token(
+            route=route,
+            method=method,
+            status_code=status_code,
+        )
 
     @app.get("/v1/proof/bundle")
     def runtime_proof_bundle():
@@ -423,6 +459,17 @@ def create_app() -> FastAPI:
     @app.get("/v1/benchmarks/smoke")
     def smoke_benchmark(model_id: str = "adaptive_transformer", iterations: int = 10):
         return service.run_smoke_benchmark(model_id=model_id, iterations=iterations)
+
+    @app.get("/v1/benchmarks/reference")
+    def reference_benchmark_default():
+        return service.run_reference_benchmark(route_count=_runtime_route_count(app))
+
+    @app.post("/v1/benchmarks/reference")
+    def reference_benchmark(request: ReferenceBenchmarkRequest):
+        return service.run_reference_benchmark(
+            route_count=_runtime_route_count(app),
+            request=request,
+        )
 
     @app.get("/metrics")
     def metrics():

@@ -134,6 +134,24 @@
         }
       }
     },
+    "/v1/research/cymatic-surface": {
+      "get": {
+        "summary": "Research Cymatic Surface",
+        "operationId": "research_cymatic_surface_v1_research_cymatic_surface_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CymaticSurfaceBundle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/repository/pulse": {
       "get": {
         "summary": "Repository Pulse",
@@ -835,6 +853,66 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/runtime/compliance-ledger": {
+      "get": {
+        "summary": "Runtime Compliance Ledger",
+        "operationId": "runtime_compliance_ledger_v1_runtime_compliance_ledger_get",
+        "parameters": [
+          {
+            "name": "route",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "/v1/infer",
+              "title": "Route"
+            }
+          },
+          {
+            "name": "method",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "POST",
+              "title": "Method"
+            }
+          },
+          {
+            "name": "status_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 200,
+              "title": "Status Code"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComplianceLedgerToken"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
@@ -2031,6 +2109,56 @@
         }
       }
     },
+    "/v1/benchmarks/reference": {
+      "get": {
+        "summary": "Reference Benchmark Default",
+        "operationId": "reference_benchmark_default_v1_benchmarks_reference_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Reference Benchmark",
+        "operationId": "reference_benchmark_v1_benchmarks_reference_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReferenceBenchmarkRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/metrics": {
       "get": {
         "summary": "Metrics",
@@ -2131,6 +2259,13 @@
             "type": "string",
             "title": "Label",
             "default": "batch-inference"
+          },
+          "max_workers": {
+            "type": "integer",
+            "maximum": 16.0,
+            "minimum": 1.0,
+            "title": "Max Workers",
+            "default": 4
           },
           "requests": {
             "items": {
@@ -2320,6 +2455,90 @@
           "summary"
         ],
         "title": "ChangeControlRequest"
+      },
+      "ComplianceLedgerToken": {
+        "properties": {
+          "token_id": {
+            "type": "string",
+            "title": "Token Id"
+          },
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method"
+          },
+          "route": {
+            "type": "string",
+            "title": "Route"
+          },
+          "status_code": {
+            "type": "integer",
+            "maximum": 599.0,
+            "minimum": 100.0,
+            "title": "Status Code"
+          },
+          "governance_scope": {
+            "type": "string",
+            "enum": [
+              "catalog",
+              "governance",
+              "runtime",
+              "inference",
+              "jobs",
+              "research"
+            ],
+            "title": "Governance Scope"
+          },
+          "governance_lanes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Governance Lanes"
+          },
+          "openapi_sha256": {
+            "type": "string",
+            "title": "Openapi Sha256"
+          },
+          "store_counts_hash": {
+            "type": "string",
+            "title": "Store Counts Hash"
+          },
+          "issued_at": {
+            "type": "string",
+            "title": "Issued At"
+          },
+          "compact_payload": {
+            "type": "string",
+            "title": "Compact Payload",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "token_id",
+          "service",
+          "version",
+          "environment",
+          "method",
+          "route",
+          "status_code",
+          "governance_scope",
+          "openapi_sha256",
+          "store_counts_hash"
+        ],
+        "title": "ComplianceLedgerToken"
       },
       "ConnectorConfig": {
         "properties": {
@@ -2665,6 +2884,301 @@
           "version"
         ],
         "title": "ConnectorRegistrationRequest"
+      },
+      "CymaticBand": {
+        "properties": {
+          "band_id": {
+            "type": "string",
+            "title": "Band Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "intensity": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Intensity"
+          },
+          "drift": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Drift"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "band_id",
+          "label",
+          "intensity",
+          "drift",
+          "note"
+        ],
+        "title": "CymaticBand"
+      },
+      "CymaticMetric": {
+        "properties": {
+          "metric_id": {
+            "type": "string",
+            "title": "Metric Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit",
+            "default": ""
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "metric_id",
+          "label",
+          "value"
+        ],
+        "title": "CymaticMetric"
+      },
+      "CymaticNarrative": {
+        "properties": {
+          "narrative_id": {
+            "type": "string",
+            "title": "Narrative Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "audience": {
+            "type": "string",
+            "enum": [
+              "creator",
+              "operator",
+              "researcher"
+            ],
+            "title": "Audience"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "consequence": {
+            "type": "string",
+            "title": "Consequence"
+          },
+          "continuation": {
+            "type": "string",
+            "title": "Continuation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "narrative_id",
+          "title",
+          "audience",
+          "summary",
+          "consequence",
+          "continuation"
+        ],
+        "title": "CymaticNarrative"
+      },
+      "CymaticStageCard": {
+        "properties": {
+          "stage_id": {
+            "type": "string",
+            "title": "Stage Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "harmony_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Harmony Score"
+          },
+          "friction_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Friction Score"
+          },
+          "trace_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Trace Paths"
+          },
+          "files": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Files"
+          },
+          "human_read": {
+            "type": "string",
+            "title": "Human Read"
+          },
+          "research_read": {
+            "type": "string",
+            "title": "Research Read"
+          },
+          "business_read": {
+            "type": "string",
+            "title": "Business Read"
+          },
+          "improvement_path": {
+            "type": "string",
+            "title": "Improvement Path"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/CymaticMetric"
+            },
+            "type": "array",
+            "title": "Metrics"
+          }
+        },
+        "type": "object",
+        "required": [
+          "stage_id",
+          "label",
+          "harmony_score",
+          "friction_score",
+          "human_read",
+          "research_read",
+          "business_read",
+          "improvement_path"
+        ],
+        "title": "CymaticStageCard"
+      },
+      "CymaticSurfaceBundle": {
+        "properties": {
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "readiness_posture": {
+            "type": "string",
+            "enum": [
+              "review_ready",
+              "needs_evidence",
+              "needs_buildout"
+            ],
+            "title": "Readiness Posture"
+          },
+          "route_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Route Count"
+          },
+          "test_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Test Count"
+          },
+          "connector_kind_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Connector Kind Count"
+          },
+          "replay_verified": {
+            "type": "boolean",
+            "title": "Replay Verified",
+            "default": false
+          },
+          "baseline_harmony": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Baseline Harmony"
+          },
+          "tension_index": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Tension Index"
+          },
+          "active_files": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Active Files",
+            "default": 0
+          },
+          "total_runs": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Runs",
+            "default": 0
+          },
+          "harmonic_bands": {
+            "items": {
+              "$ref": "#/components/schemas/CymaticBand"
+            },
+            "type": "array",
+            "title": "Harmonic Bands"
+          },
+          "stages": {
+            "items": {
+              "$ref": "#/components/schemas/CymaticStageCard"
+            },
+            "type": "array",
+            "title": "Stages"
+          },
+          "narratives": {
+            "items": {
+              "$ref": "#/components/schemas/CymaticNarrative"
+            },
+            "type": "array",
+            "title": "Narratives"
+          },
+          "continuation_links": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Continuation Links"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "service",
+          "version",
+          "readiness_posture",
+          "route_count",
+          "test_count",
+          "connector_kind_count",
+          "baseline_harmony",
+          "tension_index"
+        ],
+        "title": "CymaticSurfaceBundle"
       },
       "DataLifecyclePolicyRequest": {
         "properties": {
@@ -3786,6 +4300,51 @@
         },
         "type": "object",
         "title": "RecipeTrainingSpec"
+      },
+      "ReferenceBenchmarkRequest": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label",
+            "default": "reference-workload"
+          },
+          "model_id": {
+            "type": "string",
+            "title": "Model Id",
+            "default": "adaptive_transformer"
+          },
+          "batch_size": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 2.0,
+            "title": "Batch Size",
+            "default": 3
+          },
+          "max_workers": {
+            "type": "integer",
+            "maximum": 16.0,
+            "minimum": 1.0,
+            "title": "Max Workers",
+            "default": 4
+          },
+          "include_connector_ingest": {
+            "type": "boolean",
+            "title": "Include Connector Ingest",
+            "default": true
+          },
+          "include_batch_job": {
+            "type": "boolean",
+            "title": "Include Batch Job",
+            "default": true
+          },
+          "include_smoke_benchmark": {
+            "type": "boolean",
+            "title": "Include Smoke Benchmark",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "ReferenceBenchmarkRequest"
       },
       "RetrievalQueryRequest": {
         "properties": {

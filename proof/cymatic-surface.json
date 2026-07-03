@@ -1,0 +1,305 @@
+{
+  "service": "advanced-multimodal-ai",
+  "version": "0.5.0",
+  "readiness_posture": "needs_buildout",
+  "route_count": 69,
+  "test_count": 46,
+  "connector_kind_count": 7,
+  "replay_verified": true,
+  "baseline_harmony": 0.9447,
+  "tension_index": 0.38333333333333336,
+  "active_files": 53,
+  "total_runs": 52,
+  "harmonic_bands": [
+    {
+      "band_id": "coverage",
+      "label": "coverage breadth",
+      "intensity": 0.8625,
+      "drift": 0.3,
+      "note": "Routes and connector kinds show how much ground the current runtime can actually hold."
+    },
+    {
+      "band_id": "repeatability",
+      "label": "repeatable replay",
+      "intensity": 1.0,
+      "drift": 0.08,
+      "note": "Replay parity matters because a strong claim is easier to revisit than to defend from memory."
+    },
+    {
+      "band_id": "review",
+      "label": "review pressure",
+      "intensity": 0.701,
+      "drift": 0.38333333333333336,
+      "note": "Open questions and warnings are treated as part of the operating picture rather than hidden beneath a score."
+    },
+    {
+      "band_id": "movement",
+      "label": "active movement",
+      "intensity": 1.0,
+      "drift": 0.0,
+      "note": "The engine feels more alive when scripts, exports, and verification runs continue to leave visible traces."
+    }
+  ],
+  "stages": [
+    {
+      "stage_id": "connector_ingest",
+      "label": "Ingest and shape",
+      "harmony_score": 0.7072328832006315,
+      "friction_score": 0.3428613598710275,
+      "trace_paths": [
+        "/v1/connectors/register",
+        "/v1/connectors/pipeline-ingest",
+        "/v1/catalog/register"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/connectors.py",
+        "src/advanced_multimodal_ai/catalog.py",
+        "src/advanced_multimodal_ai/pipelines.py"
+      ],
+      "human_read": "Different file shapes are named and typed before they turn into a convincing multimodal story.",
+      "research_read": "The intake lane keeps data cleaning observable, which makes later claims easier to revisit.",
+      "business_read": "Earlier shape checks mean fewer downstream reruns and less quiet damage from a broken source file.",
+      "improvement_path": "Keep widening connector evidence with more object-store and public-web reference sets.",
+      "metrics": [
+        {
+          "metric_id": "duration",
+          "label": "duration",
+          "value": 394.42,
+          "unit": "ms",
+          "detail": "Recorded stage duration from the current reference workload."
+        },
+        {
+          "metric_id": "records",
+          "label": "records",
+          "value": 3.0,
+          "unit": "records",
+          "detail": "Records or artifacts this stage reported while the reference workload ran."
+        },
+        {
+          "metric_id": "artifacts",
+          "label": "artifacts",
+          "value": 2.0,
+          "unit": "items",
+          "detail": "Artifacts or identifiers kept visible for this stage."
+        },
+        {
+          "metric_id": "connector_kinds",
+          "label": "connector kinds",
+          "value": 7.0,
+          "unit": "lanes",
+          "detail": "Typed intake paths currently exercised in the repository."
+        }
+      ]
+    },
+    {
+      "stage_id": "profile_lane",
+      "label": "Profile and align",
+      "harmony_score": 0.8440289832011332,
+      "friction_score": 0.12019536587025498,
+      "trace_paths": [
+        "/v1/data/profile",
+        "/v1/alignment/windows"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/quality.py",
+        "src/advanced_multimodal_ai/signal_math.py",
+        "src/advanced_multimodal_ai/alignment.py"
+      ],
+      "human_read": "Thin evidence is easier to notice when entropy, coverage, and timing are measured before fusion.",
+      "research_read": "This is the calmest place to study where a modality starts losing shape without blaming the model too early.",
+      "business_read": "Weak alignment usually means slower review, shakier output, and more manual correction later.",
+      "improvement_path": "Add more paired transcript, frame, and audio corpora so timing pressure can be studied under noisier conditions.",
+      "metrics": [
+        {
+          "metric_id": "duration",
+          "label": "duration",
+          "value": 14.93,
+          "unit": "ms",
+          "detail": "Recorded stage duration from the current reference workload."
+        },
+        {
+          "metric_id": "records",
+          "label": "records",
+          "value": 2.0,
+          "unit": "records",
+          "detail": "Records or artifacts this stage reported while the reference workload ran."
+        },
+        {
+          "metric_id": "artifacts",
+          "label": "artifacts",
+          "value": 1.0,
+          "unit": "items",
+          "detail": "Artifacts or identifiers kept visible for this stage."
+        }
+      ]
+    },
+    {
+      "stage_id": "pipeline_replay",
+      "label": "Replay and prove",
+      "harmony_score": 0.8804997831984656,
+      "friction_score": 0.11203033387436301,
+      "trace_paths": [
+        "/v1/pipelines/runs/{run_id}/export",
+        "/v1/pipelines/runs/{run_id}/replay"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/replay.py",
+        "src/advanced_multimodal_ai/provenance.py",
+        "src/advanced_multimodal_ai/pipeline_store.py"
+      ],
+      "human_read": "If a run can be replayed cleanly, the repository is giving you memory rather than theatre.",
+      "research_read": "Frame parity keeps sequence work honest. You can reopen the run instead of retelling it.",
+      "business_read": "Repeatable replay shortens incident review and makes procurement questions less expensive to answer.",
+      "improvement_path": "Keep replay evidence attached to more connector and batch routes so the proof surface deepens with use.",
+      "metrics": [
+        {
+          "metric_id": "duration",
+          "label": "duration",
+          "value": 73.75,
+          "unit": "ms",
+          "detail": "Recorded stage duration from the current reference workload."
+        },
+        {
+          "metric_id": "records",
+          "label": "records",
+          "value": 6.0,
+          "unit": "records",
+          "detail": "Records or artifacts this stage reported while the reference workload ran."
+        },
+        {
+          "metric_id": "artifacts",
+          "label": "artifacts",
+          "value": 2.0,
+          "unit": "items",
+          "detail": "Artifacts or identifiers kept visible for this stage."
+        }
+      ]
+    },
+    {
+      "stage_id": "batch_job",
+      "label": "Concurrent batch work",
+      "harmony_score": 0.843020116800326,
+      "friction_score": 0.13374902012749804,
+      "trace_paths": [
+        "/v1/jobs/batch-infer",
+        "/v1/jobs"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/job_store.py",
+        "src/advanced_multimodal_ai/service.py",
+        "src/advanced_multimodal_ai/api.py"
+      ],
+      "human_read": "Longer work belongs in a job lane with visible status, not in a tab that looks busy and then forgets everything.",
+      "research_read": "The async lane shows how far the runtime has moved from toy request-response patterns without pretending to be a giant cluster.",
+      "business_read": "Clear job records make larger workloads easier to queue, inspect, and reopen when a customer asks what happened.",
+      "improvement_path": "The next careful step is a stronger distributed backplane, not more hidden work inside one process.",
+      "metrics": [
+        {
+          "metric_id": "duration",
+          "label": "duration",
+          "value": 54.95,
+          "unit": "ms",
+          "detail": "Recorded stage duration from the current reference workload."
+        },
+        {
+          "metric_id": "records",
+          "label": "records",
+          "value": 3.0,
+          "unit": "records",
+          "detail": "Records or artifacts this stage reported while the reference workload ran."
+        },
+        {
+          "metric_id": "artifacts",
+          "label": "artifacts",
+          "value": 1.0,
+          "unit": "items",
+          "detail": "Artifacts or identifiers kept visible for this stage."
+        }
+      ]
+    },
+    {
+      "stage_id": "proof_bundle",
+      "label": "Govern and disclose",
+      "harmony_score": 0.9537479500006885,
+      "friction_score": 0.03522815699893979,
+      "trace_paths": [
+        "/v1/proof/bundle",
+        "/v1/repository/pulse",
+        "/v1/runtime/compliance-ledger"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/proof.py",
+        "src/advanced_multimodal_ai/repository_pulse.py",
+        "src/advanced_multimodal_ai/governance_ledger.py"
+      ],
+      "human_read": "The public pages stay calmer because the evidence is generated in the backend first and only translated afterward.",
+      "research_read": "Proof and posture now move with the code, which makes criticism easier to meet without overexplaining.",
+      "business_read": "A smaller, verifiable disclosure surface is easier to trust than a larger one that cannot point back to its own receipts.",
+      "improvement_path": "Keep adding thin, testable proof surfaces instead of piling more claims into the presentation layer.",
+      "metrics": [
+        {
+          "metric_id": "duration",
+          "label": "duration",
+          "value": 3.13,
+          "unit": "ms",
+          "detail": "Recorded stage duration from the current reference workload."
+        },
+        {
+          "metric_id": "records",
+          "label": "records",
+          "value": 9.0,
+          "unit": "records",
+          "detail": "Records or artifacts this stage reported while the reference workload ran."
+        },
+        {
+          "metric_id": "artifacts",
+          "label": "artifacts",
+          "value": 1.0,
+          "unit": "items",
+          "detail": "Artifacts or identifiers kept visible for this stage."
+        },
+        {
+          "metric_id": "open_questions",
+          "label": "open questions",
+          "value": 5.0,
+          "unit": "questions",
+          "detail": "Questions still kept visible in the research surface bundle."
+        }
+      ]
+    }
+  ],
+  "narratives": [
+    {
+      "narrative_id": "creator_lane",
+      "title": "For creators and editors",
+      "audience": "creator",
+      "summary": "When the intake or profile lane begins to roughen, the output usually stops sounding like a nuanced audience and starts sounding like a narrow loop.",
+      "consequence": "The cost is not only technical. Repetition flattens taste, reduces surprise, and makes a catalogue feel smaller than it is.",
+      "continuation": "292 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins."
+    },
+    {
+      "narrative_id": "operator_lane",
+      "title": "For operators and review teams",
+      "audience": "operator",
+      "summary": "Replay parity, proof exports, and job records make it easier to answer what moved, what failed, and what deserves another pass.",
+      "consequence": "That shortens the distance between an incident, a rerun, and a clear decision about whether the lane can keep moving.",
+      "continuation": "It shows how to keep ingestion, schema care, and tensor preparation in one chain without hiding the transformations."
+    },
+    {
+      "narrative_id": "research_lane",
+      "title": "For researchers and model builders",
+      "audience": "researcher",
+      "summary": "It gives the repository one serious multimodal model that can be discussed in terms of routing, fusion discipline, and uncertainty without requiring the public runtime to pretend every research branch is production-ready.",
+      "consequence": "That makes the repo more useful as a place to compare mechanisms, not only outputs.",
+      "continuation": "Add evaluated transcript-plus-frame corpora with stronger long-range temporal supervision."
+    }
+  ],
+  "continuation_links": [
+    "advanced-technical-portfolio.html",
+    "benchmark-observatory.html",
+    "model-observatory.html",
+    "field-notes.html",
+    "proof/cymatic-surface.md"
+  ],
+  "created_at": "2026-07-03T18:27:15.032055+00:00"
+}

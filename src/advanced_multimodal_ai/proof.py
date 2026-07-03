@@ -38,6 +38,10 @@ def build_runtime_proof_bundle(
                 command="python3 -m pytest -q",
             ),
             VerificationCommand(
+                label="property-fuzz",
+                command="python3 -m pytest -q tests/test_property_fuzz.py",
+            ),
+            VerificationCommand(
                 label="rust",
                 command="cargo test -p multimodal-core",
             ),
@@ -56,6 +60,14 @@ def build_runtime_proof_bundle(
             VerificationCommand(
                 label="repository-pulse",
                 command="python3 scripts/export_repository_pulse.py",
+            ),
+            VerificationCommand(
+                label="benchmark-surfaces",
+                command="python3 scripts/export_benchmark_surfaces.py",
+            ),
+            VerificationCommand(
+                label="cymatic-surface",
+                command="python3 scripts/export_cymatic_surface.py",
             ),
             VerificationCommand(
                 label="execution-journal",

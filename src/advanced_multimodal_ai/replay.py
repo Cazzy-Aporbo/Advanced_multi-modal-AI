@@ -2,15 +2,21 @@ from __future__ import annotations
 
 import hashlib
 import json
-from typing import Any
+import math
+import struct
+from typing import Any, Iterable
 
+from .config import Settings
 from .contracts import (
     InferenceResponse,
+    PipelineEvent,
+    PipelineReplayFrame,
     PipelineReplayResponse,
     PipelineRunExport,
     PipelineRunRecord,
     ReplayArtifactDigest,
 )
+from .rust_bridge import replay_frame_from_payload
 
 
 def export_pipeline_run(record: PipelineRunRecord) -> PipelineRunExport:
@@ -23,6 +29,12 @@ def export_pipeline_run(record: PipelineRunRecord) -> PipelineRunExport:
             artifact="event_lineage",
             sha256=_canonical_sha256(
                 [event.model_dump(mode="json") for event in record.event_lineage]
+            ),
+        ),
+        ReplayArtifactDigest(
+            artifact="replay_frames",
+            sha256=_canonical_sha256(
+                [frame.model_dump(mode="json") for frame in record.replay_frames]
             ),
         ),
         ReplayArtifactDigest(
@@ -64,16 +76,56 @@ def export_pipeline_run(record: PipelineRunRecord) -> PipelineRunExport:
         status=record.status,
         request_snapshot=record.request_snapshot,
         event_lineage=record.event_lineage,
+        replay_frames=record.replay_frames,
         artifact_digests=artifact_digests,
         event_ndjson=event_ndjson,
         created_at=record.created_at,
     )
 
 
+def build_replay_frames(
+    *,
+    events: list[PipelineEvent],
+    stream_id: str,
+    batch_label: str,
+    settings: Settings,
+) -> list[PipelineReplayFrame]:
+    frames: list[PipelineReplayFrame] = []
+    parent_digest = ""
+    for sequence_id, event in enumerate(events):
+        state_seed = _state_seed(
+            stream_id=stream_id,
+            batch_label=batch_label,
+            sequence_id=sequence_id,
+            event=event,
+        )
+        frame_payload = {
+            "sequence_id": sequence_id,
+            "modality": event.modality,
+            "source": event.source,
+            "observed_at": event.observed_at,
+            "state_seed": state_seed,
+            "parent_digest": parent_digest,
+            "shape": event.tensor.shape,
+            "values": event.tensor.values,
+        }
+        response = replay_frame_from_payload(frame_payload, settings)
+        frame = (
+            PipelineReplayFrame.model_validate(response)
+            if response is not None
+            else _build_frame_fallback(frame_payload)
+        )
+        frames.append(frame)
+        parent_digest = frame.frame_digest
+    return frames
+
+
 def compare_replay(
+    *,
     record: PipelineRunRecord,
     replay_response: InferenceResponse,
     replay_provenance_digest: str,
+    replay_frames: list[PipelineReplayFrame],
 ) -> PipelineReplayResponse:
     recorded_inference = record.inference
     warnings: list[str] = []
@@ -118,15 +170,119 @@ def compare_replay(
                 "Replay summary means drifted slightly from the stored result."
             )
 
+    recorded_head_digest = record.replay_frames[-1].frame_digest if record.replay_frames else ""
+    replayed_head_digest = replay_frames[-1].frame_digest if replay_frames else ""
+    frame_parity_match = _frames_match(record.replay_frames, replay_frames)
+    if not frame_parity_match:
+        warnings.append(
+            "Replay frame digests diverged from the stored execution memory."
+        )
+
     return PipelineReplayResponse(
         run_id=record.run_id,
         provenance_match=record.provenance.payload_digest == replay_provenance_digest,
         route_match=route_match,
         summary_shape_match=summary_shape_match,
+        frame_parity_match=frame_parity_match,
+        frame_count=len(replay_frames),
+        recorded_head_digest=recorded_head_digest,
+        replayed_head_digest=replayed_head_digest,
         max_summary_mean_delta=float(max_summary_mean_delta),
         replay_response=replay_response,
         warnings=warnings,
     )
+
+
+def _frames_match(
+    recorded_frames: list[PipelineReplayFrame],
+    replay_frames: list[PipelineReplayFrame],
+) -> bool:
+    if len(recorded_frames) != len(replay_frames):
+        return False
+    return all(
+        recorded.frame_digest == replayed.frame_digest
+        and recorded.tensor_digest == replayed.tensor_digest
+        and recorded.sequence_id == replayed.sequence_id
+        for recorded, replayed in zip(recorded_frames, replay_frames, strict=False)
+    )
+
+
+def _state_seed(
+    *,
+    stream_id: str,
+    batch_label: str,
+    sequence_id: int,
+    event: PipelineEvent,
+) -> int:
+    digest = hashlib.sha256()
+    digest.update(stream_id.encode("utf-8"))
+    digest.update(b"::")
+    digest.update(batch_label.encode("utf-8"))
+    digest.update(b"::")
+    digest.update(str(sequence_id).encode("utf-8"))
+    digest.update(b"::")
+    digest.update(event.modality.encode("utf-8"))
+    digest.update(b"::")
+    digest.update(event.source.encode("utf-8"))
+    digest.update(b"::")
+    digest.update(event.observed_at.encode("utf-8"))
+    return int.from_bytes(digest.digest()[:8], "little", signed=False)
+
+
+def _build_frame_fallback(payload: dict[str, Any]) -> PipelineReplayFrame:
+    shape = [int(dimension) for dimension in payload["shape"]]
+    values = [float(value) for value in payload["values"]]
+    tensor_bytes = _tensor_bytes(shape, values)
+    tensor_digest = hashlib.sha256(tensor_bytes).hexdigest()
+
+    digest = hashlib.sha256()
+    digest.update(struct.pack("<Q", int(payload["sequence_id"])))
+    digest.update(struct.pack("<Q", int(payload["state_seed"])))
+    digest.update(payload.get("parent_digest", "").encode("utf-8"))
+    digest.update(payload.get("modality", "").encode("utf-8"))
+    digest.update(payload.get("source", "").encode("utf-8"))
+    digest.update(payload.get("observed_at", "").encode("utf-8"))
+    digest.update(tensor_digest.encode("utf-8"))
+    frame_digest = digest.hexdigest()
+
+    mean = sum(values) / len(values) if values else 0.0
+    variance = (
+        sum((value - mean) ** 2 for value in values) / len(values)
+        if values
+        else 0.0
+    )
+    energy = sum(value * value for value in values)
+    zero_ratio = (
+        sum(1 for value in values if abs(value) < 1e-12) / len(values)
+        if values
+        else 0.0
+    )
+
+    return PipelineReplayFrame(
+        sequence_id=int(payload["sequence_id"]),
+        modality=payload["modality"],
+        source=payload.get("source", ""),
+        observed_at=payload.get("observed_at", ""),
+        state_seed=int(payload["state_seed"]),
+        tensor_shape=shape,
+        tensor_digest=tensor_digest,
+        frame_digest=frame_digest,
+        parent_digest=payload.get("parent_digest", ""),
+        byte_count=len(tensor_bytes),
+        signal_mean=float(mean),
+        signal_std=math.sqrt(variance),
+        signal_energy=float(energy),
+        zero_ratio=float(zero_ratio),
+    )
+
+
+def _tensor_bytes(shape: list[int], values: Iterable[float]) -> bytes:
+    blob = bytearray()
+    for dimension in shape:
+        blob.extend(struct.pack("<Q", int(dimension)))
+    for value in values:
+        blob.extend(struct.pack("<d", float(value)))
+    return bytes(blob)
 
 
 def _canonical_sha256(payload: Any) -> str:

@@ -8,22 +8,22 @@
     "http_ndjson",
     "web_html"
   ],
-  "created_at": "2026-07-03T08:49:15.795506+00:00",
+  "created_at": "2026-07-03T18:27:21.870717+00:00",
   "environment": "development",
-  "route_count": 65,
+  "route_count": 69,
   "service": "advanced-multimodal-ai",
   "store_counts": {
-    "async_jobs": 78,
-    "change_controls": 15,
-    "connector_runs": 214,
-    "dataset_catalog": 324,
+    "async_jobs": 105,
+    "change_controls": 21,
+    "connector_runs": 295,
+    "dataset_catalog": 435,
     "drift_baselines": 8,
-    "execution_journal_runs": 23,
-    "lifecycle_policies": 15,
-    "ontology_snapshots": 86,
-    "pipeline_runs": 167,
-    "recipe_registry": 39,
-    "supply_chain_snapshots": 15
+    "execution_journal_runs": 56,
+    "lifecycle_policies": 21,
+    "ontology_snapshots": 102,
+    "pipeline_runs": 229,
+    "recipe_registry": 66,
+    "supply_chain_snapshots": 21
   },
   "supported_lanes": [
     "contract_inference",
@@ -49,8 +49,8 @@
     "liability_surface",
     "bias_taxonomy"
   ],
-  "test_count": 38,
-  "verification_artifact_count": 8,
+  "test_count": 46,
+  "verification_artifact_count": 9,
   "verification_artifacts": [
     {
       "detail": "openapi/openapi.json",
@@ -91,6 +91,11 @@
       "detail": "proof/execution-journal.json",
       "name": "Execution journal export",
       "status": "present"
+    },
+    {
+      "detail": "proof/cymatic-surface.json",
+      "name": "Cymatic surface export",
+      "status": "present"
     }
   ],
   "verification_commands": [
@@ -101,6 +106,10 @@
     {
       "command": "python3 -m pytest -q",
       "label": "tests"
+    },
+    {
+      "command": "python3 -m pytest -q tests/test_property_fuzz.py",
+      "label": "property-fuzz"
     },
     {
       "command": "cargo test -p multimodal-core",
@@ -121,6 +130,14 @@
     {
       "command": "python3 scripts/export_repository_pulse.py",
       "label": "repository-pulse"
+    },
+    {
+      "command": "python3 scripts/export_benchmark_surfaces.py",
+      "label": "benchmark-surfaces"
+    },
+    {
+      "command": "python3 scripts/export_cymatic_surface.py",
+      "label": "cymatic-surface"
     },
     {
       "command": "python3 scripts/export_execution_journal.py",

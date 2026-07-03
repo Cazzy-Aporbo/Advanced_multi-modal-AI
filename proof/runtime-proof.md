@@ -3,9 +3,9 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Environment: `development`
-- Route count: `65`
-- Test count: `38`
-- Verification artifacts: `8`
+- Route count: `69`
+- Test count: `46`
+- Verification artifacts: `9`
 
 ## Connector kinds
 - `local_csv`
@@ -19,11 +19,14 @@
 ## Verification commands
 - `python3 -m ruff check src tests scripts`
 - `python3 -m pytest -q`
+- `python3 -m pytest -q tests/test_property_fuzz.py`
 - `cargo test -p multimodal-core`
 - `python3 scripts/export_openapi.py`
 - `python3 scripts/generate_sdk_surfaces.py`
 - `python3 scripts/export_research_surfaces.py`
 - `python3 scripts/export_repository_pulse.py`
+- `python3 scripts/export_benchmark_surfaces.py`
+- `python3 scripts/export_cymatic_surface.py`
 - `python3 scripts/export_execution_journal.py`
 - `python3 scripts/run_acceptance_spine.py`
 - `python3 scripts/export_readiness_report.py`
@@ -39,3 +42,4 @@
 - `Research surface export` · present · `proof/research-surfaces.json`
 - `Repository pulse export` · present · `proof/repository-pulse.json`
 - `Execution journal export` · present · `proof/execution-journal.json`
+- `Cymatic surface export` · present · `proof/cymatic-surface.json`

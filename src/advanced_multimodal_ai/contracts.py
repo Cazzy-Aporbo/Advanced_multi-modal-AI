@@ -380,11 +380,49 @@ class BenchmarkResult(BaseModel):
     created_at: str = Field(default_factory=utc_now)
 
 
+class BenchmarkStageResult(BaseModel):
+    stage_id: str
+    label: str
+    duration_ms: float = Field(ge=0.0)
+    status: Literal["pass", "watch", "fail"]
+    record_count: int = Field(default=0, ge=0)
+    notes: List[str] = Field(default_factory=list)
+    artifacts: List[str] = Field(default_factory=list)
+
+
+class ReferenceBenchmarkRequest(BaseModel):
+    label: str = "reference-workload"
+    model_id: str = "adaptive_transformer"
+    batch_size: int = Field(default=3, ge=2, le=12)
+    max_workers: int = Field(default=4, ge=1, le=16)
+    include_connector_ingest: bool = True
+    include_batch_job: bool = True
+    include_smoke_benchmark: bool = True
+
+
+class ReferenceBenchmarkResult(BaseModel):
+    benchmark_id: str
+    label: str
+    model_id: str
+    route_count: int = Field(ge=0)
+    verification_artifact_count: int = Field(ge=0)
+    stage_count: int = Field(ge=0)
+    row_count: int = Field(ge=0)
+    pipeline_run_id: str = ""
+    replay_frame_count: int = Field(default=0, ge=0)
+    replay_verified: bool = False
+    total_duration_ms: float = Field(ge=0.0)
+    stages: List[BenchmarkStageResult] = Field(default_factory=list)
+    notes: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
 JobStatus = Literal["queued", "running", "completed", "failed"]
 
 
 class BatchInferenceRequest(BaseModel):
     label: str = "batch-inference"
+    max_workers: int = Field(default=4, ge=1, le=16)
     requests: List[InferenceRequest] = Field(min_length=1, max_length=64)
 
 
@@ -602,6 +640,23 @@ class PipelineIngestRequest(BaseModel):
     events: List[PipelineEvent] = Field(min_length=1, max_length=512)
 
 
+class PipelineReplayFrame(BaseModel):
+    sequence_id: int = Field(ge=0)
+    modality: ModalityKind
+    source: str = ""
+    observed_at: str = Field(default_factory=utc_now)
+    state_seed: int = Field(ge=0)
+    tensor_shape: List[int] = Field(default_factory=list)
+    tensor_digest: str
+    frame_digest: str
+    parent_digest: str = ""
+    byte_count: int = Field(ge=0)
+    signal_mean: float
+    signal_std: float
+    signal_energy: float = Field(ge=0.0)
+    zero_ratio: float = Field(ge=0.0, le=1.0)
+
+
 class PipelineRunRecord(BaseModel):
     run_id: str = Field(default_factory=lambda: str(uuid4()))
     stream_id: str
@@ -617,6 +672,7 @@ class PipelineRunRecord(BaseModel):
     baseline_label: str = ""
     request_snapshot: Optional[InferenceRequest] = None
     event_lineage: List[PipelineEvent] = Field(default_factory=list)
+    replay_frames: List[PipelineReplayFrame] = Field(default_factory=list)
     profile: DataProfileResponse
     provenance: ProvenanceReceipt
     drift: Optional[PopulationDriftResponse] = None
@@ -637,6 +693,7 @@ class PipelineRunExport(BaseModel):
     status: PipelineRunStatus
     request_snapshot: Optional[InferenceRequest] = None
     event_lineage: List[PipelineEvent] = Field(default_factory=list)
+    replay_frames: List[PipelineReplayFrame] = Field(default_factory=list)
     artifact_digests: List[ReplayArtifactDigest] = Field(default_factory=list)
     event_ndjson: str
     created_at: str = Field(default_factory=utc_now)
@@ -648,6 +705,10 @@ class PipelineReplayResponse(BaseModel):
     provenance_match: bool
     route_match: bool
     summary_shape_match: bool
+    frame_parity_match: bool
+    frame_count: int = Field(default=0, ge=0)
+    recorded_head_digest: str = ""
+    replayed_head_digest: str = ""
     max_summary_mean_delta: float = Field(ge=0.0)
     replay_response: Optional[InferenceResponse] = None
     warnings: List[str] = Field(default_factory=list)
@@ -808,6 +869,22 @@ class RuntimeAttestationResponse(BaseModel):
     supported_lanes: List[str] = Field(default_factory=list)
     verification_artifacts: List[VerificationArtifact] = Field(default_factory=list)
     created_at: str = Field(default_factory=utc_now)
+
+
+class ComplianceLedgerToken(BaseModel):
+    token_id: str
+    service: str
+    version: str
+    environment: str
+    method: str
+    route: str
+    status_code: int = Field(ge=100, le=599)
+    governance_scope: Literal["catalog", "governance", "runtime", "inference", "jobs", "research"]
+    governance_lanes: List[str] = Field(default_factory=list)
+    openapi_sha256: str
+    store_counts_hash: str
+    issued_at: str = Field(default_factory=utc_now)
+    compact_payload: str = ""
 
 
 class RuntimeProofBundle(BaseModel):
@@ -1257,6 +1334,64 @@ class ResearchSurfaceBundle(BaseModel):
     created_at: str = Field(default_factory=utc_now)
 
 
+class CymaticMetric(BaseModel):
+    metric_id: str
+    label: str
+    value: float
+    unit: str = ""
+    detail: str = ""
+
+
+class CymaticBand(BaseModel):
+    band_id: str
+    label: str
+    intensity: float = Field(ge=0.0, le=1.0)
+    drift: float = Field(ge=0.0, le=1.0)
+    note: str
+
+
+class CymaticStageCard(BaseModel):
+    stage_id: str
+    label: str
+    harmony_score: float = Field(ge=0.0, le=1.0)
+    friction_score: float = Field(ge=0.0, le=1.0)
+    trace_paths: List[str] = Field(default_factory=list)
+    files: List[str] = Field(default_factory=list)
+    human_read: str
+    research_read: str
+    business_read: str
+    improvement_path: str
+    metrics: List[CymaticMetric] = Field(default_factory=list)
+
+
+class CymaticNarrative(BaseModel):
+    narrative_id: str
+    title: str
+    audience: Literal["creator", "operator", "researcher"]
+    summary: str
+    consequence: str
+    continuation: str
+
+
+class CymaticSurfaceBundle(BaseModel):
+    service: str
+    version: str
+    readiness_posture: ReadinessPosture
+    route_count: int = Field(ge=0)
+    test_count: int = Field(ge=0)
+    connector_kind_count: int = Field(ge=0)
+    replay_verified: bool = False
+    baseline_harmony: float = Field(ge=0.0, le=1.0)
+    tension_index: float = Field(ge=0.0, le=1.0)
+    active_files: int = Field(default=0, ge=0)
+    total_runs: int = Field(default=0, ge=0)
+    harmonic_bands: List[CymaticBand] = Field(default_factory=list)
+    stages: List[CymaticStageCard] = Field(default_factory=list)
+    narratives: List[CymaticNarrative] = Field(default_factory=list)
+    continuation_links: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
 class ConnectorBenchmark(BaseModel):
     fetch_ms: float = Field(ge=0.0)
     parse_ms: float = Field(ge=0.0)
@@ -1264,6 +1399,10 @@ class ConnectorBenchmark(BaseModel):
     record_count: int = Field(ge=0)
     bytes_read: int = Field(ge=0)
     rows_per_second: float = Field(ge=0.0)
+    source_lane: str = ""
+    parser: str = ""
+    column_count: int = Field(default=0, ge=0)
+    zero_copy_path: bool = False
 
 
 class ConnectorRegistrationRequest(BaseModel):

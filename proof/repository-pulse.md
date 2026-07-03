@@ -3,8 +3,8 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `64`
-- Test count: `36`
+- Route count: `69`
+- Test count: `46`
 - Model count: `4`
 
 ## Lane status
@@ -14,7 +14,7 @@
 - Lane id: `frontend_atlas`
 - Emphasis: `frontend`
 - Live score: `100`
-- Active count: `8`
+- Active count: `12`
 - Warning count: `0`
 
 The public site stays downstream from generated proof and research exports rather than inventing its own runtime story.
@@ -25,19 +25,27 @@ Files:
 - `technical-portfolio.html`
 - `model-observatory.html`
 - `field-notes.html`
+- `benchmark-observatory.html`
+- `cymatic-media-engine.html`
+- `cymatic-surface.css`
+- `cymatic-surface.js`
 - `research-surfaces.js`
 - `site-controls.css`
 - `site-controls.js`
 
 Artifacts:
-- `index.html` · pass · 97329 bytes · updated 2026-07-03T08:02:52.932781+00:00
-- `advanced-technical-portfolio.html` · pass · 21404 bytes · updated 2026-07-03T08:03:14.048962+00:00
-- `technical-portfolio.html` · pass · 21010 bytes · updated 2026-07-03T07:32:54.992093+00:00
-- `model-observatory.html` · pass · 12782 bytes · updated 2026-07-03T07:30:37.912441+00:00
-- `field-notes.html` · pass · 10385 bytes · updated 2026-07-03T07:31:25.437631+00:00
-- `research-surfaces.js` · pass · 1984 bytes · updated 2026-07-03T08:02:21.445648+00:00
-- `site-controls.css` · pass · 2877 bytes · updated 2026-07-03T07:06:27.308506+00:00
-- `site-controls.js` · pass · 3924 bytes · updated 2026-07-03T07:06:49.119232+00:00
+- `index.html` · pass · 115914 bytes · updated 2026-07-03T18:16:20.979161+00:00
+- `advanced-technical-portfolio.html` · pass · 26447 bytes · updated 2026-07-03T18:17:39.612447+00:00
+- `technical-portfolio.html` · pass · 24839 bytes · updated 2026-07-03T18:22:44.667620+00:00
+- `model-observatory.html` · pass · 17314 bytes · updated 2026-07-03T18:17:57.263309+00:00
+- `field-notes.html` · pass · 14737 bytes · updated 2026-07-03T18:18:31.941864+00:00
+- `benchmark-observatory.html` · pass · 21967 bytes · updated 2026-07-03T18:18:15.729746+00:00
+- `cymatic-media-engine.html` · pass · 10399 bytes · updated 2026-07-03T18:19:31.542112+00:00
+- `cymatic-surface.css` · pass · 11377 bytes · updated 2026-07-03T17:51:49.188184+00:00
+- `cymatic-surface.js` · pass · 20122 bytes · updated 2026-07-03T18:01:40.801210+00:00
+- `research-surfaces.js` · pass · 8462 bytes · updated 2026-07-03T18:09:51.389132+00:00
+- `site-controls.css` · pass · 15228 bytes · updated 2026-07-03T18:13:06.710109+00:00
+- `site-controls.js` · pass · 4295 bytes · updated 2026-07-03T18:10:42.239701+00:00
 
 Suggested actions:
 - Keep the browser lane reading generated evidence files.
@@ -49,10 +57,10 @@ Suggested actions:
 - Lane id: `runtime_backend`
 - Emphasis: `backend`
 - Live score: `100`
-- Active count: `375`
+- Active count: `590`
 - Warning count: `0`
 
-64 routes, 36 tests, and persisted governance stores keep the API lane active.
+69 routes, 46 tests, and persisted governance stores keep the API lane active.
 
 Files:
 - `src/advanced_multimodal_ai/api.py`
@@ -64,26 +72,55 @@ Files:
 - `src/advanced_multimodal_ai/repository_pulse.py`
 
 Artifacts:
-- `src/advanced_multimodal_ai/api.py` · pass · 15241 bytes · updated 2026-07-03T07:58:21.936861+00:00
-- `src/advanced_multimodal_ai/service.py` · pass · 50465 bytes · updated 2026-07-03T07:59:35.060927+00:00
-- `src/advanced_multimodal_ai/connectors.py` · pass · 25293 bytes · updated 2026-07-03T06:41:33.072546+00:00
+- `src/advanced_multimodal_ai/api.py` · pass · 17870 bytes · updated 2026-07-03T18:14:44.580422+00:00
+- `src/advanced_multimodal_ai/service.py` · pass · 74961 bytes · updated 2026-07-03T18:26:19.131453+00:00
+- `src/advanced_multimodal_ai/connectors.py` · pass · 25974 bytes · updated 2026-07-03T16:15:59.726491+00:00
 - `src/advanced_multimodal_ai/pipelines.py` · pass · 2102 bytes · updated 2026-07-03T04:37:14.847767+00:00
 - `src/advanced_multimodal_ai/quality.py` · pass · 5294 bytes · updated 2026-07-03T04:05:08.862320+00:00
 - `src/advanced_multimodal_ai/stewardship_store.py` · pass · 8754 bytes · updated 2026-07-03T06:55:10.293095+00:00
-- `src/advanced_multimodal_ai/repository_pulse.py` · pass · 10694 bytes · updated 2026-07-03T07:59:22.281998+00:00
+- `src/advanced_multimodal_ai/repository_pulse.py` · pass · 12046 bytes · updated 2026-07-03T18:00:51.070082+00:00
 
 Suggested actions:
 - Keep connector and replay evidence accumulating under varied inputs.
 - Let governance stores grow beside active route traces.
 
 
+### Reference benchmark lane
+
+- Lane id: `benchmark_lane`
+- Emphasis: `backend`
+- Live score: `100`
+- Active count: `5`
+- Warning count: `0`
+
+A typed reference workload now exercises connector ingest, profiling, provenance, batch execution, recipe compilation, and proof refresh together.
+
+Files:
+- `src/advanced_multimodal_ai/benchmarks.py`
+- `src/advanced_multimodal_ai/service.py`
+- `scripts/export_benchmark_surfaces.py`
+- `proof/benchmark-surfaces.json`
+- `proof/benchmark-surfaces.md`
+
+Artifacts:
+- `src/advanced_multimodal_ai/benchmarks.py` · pass · 819 bytes · updated 2026-07-03T16:21:06.066556+00:00
+- `src/advanced_multimodal_ai/service.py` · pass · 74961 bytes · updated 2026-07-03T18:26:19.131453+00:00
+- `scripts/export_benchmark_surfaces.py` · pass · 4045 bytes · updated 2026-07-03T16:47:03.511647+00:00
+- `proof/benchmark-surfaces.json` · pass · 3980 bytes · updated 2026-07-03T18:27:12.780013+00:00
+- `proof/benchmark-surfaces.md` · pass · 2843 bytes · updated 2026-07-03T18:27:12.780168+00:00
+
+Suggested actions:
+- Keep the benchmark tied to real persisted lanes, not stand-alone timers.
+- Prefer repeated reference workloads over one-off smoke claims.
+
+
 ### Compiled core
 
 - Lane id: `compiled_core`
 - Emphasis: `compiled`
-- Live score: `67`
-- Active count: `2`
-- Warning count: `1`
+- Live score: `100`
+- Active count: `3`
+- Warning count: `0`
 
 Deterministic signal work stays in a compiled lane and remains reachable through a small Python bridge.
 
@@ -94,8 +131,8 @@ Files:
 
 Artifacts:
 - `crates/multimodal-core/Cargo.toml` · pass · 331 bytes · updated 2026-07-03T04:54:07.954729+00:00
-- `crates/multimodal-core/src/lib.rs` · missing · 0 bytes
-- `src/advanced_multimodal_ai/rust_bridge.py` · pass · 2355 bytes · updated 2026-07-03T04:55:09.251387+00:00
+- `crates/multimodal-core/src/lib.rs` · pass · 20389 bytes · updated 2026-07-03T16:57:21.652482+00:00
+- `src/advanced_multimodal_ai/rust_bridge.py` · pass · 2689 bytes · updated 2026-07-03T16:39:56.122111+00:00
 
 Suggested actions:
 - Keep the compiled lane narrow and measured.
@@ -119,9 +156,9 @@ Files:
 - `sdk/typescript/package.json`
 
 Artifacts:
-- `openapi/openapi.json` · pass · 112591 bytes · updated 2026-07-03T08:10:16.600022+00:00
-- `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py` · pass · 14571 bytes · updated 2026-07-03T08:10:34.730672+00:00
-- `sdk/typescript/src/generated-openapi.ts` · pass · 17810 bytes · updated 2026-07-03T08:10:34.729777+00:00
+- `openapi/openapi.json` · pass · 127993 bytes · updated 2026-07-03T18:27:06.797543+00:00
+- `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py` · pass · 15753 bytes · updated 2026-07-03T18:27:08.619488+00:00
+- `sdk/typescript/src/generated-openapi.ts` · pass · 19233 bytes · updated 2026-07-03T18:27:08.619073+00:00
 - `sdk/typescript/package.json` · pass · 613 bytes · updated 2026-07-03T07:03:48.596897+00:00
 
 Suggested actions:
@@ -134,7 +171,7 @@ Suggested actions:
 - Lane id: `evidence_exports`
 - Emphasis: `evidence`
 - Live score: `100`
-- Active count: `10`
+- Active count: `14`
 - Warning count: `0`
 
 Proof, readiness, worked examples, and research surfaces can be regenerated as files the public site reads directly.
@@ -143,21 +180,29 @@ Files:
 - `proof/runtime-proof.json`
 - `proof/readiness-report.json`
 - `proof/example-bundle.json`
+- `proof/benchmark-surfaces.json`
+- `proof/cymatic-surface.json`
 - `proof/research-surfaces.json`
 - `proof/execution-journal.json`
 - `scripts/build_runtime_proof_bundle.py`
+- `scripts/export_benchmark_surfaces.py`
+- `scripts/export_cymatic_surface.py`
 - `scripts/export_execution_journal.py`
 - `scripts/export_readiness_report.py`
 - `scripts/export_example_bundle.py`
 - `scripts/export_research_surfaces.py`
 
 Artifacts:
-- `proof/runtime-proof.json` · pass · 3544 bytes · updated 2026-07-03T08:12:01.417255+00:00
-- `proof/readiness-report.json` · pass · 2846 bytes · updated 2026-07-03T08:11:44.147556+00:00
-- `proof/example-bundle.json` · pass · 2602 bytes · updated 2026-07-03T08:12:18.973218+00:00
-- `proof/research-surfaces.json` · pass · 25985 bytes · updated 2026-07-03T08:11:05.475333+00:00
-- `proof/execution-journal.json` · pass · 8924 bytes · updated 2026-07-03T08:12:39.153687+00:00
+- `proof/runtime-proof.json` · pass · 3769 bytes · updated 2026-07-03T17:32:56.661111+00:00
+- `proof/readiness-report.json` · pass · 2784 bytes · updated 2026-07-03T17:30:10.588031+00:00
+- `proof/example-bundle.json` · pass · 2600 bytes · updated 2026-07-03T17:30:47.671905+00:00
+- `proof/benchmark-surfaces.json` · pass · 3980 bytes · updated 2026-07-03T18:27:12.780013+00:00
+- `proof/cymatic-surface.json` · pass · 12222 bytes · updated 2026-07-03T18:27:15.033190+00:00
+- `proof/research-surfaces.json` · pass · 29922 bytes · updated 2026-07-03T18:27:10.514918+00:00
+- `proof/execution-journal.json` · pass · 19702 bytes · updated 2026-07-03T17:31:17.468737+00:00
 - `scripts/build_runtime_proof_bundle.py` · pass · 3258 bytes · updated 2026-07-03T08:01:25.111055+00:00
+- `scripts/export_benchmark_surfaces.py` · pass · 4045 bytes · updated 2026-07-03T16:47:03.511647+00:00
+- `scripts/export_cymatic_surface.py` · pass · 5167 bytes · updated 2026-07-03T18:26:19.129290+00:00
 - `scripts/export_execution_journal.py` · pass · 3170 bytes · updated 2026-07-03T08:01:44.421366+00:00
 - `scripts/export_readiness_report.py` · pass · 2849 bytes · updated 2026-07-03T08:01:24.963842+00:00
 - `scripts/export_example_bundle.py` · pass · 18403 bytes · updated 2026-07-03T08:09:50.090499+00:00
@@ -172,11 +217,11 @@ Suggested actions:
 
 - Lane id: `execution_history`
 - Emphasis: `evidence`
-- Live score: `90`
-- Active count: `10`
+- Live score: `100`
+- Active count: `53`
 - Warning count: `0`
 
-10 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.
+53 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.
 
 Files:
 - `src/advanced_multimodal_ai/execution_journal.py`
@@ -187,8 +232,8 @@ Files:
 Artifacts:
 - `src/advanced_multimodal_ai/execution_journal.py` · pass · 3025 bytes · updated 2026-07-03T07:57:44.389341+00:00
 - `src/advanced_multimodal_ai/execution_journal_store.py` · pass · 5238 bytes · updated 2026-07-03T08:04:38.170459+00:00
-- `proof/execution-journal.json` · pass · 8924 bytes · updated 2026-07-03T08:12:39.153687+00:00
-- `proof/execution-journal.md` · pass · 3578 bytes · updated 2026-07-03T08:12:39.153860+00:00
+- `proof/execution-journal.json` · pass · 19702 bytes · updated 2026-07-03T17:31:17.468737+00:00
+- `proof/execution-journal.md` · pass · 7732 bytes · updated 2026-07-03T17:31:17.468991+00:00
 
 Suggested actions:
 - Let export and verification lanes keep writing their own receipts.

@@ -1,0 +1,565 @@
+.cymatic-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.cymatic-topline,
+.cymatic-bottomline {
+  display: grid;
+  gap: 18px;
+}
+
+.cymatic-topline {
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+}
+
+.cymatic-canvas-shell,
+.cymatic-panel,
+.cymatic-stage-card,
+.cymatic-insight-card,
+.cymatic-dropzone,
+.cymatic-detail-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025)),
+    radial-gradient(circle at top right, rgba(143, 201, 190, 0.14), transparent 54%),
+    rgba(20, 15, 23, 0.86);
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.24);
+}
+
+.cymatic-canvas-shell::after,
+.cymatic-panel::after,
+.cymatic-stage-card::after,
+.cymatic-insight-card::after,
+.cymatic-detail-panel::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -38px;
+  bottom: -56px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(223, 156, 95, 0.16), transparent 72%);
+  pointer-events: none;
+}
+
+.cymatic-canvas-shell {
+  min-height: 420px;
+  padding: 24px;
+}
+
+.cymatic-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cymatic-orbit-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.46;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at 50% 45%, black, transparent 82%);
+}
+
+.cymatic-orbit {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: cymaticOrbit 16s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.cymatic-orbit.orbit-a {
+  inset: 10% 20% 18% 8%;
+  border-color: rgba(143, 201, 190, 0.18);
+}
+
+.cymatic-orbit.orbit-b {
+  inset: 20% 8% 28% 18%;
+  border-color: rgba(223, 156, 95, 0.16);
+  animation-duration: 21s;
+  animation-direction: reverse;
+}
+
+.cymatic-orbit.orbit-c {
+  inset: 28% 26% 12% 20%;
+  border-color: rgba(215, 169, 184, 0.15);
+  animation-duration: 13s;
+}
+
+.cymatic-overlay {
+  position: relative;
+  z-index: 1;
+  max-width: 30rem;
+}
+
+.cymatic-label {
+  color: var(--copper, #df9c5f);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-bottom: 12px;
+}
+
+.cymatic-title {
+  margin: 0;
+  font-family: "Iowan Old Style", Georgia, serif;
+  font-size: clamp(1.8rem, 3.6vw, 3.1rem);
+  line-height: 0.98;
+  background: linear-gradient(135deg, #f8f1eb 0%, #f2bfd3 42%, #9de7d9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-wrap: balance;
+}
+
+.cymatic-copy {
+  margin: 16px 0 0;
+  color: var(--muted, #dbcabc);
+  max-width: 58ch;
+}
+
+.cymatic-dropzone {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  padding: 16px 18px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)),
+    radial-gradient(circle at bottom left, rgba(215, 169, 184, 0.14), transparent 54%),
+    rgba(24, 18, 28, 0.84);
+}
+
+.cymatic-dropzone.dragover {
+  border-color: rgba(143, 201, 190, 0.48);
+  box-shadow: 0 0 0 1px rgba(143, 201, 190, 0.16), 0 22px 54px rgba(143, 201, 190, 0.12);
+}
+
+.cymatic-dropzone-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.cymatic-dropzone strong {
+  display: block;
+  color: var(--text, #f6efe8);
+  font-size: 1rem;
+}
+
+.cymatic-dropzone p {
+  margin: 8px 0 0;
+  color: var(--muted, #dbcabc);
+}
+
+.cymatic-upload-row,
+.cymatic-control-row,
+.cymatic-chip-row,
+.cymatic-metric-row,
+.cymatic-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.cymatic-upload-row {
+  margin-top: 14px;
+}
+
+.cymatic-file-button,
+.cymatic-action,
+.cymatic-chip,
+.cymatic-pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text, #f6efe8);
+  text-decoration: none;
+  padding: 10px 14px;
+  font-weight: 600;
+}
+
+.cymatic-file-button input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cymatic-action,
+.cymatic-stage-card {
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.cymatic-action:hover,
+.cymatic-stage-card:hover,
+.cymatic-stage-card.active {
+  transform: translateY(-1px);
+  border-color: rgba(143, 201, 190, 0.34);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)),
+    radial-gradient(circle at top right, rgba(143, 201, 190, 0.14), transparent 54%),
+    rgba(28, 21, 33, 0.92);
+}
+
+.cymatic-action.secondary {
+  border-color: rgba(223, 156, 95, 0.18);
+}
+
+.cymatic-audio {
+  width: 100%;
+  margin-top: 12px;
+  border-radius: 16px;
+  background: rgba(10, 8, 13, 0.42);
+}
+
+.cymatic-panel {
+  padding: 24px;
+}
+
+.cymatic-panel h3,
+.cymatic-detail-panel h3,
+.cymatic-insight-card h3 {
+  margin: 0;
+  font-family: "Iowan Old Style", Georgia, serif;
+  font-size: 1.45rem;
+}
+
+.cymatic-subcopy {
+  margin: 10px 0 0;
+  color: var(--muted, #dbcabc);
+}
+
+.cymatic-meter-stack {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.cymatic-meter-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+  color: var(--text, #f6efe8);
+  font-size: 0.94rem;
+}
+
+.cymatic-meter-track {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.cymatic-meter-fill {
+  height: 100%;
+  width: var(--width, 65%);
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(223, 156, 95, 0.95), rgba(215, 169, 184, 0.88), rgba(143, 201, 190, 0.95));
+  box-shadow: 0 0 18px rgba(143, 201, 190, 0.18);
+  animation: cymaticPulse 7s ease-in-out infinite alternate;
+}
+
+.cymatic-slider-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.cymatic-slider-wrap {
+  display: grid;
+  gap: 8px;
+}
+
+.cymatic-slider-wrap header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+  color: var(--text, #f6efe8);
+}
+
+.cymatic-slider-wrap small {
+  color: var(--muted, #dbcabc);
+}
+
+.cymatic-slider {
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+.cymatic-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: linear-gradient(135deg, rgba(223, 156, 95, 1), rgba(143, 201, 190, 1));
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+}
+
+.cymatic-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: linear-gradient(135deg, rgba(223, 156, 95, 1), rgba(143, 201, 190, 1));
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+}
+
+.cymatic-bottomline {
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+}
+
+.cymatic-pipeline {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.cymatic-stage-card {
+  padding: 18px;
+  text-align: left;
+}
+
+.cymatic-stage-card strong {
+  display: inline-flex;
+  margin-bottom: 10px;
+  color: var(--copper, #df9c5f);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+}
+
+.cymatic-stage-card h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text, #f6efe8);
+}
+
+.cymatic-stage-card p {
+  margin: 10px 0 0;
+  color: var(--muted, #dbcabc);
+  font-size: 0.92rem;
+}
+
+.cymatic-stage-bars {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.cymatic-stage-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.cymatic-stage-bar span {
+  display: block;
+  height: 100%;
+  width: var(--width, 60%);
+  border-radius: inherit;
+}
+
+.cymatic-stage-bar.harmony span {
+  background: linear-gradient(90deg, rgba(143, 201, 190, 0.94), rgba(169, 216, 255, 0.88));
+}
+
+.cymatic-stage-bar.friction span {
+  background: linear-gradient(90deg, rgba(223, 156, 95, 0.92), rgba(215, 169, 184, 0.9));
+}
+
+.cymatic-detail-panel {
+  padding: 24px;
+}
+
+.cymatic-detail-copy {
+  margin: 12px 0 0;
+  color: var(--muted, #dbcabc);
+}
+
+.cymatic-insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.cymatic-insight-card {
+  padding: 20px;
+}
+
+.cymatic-insight-card small {
+  display: inline-flex;
+  margin-bottom: 10px;
+  color: var(--copper, #df9c5f);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cymatic-insight-card p {
+  margin: 10px 0 0;
+  color: var(--muted, #dbcabc);
+}
+
+.cymatic-detail-grid {
+  display: grid;
+  grid-template-columns: 0.96fr 1.04fr;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.cymatic-detail-note {
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted, #dbcabc);
+}
+
+.cymatic-detail-note strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text, #f6efe8);
+}
+
+.cymatic-continuation {
+  margin-top: 18px;
+}
+
+.cymatic-continuation .cymatic-chip-row {
+  margin-top: 12px;
+}
+
+[data-cymatic-compact="true"] .cymatic-canvas-shell {
+  min-height: 360px;
+}
+
+[data-cymatic-compact="true"] .cymatic-topline,
+[data-cymatic-compact="true"] .cymatic-bottomline,
+[data-cymatic-compact="true"] .cymatic-detail-grid,
+[data-cymatic-compact="true"] .cymatic-insight-grid {
+  grid-template-columns: 1fr;
+}
+
+[data-cymatic-compact="true"] .cymatic-pipeline {
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 72%);
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x proximity;
+}
+
+[data-cymatic-compact="true"] .cymatic-stage-card {
+  scroll-snap-align: start;
+}
+
+@keyframes cymaticOrbit {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.72;
+  }
+  50% {
+    transform: rotate(4deg) scale(1.03);
+    opacity: 1;
+  }
+}
+
+@keyframes cymaticPulse {
+  0% {
+    transform: scaleX(0.9);
+    transform-origin: left center;
+    filter: saturate(0.92);
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left center;
+    filter: saturate(1.14);
+  }
+}
+
+@media (max-width: 1080px) {
+  .cymatic-topline,
+  .cymatic-bottomline,
+  .cymatic-detail-grid,
+  .cymatic-insight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cymatic-pipeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .cymatic-canvas-shell,
+  .cymatic-panel,
+  .cymatic-detail-panel {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .cymatic-canvas-shell {
+    min-height: 320px;
+  }
+
+  .cymatic-title {
+    font-size: clamp(1.55rem, 8vw, 2.25rem);
+    line-height: 1.02;
+  }
+
+  .cymatic-upload-row,
+  .cymatic-control-row,
+  .cymatic-action-row,
+  .cymatic-chip-row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .cymatic-file-button,
+  .cymatic-action,
+  .cymatic-pill-link {
+    justify-content: center;
+  }
+
+  .cymatic-pipeline {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(230px, 84%);
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x proximity;
+  }
+
+  .cymatic-stage-card {
+    scroll-snap-align: start;
+  }
+}

@@ -311,6 +311,19 @@ def main() -> None:
         },
     )
     assert pipeline.status_code == 200, pipeline.text
+    pipeline_payload = pipeline.json()
+
+    replay = client.post(f"/v1/pipelines/runs/{pipeline_payload['run_id']}/replay")
+    assert replay.status_code == 200, replay.text
+    replay_payload = replay.json()
+    assert replay_payload["frame_parity_match"] is True
+    assert replay_payload["provenance_match"] is True
+
+    benchmark = client.get("/v1/benchmarks/reference")
+    assert benchmark.status_code == 200, benchmark.text
+    benchmark_payload = benchmark.json()
+    assert benchmark_payload["replay_verified"] is True
+    assert benchmark_payload["replay_frame_count"] >= 1
 
     snapshot = client.post(
         "/v1/ontology/ingest",

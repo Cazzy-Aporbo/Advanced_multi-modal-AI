@@ -1,23 +1,23 @@
 # Runtime Readiness Report
 
 - Posture: `review_ready`
-- Route count: `64`
-- Test count: `36`
+- Route count: `69`
+- Test count: `46`
 - Connector kinds: `local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html`
-- Compiled recipes: `33`
-- Fully resolved recipes: `33`
+- Compiled recipes: `65`
+- Fully resolved recipes: `65`
 
 ## Checks
 
-- `pass` contract_surface: 64 public runtime surfaces are exported.
-- `pass` verification_depth: 36 tests are currently counted in the proof bundle.
-- `pass` artifact_evidence: 8 of 8 declared verification artifacts are present.
+- `pass` contract_surface: 69 public runtime surfaces are exported.
+- `pass` verification_depth: 46 tests are currently counted in the proof bundle.
+- `pass` artifact_evidence: 9 of 9 declared verification artifacts are present.
 - `pass` connector_coverage: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html
-- `pass` connector_evidence: 169 persisted connector runs are recorded.
-- `pass` recipe_resolution: 33 of 33 compiled recipes have fully resolved source evidence.
-- `pass` governance_evidence: drift baselines=8, ontology snapshots=76, pipeline runs=142
-- `pass` stewardship_surface: lifecycle policies=10, change controls=10, supply snapshots=10
-- `pass` execution_history: 12 persisted export or verification runs are recorded.
+- `pass` connector_evidence: 293 persisted connector runs are recorded.
+- `pass` recipe_resolution: 65 of 65 compiled recipes have fully resolved source evidence.
+- `pass` governance_evidence: drift baselines=8, ontology snapshots=102, pipeline runs=228
+- `pass` stewardship_surface: lifecycle policies=21, change controls=21, supply snapshots=21
+- `pass` execution_history: 54 persisted export or verification runs are recorded.
 
 ## Blockers
 

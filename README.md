@@ -1,29 +1,155 @@
 # Advanced Multi-modal AI
 
-A multimodal systems repository for people who need to see how
-different signals are gathered, cleaned, aligned, and carried forward without
-losing the evidence along the way.
+<p align="left">
+  <a href="https://www.python.org/">
+    <img alt="Python runtime edge" src="https://img.shields.io/badge/Python-runtime%20edge-8fb8ff?style=for-the-badge&labelColor=1b1f2a">
+  </a>
+  <a href="https://www.rust-lang.org/">
+    <img alt="Rust compiled lane" src="https://img.shields.io/badge/Rust-compiled%20lane-f2ad7a?style=for-the-badge&labelColor=1b1f2a">
+  </a>
+  <a href="https://www.typescriptlang.org/">
+    <img alt="TypeScript client surface" src="https://img.shields.io/badge/TypeScript-client%20surface-92d6cf?style=for-the-badge&labelColor=1b1f2a">
+  </a>
+  <a href="./openapi/openapi.json">
+    <img alt="OpenAPI export" src="https://img.shields.io/badge/OpenAPI-generated%20contract-f0b7d3?style=for-the-badge&labelColor=1b1f2a">
+  </a>
+  <a href="./LICENSE">
+    <img alt="Apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-f3d27c?style=for-the-badge&labelColor=1b1f2a">
+  </a>
+</p>
 
-This repository now holds two things in a clearer arrangement:
+A multimodal systems repository for people who need to see how signals are
+gathered, cleaned, aligned, and carried forward without losing the evidence
+along the way.
 
-- a research archive of models and experiments already present in the project,
-- a working runtime edge with typed contracts, retrieval, temporal alignment,
-  provenance receipts, and transcript-first video tooling.
+The project keeps two lanes in view at the same time: a research archive with
+larger model experiments, and a narrower runtime edge with typed contracts,
+connector intake, replay, provenance, and transcript-first video review.
 
-[Signal Atlas](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html)
-[Architecture Surface](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html)
-[Component Catalog](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html)
-[Model Observatory](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/model-observatory.html)
-[Field Notes](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/field-notes.html)
+> Research remains visible. Runtime claims remain bounded. Public pages read
+> generated evidence instead of inventing their own.
+
+<table>
+  <tr>
+    <td valign="top" width="25%">
+      <strong>Signal Atlas</strong><br/>
+      The front door for architecture, evidence, and execution flow.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html">Open atlas</a>
+    </td>
+    <td valign="top" width="25%">
+      <strong>Architecture Surface</strong><br/>
+      A closer read of the runtime lanes, contracts, and proof chain.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html">Read the architecture</a>
+    </td>
+    <td valign="top" width="25%">
+      <strong>Component Catalog</strong><br/>
+      A guided map of Python, Rust, TypeScript, and generated surfaces.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html">Browse the catalog</a>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" width="25%">
+      <strong>Model Observatory</strong><br/>
+      Model cards, open questions, and research lanes tied back to code.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/model-observatory.html">Open observatory</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Benchmark Observatory</strong><br/>
+      Reference benchmark, replay ledger, and generated runtime evidence.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/benchmark-observatory.html">Open benchmark lane</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Field Notes</strong><br/>
+      Working questions, findings, and next proofs worth earning.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/field-notes.html">Read field notes</a>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" width="33%">
+      <strong>Cymatic Media Engine</strong><br/>
+      An audio-reactive study surface that reads generated benchmark, pulse, and research evidence.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/cymatic-media-engine.html">Open signal lab</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Signal Atlas</strong><br/>
+      The main atlas now includes a compact live signal window tied to the same evidence exports.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html#cymatic-window">Open atlas window</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Generated Proof</strong><br/>
+      Cymatic and benchmark exports stay inspectable as plain files beside the moving surface.<br/>
+      <a href="https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/tree/main/proof">Browse proof bundle</a>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td valign="top" width="25%">
+      <strong>Runtime Edge</strong><br/>
+      FastAPI contracts, ingestion, retrieval, provenance, drift, jobs, and replay.
+    </td>
+    <td valign="top" width="25%">
+      <strong>Compiled Lane</strong><br/>
+      Rust tensor signatures, transcript-led cut logic, and replay frame sealing.
+    </td>
+    <td valign="top" width="25%">
+      <strong>Generated Surfaces</strong><br/>
+      OpenAPI export plus Python and TypeScript clients regenerated from the live app.
+    </td>
+    <td valign="top" width="25%">
+      <strong>Proof Memory</strong><br/>
+      Acceptance spine, readiness report, benchmark artifacts, and execution journal.
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td valign="top" width="33%">
+      <strong>Grounding</strong><br/>
+      What the repository claims, what it does not, and where human review still matters.<br/>
+      <a href="./docs/GROUNDING_AND_BOUNDARIES.md">Read boundaries</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Lane map</strong><br/>
+      A concise read of which files belong to the public surface, runtime backend, compiled core, clients, and proof exports.<br/>
+      <a href="./docs/REPOSITORY_LANES.md">Read lane map</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Worked Example</strong><br/>
+      A generated bundle showing proof, benchmark, and route output together.<br/>
+      <a href="./proof/example-bundle.md">Open example bundle</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Contract Surface</strong><br/>
+      Live API schema and generated clients for downstream integration work.<br/>
+      <a href="./openapi/openapi.json">Open API contract</a>
+    </td>
+  </tr>
+</table>
+
+<details>
+  <summary><strong>Open the shortest path through the repository</strong></summary>
+
+1. Read the [Signal Atlas](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html).
+2. Run `python3 scripts/run_acceptance_spine.py`.
+3. Open [`proof/runtime-proof.md`](./proof/runtime-proof.md) and [`proof/benchmark-surfaces.md`](./proof/benchmark-surfaces.md).
+4. Inspect the API contract at [`openapi/openapi.json`](./openapi/openapi.json).
+5. Use the generated clients under [`sdk/python`](./sdk/python) and [`sdk/typescript`](./sdk/typescript).
+
+</details>
 
 ## Table of contents
 
 - [What this repository is](#what-this-repository-is)
 - [System boundaries](#system-boundaries)
+- [Grounding and boundaries](#grounding-and-boundaries)
 - [What runs today](#what-runs-today)
 - [The multimodal data plane](#the-multimodal-data-plane)
 - [Dataset contracts and evolution](#dataset-contracts-and-evolution)
 - [Connector-fed ingestion](#connector-fed-ingestion)
+- [Reference benchmark and replay ledger](#reference-benchmark-and-replay-ledger)
 - [Stewardship, change control, and supply chain](#stewardship-change-control-and-supply-chain)
 - [Research surfaces and model cards](#research-surfaces-and-model-cards)
 - [Runtime surfaces](#runtime-surfaces)
@@ -55,7 +181,7 @@ application where every file does a little of everything.
 
 | lane | primary location | what belongs there | what does not |
 | --- | --- | --- | --- |
-| public surfaces | `index.html`, `advanced-technical-portfolio.html`, `technical-portfolio.html`, `model-observatory.html`, `field-notes.html` | reading generated proof, rendering explanations, linking to artifacts | inference, connector logic, policy evaluation |
+| public surfaces | `index.html`, `advanced-technical-portfolio.html`, `technical-portfolio.html`, `model-observatory.html`, `field-notes.html`, `benchmark-observatory.html`, `cymatic-media-engine.html` | reading generated proof, rendering explanations, linking to artifacts, reacting to local audio without becoming a hidden inference fork | inference, connector logic, policy evaluation |
 | runtime backend | `src/advanced_multimodal_ai/` | contracts, API routes, ingestion, inference, replay, stewardship, jobs, retrieval | presentation styling, static storytelling |
 | compiled core | `crates/multimodal-core/` | deterministic primitives that benefit from a compiled lane | API orchestration, persistence concerns |
 | generated clients | `sdk/python`, `sdk/typescript`, `openapi/openapi.json` | reusable client contracts regenerated from the running app | handwritten drift from the live API |
@@ -71,6 +197,22 @@ The flow is equally deliberate:
 5. proof, readiness, research surfaces, and generated clients export the state
 6. execution memory records which export and verification lanes actually ran
 7. the browser pages read those exports rather than improvising their own truth
+
+## Grounding and boundaries
+
+The repository is more useful when its boundaries are plain.
+
+- public pages summarize generated artifacts; they do not quietly replace them
+- deterministic reference fixtures are allowed for replay and regression work;
+  decorative fake traffic is not
+- connector intake is typed, rate-aware, and bounded by explicit source rules
+- research assets can remain exploratory without being misrepresented as the
+  default production path
+- stewardship, half-life, supply-chain, and residency concerns are treated as
+  runtime constraints, not ornamental language
+
+The longer version is in
+[`docs/GROUNDING_AND_BOUNDARIES.md`](./docs/GROUNDING_AND_BOUNDARIES.md).
 
 ## What runs today
 
@@ -100,6 +242,8 @@ is operational today.
 - benchmarked connector runs with persisted records
 - compiled recipe manifests with persisted launch topology and export checks
 - runtime attestation and readiness reporting tied to the generated artifacts
+- deterministic compliance ledger tokens emitted on every `/v1` response and
+  previewable through the runtime ledger route
 - persisted execution journal entries for proof, packaging, and export runs
 - deterministic provenance receipts for repeated payload verification
 - temporal alignment windows for cross-modal evidence stitching
@@ -109,6 +253,10 @@ is operational today.
 - liability surfacing against saved governance snapshots and live trace records
 - a sixty-category bias taxonomy with stage-aware assessment
 - persisted async job records for long-running video cleanup and batch inference
+- a reference benchmark lane that exercises connector ingest, replay sealing,
+  batch execution, recipe compilation, and proof refresh together
+- property-based fuzz coverage for tensor contracts, intercept behavior, and
+  connector-to-pipeline mapping under malformed or sparse inputs
 - Prometheus metrics
 - a Rust algorithm core for tensor signatures and transcript-led cut logic
 - OpenAPI export and generated Python and TypeScript client surfaces
@@ -187,6 +335,27 @@ The web lane adds a more careful intake path for public pages:
 
 That keeps web intake useful for research and review work without turning the
 repository into an indiscriminate crawler.
+
+## Reference benchmark and replay ledger
+
+`GET /v1/benchmarks/reference`  
+`POST /v1/benchmarks/reference`  
+`GET /v1/pipelines/runs/{run_id}`  
+`GET /v1/pipelines/runs/{run_id}/export`  
+`POST /v1/pipelines/runs/{run_id}/replay`
+
+The benchmark lane now proves more than timing.
+
+- a generated reference workload can begin with connector-backed Parquet ingest
+- that ingest produces a persisted pipeline run with sealed replay frames
+- the replay route rebuilds the same request path and checks frame parity back
+  against the recorded execution memory
+- the benchmark then continues through concurrent batch execution, recipe
+  compilation, and proof export without switching to a separate demo harness
+
+The result is a smaller but more useful kind of evidence. You can inspect one
+workload, reopen its exported lineage, and see whether the system returned to
+the same state when replayed.
 
 ## Stewardship, change control, and supply chain
 
@@ -396,11 +565,25 @@ is entering the system rather than compressing bias into one generic score.
 ### 11. Runtime attestation
 
 `GET /v1/runtime/attestation`
+`GET /v1/runtime/compliance-ledger`
 `GET /v1/readiness/report`
 
 This surface returns an evidence bundle about what the repo can verify today:
 OpenAPI digest, generated client artifacts, runtime schema, Rust core
 presence, and persisted record counts across the local stores.
+
+Every `/v1` HTTP response now also carries a compact compliance ledger token in
+headers:
+
+- `X-AMAI-Ledger-Token`
+- `X-AMAI-Ledger-Scope`
+- `X-AMAI-Ledger-Lanes`
+- `X-AMAI-Ledger-OpenAPI`
+- `X-AMAI-Ledger-Stores`
+- `X-AMAI-Ledger-Payload`
+
+The companion runtime route exposes the same token shape as a typed response so
+the ledger surface is inspectable in Swagger and in generated clients.
 
 The readiness report stays adjacent to that attestation. It assembles route
 count, test count, connector coverage, resolved recipe evidence, and operating
@@ -435,6 +618,7 @@ what still needs evidence, and where the runtime is intentionally restrained.
 | `/v1/recipes` | `GET` | list persisted recipe manifests |
 | `/v1/recipes/{recipe_id}` | `GET` | read one persisted recipe manifest |
 | `/v1/runtime/attestation` | `GET` | present-tense evidence of generated artifacts and persisted stores |
+| `/v1/runtime/compliance-ledger` | `GET` | preview the typed compliance token emitted on `/v1` responses |
 | `/v1/proof/bundle` | `GET` | summarize routes, tests, verification commands, connectors, artifacts, and store counts |
 | `/v1/readiness/report` | `GET` | assemble evidence checks, connector coverage, recipe resolution, and operating boundaries |
 | `/v1/execution/journal` | `GET` | read recent export and verification runs with touched artifacts and lane counts |
@@ -474,6 +658,16 @@ what still needs evidence, and where the runtime is intentionally restrained.
 
 ```text
 Advanced_multi-modal-AI/
+├── advanced-technical-portfolio.html
+├── benchmark-observatory.html
+├── cymatic-media-engine.html
+├── field-notes.html
+├── index.html
+├── model-observatory.html
+├── technical-portfolio.html
+├── research-surfaces.js          # shared loader for proof-backed browser surfaces
+├── site-controls.css             # shared theme, contrast, and motion styling
+├── site-controls.js              # shared theme, contrast, and language controls
 ├── crates/multimodal-core/       # Rust signal core for signatures and temporal cuts
 ├── sdk/typescript/               # TypeScript client SDK
 ├── src/advanced_multimodal_ai/
@@ -481,6 +675,7 @@ Advanced_multi-modal-AI/
 │   ├── api.py                    # FastAPI entrypoint
 │   ├── attestation.py            # runtime evidence and artifact verification
 │   ├── bias_taxonomy.py          # sixty-category bias register and assessment
+│   ├── cymatic_surface.py        # proof-backed visual lane summary for public surfaces
 │   ├── catalog.py                # dataset contract registration and evolution logic
 │   ├── catalog_store.py          # persisted dataset catalog records
 │   ├── benchmarks.py             # deterministic smoke benchmark
@@ -492,6 +687,7 @@ Advanced_multi-modal-AI/
 │   ├── domain_ontology.py        # artifact ingestion and contract compilation
 │   ├── drift.py                  # population-entry drift scoring
 │   ├── drift_store.py            # persisted baseline registry
+│   ├── governance_ledger.py      # deterministic compliance ledger tokens
 │   ├── job_store.py              # SQLite-backed persisted async run records
 │   ├── legacy.py                 # bridge to existing research models
 │   ├── liability_surface.py      # route trace comparison against constraints
@@ -514,9 +710,14 @@ Advanced_multi-modal-AI/
 │   └── video.py                  # transcript-first video packet and cleanup lane
 ├── tests/                        # API, retrieval, and video verification
 ├── monitoring/prometheus.yml     # scrape configuration
+├── docs/REPOSITORY_LANES.md      # file-by-file lane boundaries
 ├── examples/README.md            # direct runbook for executable examples
 ├── sql/runtime_schema.sql        # persisted runtime tables
 ├── prompts/elite_engineer_transformation_v3.md
+├── proof/benchmark-surfaces.json
+├── proof/benchmark-surfaces.md
+├── proof/cymatic-surface.json
+├── proof/cymatic-surface.md
 ├── proof/example-bundle.json
 ├── proof/example-bundle.md
 ├── proof/runtime-proof.json
@@ -524,6 +725,8 @@ Advanced_multi-modal-AI/
 ├── Dockerfile
 ├── compose.yaml
 ├── openapi/openapi.json
+├── scripts/export_benchmark_surfaces.py
+├── scripts/export_cymatic_surface.py
 ├── scripts/build_runtime_proof_bundle.py
 ├── scripts/export_example_bundle.py
 ├── scripts/export_openapi.py
@@ -706,6 +909,7 @@ they were already a distributed production engine on their own.
 This pass was validated locally with:
 
 - `python3 -m pytest -q`
+- `python3 -m pytest -q tests/test_property_fuzz.py`
 - `python3 -m ruff check src tests scripts`
 - `cargo test -p multimodal-core`
 - `python3 scripts/export_openapi.py`

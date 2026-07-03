@@ -1,3 +1,6 @@
+import base64
+import json
+
 from fastapi.testclient import TestClient
 
 from advanced_multimodal_ai.api import create_app
@@ -9,12 +12,60 @@ from advanced_multimodal_ai.execution_journal import (
 client = TestClient(create_app())
 
 
+def _decode_ledger_payload(encoded: str) -> dict:
+    padding = "=" * (-len(encoded) % 4)
+    raw = base64.urlsafe_b64decode((encoded + padding).encode("ascii"))
+    return json.loads(raw.decode("utf-8"))
+
+
+def _assert_ledger_headers(response, *, route: str, method: str, status_code: int, scope: str):
+    assert response.headers["x-amai-ledger-token"]
+    assert response.headers["x-amai-ledger-scope"] == scope
+    assert response.headers["x-amai-ledger-openapi"]
+    assert response.headers["x-amai-ledger-stores"]
+    assert response.headers["x-amai-ledger-payload"]
+    payload = _decode_ledger_payload(response.headers["x-amai-ledger-payload"])
+    assert payload["route"] == route
+    assert payload["method"] == method
+    assert payload["status_code"] == status_code
+    assert payload["governance_scope"] == scope
+    assert payload["governance_lanes"]
+
+
 def test_health_endpoint():
     response = client.get("/v1/health")
     assert response.status_code == 200
     payload = response.json()
     assert payload["service"] == "advanced-multimodal-ai"
     assert payload["status"] in {"ok", "degraded"}
+    _assert_ledger_headers(
+        response,
+        route="/v1/health",
+        method="GET",
+        status_code=200,
+        scope="runtime",
+    )
+
+
+def test_runtime_compliance_ledger_endpoint_surfaces_typed_governance_token():
+    response = client.get(
+        "/v1/runtime/compliance-ledger",
+        params={"route": "/v1/catalog/register", "method": "POST", "status_code": 201},
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["route"] == "/v1/catalog/register"
+    assert payload["method"] == "POST"
+    assert payload["status_code"] == 201
+    assert payload["governance_scope"] == "catalog"
+    assert "dataset_catalog" in payload["governance_lanes"]
+    _assert_ledger_headers(
+        response,
+        route="/v1/runtime/compliance-ledger",
+        method="GET",
+        status_code=200,
+        scope="runtime",
+    )
 
 
 def test_tensor_intercept_surfaces_high_frequency_modalities():
@@ -102,6 +153,13 @@ def test_infer_blocks_when_tensor_intercept_is_enforced():
     payload = response.json()["detail"]
     assert payload["blocked"] is True
     assert payload["triggered_modalities"] == ["image"]
+    _assert_ledger_headers(
+        response,
+        route="/v1/infer",
+        method="POST",
+        status_code=422,
+        scope="inference",
+    )
 
 
 def test_runtime_attestation_reports_artifacts_and_store_counts():
@@ -189,6 +247,21 @@ def test_research_surfaces_explain_models_findings_and_connections():
     )
 
 
+def test_research_cymatic_surface_stays_tied_to_runtime_proof():
+    response = client.get("/v1/research/cymatic-surface")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["route_count"] >= 40
+    assert payload["test_count"] >= 1
+    assert payload["total_runs"] >= 1
+    assert payload["harmonic_bands"]
+    assert payload["stages"]
+    assert payload["continuation_links"]
+    assert any(stage["trace_paths"] for stage in payload["stages"])
+    assert any(stage["files"] for stage in payload["stages"])
+    assert any(item["audience"] == "researcher" for item in payload["narratives"])
+
+
 def test_repository_pulse_tracks_lane_health_and_artifacts():
     response = client.get("/v1/repository/pulse")
     assert response.status_code == 200
@@ -209,6 +282,26 @@ def test_repository_pulse_tracks_lane_health_and_artifacts():
         for lane in payload["lanes"]
         for artifact in lane["artifacts"]
     )
+    assert any(
+        item["lane_id"] == "benchmark_lane"
+        for item in payload["lanes"]
+    )
+
+
+def test_reference_benchmark_runs_pipeline_replay_and_proof_lanes():
+    response = client.get("/v1/benchmarks/reference")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["stage_count"] >= 6
+    assert payload["pipeline_run_id"]
+    assert payload["replay_frame_count"] >= 1
+    assert payload["replay_verified"] is True
+    assert any(stage["stage_id"] == "pipeline_replay" for stage in payload["stages"])
+    replay_stage = next(
+        stage for stage in payload["stages"] if stage["stage_id"] == "pipeline_replay"
+    )
+    assert replay_stage["status"] == "pass"
+    assert any("Frame parity: verified." in note for note in replay_stage["notes"])
 
 
 def test_execution_journal_lists_persisted_script_runs():
@@ -1207,14 +1300,20 @@ def test_pipeline_ingest_persists_a_real_run_record():
     exported = export_record.json()
     assert exported["request_snapshot"]["metadata"]["stream_id"] == "concert-intake"
     assert exported["event_lineage"]
+    assert exported["replay_frames"]
     assert "caption-feed" in exported["event_ndjson"]
     assert any(item["artifact"] == "request_snapshot" for item in exported["artifact_digests"])
+    assert any(item["artifact"] == "replay_frames" for item in exported["artifact_digests"])
 
     replay_record = client.post(f"/v1/pipelines/runs/{payload['run_id']}/replay")
     assert replay_record.status_code == 200
     replayed = replay_record.json()
     assert replayed["provenance_match"] is True
     assert replayed["summary_shape_match"] is True
+    assert replayed["frame_parity_match"] is True
+    assert replayed["frame_count"] == len(exported["replay_frames"])
+    assert replayed["recorded_head_digest"]
+    assert replayed["replayed_head_digest"]
     assert replayed["replay_response"] is not None
 
 

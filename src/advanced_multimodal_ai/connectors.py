@@ -70,6 +70,7 @@ def materialize_connector_rows(
         web_receipt = web_receipt.model_copy(update={"extracted_record_count": len(trimmed)})
     parse_elapsed = (perf_counter() - parse_started) * 1000
     total_elapsed = fetch_elapsed + parse_elapsed
+    column_count = max((len(row) for row in trimmed), default=0)
 
     benchmark = ConnectorBenchmark(
         fetch_ms=float(fetch_elapsed),
@@ -78,6 +79,10 @@ def materialize_connector_rows(
         record_count=len(trimmed),
         bytes_read=len(payload.body),
         rows_per_second=float((len(trimmed) / total_elapsed) * 1000) if total_elapsed else 0.0,
+        source_lane=connector.kind,
+        parser=_connector_parser_label(connector.kind),
+        column_count=column_count,
+        zero_copy_path=connector.kind in {"local_parquet", "s3_parquet"},
     )
     return ConnectorMaterialization(rows=trimmed, benchmark=benchmark, web_receipt=web_receipt)
 
@@ -239,6 +244,20 @@ def _parse_rows(
         return rows, receipt
 
     raise ValueError(f"Unsupported connector kind: {connector.kind}")
+
+
+def _connector_parser_label(kind: str) -> str:
+    if kind in {"local_parquet", "s3_parquet"}:
+        return "pyarrow.parquet"
+    if kind == "local_csv":
+        return "csv.DictReader"
+    if kind in {"local_jsonl", "http_ndjson"}:
+        return "json-lines"
+    if kind == "http_json":
+        return "json-record-extract"
+    if kind == "web_html":
+        return "html-article-blocks"
+    return "unknown"
 
 
 def _extract_records(payload: Any, records_path: str) -> list[Any]:

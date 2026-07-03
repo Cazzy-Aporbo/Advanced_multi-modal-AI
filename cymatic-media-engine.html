@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Multi-modal AI · Cymatic Media Engine</title>
+  <meta name="description" content="An audio-reactive study surface for the Advanced Multi-modal AI repository. It ties local sound energy to exported runtime proof, benchmark replay, and model research so the public pages stay vivid without inventing a separate browser-side engine.">
+  <link rel="stylesheet" href="site-controls.css">
+  <link rel="stylesheet" href="cymatic-surface.css">
+  <style>
+    :root {
+      --bg: #110d11;
+      --surface: rgba(25, 19, 27, 0.86);
+      --surface-strong: rgba(34, 25, 36, 0.96);
+      --line: rgba(246, 239, 232, 0.12);
+      --text: #f7eef6;
+      --muted: #d7c9d7;
+      --copper: #f0b27e;
+      --jade: #9ce2d7;
+      --rose: #efb7d4;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.66;
+      background:
+        radial-gradient(circle at 10% 14%, rgba(156, 226, 215, 0.14), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(239, 183, 212, 0.16), transparent 24%),
+        radial-gradient(circle at 68% 78%, rgba(240, 178, 126, 0.12), transparent 28%),
+        linear-gradient(180deg, #110d11 0%, #17121a 52%, #09070b 100%);
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100vw - 28px));
+      margin: 0 auto;
+      padding: 26px 0 72px;
+    }
+
+    .nav,
+    .panel,
+    .continuation-card {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 72px rgba(0, 0, 0, 0.24);
+    }
+
+    .nav {
+      display: grid;
+      gap: 14px;
+      padding: 18px 22px;
+      position: sticky;
+      top: 14px;
+      z-index: 4;
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      display: grid;
+      gap: 4px;
+    }
+
+    .nav-brand strong {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+      color: var(--text);
+    }
+
+    .nav-brand small {
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    #site-dock-host {
+      width: min(360px, 100%);
+      margin-left: auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.06fr 0.94fr;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .panel {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::after,
+    .continuation-card::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      right: -54px;
+      bottom: -82px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(156, 226, 215, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .label {
+      color: var(--copper);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-weight: 600;
+      line-height: 1.06;
+      text-wrap: balance;
+    }
+
+    h1 { font-size: clamp(2.8rem, 5vw, 4.8rem); max-width: 9ch; }
+    h2 { font-size: 2rem; }
+
+    p,
+    li {
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hero-actions a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .page-ribbon {
+      margin-top: 24px;
+    }
+
+    .engine-host {
+      margin-top: 24px;
+    }
+
+    .continuation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .continuation-card {
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)),
+        radial-gradient(circle at bottom left, rgba(240, 178, 126, 0.14), transparent 54%),
+        var(--surface-strong);
+    }
+
+    .continuation-card a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .continuation-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="nav-bar">
+        <div class="nav-brand">
+          <strong>Cymatic media engine</strong>
+          <small>audio-reactive proof surface · benchmark rhythm · repair lane</small>
+        </div>
+        <div class="nav-links">
+          <a href="index.html">atlas</a>
+          <a href="advanced-technical-portfolio.html">architecture</a>
+          <a href="technical-portfolio.html">catalog</a>
+          <a href="benchmark-observatory.html">benchmarks</a>
+          <a href="model-observatory.html">models</a>
+          <a href="field-notes.html">field notes</a>
+        </div>
+      </div>
+      <div id="site-dock-host"></div>
+    </nav>
+
+    <section class="hero">
+      <article class="panel page-orbit-field">
+        <div class="label">Live public study surface</div>
+        <h1>Sound lets the evidence move instead of sitting still.</h1>
+        <p>
+          This page keeps the browser honest. The audio analysis is local and immediate.
+          The repository posture, benchmark stages, and model questions come from exported
+          backend proof. That means the motion feels vivid without turning the frontend into
+          a second, hidden runtime.
+        </p>
+        <div class="hero-actions">
+          <a href="proof/cymatic-surface.md">open the signal report</a>
+          <a href="proof/benchmark-surfaces.md">open the benchmark record</a>
+          <a href="proof/research-surfaces.md">open the research bundle</a>
+        </div>
+      </article>
+      <article class="panel page-orbit-field">
+        <div class="label">What changes here</div>
+        <ul>
+          <li>the wave responds to local audio energy, not canned animation alone</li>
+          <li>stage rail detail comes from generated benchmark and pulse data</li>
+          <li>friction and repair controls visibly change the interpretation surface</li>
+          <li>the continuation links stay tied to pages that already hold the proof</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="signal-rail-host" data-signal-rail aria-label="Signal lab lane motion">
+      <div class="signal-rail-shell signal-rail-fallback">
+        <small>Signal lab lane motion</small>
+        <p>The signal lab is loading the current repository lane picture.</p>
+      </div>
+    </section>
+
+    <div class="page-ribbon">
+      <article class="page-ribbon-card" style="--pulse-width:86%;">
+        <strong>Human read</strong>
+        <h3>Everyday language without flattening the mechanics</h3>
+        <p>The detail rail translates the same stage for creators, operators, and research readers without dressing weak evidence up as certainty.</p>
+        <div class="page-pulse"><span></span></div>
+      </article>
+      <article class="page-ribbon-card" style="--pulse-width:78%;">
+        <strong>Motion</strong>
+        <h3>Local sound energy bends the canvas in real time</h3>
+        <p>Bring a song, a clip, or a voice note. The browser reacts instantly while the public evidence stays grounded in generated backend surfaces.</p>
+        <div class="page-pulse"><span></span></div>
+      </article>
+      <article class="page-ribbon-card" style="--pulse-width:72%;">
+        <strong>Proof discipline</strong>
+        <h3>The visual layer stays downstream from the working edge</h3>
+        <p>The page is vivid on purpose, but it still reads from benchmark, pulse, and research exports instead of inventing a second story.</p>
+        <div class="page-pulse"><span></span></div>
+      </article>
+    </div>
+
+    <section class="engine-host" data-cymatic-surface></section>
+
+    <section class="continuation-grid">
+      <article class="continuation-card">
+        <h3>Atlas</h3>
+        <p>Return to the atlas once you want the broader lane map again.</p>
+        <a href="index.html#cymatic-window">open atlas window</a>
+      </article>
+      <article class="continuation-card">
+        <h3>Benchmark observatory</h3>
+        <p>Open the workload that feeds this stage rail if you want the recorded durations and artifacts in full.</p>
+        <a href="benchmark-observatory.html">open benchmark page</a>
+      </article>
+      <article class="continuation-card">
+        <h3>Model observatory</h3>
+        <p>Open the model register when you want to compare why a model was kept, where it weakens, and what would improve it.</p>
+        <a href="model-observatory.html">open model page</a>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · <a href="LICENSE" style="color:inherit;">Apache License 2.0</a></div>
+      <div><a href="index.html" style="color:inherit;">atlas</a> · <a href="proof/cymatic-surface.md" style="color:inherit;">signal report</a> · <a href="README.md" style="color:inherit;">readme</a></div>
+    </footer>
+  </div>
+
+  <script src="site-controls.js"></script>
+  <script src="research-surfaces.js"></script>
+  <script src="cymatic-surface.js"></script>
+</body>
+</html>

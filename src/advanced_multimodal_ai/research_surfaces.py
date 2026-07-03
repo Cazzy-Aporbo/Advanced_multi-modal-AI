@@ -434,6 +434,44 @@ def build_repository_connections() -> List[RepositoryConnection]:
                 ),
             ],
         ),
+        RepositoryConnection(
+            connection_id="connector-proof-benchmark",
+            title=(
+                "Connector proof, batch work, and recipe handoff can now "
+                "be exercised in one repeatable lane"
+            ),
+            summary=(
+                "benchmarks.py and service.py now use the same connector, profiling, "
+                "job, recipe, and proof surfaces the runtime already exposes, then publish "
+                "the result as a generated benchmark artifact."
+            ),
+            files=[
+                "src/advanced_multimodal_ai/benchmarks.py",
+                "src/advanced_multimodal_ai/service.py",
+                "scripts/export_benchmark_surfaces.py",
+                "proof/benchmark-surfaces.json",
+            ],
+            api_surfaces=[
+                "/v1/benchmarks/reference",
+                "/v1/connectors/pipeline-ingest",
+                "/v1/jobs/batch-infer",
+                "/v1/recipes/compile",
+            ],
+            learning_value=(
+                "This connection makes the repository easier to trust because the "
+                "same operational lanes are exercised together instead of being admired separately."
+            ),
+            watch_points=[
+                (
+                    "Reference workloads should stay deterministic and readable, "
+                    "not drift into decorative microbenchmarks."
+                ),
+                (
+                    "Batch concurrency is useful only when per-item failures "
+                    "stay visible in the stored record."
+                ),
+            ],
+        ),
     ]
 
 
@@ -453,12 +491,18 @@ def build_architecture_lanes() -> List[ArchitectureLane]:
                 "technical-portfolio.html",
                 "model-observatory.html",
                 "field-notes.html",
+                "benchmark-observatory.html",
+                "cymatic-media-engine.html",
+                "cymatic-surface.css",
+                "cymatic-surface.js",
                 "research-surfaces.js",
             ],
             entry_surfaces=[
                 "proof/research-surfaces.json",
                 "proof/runtime-proof.json",
                 "proof/readiness-report.json",
+                "proof/benchmark-surfaces.json",
+                "proof/cymatic-surface.json",
             ],
             outputs=[
                 "Signal Atlas",
@@ -466,6 +510,8 @@ def build_architecture_lanes() -> List[ArchitectureLane]:
                 "Component Catalog",
                 "Model Observatory",
                 "Field Notes",
+                "Benchmark Observatory",
+                "Cymatic Media Engine",
             ],
             proof_points=[
                 "Generated proof exports are read directly by the browser lane.",
@@ -490,18 +536,21 @@ def build_architecture_lanes() -> List[ArchitectureLane]:
                 "src/advanced_multimodal_ai/connectors.py",
                 "src/advanced_multimodal_ai/pipelines.py",
                 "src/advanced_multimodal_ai/stewardship_store.py",
+                "src/advanced_multimodal_ai/benchmarks.py",
             ],
             entry_surfaces=[
                 "/v1/infer",
                 "/v1/connectors/pipeline-ingest",
                 "/v1/pipelines/ingest",
                 "/v1/research/surfaces",
+                "/v1/benchmarks/reference",
             ],
             outputs=[
                 "Typed API responses",
                 "Persisted run records",
                 "Connector benchmarks",
                 "Research surface bundle",
+                "Reference workload benchmark",
             ],
             proof_points=[
                 "pytest covers API behavior directly through FastAPI TestClient.",
@@ -543,6 +592,40 @@ def build_architecture_lanes() -> List[ArchitectureLane]:
             why_it_exists=(
                 "Compiled primitives stay small and explicit so performance work "
                 "does not blur into orchestration code."
+            ),
+        ),
+        ArchitectureLane(
+            lane_id="benchmark_evidence",
+            label="Benchmark evidence lane",
+            layer="evidence",
+            purpose=(
+                "Exercise connector ingest, profiling, provenance, batch work, recipe "
+                "handoff, and proof export together through one repeatable workload."
+            ),
+            directories=[
+                "src/advanced_multimodal_ai/benchmarks.py",
+                "scripts/export_benchmark_surfaces.py",
+                "proof/benchmark-surfaces.json",
+                "proof/benchmark-surfaces.md",
+            ],
+            entry_surfaces=[
+                "/v1/benchmarks/reference",
+                "python3 scripts/export_benchmark_surfaces.py",
+            ],
+            outputs=[
+                "reference benchmark JSON",
+                "reference benchmark Markdown",
+            ],
+            proof_points=[
+                (
+                    "The benchmark walks real repository lanes rather than "
+                    "timing an isolated helper."
+                ),
+                "The public site can hydrate directly from generated benchmark evidence.",
+            ],
+            why_it_exists=(
+                "A benchmark becomes more persuasive when it proves the "
+                "choreography between lanes, not only isolated speed."
             ),
         ),
         ArchitectureLane(
@@ -813,6 +896,41 @@ def build_repository_findings(
                 "src/advanced_multimodal_ai/execution_journal.py",
                 "src/advanced_multimodal_ai/execution_journal_store.py",
                 "scripts/export_execution_journal.py",
+            ],
+        ),
+        RepositoryFinding(
+            finding_id="reference-benchmark-lane-is-repeatable",
+            lens="evaluation",
+            title="The benchmark lane now tests choreography, not just speed",
+            summary=(
+                "A typed reference workload now exercises connector-backed ingest, "
+                "profiling, provenance, concurrent batch execution, recipe compilation, "
+                "and proof export as one repeatable route."
+            ),
+            evidence=[
+                "Reference benchmark surface: /v1/benchmarks/reference",
+                "Generated artifact: proof/benchmark-surfaces.json",
+                "Concurrent job evidence is persisted under the async job store.",
+            ],
+            why_it_matters=(
+                "This shifts the repository away from isolated timing theatre "
+                "and toward proof that multiple lanes can keep their story "
+                "straight together."
+            ),
+            next_step=(
+                "Keep widening the benchmark inputs with more "
+                "warehouse-shaped and public-domain workloads so the same "
+                "route is tested under broader operational texture."
+            ),
+            related_surfaces=[
+                "/v1/benchmarks/reference",
+                "/v1/jobs/batch-infer",
+                "/v1/connectors/pipeline-ingest",
+            ],
+            related_files=[
+                "src/advanced_multimodal_ai/benchmarks.py",
+                "src/advanced_multimodal_ai/service.py",
+                "scripts/export_benchmark_surfaces.py",
             ],
         ),
         RepositoryFinding(

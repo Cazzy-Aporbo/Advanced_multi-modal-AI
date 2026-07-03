@@ -42,6 +42,10 @@ def build_runtime_attestation(
             "Execution journal export",
             REPO_ROOT / "proof" / "execution-journal.json",
         ),
+        _artifact(
+            "Cymatic surface export",
+            REPO_ROOT / "proof" / "cymatic-surface.json",
+        ),
     ]
 
     return RuntimeAttestationResponse(

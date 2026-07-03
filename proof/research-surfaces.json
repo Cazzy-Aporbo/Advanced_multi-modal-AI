@@ -1,15 +1,15 @@
 {
   "service": "advanced-multimodal-ai",
   "version": "0.5.0",
-  "readiness_posture": "review_ready",
+  "readiness_posture": "needs_buildout",
   "summary": {
-    "route_count": 65,
-    "test_count": 38,
+    "route_count": 69,
+    "test_count": 46,
     "connector_kind_count": 7,
     "model_count": 4,
     "runtime_ready_model_count": 0,
     "open_question_count": 5,
-    "generated_at": "2026-07-03T08:49:15.648215+00:00"
+    "generated_at": "2026-07-03T18:27:10.510566+00:00"
   },
   "lanes": [
     {
@@ -23,19 +23,27 @@
         "technical-portfolio.html",
         "model-observatory.html",
         "field-notes.html",
+        "benchmark-observatory.html",
+        "cymatic-media-engine.html",
+        "cymatic-surface.css",
+        "cymatic-surface.js",
         "research-surfaces.js"
       ],
       "entry_surfaces": [
         "proof/research-surfaces.json",
         "proof/runtime-proof.json",
-        "proof/readiness-report.json"
+        "proof/readiness-report.json",
+        "proof/benchmark-surfaces.json",
+        "proof/cymatic-surface.json"
       ],
       "outputs": [
         "Signal Atlas",
         "Architecture Surface",
         "Component Catalog",
         "Model Observatory",
-        "Field Notes"
+        "Field Notes",
+        "Benchmark Observatory",
+        "Cymatic Media Engine"
       ],
       "proof_points": [
         "Generated proof exports are read directly by the browser lane.",
@@ -53,19 +61,22 @@
         "src/advanced_multimodal_ai/service.py",
         "src/advanced_multimodal_ai/connectors.py",
         "src/advanced_multimodal_ai/pipelines.py",
-        "src/advanced_multimodal_ai/stewardship_store.py"
+        "src/advanced_multimodal_ai/stewardship_store.py",
+        "src/advanced_multimodal_ai/benchmarks.py"
       ],
       "entry_surfaces": [
         "/v1/infer",
         "/v1/connectors/pipeline-ingest",
         "/v1/pipelines/ingest",
-        "/v1/research/surfaces"
+        "/v1/research/surfaces",
+        "/v1/benchmarks/reference"
       ],
       "outputs": [
         "Typed API responses",
         "Persisted run records",
         "Connector benchmarks",
-        "Research surface bundle"
+        "Research surface bundle",
+        "Reference workload benchmark"
       ],
       "proof_points": [
         "pytest covers API behavior directly through FastAPI TestClient.",
@@ -96,6 +107,31 @@
         "Python runtime surfaces call through a narrow bridge rather than reimplementing the logic."
       ],
       "why_it_exists": "Compiled primitives stay small and explicit so performance work does not blur into orchestration code."
+    },
+    {
+      "lane_id": "benchmark_evidence",
+      "label": "Benchmark evidence lane",
+      "layer": "evidence",
+      "purpose": "Exercise connector ingest, profiling, provenance, batch work, recipe handoff, and proof export together through one repeatable workload.",
+      "directories": [
+        "src/advanced_multimodal_ai/benchmarks.py",
+        "scripts/export_benchmark_surfaces.py",
+        "proof/benchmark-surfaces.json",
+        "proof/benchmark-surfaces.md"
+      ],
+      "entry_surfaces": [
+        "/v1/benchmarks/reference",
+        "python3 scripts/export_benchmark_surfaces.py"
+      ],
+      "outputs": [
+        "reference benchmark JSON",
+        "reference benchmark Markdown"
+      ],
+      "proof_points": [
+        "The benchmark walks real repository lanes rather than timing an isolated helper.",
+        "The public site can hydrate directly from generated benchmark evidence."
+      ],
+      "why_it_exists": "A benchmark becomes more persuasive when it proves the choreography between lanes, not only isolated speed."
     },
     {
       "lane_id": "generated_clients",
@@ -337,9 +373,9 @@
       "finding_id": "connector-spine-is-real",
       "lens": "data",
       "title": "The repository now begins with measured intake instead of hand-shaped payloads alone",
-      "summary": "214 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
+      "summary": "291 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
       "evidence": [
-        "connector runs recorded: 214",
+        "connector runs recorded: 291",
         "connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html"
       ],
       "why_it_matters": "A multimodal repository becomes more credible when data entry is a first-class engineering problem rather than an invisible notebook precondition.",
@@ -359,13 +395,13 @@
       "finding_id": "review-lives-next-to-runtime",
       "lens": "governance",
       "title": "Review work now sits beside inference instead of after it",
-      "summary": "Lifecycle policies (15), change controls (15), supply snapshots (15), drift baselines (8), and ontology snapshots (86) are persisted in the same backend story.",
+      "summary": "Lifecycle policies (21), change controls (21), supply snapshots (21), drift baselines (8), and ontology snapshots (102) are persisted in the same backend story.",
       "evidence": [
-        "lifecycle policies: 15",
-        "change controls: 15",
-        "supply snapshots: 15",
+        "lifecycle policies: 21",
+        "change controls: 21",
+        "supply snapshots: 21",
         "drift baselines: 8",
-        "ontology snapshots: 86"
+        "ontology snapshots: 102"
       ],
       "why_it_matters": "It is easier to trust a system when retention, movement, and liability have a code path rather than only a meeting note.",
       "next_step": "Keep tying review surfaces to real route traces so the governance lane reflects operational movement, not just intended policy.",
@@ -406,12 +442,12 @@
       "finding_id": "proof-is-now-a-backend-surface",
       "lens": "evaluation",
       "title": "Proof is no longer only a README habit",
-      "summary": "The bundle currently counts 65 routes, 38 tests, and 8 declared artifacts.",
+      "summary": "The bundle currently counts 69 routes, 46 tests, and 9 declared artifacts.",
       "evidence": [
-        "route count: 65",
-        "test count: 38",
-        "verification artifacts: 8",
-        "pipeline runs stored: 167"
+        "route count: 69",
+        "test count: 46",
+        "verification artifacts: 9",
+        "pipeline runs stored: 226"
       ],
       "why_it_matters": "Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.",
       "next_step": "Keep the export surfaces close to CI and extend replay comparisons so proof covers behavioral continuity, not only route and artifact presence.",
@@ -430,9 +466,9 @@
       "finding_id": "execution-memory-is-persisted",
       "lens": "evaluation",
       "title": "Export and verification work now leaves its own operational memory",
-      "summary": "22 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
+      "summary": "50 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
       "evidence": [
-        "execution journal runs: 22",
+        "execution journal runs: 50",
         "proof/execution-journal.json is exported from the backend journal surface."
       ],
       "why_it_matters": "A repository feels more trustworthy when its export and verification lanes can be revisited as records instead of being remembered only because someone ran them recently.",
@@ -448,15 +484,38 @@
       ]
     },
     {
+      "finding_id": "reference-benchmark-lane-is-repeatable",
+      "lens": "evaluation",
+      "title": "The benchmark lane now tests choreography, not just speed",
+      "summary": "A typed reference workload now exercises connector-backed ingest, profiling, provenance, concurrent batch execution, recipe compilation, and proof export as one repeatable route.",
+      "evidence": [
+        "Reference benchmark surface: /v1/benchmarks/reference",
+        "Generated artifact: proof/benchmark-surfaces.json",
+        "Concurrent job evidence is persisted under the async job store."
+      ],
+      "why_it_matters": "This shifts the repository away from isolated timing theatre and toward proof that multiple lanes can keep their story straight together.",
+      "next_step": "Keep widening the benchmark inputs with more warehouse-shaped and public-domain workloads so the same route is tested under broader operational texture.",
+      "related_surfaces": [
+        "/v1/benchmarks/reference",
+        "/v1/jobs/batch-infer",
+        "/v1/connectors/pipeline-ingest"
+      ],
+      "related_files": [
+        "src/advanced_multimodal_ai/benchmarks.py",
+        "src/advanced_multimodal_ai/service.py",
+        "scripts/export_benchmark_surfaces.py"
+      ]
+    },
+    {
       "finding_id": "what-still-needs-field-time",
       "lens": "runtime",
       "title": "The next gains will come from deeper field evidence, not louder claims",
-      "summary": "The current readiness posture is 'review_ready'. The repo now has a steadier runtime edge, though the strongest next step remains more repeated evidence under varied real inputs.",
+      "summary": "The current readiness posture is 'needs_buildout'. The repo now has a steadier runtime edge, though the strongest next step remains more repeated evidence under varied real inputs.",
       "evidence": [
-        "readiness posture: review_ready",
-        "connector runs: 214",
-        "pipeline runs: 167",
-        "compiled recipes: 39"
+        "readiness posture: needs_buildout",
+        "connector runs: 291",
+        "pipeline runs: 226",
+        "compiled recipes: 63"
       ],
       "why_it_matters": "The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.",
       "next_step": "Bring in more repeated warehouse, object-store, and mixed-modality examples so the runtime is exercised under broader operational texture.",
@@ -558,7 +617,29 @@
         "Generated clients should be regenerated when the contract moves, not only before release.",
         "Proof is more useful when it counts real stores, routes, and artifacts rather than generic claims."
       ]
+    },
+    {
+      "connection_id": "connector-proof-benchmark",
+      "title": "Connector proof, batch work, and recipe handoff can now be exercised in one repeatable lane",
+      "summary": "benchmarks.py and service.py now use the same connector, profiling, job, recipe, and proof surfaces the runtime already exposes, then publish the result as a generated benchmark artifact.",
+      "files": [
+        "src/advanced_multimodal_ai/benchmarks.py",
+        "src/advanced_multimodal_ai/service.py",
+        "scripts/export_benchmark_surfaces.py",
+        "proof/benchmark-surfaces.json"
+      ],
+      "api_surfaces": [
+        "/v1/benchmarks/reference",
+        "/v1/connectors/pipeline-ingest",
+        "/v1/jobs/batch-infer",
+        "/v1/recipes/compile"
+      ],
+      "learning_value": "This connection makes the repository easier to trust because the same operational lanes are exercised together instead of being admired separately.",
+      "watch_points": [
+        "Reference workloads should stay deterministic and readable, not drift into decorative microbenchmarks.",
+        "Batch concurrency is useful only when per-item failures stay visible in the stored record."
+      ]
     }
   ],
-  "created_at": "2026-07-03T08:49:15.648223+00:00"
+  "created_at": "2026-07-03T18:27:10.510579+00:00"
 }

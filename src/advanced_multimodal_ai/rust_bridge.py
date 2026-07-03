@@ -79,3 +79,9 @@ def tensor_guard_from_payload(
     payload: Dict[str, Any], settings: Settings
 ) -> Dict[str, Any] | None:
     return _run_bridge("tensor-guard", payload, settings)
+
+
+def replay_frame_from_payload(
+    payload: Dict[str, Any], settings: Settings
+) -> Dict[str, Any] | None:
+    return _run_bridge("replay-frame", payload, settings)

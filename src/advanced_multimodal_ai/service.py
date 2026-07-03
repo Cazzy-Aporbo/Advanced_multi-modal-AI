@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import math
+import tempfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from statistics import median
 from time import perf_counter
 from typing import Any, Dict, List, Tuple
@@ -27,16 +30,19 @@ from .contracts import (
     AsyncJobSubmissionResponse,
     BatchInferenceRequest,
     BenchmarkResult,
+    BenchmarkStageResult,
     BiasAssessmentRequest,
     BiasAssessmentResponse,
     BiasCategory,
     ChangeControlRecord,
     ChangeControlRequest,
+    ComplianceLedgerToken,
     ConnectorPipelineIngestRequest,
     ConnectorPipelineIngestResponse,
     ConnectorRegistrationRequest,
     ConnectorRegistrationResponse,
     ConnectorRunRecord,
+    CymaticSurfaceBundle,
     DataLifecyclePolicyRecord,
     DataLifecyclePolicyRequest,
     DataProfileResponse,
@@ -65,6 +71,8 @@ from .contracts import (
     ReadinessReport,
     RecipeCompileRequest,
     RecipeRecord,
+    ReferenceBenchmarkRequest,
+    ReferenceBenchmarkResult,
     RepositoryPulse,
     ResearchSurfaceBundle,
     RetrievalQueryRequest,
@@ -86,10 +94,12 @@ from .contracts import (
     VideoPacketRequest,
     VideoPacketResponse,
 )
+from .cymatic_surface import build_cymatic_surface_bundle
 from .domain_ontology import ingest_domain_ontology
 from .drift import assess_population_drift, create_drift_baseline_record
 from .drift_store import DriftStore
 from .execution_journal_store import ExecutionJournalStore
+from .governance_ledger import build_compliance_ledger_token
 from .job_store import JobStore
 from .legacy import RESEARCH_MODELS
 from .liability_surface import surface_operational_liability
@@ -105,7 +115,7 @@ from .readiness import build_readiness_report
 from .recipe_store import RecipeStore
 from .recipes import compile_recipe_record
 from .registry import list_registered_models
-from .replay import compare_replay, export_pipeline_run
+from .replay import build_replay_frames, compare_replay, export_pipeline_run
 from .repository_pulse import build_repository_pulse
 from .research_surfaces import (
     build_model_research_cards,
@@ -635,25 +645,44 @@ class AdvancedMultimodalService:
         record_data_plane("connector_list")
         return self.connector_store.list_runs(limit=limit)
 
+    def _runtime_store_counts(self) -> Dict[str, int]:
+        return {
+            "async_jobs": self.job_store.count_jobs(),
+            "dataset_catalog": self.catalog_store.count_datasets(),
+            "connector_runs": self.connector_store.count_runs(),
+            "drift_baselines": self.drift_store.count_baselines(),
+            "pipeline_runs": self.pipeline_store.count_runs(),
+            "ontology_snapshots": self.ontology_store.count_snapshots(),
+            "recipe_registry": self.recipe_store.count_recipes(),
+            "lifecycle_policies": self.stewardship_store.count_lifecycle_policies(),
+            "change_controls": self.stewardship_store.count_change_controls(),
+            "supply_chain_snapshots": self.stewardship_store.count_supply_chain_snapshots(),
+            "execution_journal_runs": self.execution_journal_store.count_records(),
+        }
+
     def runtime_attestation(self) -> RuntimeAttestationResponse:
         record_data_plane("runtime_attestation")
         return build_runtime_attestation(
             settings=self.settings,
-            store_counts={
-                "async_jobs": self.job_store.count_jobs(),
-                "dataset_catalog": self.catalog_store.count_datasets(),
-                "connector_runs": self.connector_store.count_runs(),
-                "drift_baselines": self.drift_store.count_baselines(),
-                "pipeline_runs": self.pipeline_store.count_runs(),
-                "ontology_snapshots": self.ontology_store.count_snapshots(),
-                "recipe_registry": self.recipe_store.count_recipes(),
-                "lifecycle_policies": self.stewardship_store.count_lifecycle_policies(),
-                "change_controls": self.stewardship_store.count_change_controls(),
-                "supply_chain_snapshots": (
-                    self.stewardship_store.count_supply_chain_snapshots()
-                ),
-                "execution_journal_runs": self.execution_journal_store.count_records(),
-            },
+            store_counts=self._runtime_store_counts(),
+        )
+
+    def compliance_ledger_token(
+        self,
+        *,
+        route: str,
+        method: str,
+        status_code: int,
+    ) -> ComplianceLedgerToken:
+        attestation = build_runtime_attestation(
+            settings=self.settings,
+            store_counts=self._runtime_store_counts(),
+        )
+        return build_compliance_ledger_token(
+            attestation=attestation,
+            route=route,
+            method=method,
+            status_code=status_code,
         )
 
     def runtime_proof_bundle(self, route_count: int) -> RuntimeProofBundle:
@@ -717,6 +746,18 @@ class AdvancedMultimodalService:
             proof_bundle=proof_bundle,
             readiness=readiness,
             model_cards=self.list_model_research_cards(),
+        )
+
+    def cymatic_surface_bundle(self, route_count: int) -> CymaticSurfaceBundle:
+        record_data_plane("cymatic_surface")
+        return build_cymatic_surface_bundle(
+            research_bundle=self.research_surface_bundle(route_count=route_count),
+            repository_pulse=self.repository_pulse(route_count=route_count),
+            benchmark=self.run_reference_benchmark(
+                route_count=route_count,
+                request=ReferenceBenchmarkRequest(),
+            ),
+            execution_journal=self.execution_journal(limit=12),
         )
 
     def execution_journal(self, limit: int = 20) -> ExecutionJournalSummary:
@@ -787,6 +828,12 @@ class AdvancedMultimodalService:
         inference_request, modality_counts, dropped_events = (
             build_inference_request_from_pipeline(request)
         )
+        replay_frames = build_replay_frames(
+            events=request.events,
+            stream_id=request.stream_id,
+            batch_label=request.batch_label,
+            settings=self.settings,
+        )
         profile = self.profile_request(inference_request)
         provenance = build_provenance_receipt(inference_request)
         notes = list(request.notes)
@@ -794,6 +841,10 @@ class AdvancedMultimodalService:
             notes.append(
                 f"{dropped_events} events were held out because the modalities "
                 "were paired to the narrowest shared batch."
+            )
+        if replay_frames:
+            notes.append(
+                f"{len(replay_frames)} replay frames were sealed into the execution memory."
             )
 
         drift_result: PopulationDriftResponse | None = None
@@ -831,6 +882,7 @@ class AdvancedMultimodalService:
             baseline_label=request.baseline_label,
             request_snapshot=inference_request,
             event_lineage=request.events,
+            replay_frames=replay_frames,
             profile=profile,
             provenance=provenance,
             drift=drift_result,
@@ -860,10 +912,17 @@ class AdvancedMultimodalService:
         record_data_plane("pipeline_replay")
         replay_response = self.infer(record.request_snapshot)
         replay_provenance = build_provenance_receipt(record.request_snapshot)
+        replay_frames = build_replay_frames(
+            events=record.event_lineage,
+            stream_id=record.stream_id,
+            batch_label=record.batch_label,
+            settings=self.settings,
+        )
         return compare_replay(
             record=record,
             replay_response=replay_response,
             replay_provenance_digest=replay_provenance.payload_digest,
+            replay_frames=replay_frames,
         )
 
     def ingest_ontology(self, request: OntologyIngestRequest) -> OntologySnapshot:
@@ -916,13 +975,76 @@ class AdvancedMultimodalService:
     def run_batch_inference_job(self, job_id: str, request: BatchInferenceRequest) -> None:
         self.job_store.mark_running(job_id)
         try:
-            results = [self.infer(item).model_dump(mode="json") for item in request.requests]
+            max_workers_used = min(max(request.max_workers, 1), len(request.requests))
+            job_started = perf_counter()
+            item_results: list[dict[str, Any]] = []
+            result_payloads: list[dict[str, Any]] = []
+
+            def _run_one(index: int, item: InferenceRequest) -> dict[str, Any]:
+                started = perf_counter()
+                try:
+                    response = self.infer(item)
+                except Exception as error:  # pragma: no cover - exercised through job lane tests
+                    error_payload = getattr(error, "response", None)
+                    failure_detail = (
+                        error_payload.model_dump(mode="json")
+                        if error_payload is not None
+                        else {"message": str(error)}
+                    )
+                    return {
+                        "index": index,
+                        "status": "failed",
+                        "duration_ms": float((perf_counter() - started) * 1000),
+                        "model_id": item.model_id,
+                        "runtime_mode": item.runtime_mode,
+                        "target": item.target,
+                        "modalities": sorted(item.modalities.keys()),
+                        "error": failure_detail,
+                    }
+
+                payload = response.model_dump(mode="json")
+                return {
+                    "index": index,
+                    "status": "completed",
+                    "duration_ms": float((perf_counter() - started) * 1000),
+                    "model_id": item.model_id,
+                    "runtime_mode": item.runtime_mode,
+                    "target": item.target,
+                    "modalities": sorted(item.modalities.keys()),
+                    "route": payload.get("route", []),
+                    "warning_count": len(payload.get("warnings", [])),
+                    "response": payload,
+                }
+
+            with ThreadPoolExecutor(max_workers=max_workers_used) as executor:
+                future_to_index = {
+                    executor.submit(_run_one, index, item): index
+                    for index, item in enumerate(request.requests)
+                }
+                for future in as_completed(future_to_index):
+                    item_result = future.result()
+                    item_results.append(item_result)
+                    if item_result["status"] == "completed":
+                        result_payloads.append(item_result["response"])
+
+            ordered_items = sorted(item_results, key=lambda item: int(item["index"]))
+            latencies = sorted(float(item["duration_ms"]) for item in ordered_items)
+            completed_count = sum(1 for item in ordered_items if item["status"] == "completed")
+            failed_count = len(ordered_items) - completed_count
             self.job_store.mark_completed(
                 job_id,
                 {
                     "label": request.label,
-                    "record_count": len(results),
-                    "results": results,
+                    "record_count": len(ordered_items),
+                    "succeeded_count": completed_count,
+                    "failed_count": failed_count,
+                    "max_workers_requested": request.max_workers,
+                    "max_workers_used": max_workers_used,
+                    "median_latency_ms": float(median(latencies)) if latencies else 0.0,
+                    "p95_latency_ms": float(self._p95(latencies)),
+                    "total_duration_ms": float((perf_counter() - job_started) * 1000),
+                    "results": result_payloads,
+                    "items": ordered_items,
                 },
             )
         except Exception as error:  # pragma: no cover - defensive async lane
@@ -1030,6 +1152,426 @@ class AdvancedMultimodalService:
             p95_latency_ms=float(ordered[p95_index]),
             notes="Deterministic smoke benchmark using fixed tensor fixtures.",
         )
+
+    def run_reference_benchmark(
+        self,
+        *,
+        route_count: int,
+        request: ReferenceBenchmarkRequest | None = None,
+    ) -> ReferenceBenchmarkResult:
+        benchmark_request = request or ReferenceBenchmarkRequest()
+        benchmark_id = str(uuid4())
+        total_started = perf_counter()
+        row_count = max(benchmark_request.batch_size, 3)
+        stages: list[BenchmarkStageResult] = []
+        pipeline_run_id = ""
+        replay_frame_count = 0
+        replay_verified = False
+        notes = [
+            (
+                "This benchmark uses deterministic reference fixtures to "
+                "exercise live repository lanes."
+            ),
+            (
+                "It is meant to prove orchestration paths, persistence, "
+                "and evidence export together."
+            ),
+        ]
+
+        def record_stage(
+            *,
+            stage_id: str,
+            label: str,
+            started: float,
+            status: str,
+            record_count: int = 0,
+            stage_notes: list[str] | None = None,
+            artifacts: list[str] | None = None,
+        ) -> None:
+            stages.append(
+                BenchmarkStageResult(
+                    stage_id=stage_id,
+                    label=label,
+                    duration_ms=float((perf_counter() - started) * 1000),
+                    status=status,
+                    record_count=record_count,
+                    notes=stage_notes or [],
+                    artifacts=artifacts or [],
+                )
+            )
+
+        inference_request = self._benchmark_request(
+            model_id=benchmark_request.model_id,
+            batch_size=row_count,
+        )
+
+        if benchmark_request.include_connector_ingest:
+            connector_started = perf_counter()
+            import pyarrow as pa
+            import pyarrow.parquet as pq
+
+            dataset_name = f"reference_signal_rows_{benchmark_id[:8]}"
+            with tempfile.TemporaryDirectory(prefix="amai-reference-benchmark-") as temp_dir:
+                parquet_path = Path(temp_dir) / "reference_signal.parquet"
+                reference_rows = self._reference_connector_rows(row_count)
+                table = pa.table(
+                    {
+                        key: [row[key] for row in reference_rows]
+                        for key in reference_rows[0]
+                    }
+                )
+                pq.write_table(table, parquet_path)
+
+                connector_result = self.connector_pipeline_ingest(
+                    ConnectorPipelineIngestRequest(
+                        connector={"kind": "local_parquet", "source": str(parquet_path)},
+                        dataset_name=dataset_name,
+                        owner="reference-benchmark",
+                        version=datetime.now(timezone.utc).strftime("%Y.%m.%d"),
+                        stream_id=f"reference-stream-{benchmark_id[:8]}",
+                        batch_label=benchmark_request.label,
+                        modality_mappings=[
+                            {
+                                "modality": "tabular",
+                                "feature_fields": ["tab_a", "tab_b", "tab_c"],
+                                "source": "reference-tabular-lane",
+                            },
+                            {
+                                "modality": "sensor",
+                                "feature_fields": ["sensor_a", "sensor_b", "sensor_c"],
+                                "source": "reference-sensor-lane",
+                            },
+                        ],
+                        partition_key_field="capture_day",
+                        tags=["reference-benchmark", "connector-proof"],
+                        notes=[
+                            "Parquet-backed reference workload for the public benchmark surface."
+                        ],
+                    )
+                )
+
+            connector_benchmark = connector_result.connector_run.benchmark
+            record_stage(
+                stage_id="connector_ingest",
+                label="Connector-backed Parquet ingest",
+                started=connector_started,
+                status="pass",
+                record_count=connector_result.connector_run.record_count,
+                stage_notes=[
+                    (
+                        f"{connector_benchmark.parser} pulled "
+                        f"{connector_benchmark.record_count} rows at "
+                        f"{connector_benchmark.rows_per_second:.1f} rows/s."
+                    ),
+                    (
+                        "Zero-copy candidate: "
+                        f"{'yes' if connector_benchmark.zero_copy_path else 'no'}."
+                    ),
+                ],
+                artifacts=[
+                    connector_result.connector_run.run_id,
+                    connector_result.pipeline_run.run_id,
+                ],
+            )
+
+            pipeline_run_id = connector_result.pipeline_run.run_id
+            replay_frame_count = len(connector_result.pipeline_run.replay_frames)
+
+            replay_started = perf_counter()
+            pipeline_export = self.export_pipeline_run(connector_result.pipeline_run.run_id)
+            pipeline_replay = self.replay_pipeline_run(connector_result.pipeline_run.run_id)
+            replay_verified = bool(
+                pipeline_replay is not None
+                and pipeline_replay.provenance_match
+                and pipeline_replay.frame_parity_match
+            )
+            export_digest = ""
+            if pipeline_export is not None:
+                export_digest = next(
+                    (
+                        item.sha256[:16]
+                        for item in pipeline_export.artifact_digests
+                        if item.artifact == "replay_frames"
+                    ),
+                    "",
+                )
+            replay_notes = [
+                f"Replay frames sealed: {replay_frame_count}.",
+                f"Frame parity: {'verified' if replay_verified else 'watch'}.",
+            ]
+            if export_digest:
+                replay_notes.append(f"Replay digest head: {export_digest}…")
+            if pipeline_replay is not None:
+                replay_notes.append(
+                    f"Recorded head: {pipeline_replay.recorded_head_digest[:16]}…"
+                )
+                replay_notes.append(
+                    f"Replayed head: {pipeline_replay.replayed_head_digest[:16]}…"
+                )
+            record_stage(
+                stage_id="pipeline_replay",
+                label="Pipeline replay ledger",
+                started=replay_started,
+                status="pass" if replay_verified else "watch",
+                record_count=replay_frame_count,
+                stage_notes=replay_notes,
+                artifacts=[connector_result.pipeline_run.run_id, "replay_frames"],
+            )
+
+        profile_started = perf_counter()
+        profile_result = self.profile_request(inference_request)
+        record_stage(
+            stage_id="profile_lane",
+            label="Cross-modal profile lane",
+            started=profile_started,
+            status="pass" if profile_result.fusion_readiness >= 0.5 else "watch",
+            record_count=len(profile_result.modality_profiles),
+            stage_notes=[
+                f"Fusion readiness: {profile_result.fusion_readiness:.3f}.",
+                f"Coverage score: {profile_result.coverage_score:.3f}.",
+                (
+                    "Tensor intercept watch points: "
+                    f"{sum(1 for item in profile_result.tensor_intercepts if item.status != 'ok')}."
+                ),
+            ],
+            artifacts=["/v1/data/profile"],
+        )
+
+        provenance_started = perf_counter()
+        provenance_result = self.build_provenance(inference_request)
+        record_stage(
+            stage_id="provenance_lane",
+            label="Payload provenance receipt",
+            started=provenance_started,
+            status="pass",
+            record_count=len(provenance_result.modality_digests),
+            stage_notes=[
+                f"Payload digest: {provenance_result.payload_digest[:16]}…",
+                f"Metadata digest: {provenance_result.metadata_digest[:16]}…",
+            ],
+            artifacts=[provenance_result.receipt_id],
+        )
+
+        if benchmark_request.include_batch_job:
+            batch_started = perf_counter()
+            batch_job_request = BatchInferenceRequest(
+                label=f"{benchmark_request.label}-batch",
+                max_workers=benchmark_request.max_workers,
+                requests=self._reference_batch_requests(
+                    model_id=benchmark_request.model_id,
+                    batch_size=row_count,
+                ),
+            )
+            submission = self.submit_batch_inference_job(batch_job_request)
+            self.run_batch_inference_job(submission.job_id, batch_job_request)
+            batch_record = self.get_job(submission.job_id)
+            batch_payload = batch_record.result_payload if batch_record is not None else {}
+            record_stage(
+                stage_id="batch_job",
+                label="Persisted concurrent batch lane",
+                started=batch_started,
+                status="pass" if batch_payload.get("failed_count", 0) == 0 else "watch",
+                record_count=int(batch_payload.get("record_count", 0)),
+                stage_notes=[
+                    (
+                        f"Workers used: {batch_payload.get('max_workers_used', 0)} "
+                        f"of {batch_payload.get('max_workers_requested', 0)} requested."
+                    ),
+                    (
+                        f"Median latency: {batch_payload.get('median_latency_ms', 0.0):.2f} ms."
+                    ),
+                    (
+                        f"Failed items: {batch_payload.get('failed_count', 0)}."
+                    ),
+                ],
+                artifacts=[submission.job_id],
+            )
+
+        recipe_started = perf_counter()
+        recipe_record = self.compile_recipe(
+            RecipeCompileRequest(
+                label=f"{benchmark_request.label}-recipe",
+                owner="reference-benchmark",
+                objective="alignment_eval",
+                model={
+                    "model_ref": benchmark_request.model_id,
+                    "family": "multimodal",
+                    "adapter_kind": "none",
+                    "precision": "fp16",
+                    "target_modules": ["fusion_gate"],
+                },
+                sources=[
+                    {
+                        "split": "train",
+                        "modality": "tabular",
+                        "dataset_name": f"reference_signal_rows_{benchmark_id[:8]}",
+                        "expected_rows": row_count,
+                        "notes": ["Reference benchmark dataset contract."],
+                    }
+                ]
+                if benchmark_request.include_connector_ingest
+                else [
+                    {
+                        "split": "train",
+                        "modality": "text",
+                        "source_uri": "inline://reference-benchmark",
+                        "expected_rows": row_count,
+                        "notes": ["Reference benchmark inline lane."],
+                    }
+                ],
+                training={
+                    "epochs": 1.0,
+                    "micro_batch_size": 1,
+                    "gradient_accumulation_steps": 2,
+                },
+                distributed={
+                    "engine": "local",
+                    "node_count": 1,
+                    "devices_per_node": 1,
+                    "zero_stage": 0,
+                },
+                evaluation={
+                    "metrics": ["loss", "calibration"],
+                    "primary_metric": "calibration",
+                },
+                tags=["reference-benchmark", "recipe-proof"],
+            )
+        )
+        resolved_source_count = sum(
+            1 for item in recipe_record.resolved_sources if item.resolved
+        )
+        estimated_global_batch = (
+            recipe_record.launch_profile.estimated_global_batch_size
+            if recipe_record.launch_profile
+            else 0
+        )
+        record_stage(
+            stage_id="recipe_compile",
+            label="Recipe registry handoff",
+            started=recipe_started,
+            status="pass",
+            record_count=max(len(recipe_record.sources), 1),
+            stage_notes=[
+                f"Distributed engine: {recipe_record.distributed.engine}.",
+                f"Resolved sources: {resolved_source_count}.",
+                f"Estimated global batch: {estimated_global_batch}.",
+            ],
+            artifacts=[recipe_record.recipe_id],
+        )
+
+        if benchmark_request.include_smoke_benchmark:
+            smoke_started = perf_counter()
+            smoke_result = self.run_smoke_benchmark(
+                model_id=benchmark_request.model_id,
+                iterations=max(6, row_count),
+            )
+            record_stage(
+                stage_id="smoke_benchmark",
+                label="Deterministic latency check",
+                started=smoke_started,
+                status="pass",
+                record_count=smoke_result.iterations,
+                stage_notes=[
+                    f"Median latency: {smoke_result.median_latency_ms:.2f} ms.",
+                    f"P95 latency: {smoke_result.p95_latency_ms:.2f} ms.",
+                ],
+                artifacts=[smoke_result.benchmark_id],
+            )
+
+        proof_started = perf_counter()
+        proof_bundle = self.runtime_proof_bundle(route_count=route_count)
+        record_stage(
+            stage_id="proof_bundle",
+            label="Runtime proof surface snapshot",
+            started=proof_started,
+            status="pass",
+            record_count=proof_bundle.verification_artifact_count,
+            stage_notes=[
+                f"Route count: {proof_bundle.route_count}.",
+                f"Verification artifacts: {proof_bundle.verification_artifact_count}.",
+                f"Connector kinds: {', '.join(proof_bundle.connector_kinds)}.",
+            ],
+            artifacts=["proof/runtime-proof.json"],
+        )
+
+        return ReferenceBenchmarkResult(
+            benchmark_id=benchmark_id,
+            label=benchmark_request.label,
+            model_id=benchmark_request.model_id,
+            route_count=route_count,
+            verification_artifact_count=proof_bundle.verification_artifact_count,
+            stage_count=len(stages),
+            row_count=row_count,
+            pipeline_run_id=pipeline_run_id,
+            replay_frame_count=replay_frame_count,
+            replay_verified=replay_verified,
+            total_duration_ms=float((perf_counter() - total_started) * 1000),
+            stages=stages,
+            notes=notes,
+        )
+
+    def _p95(self, ordered_latencies: list[float]) -> float:
+        if not ordered_latencies:
+            return 0.0
+        p95_index = max(int(len(ordered_latencies) * 0.95) - 1, 0)
+        return float(ordered_latencies[p95_index])
+
+    def _reference_connector_rows(self, row_count: int) -> list[dict[str, Any]]:
+        rows: list[dict[str, Any]] = []
+        for index in range(row_count):
+            rows.append(
+                {
+                    "event_id": f"evt-{index + 1:03d}",
+                    "capture_day": f"2026-07-{(index % 9) + 1:02d}",
+                    "tab_a": round(0.42 + (index * 0.06), 4),
+                    "tab_b": round(0.58 + (index * 0.05), 4),
+                    "tab_c": round(0.64 + (index * 0.04), 4),
+                    "sensor_a": round(0.18 + (index * 0.07), 4),
+                    "sensor_b": round(0.24 + (index * 0.06), 4),
+                    "sensor_c": round(0.31 + (index * 0.05), 4),
+                }
+            )
+        return rows
+
+    def _reference_batch_requests(
+        self, *, model_id: str, batch_size: int
+    ) -> list[InferenceRequest]:
+        requests: list[InferenceRequest] = []
+        for index in range(batch_size):
+            base = 0.1 + (index * 0.08)
+            requests.append(
+                InferenceRequest(
+                    model_id=model_id,
+                    runtime_mode="contract",
+                    target="classification" if index % 2 else "embedding",
+                    num_classes=3 if index % 2 else None,
+                    metadata={
+                        "request_id": f"reference-batch-{index + 1:02d}",
+                        "population_baseline_label": "",
+                    },
+                    modalities={
+                        "text": {
+                            "shape": [1, 4],
+                            "values": [
+                                round(base, 4),
+                                round(base + 0.12, 4),
+                                round(base + 0.24, 4),
+                                round(base + 0.36, 4),
+                            ],
+                        },
+                        "audio": {
+                            "shape": [1, 4],
+                            "values": [
+                                round(base + 0.04, 4),
+                                round(base + 0.16, 4),
+                                round(base + 0.2, 4),
+                                round(base + 0.32, 4),
+                            ],
+                        },
+                    },
+                )
+            )
+        return requests
 
     def _maybe_run_population_drift_gate(
         self, request: InferenceRequest
@@ -1224,15 +1766,24 @@ class AdvancedMultimodalService:
             warnings=warnings,
         )
 
-    def _benchmark_request(self, model_id: str) -> InferenceRequest:
-        text_values = np.linspace(-1.0, 1.0, 16, dtype=np.float32).tolist()
-        image_values = np.linspace(0.0, 1.0, 24, dtype=np.float32).tolist()
+    def _benchmark_request(self, model_id: str, batch_size: int = 2) -> InferenceRequest:
+        feature_width = 8
+        text_values = [
+            round((((row * 0.17) + (column * 0.11)) % 1.6) - 0.8, 6)
+            for row in range(batch_size)
+            for column in range(feature_width)
+        ]
+        image_values = [
+            round(((row * 0.09) + (column * 0.05)) % 1.0, 6)
+            for row in range(batch_size)
+            for column in range(12)
+        ]
         return InferenceRequest(
             model_id=model_id,
             runtime_mode="contract",
             target="embedding",
             modalities={
-                "text": {"shape": [2, 8], "values": text_values},
-                "image": {"shape": [2, 12], "values": image_values},
+                "text": {"shape": [batch_size, feature_width], "values": text_values},
+                "image": {"shape": [batch_size, 12], "values": image_values},
             },
         )

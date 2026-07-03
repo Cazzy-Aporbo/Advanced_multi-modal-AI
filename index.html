@@ -6,6 +6,7 @@
   <title>Advanced Multi-modal AI · Signal Atlas</title>
   <meta name="description" content="A multimodal signal atlas for orchestration, retrieval, quality profiling, provenance receipts, public-web intake, temporal alignment, and transcript-led video evidence planning.">
   <link rel="stylesheet" href="site-controls.css">
+  <link rel="stylesheet" href="cymatic-surface.css">
   <style>
     :root {
       --bg: #120f0d;
@@ -1435,11 +1436,11 @@
       }
       .nav-disclosure[open] .nav-links {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
       }
       .nav-links a {
-        justify-content: center;
-        text-align: center;
+        justify-content: space-between;
+        text-align: left;
         min-height: 48px;
       }
       .brand {
@@ -1476,25 +1477,25 @@
       .card { padding: 22px; }
       .hero-actions {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
       }
       .hero-actions .pill {
-        width: auto;
-        justify-content: center;
-        text-align: center;
+        width: 100%;
+        justify-content: space-between;
+        text-align: left;
         min-height: 50px;
       }
       .hero-actions .pill:last-child {
-        grid-column: 1 / -1;
+        grid-column: auto;
       }
       .hero-panel p {
         max-width: none;
         font-size: 0.96rem;
       }
       h1 {
-        font-size: clamp(1.95rem, 12vw, 2.7rem);
-        line-height: 0.94;
-        max-width: 8ch;
+        font-size: clamp(1.75rem, 9vw, 2.45rem);
+        line-height: 1.02;
+        max-width: none;
       }
       .filters,
       .cards,
@@ -1584,12 +1585,14 @@
         </div>
       </div>
       <div class="nav-main">
-        <details class="nav-disclosure" open>
+        <details class="nav-disclosure">
           <summary class="nav-disclosure-toggle" data-translate-key="nav_mobile_toggle">Explore the atlas</summary>
           <div class="nav-links">
             <a href="advanced-technical-portfolio.html" data-translate-key="nav_architecture">architecture</a>
             <a href="technical-portfolio.html" data-translate-key="nav_catalog">catalog</a>
             <a href="model-observatory.html" data-translate-key="nav_models">models</a>
+            <a href="benchmark-observatory.html">benchmarks</a>
+            <a href="cymatic-media-engine.html">signal lab</a>
             <a href="field-notes.html" data-translate-key="nav_findings">field notes</a>
             <a href="README.md" data-translate-key="nav_readme">readme</a>
           </div>
@@ -1618,6 +1621,8 @@
           <a class="pill primary" href="advanced-technical-portfolio.html" data-translate-key="hero_cta_arch">Read the architecture</a>
           <a class="pill" href="technical-portfolio.html" data-translate-key="hero_cta_catalog">Browse the components</a>
           <a class="pill" href="model-observatory.html" data-translate-key="hero_cta_models">Study the models</a>
+          <a class="pill" href="benchmark-observatory.html">Open the benchmark lane</a>
+          <a class="pill" href="cymatic-media-engine.html">Open the signal lab</a>
           <a class="pill" href="field-notes.html" data-translate-key="hero_cta_notes">Read the field notes</a>
           <a class="pill" href="examples/README.md" data-translate-key="hero_cta_examples">Run the examples</a>
         </div>
@@ -1688,6 +1693,13 @@
       </div>
     </section>
 
+    <section class="signal-rail-host" data-signal-rail aria-label="Live repository motion">
+      <div class="signal-rail-shell signal-rail-fallback">
+        <small>Live repository motion</small>
+        <p>The atlas is loading the current lane map.</p>
+      </div>
+    </section>
+
     <section class="section" id="atlas-guide">
       <div class="section-panel guide-panel">
         <div class="section-label">Atlas guide</div>
@@ -1715,6 +1727,12 @@
             <div class="guide-kicker">Python spine</div>
             <h3>Learn how the files move together</h3>
             <p>See which modules shape intake, which ones carry the math, and which ones keep the record of what happened.</p>
+            <div class="guide-meter"><span></span><span></span><span></span><span></span></div>
+          </a>
+          <a class="guide-card" href="#benchmark-surface">
+            <div class="guide-kicker">Benchmark lane</div>
+            <h3>Watch one workload survive replay</h3>
+            <p>Open the repeatable reference run and see how ingest, batch, recipe, proof, and replay hold together.</p>
             <div class="guide-meter"><span></span><span></span><span></span><span></span></div>
           </a>
         </div>
@@ -1835,6 +1853,15 @@
 
       <article class="card" data-group="operations">
         <div>
+          <div class="section-label">Benchmark lane</div>
+          <h3>Reference workload with replay memory</h3>
+          <p>A generated benchmark now drives connector ingest, persisted pipeline runs, replay-frame sealing, batch work, recipe compilation, and proof refresh together.</p>
+        </div>
+        <a class="card-link" href="benchmark-observatory.html">open benchmark</a>
+      </article>
+
+      <article class="card" data-group="operations">
+        <div>
           <div class="section-label">Field notes</div>
           <h3>Generated findings and connections</h3>
           <p>Findings, model notes, and file-to-surface connections are now exported from the backend and published as a readable research bundle.</p>
@@ -1881,6 +1908,19 @@
       </div>
     </section>
 
+    <section class="section" id="cymatic-window">
+      <div class="section-panel">
+        <div class="section-label">Signal window</div>
+        <h2>Bring sound into the atlas without leaving the evidence behind</h2>
+        <p class="map-note">
+          The browser can react to local audio energy immediately. The stage map, repair language,
+          and continuation links still come from the generated benchmark, pulse, and research surfaces.
+          That keeps the motion vivid without inventing another hidden runtime.
+        </p>
+        <div data-cymatic-surface data-cymatic-surface-mode="compact"></div>
+      </div>
+    </section>
+
     <section class="section" id="runtime-pulse">
       <div class="section-panel">
         <div class="section-label">Runtime pulse</div>
@@ -1894,8 +1934,28 @@
         </div>
         <div class="hero-actions" style="margin-top:18px;">
           <a class="pill" href="proof/repository-pulse.md">Open the pulse report</a>
+          <a class="pill" href="benchmark-observatory.html">Open the benchmark observatory</a>
           <a class="pill" href="advanced-technical-portfolio.html#lane-map">Read the lane map</a>
           <a class="pill" href="technical-portfolio.html">Browse the file catalog</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="benchmark-surface">
+      <div class="section-panel">
+        <div class="section-label">Reference benchmark</div>
+        <h2>One workload pushed through ingest, replay, batch, recipe, and proof</h2>
+        <div class="runtime-pulse-grid" id="benchmark-surface-grid">
+          <article class="runtime-pulse-card">
+            <div class="section-label">Loading</div>
+            <h3>Waiting for the benchmark surface</h3>
+            <p>The atlas will pull a generated reference workload so the execution path can be inspected as data, not guessed at from prose.</p>
+          </article>
+        </div>
+        <div class="hero-actions" style="margin-top:18px;">
+          <a class="pill" href="benchmark-observatory.html">Open the full benchmark page</a>
+          <a class="pill" href="proof/benchmark-surfaces.md">Open the benchmark report</a>
+          <a class="pill" href="proof/example-bundle.md">Open the worked example</a>
         </div>
       </div>
     </section>
@@ -1913,6 +1973,7 @@
         </div>
         <div class="hero-actions" style="margin-top:18px;">
           <a class="pill" href="proof/execution-journal.md">Open the execution journal</a>
+          <a class="pill" href="benchmark-observatory.html#replay-ledger">Open the replay ledger</a>
           <a class="pill" href="proof/runtime-proof.md">Open the proof bundle</a>
         </div>
       </div>
@@ -2233,12 +2294,13 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
 
     <footer class="footer">
       <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · <a href="LICENSE" style="color:inherit;">Apache License 2.0</a></div>
-      <div><a href="README.md" style="color:inherit;">readme</a> · <a href="advanced-technical-portfolio.html" style="color:inherit;">architecture</a> · <a href="technical-portfolio.html" style="color:inherit;">catalog</a></div>
+      <div><a href="README.md" style="color:inherit;">readme</a> · <a href="advanced-technical-portfolio.html" style="color:inherit;">architecture</a> · <a href="benchmark-observatory.html" style="color:inherit;">benchmarks</a> · <a href="cymatic-media-engine.html" style="color:inherit;">signal lab</a> · <a href="technical-portfolio.html" style="color:inherit;">catalog</a></div>
     </footer>
   </div>
 
   <script src="site-controls.js"></script>
   <script src="research-surfaces.js"></script>
+  <script src="cymatic-surface.js"></script>
   <script>
     window.AMAI_TRANSLATIONS = {
       en: {
@@ -2457,6 +2519,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     const navDisclosure = document.querySelector(".nav-disclosure");
     const researchPulseGrid = document.getElementById("research-pulse-grid");
     const runtimePulseGrid = document.getElementById("runtime-pulse-grid");
+    const benchmarkSurfaceGrid = document.getElementById("benchmark-surface-grid");
     const executionJournalGrid = document.getElementById("execution-journal-grid");
 
     if (window.matchMedia("(max-width: 720px)").matches && navDisclosure) {
@@ -2608,11 +2671,11 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       },
       {
         title: "Replay after ingest, not only during it",
-        body: "Saved pipeline runs can now be exported with NDJSON lineage and deterministic artifact digests, then replayed through the current runtime to compare provenance and summary-shape stability.",
+        body: "Saved pipeline runs now carry a frame-by-frame execution memory. Each event receives a chained digest so replay can check provenance, summary shape, and the recorded state path instead of relying on inference alone.",
         table: [
           ["export", "/v1/pipelines/runs/{run_id}/export"],
           ["replay", "/v1/pipelines/runs/{run_id}/replay"],
-          ["checks", "provenance match, route match, summary shape match"],
+          ["checks", "provenance match, route match, summary shape match, frame parity"],
         ],
       },
       {
@@ -2839,6 +2902,56 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         .join("");
     }
 
+    function renderBenchmarkSurface(payload) {
+      if (!payload || !benchmarkSurfaceGrid) return;
+      const replayStage = (payload.stages || []).find((stage) => stage.stage_id === "pipeline_replay");
+      const connectorStage = (payload.stages || []).find((stage) => stage.stage_id === "connector_ingest");
+      const proofStage = (payload.stages || []).find((stage) => stage.stage_id === "proof_bundle");
+      const stageCards = [connectorStage, replayStage, proofStage]
+        .filter(Boolean)
+        .map((stage) => `
+          <article class="runtime-pulse-card">
+            <div class="section-label">${AMAIResearch.escapeHtml(stage.label)}</div>
+            <h3>${AMAIResearch.escapeHtml(stage.status === "pass" ? "Held together cleanly" : "Needs another look")}</h3>
+            <p>${AMAIResearch.escapeHtml((stage.notes || [])[0] || "No stage note recorded yet.")}</p>
+            <div class="runtime-badge">
+              <span>${Number(stage.duration_ms).toFixed(1)}ms</span>
+              <span>${stage.record_count} records</span>
+              <span>${AMAIResearch.escapeHtml(stage.status)}</span>
+            </div>
+            <div class="pulse-chip-row">
+              ${(stage.artifacts || []).slice(0, 3).map((item) => `<span class="pulse-chip">${AMAIResearch.escapeHtml(item)}</span>`).join("")}
+            </div>
+          </article>
+        `)
+        .join("");
+
+      benchmarkSurfaceGrid.innerHTML = `
+        <article class="runtime-pulse-card">
+          <div class="section-label">Reference workload</div>
+          <h3>${AMAIResearch.escapeHtml(payload.label || "reference-workload")}</h3>
+          <p>One repeatable benchmark exercises the multimodal path end to end, then records whether replay returned to the same sealed state.</p>
+          <div class="runtime-badge">
+            <span>${payload.row_count} rows</span>
+            <span>${payload.stage_count} stages</span>
+            <span>${payload.replay_frame_count} replay frames</span>
+          </div>
+          <div class="runtime-meter">
+            <div class="runtime-fill" style="--target-width:${payload.replay_verified ? 94 : 62}%"></div>
+          </div>
+          <div class="runtime-artifact-list">
+            <div class="runtime-artifact"><span>pipeline run</span><span>${AMAIResearch.escapeHtml(payload.pipeline_run_id || "pending")}</span></div>
+            <div class="runtime-artifact"><span>replay parity</span><span>${payload.replay_verified ? "verified" : "watch"}</span></div>
+            <div class="runtime-artifact"><span>total duration</span><span>${Number(payload.total_duration_ms).toFixed(1)}ms</span></div>
+          </div>
+          <div class="pulse-chip-row">
+            ${(payload.notes || []).slice(0, 2).map((item) => `<span class="pulse-chip">${AMAIResearch.escapeHtml(item)}</span>`).join("")}
+          </div>
+        </article>
+        ${stageCards}
+      `;
+    }
+
     async function hydrateProofBundle() {
       try {
         const response = await fetch("proof/runtime-proof.json", { cache: "no-store" });
@@ -2897,6 +3010,20 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       }
     }
 
+    async function hydrateBenchmarkSurface() {
+      try {
+        const payload = await AMAIResearch.loadBenchmarkSurface();
+        if (!payload) return;
+        renderBenchmarkSurface(payload);
+        if (payload.replay_frame_count) {
+          proofSlides[2].table[2][1] =
+            `provenance match, route match, summary shape match, ${payload.replay_frame_count} replay frames`;
+        }
+      } catch (error) {
+        console.warn("benchmark surface could not be loaded", error);
+      }
+    }
+
     pills.forEach((pill) => {
       pill.addEventListener("click", () => {
         pills.forEach((node) => node.classList.remove("active"));
@@ -2943,6 +3070,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     hydrateProofBundle();
     hydrateResearchBundle();
     hydrateRepositoryPulse();
+    hydrateBenchmarkSurface();
     hydrateExecutionJournal();
     setInterval(updateClocks, 1000);
     setInterval(() => {

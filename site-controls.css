@@ -305,6 +305,264 @@ body[data-theme="paper"][data-contrast="high"] {
   }
 }
 
+.signal-rail-host {
+  margin-top: 24px;
+}
+
+.signal-rail-shell {
+  position: relative;
+  overflow: hidden;
+  padding: 22px;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    radial-gradient(circle at top right, rgba(143, 201, 190, 0.16), transparent 54%),
+    radial-gradient(circle at bottom left, rgba(215, 169, 184, 0.14), transparent 46%),
+    var(--surface, rgba(29, 22, 18, 0.9));
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.22);
+}
+
+.signal-rail-shell::before {
+  content: "";
+  position: absolute;
+  inset: -40% auto auto -10%;
+  width: 34%;
+  height: 180%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(223, 156, 95, 0.11), rgba(255, 255, 255, 0));
+  transform: rotate(14deg);
+  animation: signalRailSweep 18s linear infinite;
+  pointer-events: none;
+}
+
+.signal-rail-shell small {
+  display: inline-flex;
+  margin-bottom: 10px;
+  color: var(--copper);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+}
+
+.signal-rail-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.signal-rail-head h2 {
+  margin: 0;
+  color: var(--text);
+  font-family: "Iowan Old Style", Georgia, serif;
+  font-size: clamp(1.55rem, 3vw, 2.4rem);
+  line-height: 1.06;
+  max-width: 19ch;
+}
+
+.signal-rail-totals,
+.signal-rail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.signal-rail-totals span,
+.signal-rail-meta span,
+.signal-stage-pill,
+.signal-run-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-size: 0.82rem;
+}
+
+.signal-stage-chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.signal-stage-pill {
+  text-decoration: none;
+}
+
+.signal-stage-pill strong {
+  color: var(--text);
+  font-size: 0.84rem;
+}
+
+.signal-stage-pill span {
+  color: var(--muted);
+}
+
+.signal-stage-arrow {
+  color: var(--copper);
+  font-size: 1.05rem;
+  opacity: 0.7;
+}
+
+.signal-rail-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(250px, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x proximity;
+}
+
+.signal-rail-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 10px;
+  min-height: 214px;
+  padding: 18px 18px 20px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    var(--surface-strong, rgba(37, 28, 24, 0.94));
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.18);
+  scroll-snap-align: start;
+  animation: signalRailFloat 8.8s ease-in-out infinite;
+}
+
+.signal-rail-card:nth-child(2n) {
+  animation-delay: 0.8s;
+}
+
+.signal-rail-card:nth-child(3n) {
+  animation-delay: 1.6s;
+}
+
+.signal-rail-card::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -48px;
+  bottom: -62px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 72%);
+  pointer-events: none;
+}
+
+.signal-rail-order {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.signal-rail-card strong {
+  font-size: 1.28rem;
+  font-family: "Iowan Old Style", Georgia, serif;
+  line-height: 1.08;
+}
+
+.signal-rail-card p,
+.signal-run-note p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.signal-rail-meter {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+.signal-rail-meter-fill {
+  display: block;
+  width: var(--width, 50%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--copper), var(--rose), var(--jade));
+}
+
+.signal-rail-card.tone-frontend {
+  border-color: rgba(240, 178, 126, 0.22);
+}
+
+.signal-rail-card.tone-backend {
+  border-color: rgba(143, 201, 190, 0.22);
+}
+
+.signal-rail-card.tone-compiled {
+  border-color: rgba(169, 196, 255, 0.24);
+}
+
+.signal-rail-card.tone-client {
+  border-color: rgba(240, 226, 188, 0.22);
+}
+
+.signal-rail-card.tone-evidence {
+  border-color: rgba(215, 169, 184, 0.22);
+}
+
+.signal-run-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.signal-run-note {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.signal-run-note strong {
+  color: var(--text);
+  text-transform: capitalize;
+}
+
+.signal-rail-fallback p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@keyframes signalRailFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes signalRailSweep {
+  0% {
+    transform: translate3d(-14%, 0, 0) rotate(14deg);
+  }
+  100% {
+    transform: translate3d(360%, 0, 0) rotate(14deg);
+  }
+}
+
 @media (max-width: 900px) {
   .site-dock {
     width: 100%;
@@ -325,9 +583,41 @@ body[data-theme="paper"][data-contrast="high"] {
     scroll-snap-align: start;
     min-height: 200px;
   }
+
+  .signal-run-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
+  body[data-nav-pattern="inline"] .nav-bar {
+    align-items: flex-start;
+  }
+
+  body[data-nav-pattern="inline"] .nav .nav-links {
+    width: 100%;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  body[data-nav-pattern="inline"] .nav .nav-links::-webkit-scrollbar,
+  .signal-stage-chain::-webkit-scrollbar,
+  .signal-rail-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  body[data-nav-pattern="inline"] .nav .nav-links a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  body[data-nav-pattern="inline"] #site-dock-host {
+    width: 100%;
+    margin-left: 0;
+  }
+
   .site-dock {
     display: block;
     width: 100%;
@@ -353,6 +643,10 @@ body[data-theme="paper"][data-contrast="high"] {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
+  }
+
+  .site-dock-toggle::-webkit-details-marker {
+    display: none;
   }
 
   .site-dock-toggle::after {
@@ -397,5 +691,39 @@ body[data-theme="paper"][data-contrast="high"] {
 
   .page-section-nav a {
     justify-content: space-between;
+  }
+
+  .signal-rail-shell {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .signal-rail-head {
+    display: grid;
+  }
+
+  .signal-rail-head h2 {
+    max-width: none;
+    font-size: clamp(1.4rem, 7vw, 2.05rem);
+  }
+
+  .signal-stage-chain {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scroll-snap-type: x proximity;
+  }
+
+  .signal-stage-pill {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .signal-rail-strip {
+    grid-auto-columns: minmax(250px, 84vw);
+  }
+
+  .signal-run-grid {
+    grid-template-columns: 1fr;
   }
 }

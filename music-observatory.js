@@ -391,7 +391,7 @@
         <div class="music-section-head">
           <div>
             <small>Drift watch</small>
-            <h2>The sound lane can now explain what is narrowing, smoothing, or disappearing.</h2>
+            <h2 class="music-feature-heading tone-1">The sound lane can now explain what is narrowing, smoothing, or disappearing.</h2>
           </div>
           <a class="music-cta" href="proof/music-observatory.md">open written report</a>
         </div>
@@ -402,7 +402,7 @@
         <div class="music-section-head">
           <div>
             <small>Warehouse signal board</small>
-            <h2>Measured audio summaries stay close to the page, so the field reads like evidence rather than mood.</h2>
+            <h2 class="music-feature-heading tone-2">Measured audio summaries stay close to the page, so the field reads like evidence rather than mood.</h2>
           </div>
           <span class="music-inline-note">Derived from the persisted feature slice</span>
         </div>
@@ -413,7 +413,7 @@
         <div class="music-section-head">
           <div>
             <small>Change proof</small>
-            <h2>What changed, where it entered, and which receipts still support that reading.</h2>
+            <h2 class="music-feature-heading tone-3">What changed, where it entered, and which receipts still support that reading.</h2>
           </div>
           <a class="music-cta" href="proof/benchmark-surfaces.md">open benchmark chain</a>
         </div>
@@ -424,7 +424,7 @@
         <div class="music-section-head">
           <div>
             <small>Feature warehouse</small>
-            <h2>Derived rows stay queryable, so the page can show measured segments instead of decorative sound.</h2>
+            <h2 class="music-feature-heading tone-4">Derived rows stay queryable, so the page can show measured segments instead of decorative sound.</h2>
           </div>
           <span class="music-inline-note">${compactNumber(snapshot.segment_slice.row_count || 0)} rows in the visible slice</span>
         </div>
@@ -435,7 +435,7 @@
         <div class="music-section-head">
           <div>
             <small>Genre constellation</small>
-            <h2>The manifest lane shows where the declared catalog is thick, thin, or quietly repeating itself.</h2>
+            <h2 class="music-feature-heading tone-5">The manifest lane shows where the declared catalog is thick, thin, or quietly repeating itself.</h2>
           </div>
           <span class="music-inline-note">${compactNumber(Object.keys(overview.genre_counts || {}).length)} named groupings</span>
         </div>
@@ -446,7 +446,7 @@
         <div class="music-section-head">
           <div>
             <small>Segment topology</small>
-            <h2>Each visible window carries a measurable shape, so the warehouse can be scanned without opening the source media.</h2>
+            <h2 class="music-feature-heading tone-6">Each visible window carries a measurable shape, so the warehouse can be scanned without opening the source media.</h2>
           </div>
           <span class="music-inline-note">entropy, repetition, and silence kept side by side</span>
         </div>
@@ -457,7 +457,7 @@
         <div class="music-section-head">
           <div>
             <small>Cross-modal trace</small>
-            <h2>One moment can be followed across transcript, audio, and frame windows.</h2>
+            <h2 class="music-feature-heading tone-1">One moment can be followed across transcript, audio, and frame windows.</h2>
           </div>
           <span class="music-inline-note">${compactNumber((snapshot.alignment_preview.windows || []).length)} windows</span>
         </div>
@@ -468,7 +468,7 @@
         <div class="music-section-head">
           <div>
             <small>Recent lane activity</small>
-            <h2>Manifests and runs stay visible so the warehouse reads like working memory.</h2>
+            <h2 class="music-feature-heading tone-2">Manifests and runs stay visible so the warehouse reads like working memory.</h2>
           </div>
         </div>
         ${renderRecentRuns(overview)}
@@ -478,7 +478,7 @@
         <div class="music-section-head">
           <div>
             <small>Continuation deck</small>
-            <h2>Follow the lane into contracts, proof artifacts, generated clients, and the wider repository surface.</h2>
+            <h2 class="music-feature-heading tone-3">Follow the lane into contracts, proof artifacts, generated clients, and the wider repository surface.</h2>
           </div>
         </div>
         ${renderContinuationDeck()}

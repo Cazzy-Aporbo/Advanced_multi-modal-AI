@@ -359,29 +359,61 @@
 }
 
 .cymatic-bottomline {
-  grid-template-columns: minmax(420px, 1.16fr) minmax(360px, 0.84fr);
+  grid-template-columns: 1fr;
 }
 
 .cymatic-pipeline {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(220px, 252px);
-  gap: 12px;
+  grid-auto-columns: minmax(264px, 320px);
+  gap: 14px;
   overflow-x: auto;
-  padding: 4px 2px 10px;
+  padding: 6px 4px 12px;
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
   scrollbar-color: rgba(143, 201, 190, 0.38) rgba(255, 255, 255, 0.06);
 }
 
+.cymatic-pipeline::-webkit-scrollbar {
+  height: 10px;
+}
+
+.cymatic-pipeline::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cymatic-pipeline::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(223, 156, 95, 0.82), rgba(143, 201, 190, 0.82));
+}
+
 .cymatic-stage-card {
   padding: 18px;
   text-align: left;
-  min-height: 322px;
+  min-height: 292px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   scroll-snap-align: start;
+}
+
+.cymatic-stage-card::before,
+.cymatic-insight-card::before,
+.cymatic-detail-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 217, 170, 0.9),
+    rgba(242, 191, 211, 0.88),
+    rgba(157, 231, 217, 0.9),
+    rgba(169, 216, 255, 0.88)
+  );
+  opacity: 0.82;
+  pointer-events: none;
 }
 
 .cymatic-stage-card strong {
@@ -395,7 +427,7 @@
 
 .cymatic-stage-card h4 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.22rem;
   line-height: 1.08;
   background-size: 180% 180%;
   -webkit-background-clip: text;
@@ -407,7 +439,8 @@
 .cymatic-stage-card p {
   margin: 10px 0 0;
   color: var(--muted, #dbcabc);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
+  max-width: 24ch;
   text-wrap: pretty;
 }
 
@@ -425,37 +458,37 @@
 .stage-tone-1 h4,
 .stage-tone-1 .cymatic-stage-heading,
 .stage-tone-1 h3 {
-  background-image: linear-gradient(135deg, #ffd9aa 0%, #f2bfd3 50%, #9de7d9 100%);
+  background-image: linear-gradient(135deg, #ffe2b8 0%, #ffb7cf 44%, #8ee7da 100%);
 }
 
 .stage-tone-2 h4,
 .stage-tone-2 .cymatic-stage-heading,
 .stage-tone-2 h3 {
-  background-image: linear-gradient(135deg, #ffd2c2 0%, #c6bbff 48%, #9ce2d7 100%);
+  background-image: linear-gradient(135deg, #ffd4c7 0%, #cbb7ff 40%, #85ead3 100%);
 }
 
 .stage-tone-3 h4,
 .stage-tone-3 .cymatic-stage-heading,
 .stage-tone-3 h3 {
-  background-image: linear-gradient(135deg, #f8f1eb 0%, #9ec8ff 45%, #8fe6d0 100%);
+  background-image: linear-gradient(135deg, #fff5ec 0%, #9cc7ff 38%, #92f0d8 100%);
 }
 
 .stage-tone-4 h4,
 .stage-tone-4 .cymatic-stage-heading,
 .stage-tone-4 h3 {
-  background-image: linear-gradient(135deg, #ffd8b8 0%, #f6a7d2 42%, #a9d8ff 100%);
+  background-image: linear-gradient(135deg, #ffd7aa 0%, #f6a5dd 42%, #a5daff 100%);
 }
 
 .stage-tone-5 h4,
 .stage-tone-5 .cymatic-stage-heading,
 .stage-tone-5 h3 {
-  background-image: linear-gradient(135deg, #fff1d8 0%, #b9c3ff 46%, #9ce2d7 100%);
+  background-image: linear-gradient(135deg, #fff0cf 0%, #b8c0ff 46%, #95e8e1 100%);
 }
 
 .stage-tone-6 h4,
 .stage-tone-6 .cymatic-stage-heading,
 .stage-tone-6 h3 {
-  background-image: linear-gradient(135deg, #f9e6ff 0%, #f1c091 44%, #9fe7e3 100%);
+  background-image: linear-gradient(135deg, #f8e3ff 0%, #f3c18d 44%, #95ece8 100%);
 }
 
 .cymatic-panel > h3 {
@@ -497,6 +530,7 @@
 
 .cymatic-detail-panel {
   padding: 24px;
+  min-height: 0;
 }
 
 .cymatic-detail-copy {
@@ -629,7 +663,7 @@
   }
 
   .cymatic-pipeline {
-    grid-auto-columns: minmax(220px, 76%);
+    grid-auto-columns: minmax(236px, 78%);
   }
 }
 

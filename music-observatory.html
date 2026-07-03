@@ -250,6 +250,38 @@
       max-width: 20ch;
     }
 
+    .music-feature-heading {
+      background-size: 180% 180%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: pulse 10s ease-in-out infinite alternate;
+    }
+
+    .music-feature-heading.tone-1 {
+      background-image: linear-gradient(135deg, #ffe2b8 0%, #f0bdd8 44%, #8fe7da 100%);
+    }
+
+    .music-feature-heading.tone-2 {
+      background-image: linear-gradient(135deg, #fff1d2 0%, #b9c0ff 42%, #9ae4e2 100%);
+    }
+
+    .music-feature-heading.tone-3 {
+      background-image: linear-gradient(135deg, #ffd8b8 0%, #f6a7d7 42%, #a6d6ff 100%);
+    }
+
+    .music-feature-heading.tone-4 {
+      background-image: linear-gradient(135deg, #fff5ec 0%, #9bc9ff 40%, #8fe8d2 100%);
+    }
+
+    .music-feature-heading.tone-5 {
+      background-image: linear-gradient(135deg, #f7deff 0%, #f1c091 42%, #95ece8 100%);
+    }
+
+    .music-feature-heading.tone-6 {
+      background-image: linear-gradient(135deg, #ffe3cf 0%, #ccb6ff 44%, #85ead3 100%);
+    }
+
     .music-metric-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));

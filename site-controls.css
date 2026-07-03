@@ -10,6 +10,17 @@
   backdrop-filter: blur(14px);
 }
 
+.site-dock-toggle {
+  display: none;
+}
+
+.site-dock-panel {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .site-dock-label {
   font-size: 0.72rem;
   letter-spacing: 0.18em;
@@ -128,5 +139,69 @@ body[data-theme="paper"][data-contrast="high"] {
   .site-dock {
     width: 100%;
     justify-content: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-dock {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  .site-dock-toggle {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+    color: var(--text);
+    font: inherit;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .site-dock-toggle::after {
+    content: "▾";
+    font-size: 0.95rem;
+    transition: transform 180ms ease;
+  }
+
+  .site-dock[open] .site-dock-toggle::after {
+    transform: rotate(180deg);
+  }
+
+  .site-dock-panel {
+    display: none;
+    width: 100%;
+    margin-top: 10px;
+    padding: 14px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.16);
+  }
+
+  .site-dock[open] .site-dock-panel {
+    display: grid;
+    gap: 10px;
+  }
+
+  .site-dock-label {
+    display: none;
+  }
+
+  .site-dock select,
+  .site-dock a {
+    width: 100%;
   }
 }

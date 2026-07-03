@@ -37,9 +37,12 @@ jobs:
         run: |
           python scripts/export_openapi.py
           python scripts/generate_sdk_surfaces.py
+          python scripts/export_research_surfaces.py
+          python scripts/export_repository_pulse.py
           python scripts/export_readiness_report.py
           python scripts/export_example_bundle.py
           python scripts/build_runtime_proof_bundle.py
+          python scripts/export_execution_journal.py
 
       - name: Prepare site bundle
         run: |
@@ -47,6 +50,8 @@ jobs:
           cp index.html site/index.html
           cp advanced-technical-portfolio.html site/advanced-technical-portfolio.html
           cp technical-portfolio.html site/technical-portfolio.html
+          cp model-observatory.html site/model-observatory.html
+          cp field-notes.html site/field-notes.html
           cp site-controls.css site/site-controls.css
           cp site-controls.js site/site-controls.js
           cp README.md site/README.md
@@ -85,8 +90,20 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment_retry.outputs.page_url || steps.deployment_primary.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        id: deployment_primary
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+
+      - name: Retry GitHub Pages deployment
+        id: deployment_retry
+        if: steps.deployment_primary.outcome != 'success'
+        uses: actions/deploy-pages@v5
+
+      - name: Fail if deployment did not stabilize
+        if: steps.deployment_primary.outcome != 'success' && steps.deployment_retry.outcome != 'success'
+        run: |
+          echo "GitHub Pages deployment failed twice."
+          exit 1

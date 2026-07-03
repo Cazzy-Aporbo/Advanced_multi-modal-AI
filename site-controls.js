@@ -85,6 +85,7 @@
 
   function buildDock() {
     const target =
+      document.querySelector("#site-dock-host") ||
       document.querySelector(".nav-links") ||
       document.querySelector(".nav") ||
       document.querySelector(".wrap");
@@ -94,20 +95,24 @@
     const contrast = getStored(CONTRAST_KEY, "standard");
     const locale = getStored(LOCALE_KEY, "en");
 
-    const dock = document.createElement("div");
+    const dock = document.createElement("details");
     dock.className = "site-dock";
+    dock.open = !window.matchMedia("(max-width: 720px)").matches;
     dock.innerHTML = `
-      <span class="site-dock-label">Display</span>
-      <select id="site-theme-select" aria-label="Theme">
-        ${renderOptions(THEMES, theme)}
-      </select>
-      <select id="site-contrast-select" aria-label="Contrast">
-        ${renderOptions(CONTRASTS, contrast)}
-      </select>
-      <select id="site-locale-select" aria-label="Language">
-        ${renderOptions(LOCALES, locale)}
-      </select>
-      <a id="site-translate-link" href="#" target="_blank" rel="noreferrer">Translate page</a>
+      <summary class="site-dock-toggle">Display</summary>
+      <div class="site-dock-panel">
+        <span class="site-dock-label">Display</span>
+        <select id="site-theme-select" aria-label="Theme">
+          ${renderOptions(THEMES, theme)}
+        </select>
+        <select id="site-contrast-select" aria-label="Contrast">
+          ${renderOptions(CONTRASTS, contrast)}
+        </select>
+        <select id="site-locale-select" aria-label="Language">
+          ${renderOptions(LOCALES, locale)}
+        </select>
+        <a id="site-translate-link" href="#" target="_blank" rel="noreferrer">Translate page</a>
+      </div>
     `;
     target.appendChild(dock);
 

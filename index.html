@@ -59,10 +59,8 @@
     }
 
     .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
+      display: grid;
+      gap: 14px;
       padding: 18px 22px;
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -72,6 +70,56 @@
       position: sticky;
       top: 16px;
       z-index: 5;
+    }
+
+    .nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .nav-disclosure {
+      flex: 1 1 520px;
+      min-width: 0;
+    }
+
+    .nav-disclosure-toggle {
+      display: none;
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 600;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .nav-disclosure-toggle::-webkit-details-marker {
+      display: none;
+    }
+
+    .nav-disclosure-toggle::after {
+      content: "▾";
+      font-size: 0.96rem;
+      transition: transform 180ms ease;
+    }
+
+    .nav-disclosure[open] .nav-disclosure-toggle::after {
+      transform: rotate(180deg);
     }
 
     .brand {
@@ -99,9 +147,14 @@
     .nav-links {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-end;
+      justify-content: flex-start;
       gap: 10px;
       align-items: center;
+    }
+
+    #site-dock-host {
+      margin-left: auto;
+      min-width: min(360px, 100%);
     }
 
     .nav-meta {
@@ -419,6 +472,148 @@
       flex-wrap: wrap;
       gap: 12px;
       margin: 36px 0 16px;
+    }
+
+    .guide-panel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .guide-card {
+      min-height: 220px;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)),
+        radial-gradient(circle at top right, rgba(143, 201, 190, 0.12), transparent 52%);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .guide-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(223, 156, 95, 0.3);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.075), rgba(255,255,255,0.03)),
+        radial-gradient(circle at top right, rgba(215, 169, 184, 0.14), transparent 52%);
+    }
+
+    .guide-kicker {
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      color: var(--copper);
+    }
+
+    .guide-card h3 {
+      font-size: 1.36rem;
+      margin: 0;
+    }
+
+    .guide-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .guide-meter {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .guide-meter span {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .guide-meter span::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(143, 201, 190, 0.9), rgba(223, 156, 95, 0.9));
+      opacity: 0.92;
+    }
+
+    .guide-card:nth-child(2) .guide-meter span::after {
+      background: linear-gradient(135deg, rgba(215, 169, 184, 0.88), rgba(143, 201, 190, 0.88));
+    }
+
+    .guide-card:nth-child(3) .guide-meter span::after {
+      background: linear-gradient(135deg, rgba(223, 156, 95, 0.92), rgba(246, 239, 232, 0.92));
+    }
+
+    .guide-card:nth-child(4) .guide-meter span::after {
+      background: linear-gradient(135deg, rgba(143, 201, 190, 0.92), rgba(169, 196, 255, 0.92));
+    }
+
+    .storyline-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .storyline-step {
+      position: relative;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      min-height: 110px;
+    }
+
+    .storyline-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -20px;
+      width: 26px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(223, 156, 95, 0.15), rgba(223, 156, 95, 0.65));
+      transform: translateY(-50%);
+    }
+
+    .storyline-step:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -18px;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid rgba(223, 156, 95, 0.65);
+      border-right: 2px solid rgba(223, 156, 95, 0.65);
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .storyline-step strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.02rem;
+    }
+
+    .storyline-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .pill.active {
@@ -1212,34 +1407,158 @@
     }
 
     @media (max-width: 720px) {
-      .shell { width: min(100vw - 18px, 100%); padding-top: 14px; }
-      .nav { border-radius: 26px; align-items: flex-start; }
+      .shell { width: min(100vw - 14px, 100%); padding-top: 10px; padding-bottom: 64px; }
+      .nav {
+        position: relative;
+        top: 0;
+        padding: 16px;
+        border-radius: 30px;
+      }
+      .nav-top {
+        align-items: flex-start;
+      }
+      .nav-main {
+        display: grid;
+        gap: 10px;
+      }
+      .nav-disclosure,
+      #site-dock-host {
+        width: 100%;
+      }
+      .nav-disclosure-toggle {
+        display: inline-flex;
+        width: 100%;
+      }
+      .nav-links {
+        display: none;
+        margin-top: 10px;
+      }
+      .nav-disclosure[open] .nav-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .nav-links a {
+        justify-content: center;
+        text-align: center;
+        min-height: 48px;
+      }
+      .brand {
+        gap: 10px;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        max-width: 190px;
+      }
+      .brand-mark {
+        width: 32px;
+        height: 32px;
+      }
+      .nav-meta {
+        min-width: 0;
+        padding: 9px 12px;
+      }
+      .nav-meta strong {
+        font-size: 1rem;
+      }
+      .nav-meta span {
+        font-size: 0.64rem;
+      }
       .hero,
       .split,
       .proof-shell,
-      .cards,
       .connection-map,
       .connection-note-grid,
-      .pulse-grid,
-      .stats,
       .job-shell,
-      .ring-grid,
-      .hero-ribbon { grid-template-columns: 1fr; }
+      .guide-grid,
+      .storyline-strip { grid-template-columns: 1fr; }
       .hero-panel,
       .hero-map,
       .section-panel,
       .card { padding: 22px; }
+      .hero-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
       .hero-actions .pill {
-        width: 100%;
+        width: auto;
         justify-content: center;
+        text-align: center;
+        min-height: 50px;
+      }
+      .hero-actions .pill:last-child {
+        grid-column: 1 / -1;
       }
       .hero-panel p {
         max-width: none;
+        font-size: 0.96rem;
       }
       h1 {
-        font-size: 2.25rem;
-        line-height: 0.98;
-        max-width: 11ch;
+        font-size: clamp(1.95rem, 12vw, 2.7rem);
+        line-height: 0.94;
+        max-width: 8ch;
+      }
+      .filters,
+      .cards,
+      .hero-ribbon,
+      .ring-grid,
+      .pulse-grid,
+      .runtime-pulse-grid,
+      .guide-grid,
+      .storyline-strip {
+        scrollbar-width: none;
+      }
+      .filters::-webkit-scrollbar,
+      .cards::-webkit-scrollbar,
+      .hero-ribbon::-webkit-scrollbar,
+      .ring-grid::-webkit-scrollbar,
+      .pulse-grid::-webkit-scrollbar,
+      .runtime-pulse-grid::-webkit-scrollbar,
+      .guide-grid::-webkit-scrollbar,
+      .storyline-strip::-webkit-scrollbar {
+        display: none;
+      }
+      .filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+      .filters .pill {
+        flex: 0 0 auto;
+      }
+      .cards,
+      .hero-ribbon,
+      .ring-grid,
+      .pulse-grid,
+      .runtime-pulse-grid,
+      .guide-grid,
+      .storyline-strip {
+        display: grid;
+        grid-auto-flow: column;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        gap: 12px;
+      }
+      .cards { grid-auto-columns: 88%; }
+      .hero-ribbon { grid-auto-columns: 84%; }
+      .ring-grid { grid-auto-columns: 86%; }
+      .pulse-grid,
+      .runtime-pulse-grid { grid-auto-columns: 86%; }
+      .guide-grid { grid-auto-columns: 86%; }
+      .storyline-strip { grid-auto-columns: 78%; }
+      .card,
+      .hero-ribbon-card,
+      .ring-card,
+      .pulse-card,
+      .runtime-pulse-card,
+      .guide-card,
+      .storyline-step {
+        scroll-snap-align: start;
+      }
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .storyline-step::before,
+      .storyline-step::after {
+        display: none;
       }
       .hero-mote:nth-child(1) { left: 72%; top: 16%; }
       .hero-mote:nth-child(2) { left: 84%; top: 42%; }
@@ -1251,23 +1570,31 @@
 <body>
   <div class="shell">
     <nav class="nav">
-      <div class="brand">
-        <div class="brand-mark"></div>
-        <div>
-          <div data-translate-key="brand_name">Advanced Multi-modal AI</div>
-          <div data-translate-key="brand_tag" style="letter-spacing:0.1em; text-transform:none; font-size:0.72rem;">signal atlas</div>
+      <div class="nav-top">
+        <div class="brand">
+          <div class="brand-mark"></div>
+          <div>
+            <div data-translate-key="brand_name">Advanced Multi-modal AI</div>
+            <div data-translate-key="brand_tag" style="letter-spacing:0.1em; text-transform:none; font-size:0.72rem;">signal atlas</div>
+          </div>
         </div>
-      </div>
-      <div class="nav-links">
         <div class="nav-meta">
           <span>local time</span>
           <strong id="live-clock-nav">--:--:--</strong>
         </div>
-        <a href="advanced-technical-portfolio.html" data-translate-key="nav_architecture">architecture</a>
-        <a href="technical-portfolio.html" data-translate-key="nav_catalog">catalog</a>
-        <a href="model-observatory.html" data-translate-key="nav_models">models</a>
-        <a href="field-notes.html" data-translate-key="nav_findings">field notes</a>
-        <a href="README.md" data-translate-key="nav_readme">readme</a>
+      </div>
+      <div class="nav-main">
+        <details class="nav-disclosure" open>
+          <summary class="nav-disclosure-toggle" data-translate-key="nav_mobile_toggle">Explore the atlas</summary>
+          <div class="nav-links">
+            <a href="advanced-technical-portfolio.html" data-translate-key="nav_architecture">architecture</a>
+            <a href="technical-portfolio.html" data-translate-key="nav_catalog">catalog</a>
+            <a href="model-observatory.html" data-translate-key="nav_models">models</a>
+            <a href="field-notes.html" data-translate-key="nav_findings">field notes</a>
+            <a href="README.md" data-translate-key="nav_readme">readme</a>
+          </div>
+        </details>
+        <div id="site-dock-host"></div>
       </div>
     </nav>
 
@@ -1356,6 +1683,57 @@
           <article class="ring-card">
             <h3>Operations</h3>
             <p>Docker, Compose, Qdrant, Prometheus, CI, generated SDKs, and a calmer GitHub Pages surface.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="atlas-guide">
+      <div class="section-panel guide-panel">
+        <div class="section-label">Atlas guide</div>
+        <h2>Choose the path that matches your question</h2>
+        <div class="guide-grid">
+          <a class="guide-card" href="#runtime-pulse">
+            <div class="guide-kicker">Live state</div>
+            <h3>See what is actually running</h3>
+            <p>Start with lane scores, recent exports, and the parts of the runtime that have earned a steadier footing.</p>
+            <div class="guide-meter"><span></span><span></span><span></span><span></span></div>
+          </a>
+          <a class="guide-card" href="#request-walk">
+            <div class="guide-kicker">One request</div>
+            <h3>Follow a signal from intake to review</h3>
+            <p>Walk through listen, profile, align, infer, persist, and govern without hunting through the whole page.</p>
+            <div class="guide-meter"><span></span><span></span><span></span><span></span></div>
+          </a>
+          <a class="guide-card" href="#proof-ribbon">
+            <div class="guide-kicker">Proof chain</div>
+            <h3>Open the receipts before the pitch</h3>
+            <p>Read the checked bundle, worked example, and readiness posture before deciding what the repo has truly earned.</p>
+            <div class="guide-meter"><span></span><span></span><span></span><span></span></div>
+          </a>
+          <a class="guide-card" href="#connected-spines">
+            <div class="guide-kicker">Python spine</div>
+            <h3>Learn how the files move together</h3>
+            <p>See which modules shape intake, which ones carry the math, and which ones keep the record of what happened.</p>
+            <div class="guide-meter"><span></span><span></span><span></span><span></span></div>
+          </a>
+        </div>
+        <div class="storyline-strip">
+          <article class="storyline-step">
+            <strong>Intake</strong>
+            <p>Rows, pages, and payloads arrive through typed lanes before they are trusted.</p>
+          </article>
+          <article class="storyline-step">
+            <strong>Measure</strong>
+            <p>Entropy, sparsity, alignment, and timing keep thin signals from pretending to be settled.</p>
+          </article>
+          <article class="storyline-step">
+            <strong>Record</strong>
+            <p>Jobs, receipts, proofs, and generated clients leave a trail that can be reopened later.</p>
+          </article>
+          <article class="storyline-step">
+            <strong>Question</strong>
+            <p>Drift, lifecycle, ontology, and liability stay close enough to interrupt a weak story.</p>
           </article>
         </div>
       </div>
@@ -1484,7 +1862,7 @@
       </article>
     </section>
 
-    <section class="section">
+    <section class="section" id="research-pulse">
       <div class="section-panel">
         <div class="section-label">Research pulse</div>
         <h2>Model intent, live findings, and open questions</h2>
@@ -1503,7 +1881,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="runtime-pulse">
       <div class="section-panel">
         <div class="section-label">Runtime pulse</div>
         <h2>Which parts are active, exported, and ready to be leaned on</h2>
@@ -1522,7 +1900,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="execution-memory">
       <div class="section-panel">
         <div class="section-label">Execution memory</div>
         <h2>Recent runs, regenerated artifacts, and the lanes they moved through</h2>
@@ -1540,7 +1918,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="connected-spines">
       <div class="section-panel connection-shell">
         <div class="section-label">Connected spines</div>
         <h2>The Python lanes move in sequence, not by coincidence</h2>
@@ -1671,7 +2049,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="proof-ribbon">
       <div class="section-panel">
         <div class="section-label">Proof ribbon</div>
         <h2>Evidence kept close to the work</h2>
@@ -1719,7 +2097,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="request-walk">
       <div class="section-panel">
         <div class="section-label">Interactive lane</div>
         <h2>Walk one request through the runtime</h2>
@@ -1866,6 +2244,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       en: {
         brand_name: "Advanced Multi-modal AI",
         brand_tag: "signal atlas",
+        nav_mobile_toggle: "Explore the atlas",
         nav_architecture: "architecture",
         nav_catalog: "catalog",
         nav_models: "models",
@@ -1898,6 +2277,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       de: {
         brand_name: "Advanced Multi-modal AI",
         brand_tag: "Signalatlas",
+        nav_mobile_toggle: "Atlas öffnen",
         nav_architecture: "Architektur",
         nav_catalog: "Katalog",
         nav_models: "Modelle",
@@ -1930,6 +2310,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       ru: {
         brand_name: "Advanced Multi-modal AI",
         brand_tag: "атлас сигналов",
+        nav_mobile_toggle: "Открыть атлас",
         nav_architecture: "архитектура",
         nav_catalog: "каталог",
         nav_models: "модели",
@@ -1962,6 +2343,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       ja: {
         brand_name: "Advanced Multi-modal AI",
         brand_tag: "シグナル・アトラス",
+        nav_mobile_toggle: "アトラスを開く",
         nav_architecture: "アーキテクチャ",
         nav_catalog: "カタログ",
         nav_models: "モデル",
@@ -1994,6 +2376,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       fr: {
         brand_name: "Advanced Multi-modal AI",
         brand_tag: "atlas des signaux",
+        nav_mobile_toggle: "Ouvrir l’atlas",
         nav_architecture: "architecture",
         nav_catalog: "catalogue",
         nav_models: "modèles",
@@ -2026,6 +2409,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       es: {
         brand_name: "Advanced Multi-modal AI",
         brand_tag: "atlas de señales",
+        nav_mobile_toggle: "Abrir el atlas",
         nav_architecture: "arquitectura",
         nav_catalog: "catálogo",
         nav_models: "modelos",
@@ -2070,9 +2454,14 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     const proofPrev = document.getElementById("proof-prev");
     const proofNext = document.getElementById("proof-next");
     const counterNodes = [...document.querySelectorAll("[data-counter-target]")];
+    const navDisclosure = document.querySelector(".nav-disclosure");
     const researchPulseGrid = document.getElementById("research-pulse-grid");
     const runtimePulseGrid = document.getElementById("runtime-pulse-grid");
     const executionJournalGrid = document.getElementById("execution-journal-grid");
+
+    if (window.matchMedia("(max-width: 720px)").matches && navDisclosure) {
+      navDisclosure.open = false;
+    }
 
     const flowContent = {
       listen: {

@@ -27,11 +27,15 @@
     `;
   }
 
+  function toneClass(index) {
+    return `stage-tone-${(index % 6) + 1}`;
+  }
+
   function buildSurfaceMarkup(surface, compact) {
     const stageCards = surface.stages
       .map(
         (stage, index) => `
-          <button class="cymatic-stage-card${index === 0 ? " active" : ""}" data-stage-index="${index}" type="button">
+          <button class="cymatic-stage-card ${toneClass(index)}${index === 0 ? " active" : ""}" data-stage-index="${index}" type="button">
             <strong>${String(index + 1).padStart(2, "0")} · stage</strong>
             <h4>${escapeHtml(stage.label)}</h4>
             <p>${escapeHtml(stage.human_read)}</p>
@@ -46,8 +50,8 @@
 
     const insightCards = surface.narratives
       .map(
-        (item) => `
-          <article class="cymatic-insight-card">
+        (item, index) => `
+          <article class="cymatic-insight-card ${toneClass(index + 1)}">
             <small>${escapeHtml(item.audience)}</small>
             <h3>${escapeHtml(item.title)}</h3>
             <p>${escapeHtml(item.summary)}</p>
@@ -192,7 +196,7 @@
     `;
   }
 
-  function renderStageDetail(host, stage, pressure, sensitivity) {
+  function renderStageDetail(host, stage, pressure, sensitivity, stageIndex) {
     const detail = host.querySelector("[data-cymatic-stage-detail]");
     const humanCopy = host.querySelector("[data-cymatic-human-copy]");
     const improvementCopy = host.querySelector("[data-cymatic-improvement-copy]");
@@ -208,7 +212,7 @@
       "holding cleanly";
 
     detail.innerHTML = `
-      <h3>${escapeHtml(stage.label)}</h3>
+      <h3 class="cymatic-stage-heading ${toneClass(stageIndex)}">${escapeHtml(stage.label)}</h3>
       <p class="cymatic-detail-copy">${escapeHtml(stage.research_read)}</p>
       <div class="cymatic-chip-row" style="margin-top:14px;">
         <span class="cymatic-chip">harmony ${Math.round(effectiveHarmony * 100)}</span>
@@ -250,6 +254,7 @@
       state.surface.stages[state.stageIndex],
       state.friction / 100,
       state.sensitivity / 100,
+      state.stageIndex,
     );
   }
 

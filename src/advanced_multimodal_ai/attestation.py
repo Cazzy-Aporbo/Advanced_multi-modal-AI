@@ -38,6 +38,10 @@ def build_runtime_attestation(
             "Repository pulse export",
             REPO_ROOT / "proof" / "repository-pulse.json",
         ),
+        _artifact(
+            "Execution journal export",
+            REPO_ROOT / "proof" / "execution-journal.json",
+        ),
     ]
 
     return RuntimeAttestationResponse(
@@ -59,6 +63,7 @@ def build_runtime_attestation(
             "readiness_report",
             "research_surfaces",
             "repository_pulse",
+            "execution_journal",
             "retrieval",
             "video_cleanup",
             "temporal_alignment",

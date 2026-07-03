@@ -1,10 +1,10 @@
 {
   "service": "advanced-multimodal-ai",
   "version": "0.5.0",
-  "route_count": 63,
-  "test_count": 35,
+  "route_count": 64,
+  "test_count": 36,
   "model_count": 4,
-  "readiness_posture": "needs_buildout",
+  "readiness_posture": "review_ready",
   "lanes": [
     {
       "lane_id": "frontend_atlas",
@@ -29,8 +29,8 @@
           "label": "index.html",
           "path": "index.html",
           "exists": true,
-          "bytes": 94897,
-          "modified_at": "2026-07-03T07:51:22.473134+00:00",
+          "bytes": 97329,
+          "modified_at": "2026-07-03T08:02:52.932781+00:00",
           "status": "pass",
           "note": "Browser-facing surface file."
         },
@@ -38,8 +38,8 @@
           "label": "advanced-technical-portfolio.html",
           "path": "advanced-technical-portfolio.html",
           "exists": true,
-          "bytes": 20983,
-          "modified_at": "2026-07-03T07:42:41.859528+00:00",
+          "bytes": 21404,
+          "modified_at": "2026-07-03T08:03:14.048962+00:00",
           "status": "pass",
           "note": "Browser-facing surface file."
         },
@@ -74,8 +74,8 @@
           "label": "research-surfaces.js",
           "path": "research-surfaces.js",
           "exists": true,
-          "bytes": 1542,
-          "modified_at": "2026-07-03T07:48:56.554075+00:00",
+          "bytes": 1984,
+          "modified_at": "2026-07-03T08:02:21.445648+00:00",
           "status": "pass",
           "note": "Browser-facing surface file."
         },
@@ -108,8 +108,8 @@
       "label": "Runtime backend",
       "emphasis": "backend",
       "live_score": 100,
-      "summary": "63 routes, 35 tests, and persisted governance stores keep the API lane active.",
-      "active_count": 344,
+      "summary": "64 routes, 36 tests, and persisted governance stores keep the API lane active.",
+      "active_count": 375,
       "warning_count": 0,
       "files": [
         "src/advanced_multimodal_ai/api.py",
@@ -125,8 +125,8 @@
           "label": "api.py",
           "path": "src/advanced_multimodal_ai/api.py",
           "exists": true,
-          "bytes": 15104,
-          "modified_at": "2026-07-03T07:47:42.806111+00:00",
+          "bytes": 15241,
+          "modified_at": "2026-07-03T07:58:21.936861+00:00",
           "status": "pass",
           "note": "Backend runtime source file."
         },
@@ -134,8 +134,8 @@
           "label": "service.py",
           "path": "src/advanced_multimodal_ai/service.py",
           "exists": true,
-          "bytes": 49885,
-          "modified_at": "2026-07-03T07:51:51.610637+00:00",
+          "bytes": 50465,
+          "modified_at": "2026-07-03T07:59:35.060927+00:00",
           "status": "pass",
           "note": "Backend runtime source file."
         },
@@ -179,8 +179,8 @@
           "label": "repository_pulse.py",
           "path": "src/advanced_multimodal_ai/repository_pulse.py",
           "exists": true,
-          "bytes": 9296,
-          "modified_at": "2026-07-03T07:46:08.979658+00:00",
+          "bytes": 10694,
+          "modified_at": "2026-07-03T07:59:22.281998+00:00",
           "status": "pass",
           "note": "Backend runtime source file."
         }
@@ -256,8 +256,8 @@
           "label": "openapi.json",
           "path": "openapi/openapi.json",
           "exists": true,
-          "bytes": 111625,
-          "modified_at": "2026-07-03T07:52:23.824300+00:00",
+          "bytes": 112591,
+          "modified_at": "2026-07-03T08:10:16.600022+00:00",
           "status": "pass",
           "note": "Client or contract artifact."
         },
@@ -265,8 +265,8 @@
           "label": "generated_openapi.py",
           "path": "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
           "exists": true,
-          "bytes": 14063,
-          "modified_at": "2026-07-03T07:52:20.464447+00:00",
+          "bytes": 14571,
+          "modified_at": "2026-07-03T08:10:34.730672+00:00",
           "status": "pass",
           "note": "Client or contract artifact."
         },
@@ -274,8 +274,8 @@
           "label": "generated-openapi.ts",
           "path": "sdk/typescript/src/generated-openapi.ts",
           "exists": true,
-          "bytes": 17085,
-          "modified_at": "2026-07-03T07:52:20.463967+00:00",
+          "bytes": 17810,
+          "modified_at": "2026-07-03T08:10:34.729777+00:00",
           "status": "pass",
           "note": "Client or contract artifact."
         },
@@ -300,14 +300,16 @@
       "emphasis": "evidence",
       "live_score": 100,
       "summary": "Proof, readiness, worked examples, and research surfaces can be regenerated as files the public site reads directly.",
-      "active_count": 8,
+      "active_count": 10,
       "warning_count": 0,
       "files": [
         "proof/runtime-proof.json",
         "proof/readiness-report.json",
         "proof/example-bundle.json",
         "proof/research-surfaces.json",
+        "proof/execution-journal.json",
         "scripts/build_runtime_proof_bundle.py",
+        "scripts/export_execution_journal.py",
         "scripts/export_readiness_report.py",
         "scripts/export_example_bundle.py",
         "scripts/export_research_surfaces.py"
@@ -317,8 +319,8 @@
           "label": "runtime-proof.json",
           "path": "proof/runtime-proof.json",
           "exists": true,
-          "bytes": 2978,
-          "modified_at": "2026-07-03T07:43:54.272881+00:00",
+          "bytes": 3544,
+          "modified_at": "2026-07-03T08:12:01.417255+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -326,8 +328,8 @@
           "label": "readiness-report.json",
           "path": "proof/readiness-report.json",
           "exists": true,
-          "bytes": 2700,
-          "modified_at": "2026-07-03T07:52:23.715935+00:00",
+          "bytes": 2846,
+          "modified_at": "2026-07-03T08:11:44.147556+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -335,8 +337,8 @@
           "label": "example-bundle.json",
           "path": "proof/example-bundle.json",
           "exists": true,
-          "bytes": 2569,
-          "modified_at": "2026-07-03T07:43:55.042869+00:00",
+          "bytes": 2602,
+          "modified_at": "2026-07-03T08:12:18.973218+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -344,8 +346,17 @@
           "label": "research-surfaces.json",
           "path": "proof/research-surfaces.json",
           "exists": true,
-          "bytes": 24647,
-          "modified_at": "2026-07-03T07:52:23.987048+00:00",
+          "bytes": 25985,
+          "modified_at": "2026-07-03T08:11:05.475333+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        },
+        {
+          "label": "execution-journal.json",
+          "path": "proof/execution-journal.json",
+          "exists": true,
+          "bytes": 8924,
+          "modified_at": "2026-07-03T08:12:39.153687+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -353,8 +364,17 @@
           "label": "build_runtime_proof_bundle.py",
           "path": "scripts/build_runtime_proof_bundle.py",
           "exists": true,
-          "bytes": 2080,
-          "modified_at": "2026-07-03T05:18:31.155918+00:00",
+          "bytes": 3258,
+          "modified_at": "2026-07-03T08:01:25.111055+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        },
+        {
+          "label": "export_execution_journal.py",
+          "path": "scripts/export_execution_journal.py",
+          "exists": true,
+          "bytes": 3170,
+          "modified_at": "2026-07-03T08:01:44.421366+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -362,8 +382,8 @@
           "label": "export_readiness_report.py",
           "path": "scripts/export_readiness_report.py",
           "exists": true,
-          "bytes": 1649,
-          "modified_at": "2026-07-03T05:56:07.610668+00:00",
+          "bytes": 2849,
+          "modified_at": "2026-07-03T08:01:24.963842+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -371,8 +391,8 @@
           "label": "export_example_bundle.py",
           "path": "scripts/export_example_bundle.py",
           "exists": true,
-          "bytes": 16004,
-          "modified_at": "2026-07-03T06:44:37.336316+00:00",
+          "bytes": 18403,
+          "modified_at": "2026-07-03T08:09:50.090499+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -380,8 +400,8 @@
           "label": "export_research_surfaces.py",
           "path": "scripts/export_research_surfaces.py",
           "exists": true,
-          "bytes": 5057,
-          "modified_at": "2026-07-03T07:41:00.821510+00:00",
+          "bytes": 6323,
+          "modified_at": "2026-07-03T08:01:25.400015+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         }
@@ -389,6 +409,63 @@
       "suggested_actions": [
         "Keep exports close to CI and local verification.",
         "Prefer regenerated artifacts to hand-edited summaries."
+      ]
+    },
+    {
+      "lane_id": "execution_history",
+      "label": "Execution history",
+      "emphasis": "evidence",
+      "live_score": 90,
+      "summary": "10 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.",
+      "active_count": 10,
+      "warning_count": 0,
+      "files": [
+        "src/advanced_multimodal_ai/execution_journal.py",
+        "src/advanced_multimodal_ai/execution_journal_store.py",
+        "proof/execution-journal.json",
+        "proof/execution-journal.md"
+      ],
+      "artifacts": [
+        {
+          "label": "execution_journal.py",
+          "path": "src/advanced_multimodal_ai/execution_journal.py",
+          "exists": true,
+          "bytes": 3025,
+          "modified_at": "2026-07-03T07:57:44.389341+00:00",
+          "status": "pass",
+          "note": "Execution-memory file or export."
+        },
+        {
+          "label": "execution_journal_store.py",
+          "path": "src/advanced_multimodal_ai/execution_journal_store.py",
+          "exists": true,
+          "bytes": 5238,
+          "modified_at": "2026-07-03T08:04:38.170459+00:00",
+          "status": "pass",
+          "note": "Execution-memory file or export."
+        },
+        {
+          "label": "execution-journal.json",
+          "path": "proof/execution-journal.json",
+          "exists": true,
+          "bytes": 8924,
+          "modified_at": "2026-07-03T08:12:39.153687+00:00",
+          "status": "pass",
+          "note": "Execution-memory file or export."
+        },
+        {
+          "label": "execution-journal.md",
+          "path": "proof/execution-journal.md",
+          "exists": true,
+          "bytes": 3578,
+          "modified_at": "2026-07-03T08:12:39.153860+00:00",
+          "status": "pass",
+          "note": "Execution-memory file or export."
+        }
+      ],
+      "suggested_actions": [
+        "Let export and verification lanes keep writing their own receipts.",
+        "Use repeated runs to show operational continuity, not one-time polish."
       ]
     },
     {
@@ -449,5 +526,5 @@
       ]
     }
   ],
-  "generated_at": "2026-07-03T07:52:24.068392+00:00"
+  "generated_at": "2026-07-03T08:13:00.230967+00:00"
 }

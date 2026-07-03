@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .config import Settings
 from .contracts import (
+    ExecutionJournalSummary,
     ModelResearchCard,
     PulseArtifact,
     PulseLane,
@@ -21,6 +22,7 @@ def build_repository_pulse(
     *,
     settings: Settings,
     attestation: RuntimeAttestationResponse,
+    execution_journal: ExecutionJournalSummary,
     proof_bundle: RuntimeProofBundle,
     readiness: ReadinessReport,
     model_cards: list[ModelResearchCard],
@@ -31,6 +33,7 @@ def build_repository_pulse(
         _compiled_lane(),
         _client_lane(),
         _evidence_lane(),
+        _execution_lane(execution_journal=execution_journal),
         _model_lane(model_cards=model_cards),
     ]
 
@@ -183,7 +186,9 @@ def _evidence_lane() -> PulseLane:
         "proof/readiness-report.json",
         "proof/example-bundle.json",
         "proof/research-surfaces.json",
+        "proof/execution-journal.json",
         "scripts/build_runtime_proof_bundle.py",
+        "scripts/export_execution_journal.py",
         "scripts/export_readiness_report.py",
         "scripts/export_example_bundle.py",
         "scripts/export_research_surfaces.py",
@@ -202,6 +207,35 @@ def _evidence_lane() -> PulseLane:
         suggested_actions=[
             "Keep exports close to CI and local verification.",
             "Prefer regenerated artifacts to hand-edited summaries.",
+        ],
+    )
+
+
+def _execution_lane(*, execution_journal: ExecutionJournalSummary) -> PulseLane:
+    files = [
+        "src/advanced_multimodal_ai/execution_journal.py",
+        "src/advanced_multimodal_ai/execution_journal_store.py",
+        "proof/execution-journal.json",
+        "proof/execution-journal.md",
+    ]
+    artifacts = [_artifact(path, note="Execution-memory file or export.") for path in files]
+    score = min(100, 30 + execution_journal.total_runs * 6)
+    return PulseLane(
+        lane_id="execution_history",
+        label="Execution history",
+        emphasis="evidence",
+        live_score=score,
+        summary=(
+            f"{execution_journal.total_runs} persisted script runs now leave "
+            "a reusable memory of what exported, what passed, and what files changed."
+        ),
+        active_count=execution_journal.passing_runs,
+        warning_count=execution_journal.failing_runs,
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Let export and verification lanes keep writing their own receipts.",
+            "Use repeated runs to show operational continuity, not one-time polish.",
         ],
     )
 

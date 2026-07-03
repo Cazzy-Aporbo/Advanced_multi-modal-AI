@@ -115,6 +115,18 @@ def build_readiness_report(
                 f"{attestation.store_counts.get('supply_chain_snapshots', 0)}"
             ),
         ),
+        ReadinessCheck(
+            name="execution_history",
+            state=(
+                "pass"
+                if attestation.store_counts.get("execution_journal_runs", 0) >= 4
+                else "watch"
+            ),
+            detail=(
+                f"{attestation.store_counts.get('execution_journal_runs', 0)} "
+                "persisted export or verification runs are recorded."
+            ),
+        ),
     ]
 
     blockers = [

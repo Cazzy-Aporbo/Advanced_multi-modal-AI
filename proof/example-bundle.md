@@ -2,11 +2,11 @@
 
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
-- Created at: `2026-07-03T07:52:25.010410+00:00`
+- Created at: `2026-07-03T08:12:18.972037+00:00`
 
 ## Inference
 
-- Request id: `f6345688-8ee6-4a2e-88b0-99ca3dae1f47`
+- Request id: `5d5d376a-2cac-4761-bf31-76f382068136`
 - Route: `validate_payloads, encode_audio, encode_text, fuse_modalities, emit_target`
 - Output keys: `class_logits, class_probabilities, fused_embedding, modality_embeddings, predicted_index`
 
@@ -24,14 +24,14 @@
 
 ## Public web intake
 
-- Dataset id: `16c34138-66d4-4953-b3f8-f850fcb1e488`
+- Dataset id: `e5b2e3ad-32ed-479f-b210-daf4ebf547b9`
 - Record count: `4`
 - Title row: `Example Intake`
 - Block kinds: `title, heading, paragraph, paragraph`
 
 ## Recipe manifest
 
-- Recipe id: `8d64dfa4-4b31-4367-a83a-331f3f5ab6e9`
+- Recipe id: `8d754d20-9100-4471-8bb5-350749edd59b`
 - Launcher: `python`
 - Engine: `local`
 - Estimated global batch size: `4`
@@ -44,21 +44,21 @@
 
 ## Benchmark
 
-- Benchmark id: `671d3d4a-634d-4db6-90d4-c647acabe85e`
+- Benchmark id: `e239255f-09cf-4a18-96b2-59611d0a6c65`
 - Iterations: `3`
-- Median latency ms: `20.590207997884136`
-- P95 latency ms: `20.590207997884136`
+- Median latency ms: `15.758665998873767`
+- P95 latency ms: `15.758665998873767`
 
 ## Proof
 
-- Route count: `63`
-- Test count: `35`
-- Verification commands: `11`
+- Route count: `64`
+- Test count: `36`
+- Verification commands: `12`
 - Connector kinds: `local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html`
 
 ## Readiness
 
-- Posture: `review_ready`
-- Compiled recipes: `30`
-- Resolved recipes: `30`
-- Checks: `contract_surface, verification_depth, artifact_evidence, connector_coverage, connector_evidence, recipe_resolution, governance_evidence, stewardship_surface`
+- Posture: `needs_buildout`
+- Compiled recipes: `33`
+- Resolved recipes: `33`
+- Checks: `contract_surface, verification_depth, artifact_evidence, connector_coverage, connector_evidence, recipe_resolution, governance_evidence, stewardship_surface, execution_history`

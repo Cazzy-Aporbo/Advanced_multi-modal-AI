@@ -60,6 +60,7 @@ application where every file does a little of everything.
 | compiled core | `crates/multimodal-core/` | deterministic primitives that benefit from a compiled lane | API orchestration, persistence concerns |
 | generated clients | `sdk/python`, `sdk/typescript`, `openapi/openapi.json` | reusable client contracts regenerated from the running app | handwritten drift from the live API |
 | proof exports | `proof/`, export scripts under `scripts/` | evidence bundles, readiness exports, research surface exports, worked examples | ad hoc claims that cannot be regenerated |
+| execution memory | `.runtime/amai_execution_journal.sqlite3`, `proof/execution-journal.*` | persisted records of export and verification runs, touched artifacts, and lane counts | vague recollections of what was run last week |
 
 The flow is equally deliberate:
 
@@ -68,7 +69,8 @@ The flow is equally deliberate:
 3. quality, provenance, alignment, drift, and stewardship lanes measure it
 4. inference, replay, retrieval, and async work operate on the measured input
 5. proof, readiness, research surfaces, and generated clients export the state
-6. the browser pages read those exports rather than improvising their own truth
+6. execution memory records which export and verification lanes actually ran
+7. the browser pages read those exports rather than improvising their own truth
 
 ## What runs today
 
@@ -98,6 +100,7 @@ is operational today.
 - benchmarked connector runs with persisted records
 - compiled recipe manifests with persisted launch topology and export checks
 - runtime attestation and readiness reporting tied to the generated artifacts
+- persisted execution journal entries for proof, packaging, and export runs
 - deterministic provenance receipts for repeated payload verification
 - temporal alignment windows for cross-modal evidence stitching
 - persisted drift baselines and population-entry checks before reuse
@@ -221,6 +224,7 @@ what still lacks a clean retirement path.
 `GET /v1/research/findings`
 `GET /v1/research/connections`
 `GET /v1/research/surfaces`
+`GET /v1/execution/journal`
 
 The repository now exports a typed research bundle as well.
 
@@ -233,6 +237,8 @@ The repository now exports a typed research bundle as well.
   and the model cards instead of being written as a disconnected essay
 - connection notes explain how files, API surfaces, and review lanes fit
   together so the backend can be studied as a system rather than as an index
+- execution-journal exports keep a persisted record of which proof and packaging
+  lanes ran, what they touched, and when they last changed
 
 This makes the public site less static and gives the repository a better way
 to explain itself without flattening everything into one long README section.
@@ -431,6 +437,7 @@ what still needs evidence, and where the runtime is intentionally restrained.
 | `/v1/runtime/attestation` | `GET` | present-tense evidence of generated artifacts and persisted stores |
 | `/v1/proof/bundle` | `GET` | summarize routes, tests, verification commands, connectors, artifacts, and store counts |
 | `/v1/readiness/report` | `GET` | assemble evidence checks, connector coverage, recipe resolution, and operating boundaries |
+| `/v1/execution/journal` | `GET` | read recent export and verification runs with touched artifacts and lane counts |
 | `/v1/models` | `GET` | registered runtime and research model inventory |
 | `/v1/bias/taxonomy` | `GET` | sixty-category bias register across the system lifecycle |
 | `/v1/bias/assess` | `POST` | stage-aware bias findings for an active system |
@@ -678,6 +685,7 @@ Generated outputs:
 - `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py`
 - `proof/readiness-report.json`
 - `proof/example-bundle.json`
+- `proof/execution-journal.json`
 
 ## Research registry
 
@@ -704,6 +712,7 @@ This pass was validated locally with:
 - `python3 scripts/generate_sdk_surfaces.py`
 - `python3 scripts/export_readiness_report.py`
 - `python3 scripts/export_example_bundle.py`
+- `python3 scripts/export_execution_journal.py`
 - `python3 scripts/build_runtime_proof_bundle.py`
 - `python3 scripts/run_acceptance_spine.py`
 - `npx tsc --noEmit -p sdk/typescript/tsconfig.json`

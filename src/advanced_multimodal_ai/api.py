@@ -93,6 +93,10 @@ def create_app() -> FastAPI:
     def repository_pulse():
         return service.repository_pulse(route_count=_runtime_route_count(app))
 
+    @app.get("/v1/execution/journal")
+    def execution_journal(limit: int = 20):
+        return service.execution_journal(limit=limit)
+
     @app.post("/v1/catalog/register")
     def register_dataset(request: DatasetRegistrationRequest):
         return service.register_dataset(request)

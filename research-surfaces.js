@@ -48,10 +48,26 @@
     return null;
   }
 
+  async function loadExecutionJournal() {
+    const candidates = ["proof/execution-journal.json", "/v1/execution/journal"];
+    for (const url of candidates) {
+      try {
+        const response = await fetch(url, { cache: "no-store" });
+        if (response.ok) {
+          return await response.json();
+        }
+      } catch (_error) {
+        // keep trying the next surface
+      }
+    }
+    return null;
+  }
+
   window.AMAIResearch = {
     escapeHtml,
     listMarkup,
     loadResearchSurfaceBundle,
     loadRepositoryPulse,
+    loadExecutionJournal,
   };
 })();

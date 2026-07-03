@@ -1,6 +1,10 @@
 from fastapi.testclient import TestClient
 
 from advanced_multimodal_ai.api import create_app
+from advanced_multimodal_ai.execution_journal import (
+    finish_script_execution,
+    script_execution_window,
+)
 
 client = TestClient(create_app())
 
@@ -24,6 +28,7 @@ def test_runtime_attestation_reports_artifacts_and_store_counts():
     assert "lifecycle_policies" in payload["store_counts"]
     assert "change_controls" in payload["store_counts"]
     assert "supply_chain_snapshots" in payload["store_counts"]
+    assert "execution_journal_runs" in payload["store_counts"]
     assert payload["verification_artifacts"]
     assert any(item["name"] == "Runtime schema" for item in payload["verification_artifacts"])
 
@@ -60,6 +65,7 @@ def test_runtime_readiness_report_surfaces_limits_and_live_checks():
     assert "connector_coverage" in check_names
     assert "recipe_resolution" in check_names
     assert "stewardship_surface" in check_names
+    assert "execution_history" in check_names
     assert any(boundary["area"] == "cloud credentials" for boundary in payload["boundaries"])
     assert any(boundary["area"] == "public web intake" for boundary in payload["boundaries"])
 
@@ -108,9 +114,37 @@ def test_repository_pulse_tracks_lane_health_and_artifacts():
         for item in payload["lanes"]
     )
     assert any(
+        item["lane_id"] == "execution_history"
+        for item in payload["lanes"]
+    )
+    assert any(
         artifact["path"] == "openapi/openapi.json"
         for lane in payload["lanes"]
         for artifact in lane["artifacts"]
+    )
+
+
+def test_execution_journal_lists_persisted_script_runs():
+    started_at, start_counter = script_execution_window()
+    finish_script_execution(
+        lane="test_export_lane",
+        command="python3 scripts/test_export_lane.py",
+        artifacts=[("README.md", "Repository overview file.")],
+        started_at=started_at,
+        start_counter=start_counter,
+        status="pass",
+        notes=["journal route test"],
+    )
+
+    response = client.get("/v1/execution/journal", params={"limit": 10})
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["total_runs"] >= 1
+    assert "test_export_lane" in payload["lane_counts"]
+    assert any(
+        item["lane"] == "test_export_lane"
+        and item["status"] == "pass"
+        for item in payload["recent_runs"]
     )
 
 

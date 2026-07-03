@@ -63,6 +63,28 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("GET", path);
   }
 
+  /** Repository Pulse */
+  async repositoryPulseV1RepositoryPulseGet(): Promise<unknown> {
+    let path = `/v1/repository/pulse`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Execution Journal */
+  async executionJournalV1ExecutionJournalGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/execution/journal`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
   /** Register Dataset */
   async registerDatasetV1CatalogRegisterPost(payload: unknown): Promise<unknown> {
     let path = `/v1/catalog/register`;

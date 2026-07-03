@@ -11,39 +11,50 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
+from advanced_multimodal_ai.execution_journal import (  # noqa: E402
+    finish_script_execution,
+    script_execution_window,
+)
+
 
 def main() -> None:
-    from advanced_multimodal_ai.api import create_app
+    started_at, start_counter = script_execution_window()
+    artifacts = [
+        ("proof/research-surfaces.json", "Exported research surface bundle."),
+        ("proof/research-surfaces.md", "Readable research surface bundle."),
+    ]
+    try:
+        from advanced_multimodal_ai.api import create_app
 
-    client = TestClient(create_app())
-    response = client.get("/v1/research/surfaces")
-    response.raise_for_status()
-    payload = response.json()
+        client = TestClient(create_app())
+        response = client.get("/v1/research/surfaces")
+        response.raise_for_status()
+        payload = response.json()
 
-    proof_dir = ROOT / "proof"
-    proof_dir.mkdir(parents=True, exist_ok=True)
+        proof_dir = ROOT / "proof"
+        proof_dir.mkdir(parents=True, exist_ok=True)
 
-    json_path = proof_dir / "research-surfaces.json"
-    markdown_path = proof_dir / "research-surfaces.md"
+        json_path = proof_dir / "research-surfaces.json"
+        markdown_path = proof_dir / "research-surfaces.md"
 
-    json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-    summary = payload["summary"]
-    lane_blocks = "\n\n".join(
-        _render_lane_markdown(lane) for lane in payload["lanes"]
-    )
-    model_blocks = "\n\n".join(
-        _render_model_markdown(card) for card in payload["model_cards"]
-    )
-    finding_blocks = "\n\n".join(
-        _render_finding_markdown(finding) for finding in payload["findings"]
-    )
-    connection_blocks = "\n\n".join(
-        _render_connection_markdown(connection)
-        for connection in payload["connections"]
-    )
+        summary = payload["summary"]
+        lane_blocks = "\n\n".join(
+            _render_lane_markdown(lane) for lane in payload["lanes"]
+        )
+        model_blocks = "\n\n".join(
+            _render_model_markdown(card) for card in payload["model_cards"]
+        )
+        finding_blocks = "\n\n".join(
+            _render_finding_markdown(finding) for finding in payload["findings"]
+        )
+        connection_blocks = "\n\n".join(
+            _render_connection_markdown(connection)
+            for connection in payload["connections"]
+        )
 
-    markdown = f"""# Research Surfaces
+        markdown = f"""# Research Surfaces
 
 - Service: `{payload['service']}`
 - Version: `{payload['version']}`
@@ -71,9 +82,30 @@ def main() -> None:
 
 {connection_blocks}
 """
-    markdown_path.write_text(markdown, encoding="utf-8")
-    print(json_path)
-    print(markdown_path)
+        markdown_path.write_text(markdown, encoding="utf-8")
+        print(json_path)
+        print(markdown_path)
+    except Exception as exc:
+        finish_script_execution(
+            lane="research_surface_export",
+            command="python3 scripts/export_research_surfaces.py",
+            artifacts=artifacts,
+            started_at=started_at,
+            start_counter=start_counter,
+            status="fail",
+            notes=[f"Research surface export failed: {exc}"],
+        )
+        raise
+    else:
+        finish_script_execution(
+            lane="research_surface_export",
+            command="python3 scripts/export_research_surfaces.py",
+            artifacts=artifacts,
+            started_at=started_at,
+            start_counter=start_counter,
+            status="pass",
+            notes=["Research surface bundle regenerated from the live backend."],
+        )
 
 
 def _render_lane_markdown(lane: dict[str, object]) -> str:

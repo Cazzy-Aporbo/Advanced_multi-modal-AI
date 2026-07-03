@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,6 +15,14 @@ PY_OUTPUT = (
     / "src"
     / "advanced_multimodal_ai_client"
     / "generated_openapi.py"
+)
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from advanced_multimodal_ai.execution_journal import (  # noqa: E402
+    finish_script_execution,
+    script_execution_window,
 )
 
 
@@ -196,15 +205,48 @@ def render_python(spec: dict) -> str:
 
 
 def main() -> None:
-    spec = json.loads(OPENAPI_PATH.read_text(encoding="utf-8"))
-    TS_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    PY_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    started_at, start_counter = script_execution_window()
+    artifacts = [
+        (
+            "sdk/typescript/src/generated-openapi.ts",
+            "Generated TypeScript client surface.",
+        ),
+        (
+            "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
+            "Generated Python client surface.",
+        ),
+    ]
+    try:
+        spec = json.loads(OPENAPI_PATH.read_text(encoding="utf-8"))
+        TS_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+        PY_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 
-    TS_OUTPUT.write_text(render_typescript(spec), encoding="utf-8")
-    PY_OUTPUT.write_text(render_python(spec), encoding="utf-8")
+        TS_OUTPUT.write_text(render_typescript(spec), encoding="utf-8")
+        PY_OUTPUT.write_text(render_python(spec), encoding="utf-8")
 
-    print(TS_OUTPUT)
-    print(PY_OUTPUT)
+        print(TS_OUTPUT)
+        print(PY_OUTPUT)
+    except Exception as exc:
+        finish_script_execution(
+            lane="client_generation",
+            command="python3 scripts/generate_sdk_surfaces.py",
+            artifacts=artifacts,
+            started_at=started_at,
+            start_counter=start_counter,
+            status="fail",
+            notes=[f"Client generation failed: {exc}"],
+        )
+        raise
+    else:
+        finish_script_execution(
+            lane="client_generation",
+            command="python3 scripts/generate_sdk_surfaces.py",
+            artifacts=artifacts,
+            started_at=started_at,
+            start_counter=start_counter,
+            status="pass",
+            notes=["Python and TypeScript client surfaces regenerated."],
+        )
 
 
 if __name__ == "__main__":

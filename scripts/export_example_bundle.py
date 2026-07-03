@@ -15,350 +15,382 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
+from advanced_multimodal_ai.execution_journal import (  # noqa: E402
+    finish_script_execution,
+    script_execution_window,
+)
+
 
 def main() -> None:
-    import advanced_multimodal_ai.connectors as connector_module
-    from advanced_multimodal_ai.api import create_app
+    started_at, start_counter = script_execution_window()
+    artifacts = [
+        ("proof/example-bundle.json", "Executable example bundle snapshot."),
+        ("proof/example-bundle.md", "Readable example bundle summary."),
+    ]
+    try:
+        import advanced_multimodal_ai.connectors as connector_module
+        from advanced_multimodal_ai.api import create_app
 
-    client = TestClient(create_app())
+        client = TestClient(create_app())
 
-    client.post(
-        "/v1/catalog/register",
-        json={
-            "dataset_name": "example_recipe_frames",
-            "owner": "cazandra",
-            "version": "2026.07.03",
-            "modality": "image",
-            "partition_keys": ["capture_day"],
-            "primary_keys": ["frame_id"],
-            "fields": [
-                {"name": "frame_id", "dtype": "string", "nullable": False},
-                {"name": "capture_day", "dtype": "date", "nullable": False},
-                {"name": "image_uri", "dtype": "string", "nullable": False},
-                {"name": "caption", "dtype": "string", "nullable": True},
-            ],
-            "tags": ["example", "recipe"],
-        },
-    )
-
-    recipe_response = client.post(
-        "/v1/recipes/compile",
-        json={
-            "label": "example-vision-language-recipe",
-            "owner": "cazandra",
-            "objective": "alignment_eval",
-            "model": {
-                "model_ref": "Qwen/Qwen2.5-VL-7B-Instruct",
-                "family": "vision-language",
-                "adapter_kind": "lora",
-                "precision": "bf16",
-                "target_modules": ["attn.q_proj", "attn.v_proj"],
-            },
-            "sources": [
-                {
-                    "split": "train",
-                    "modality": "image",
-                    "dataset_name": "example_recipe_frames",
-                    "dataset_version": "2026.07.03",
-                    "expected_rows": 240,
-                }
-            ],
-            "training": {
-                "epochs": 1.0,
-                "micro_batch_size": 1,
-                "gradient_accumulation_steps": 4,
-            },
-            "distributed": {
-                "engine": "local",
-                "node_count": 1,
-                "devices_per_node": 1,
-                "zero_stage": 0,
-            },
-            "evaluation": {
-                "metrics": ["loss"],
-                "primary_metric": "loss",
-            },
-            "tags": ["example"],
-        },
-    )
-    recipe_response.raise_for_status()
-    recipe_payload = recipe_response.json()
-
-    with tempfile.TemporaryDirectory() as temp_dir:
-        parquet_path = Path(temp_dir) / "example_signal.parquet"
-        table = pa.table(
-            {
-                "event_id": ["evt-501", "evt-502", "evt-503"],
-                "event_date": ["2026-07-03", "2026-07-04", "2026-07-05"],
-                "sensor_a": [0.15, 0.25, 0.35],
-                "sensor_b": [0.2, 0.3, 0.4],
-                "tab_a": [0.95, 0.85, 0.75],
-                "tab_b": [0.9, 0.8, 0.7],
-            }
-        )
-        pq.write_table(table, parquet_path)
-
-        connector_response = client.post(
-            "/v1/connectors/pipeline-ingest",
+        client.post(
+            "/v1/catalog/register",
             json={
-                "connector": {"kind": "local_parquet", "source": str(parquet_path)},
-                "dataset_name": "example_signal_rows",
+                "dataset_name": "example_recipe_frames",
                 "owner": "cazandra",
                 "version": "2026.07.03",
-                "stream_id": "example-signal-stream",
-                "batch_label": "example-window-01",
-                "modality_mappings": [
+                "modality": "image",
+                "partition_keys": ["capture_day"],
+                "primary_keys": ["frame_id"],
+                "fields": [
+                    {"name": "frame_id", "dtype": "string", "nullable": False},
+                    {"name": "capture_day", "dtype": "date", "nullable": False},
+                    {"name": "image_uri", "dtype": "string", "nullable": False},
+                    {"name": "caption", "dtype": "string", "nullable": True},
+                ],
+                "tags": ["example", "recipe"],
+            },
+        )
+
+        recipe_response = client.post(
+            "/v1/recipes/compile",
+            json={
+                "label": "example-vision-language-recipe",
+                "owner": "cazandra",
+                "objective": "alignment_eval",
+                "model": {
+                    "model_ref": "Qwen/Qwen2.5-VL-7B-Instruct",
+                    "family": "vision-language",
+                    "adapter_kind": "lora",
+                    "precision": "bf16",
+                    "target_modules": ["attn.q_proj", "attn.v_proj"],
+                },
+                "sources": [
                     {
-                        "modality": "tabular",
-                        "feature_fields": ["tab_a", "tab_b"],
-                        "source": "example-tab-feed",
+                        "split": "train",
+                        "modality": "image",
+                        "dataset_name": "example_recipe_frames",
+                        "dataset_version": "2026.07.03",
+                        "expected_rows": 240,
+                    }
+                ],
+                "training": {
+                    "epochs": 1.0,
+                    "micro_batch_size": 1,
+                    "gradient_accumulation_steps": 4,
+                },
+                "distributed": {
+                    "engine": "local",
+                    "node_count": 1,
+                    "devices_per_node": 1,
+                    "zero_stage": 0,
+                },
+                "evaluation": {
+                    "metrics": ["loss"],
+                    "primary_metric": "loss",
+                },
+                "tags": ["example"],
+            },
+        )
+        recipe_response.raise_for_status()
+        recipe_payload = recipe_response.json()
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            parquet_path = Path(temp_dir) / "example_signal.parquet"
+            table = pa.table(
+                {
+                    "event_id": ["evt-501", "evt-502", "evt-503"],
+                    "event_date": ["2026-07-03", "2026-07-04", "2026-07-05"],
+                    "sensor_a": [0.15, 0.25, 0.35],
+                    "sensor_b": [0.2, 0.3, 0.4],
+                    "tab_a": [0.95, 0.85, 0.75],
+                    "tab_b": [0.9, 0.8, 0.7],
+                }
+            )
+            pq.write_table(table, parquet_path)
+
+            connector_response = client.post(
+                "/v1/connectors/pipeline-ingest",
+                json={
+                    "connector": {"kind": "local_parquet", "source": str(parquet_path)},
+                    "dataset_name": "example_signal_rows",
+                    "owner": "cazandra",
+                    "version": "2026.07.03",
+                    "stream_id": "example-signal-stream",
+                    "batch_label": "example-window-01",
+                    "modality_mappings": [
+                        {
+                            "modality": "tabular",
+                            "feature_fields": ["tab_a", "tab_b"],
+                            "source": "example-tab-feed",
+                        },
+                        {
+                            "modality": "sensor",
+                            "feature_fields": ["sensor_a", "sensor_b"],
+                            "source": "example-sensor-feed",
+                        },
+                    ],
+                    "partition_key_field": "event_date",
+                },
+            )
+            connector_response.raise_for_status()
+            connector_payload = connector_response.json()
+
+        original_urlopen = connector_module.urlopen
+
+        class _FakeResponse:
+            def __init__(self, body: bytes, url: str, status_code: int, content_type: str) -> None:
+                self._body = body
+                self._url = url
+                self._status_code = status_code
+                self.headers = {"Content-Type": content_type}
+
+            def read(self, amount: int | None = None) -> bytes:
+                if amount is None:
+                    return self._body
+                return self._body[:amount]
+
+            def geturl(self) -> str:
+                return self._url
+
+            def getcode(self) -> int:
+                return self._status_code
+
+            def __enter__(self) -> "_FakeResponse":
+                return self
+
+            def __exit__(self, exc_type, exc, tb) -> None:
+                return None
+
+        def fake_urlopen(request, timeout=0):  # noqa: ARG001
+            url = request.full_url
+            if url.endswith("/robots.txt"):
+                return _FakeResponse(
+                    b"User-agent: *\nAllow: /\nCrawl-delay: 2\n",
+                    url,
+                    200,
+                    "text/plain; charset=utf-8",
+                )
+            html = b"""
+            <html>
+              <head><title>Example Intake</title></head>
+              <body>
+                <h1>Example Intake</h1>
+                <p>Measured public pages can become typed records.</p>
+                <p>That keeps web research closer to the same runtime surface.</p>
+              </body>
+            </html>
+            """
+            return _FakeResponse(html, url, 200, "text/html; charset=utf-8")
+
+        connector_module.urlopen = fake_urlopen
+        try:
+            web_response = client.post(
+                "/v1/connectors/register",
+                json={
+                    "connector": {
+                        "kind": "web_html",
+                        "source": "https://example.com/research/example-intake",
+                        "web_policy": {
+                            "allowed_domains": ["example.com"],
+                            "min_interval_ms": 0,
+                            "extract_mode": "article_blocks",
+                        },
+                    },
+                    "dataset_name": "example_web_rows",
+                    "owner": "cazandra",
+                    "version": "2026.07.03",
+                    "partition_keys": ["source_url"],
+                    "primary_keys": ["record_id"],
+                    "tags": ["example", "public-web"],
+                },
+            )
+            web_response.raise_for_status()
+            web_payload = web_response.json()
+        finally:
+            connector_module.urlopen = original_urlopen
+
+        infer_response = client.post(
+            "/v1/infer",
+            json={
+                "model_id": "adaptive_transformer",
+                "runtime_mode": "contract",
+                "target": "classification",
+                "num_classes": 3,
+                "metadata": {"request_id": "example-infer-01"},
+                "modalities": {
+                    "text": {"shape": [2, 4], "values": [0.1, 0.4, 0.7, 0.9, 0.2, 0.5, 0.6, 0.8]},
+                    "audio": {"shape": [2, 4], "values": [0.8, 0.6, 0.4, 0.2, 0.7, 0.5, 0.3, 0.1]},
+                },
+            },
+        )
+        infer_response.raise_for_status()
+        infer_payload = infer_response.json()
+
+        profile_response = client.post(
+            "/v1/data/profile",
+            json={
+                "model_id": "adaptive_transformer",
+                "runtime_mode": "contract",
+                "target": "embedding",
+                "metadata": {"request_id": "example-profile-01"},
+                "modalities": {
+                    "text": {"shape": [2, 4], "values": [0.0, 0.3, 0.6, 0.9, 0.1, 0.4, 0.7, 1.0]},
+                    "audio": {"shape": [2, 4], "values": [0.2, 0.4, 0.5, 0.7, 0.3, 0.5, 0.6, 0.8]},
+                },
+            },
+        )
+        profile_response.raise_for_status()
+        profile_payload = profile_response.json()
+
+        video_response = client.post(
+            "/v1/video/clean",
+            json={
+                "clip_id": "example-clip-01",
+                "duration_ms": 4200,
+                "transcript": [
+                    {"token": "um", "start_ms": 0, "end_ms": 220},
+                    {"token": "hello", "start_ms": 900, "end_ms": 1240},
+                    {"token": "world", "start_ms": 1320, "end_ms": 1600},
+                ],
+                "frames": [
+                    {
+                        "index": 0,
+                        "timestamp_ms": 120,
+                        "motion_score": 0.18,
+                        "focus_score": 0.82,
+                        "brightness": 0.48,
                     },
                     {
-                        "modality": "sensor",
-                        "feature_fields": ["sensor_a", "sensor_b"],
-                        "source": "example-sensor-feed",
+                        "index": 1,
+                        "timestamp_ms": 1100,
+                        "motion_score": 0.31,
+                        "focus_score": 0.74,
+                        "brightness": 0.57,
                     },
                 ],
-                "partition_key_field": "event_date",
+                "audio_energy": [
+                    {"timestamp_ms": 140, "energy": 0.42},
+                    {"timestamp_ms": 1080, "energy": 0.86},
+                ],
             },
         )
-        connector_response.raise_for_status()
-        connector_payload = connector_response.json()
+        video_response.raise_for_status()
+        video_payload = video_response.json()
 
-    original_urlopen = connector_module.urlopen
+        benchmark_response = client.get("/v1/benchmarks/smoke", params={"iterations": 3})
+        benchmark_response.raise_for_status()
+        benchmark_payload = benchmark_response.json()
 
-    class _FakeResponse:
-        def __init__(self, body: bytes, url: str, status_code: int, content_type: str) -> None:
-            self._body = body
-            self._url = url
-            self._status_code = status_code
-            self.headers = {"Content-Type": content_type}
+        proof_response = client.get("/v1/proof/bundle")
+        proof_response.raise_for_status()
+        proof_payload = proof_response.json()
 
-        def read(self, amount: int | None = None) -> bytes:
-            if amount is None:
-                return self._body
-            return self._body[:amount]
+        readiness_response = client.get("/v1/readiness/report")
+        readiness_response.raise_for_status()
+        readiness_payload = readiness_response.json()
 
-        def geturl(self) -> str:
-            return self._url
-
-        def getcode(self) -> int:
-            return self._status_code
-
-        def __enter__(self) -> "_FakeResponse":
-            return self
-
-        def __exit__(self, exc_type, exc, tb) -> None:
-            return None
-
-    def fake_urlopen(request, timeout=0):  # noqa: ARG001
-        url = request.full_url
-        if url.endswith("/robots.txt"):
-            return _FakeResponse(
-                b"User-agent: *\nAllow: /\nCrawl-delay: 2\n",
-                url,
-                200,
-                "text/plain; charset=utf-8",
-            )
-        html = b"""
-        <html>
-          <head><title>Example Intake</title></head>
-          <body>
-            <h1>Example Intake</h1>
-            <p>Measured public pages can become typed records.</p>
-            <p>That keeps web research closer to the same runtime surface.</p>
-          </body>
-        </html>
-        """
-        return _FakeResponse(html, url, 200, "text/html; charset=utf-8")
-
-    connector_module.urlopen = fake_urlopen
-    try:
-        web_response = client.post(
-            "/v1/connectors/register",
-            json={
-                "connector": {
-                    "kind": "web_html",
-                    "source": "https://example.com/research/example-intake",
-                    "web_policy": {
-                        "allowed_domains": ["example.com"],
-                        "min_interval_ms": 0,
-                        "extract_mode": "article_blocks",
-                    },
+        payload = {
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "service": proof_payload["service"],
+            "version": proof_payload["version"],
+            "examples": {
+                "inference": {
+                    "request_id": infer_payload["request_id"],
+                    "route": infer_payload["route"],
+                    "output_keys": sorted(infer_payload["outputs"].keys()),
+                    "warning_count": len(infer_payload["warnings"]),
                 },
-                "dataset_name": "example_web_rows",
-                "owner": "cazandra",
-                "version": "2026.07.03",
-                "partition_keys": ["source_url"],
-                "primary_keys": ["record_id"],
-                "tags": ["example", "public-web"],
+                "quality_profile": {
+                    "request_id": profile_payload["request_id"],
+                    "fusion_readiness": profile_payload["fusion_readiness"],
+                    "modality_count": len(profile_payload["modality_profiles"]),
+                    "warning_count": len(profile_payload["warnings"]),
+                },
+                "connector_ingest": {
+                    "run_id": connector_payload["connector_run"]["run_id"],
+                    "connector_kind": connector_payload["connector_run"]["connector_kind"],
+                    "record_count": connector_payload["connector_run"]["record_count"],
+                    "pipeline_run_id": connector_payload["pipeline_run"]["run_id"],
+                    "pipeline_status": connector_payload["pipeline_run"]["status"],
+                },
+                "web_ingest": {
+                    "dataset_id": web_payload["dataset"]["dataset_id"],
+                    "record_count": web_payload["record_count"],
+                    "sample_block_kinds": [row["block_kind"] for row in web_payload["sample_rows"]],
+                    "title": next(
+                        row["text"]
+                        for row in web_payload["sample_rows"]
+                        if row["block_kind"] == "title"
+                    ),
+                },
+                "recipe_manifest": {
+                    "recipe_id": recipe_payload["recipe_id"],
+                    "launcher": recipe_payload["launch_profile"]["launcher"],
+                    "engine": recipe_payload["launch_profile"]["engine"],
+                    "estimated_global_batch_size": (
+                        recipe_payload["launch_profile"]["estimated_global_batch_size"]
+                    ),
+                    "resolved_sources": len(recipe_payload["resolved_sources"]),
+                },
+                "video_cleanup": {
+                    "clip_id": video_payload["clip_id"],
+                    "removed_span_count": len(video_payload["removed_spans"]),
+                    "retained_span_count": len(video_payload["retained_spans"]),
+                    "cut_script_lines": len(video_payload["cut_script"]),
+                },
+                "smoke_benchmark": {
+                    "benchmark_id": benchmark_payload["benchmark_id"],
+                    "model_id": benchmark_payload["model_id"],
+                    "iterations": benchmark_payload["iterations"],
+                    "median_latency_ms": benchmark_payload["median_latency_ms"],
+                    "p95_latency_ms": benchmark_payload["p95_latency_ms"],
+                },
+                "proof": {
+                    "route_count": proof_payload["route_count"],
+                    "test_count": proof_payload["test_count"],
+                    "verification_command_count": len(proof_payload["verification_commands"]),
+                    "connector_kinds": proof_payload["connector_kinds"],
+                },
+                "readiness": {
+                    "posture": readiness_payload["posture"],
+                    "compiled_recipe_count": readiness_payload["compiled_recipe_count"],
+                    "resolved_recipe_count": readiness_payload["resolved_recipe_count"],
+                    "check_names": [item["name"] for item in readiness_payload["checks"]],
+                },
             },
+        }
+
+        proof_dir = ROOT / "proof"
+        proof_dir.mkdir(parents=True, exist_ok=True)
+        json_path = proof_dir / "example-bundle.json"
+        markdown_path = proof_dir / "example-bundle.md"
+
+        json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        markdown_path.write_text(_render_markdown(payload), encoding="utf-8")
+        print(json_path)
+        print(markdown_path)
+    except Exception as exc:
+        finish_script_execution(
+            lane="example_bundle_export",
+            command="python3 scripts/export_example_bundle.py",
+            artifacts=artifacts,
+            started_at=started_at,
+            start_counter=start_counter,
+            status="fail",
+            notes=[f"Example bundle export failed: {exc}"],
         )
-        web_response.raise_for_status()
-        web_payload = web_response.json()
-    finally:
-        connector_module.urlopen = original_urlopen
-
-    infer_response = client.post(
-        "/v1/infer",
-        json={
-            "model_id": "adaptive_transformer",
-            "runtime_mode": "contract",
-            "target": "classification",
-            "num_classes": 3,
-            "metadata": {"request_id": "example-infer-01"},
-            "modalities": {
-                "text": {"shape": [2, 4], "values": [0.1, 0.4, 0.7, 0.9, 0.2, 0.5, 0.6, 0.8]},
-                "audio": {"shape": [2, 4], "values": [0.8, 0.6, 0.4, 0.2, 0.7, 0.5, 0.3, 0.1]},
-            },
-        },
-    )
-    infer_response.raise_for_status()
-    infer_payload = infer_response.json()
-
-    profile_response = client.post(
-        "/v1/data/profile",
-        json={
-            "model_id": "adaptive_transformer",
-            "runtime_mode": "contract",
-            "target": "embedding",
-            "metadata": {"request_id": "example-profile-01"},
-            "modalities": {
-                "text": {"shape": [2, 4], "values": [0.0, 0.3, 0.6, 0.9, 0.1, 0.4, 0.7, 1.0]},
-                "audio": {"shape": [2, 4], "values": [0.2, 0.4, 0.5, 0.7, 0.3, 0.5, 0.6, 0.8]},
-            },
-        },
-    )
-    profile_response.raise_for_status()
-    profile_payload = profile_response.json()
-
-    video_response = client.post(
-        "/v1/video/clean",
-        json={
-            "clip_id": "example-clip-01",
-            "duration_ms": 4200,
-            "transcript": [
-                {"token": "um", "start_ms": 0, "end_ms": 220},
-                {"token": "hello", "start_ms": 900, "end_ms": 1240},
-                {"token": "world", "start_ms": 1320, "end_ms": 1600},
-            ],
-            "frames": [
-                {
-                    "index": 0,
-                    "timestamp_ms": 120,
-                    "motion_score": 0.18,
-                    "focus_score": 0.82,
-                    "brightness": 0.48,
-                },
-                {
-                    "index": 1,
-                    "timestamp_ms": 1100,
-                    "motion_score": 0.31,
-                    "focus_score": 0.74,
-                    "brightness": 0.57,
-                },
-            ],
-            "audio_energy": [
-                {"timestamp_ms": 140, "energy": 0.42},
-                {"timestamp_ms": 1080, "energy": 0.86},
-            ],
-        },
-    )
-    video_response.raise_for_status()
-    video_payload = video_response.json()
-
-    benchmark_response = client.get("/v1/benchmarks/smoke", params={"iterations": 3})
-    benchmark_response.raise_for_status()
-    benchmark_payload = benchmark_response.json()
-
-    proof_response = client.get("/v1/proof/bundle")
-    proof_response.raise_for_status()
-    proof_payload = proof_response.json()
-
-    readiness_response = client.get("/v1/readiness/report")
-    readiness_response.raise_for_status()
-    readiness_payload = readiness_response.json()
-
-    payload = {
-        "created_at": datetime.now(timezone.utc).isoformat(),
-        "service": proof_payload["service"],
-        "version": proof_payload["version"],
-        "examples": {
-            "inference": {
-                "request_id": infer_payload["request_id"],
-                "route": infer_payload["route"],
-                "output_keys": sorted(infer_payload["outputs"].keys()),
-                "warning_count": len(infer_payload["warnings"]),
-            },
-            "quality_profile": {
-                "request_id": profile_payload["request_id"],
-                "fusion_readiness": profile_payload["fusion_readiness"],
-                "modality_count": len(profile_payload["modality_profiles"]),
-                "warning_count": len(profile_payload["warnings"]),
-            },
-            "connector_ingest": {
-                "run_id": connector_payload["connector_run"]["run_id"],
-                "connector_kind": connector_payload["connector_run"]["connector_kind"],
-                "record_count": connector_payload["connector_run"]["record_count"],
-                "pipeline_run_id": connector_payload["pipeline_run"]["run_id"],
-                "pipeline_status": connector_payload["pipeline_run"]["status"],
-            },
-            "web_ingest": {
-                "dataset_id": web_payload["dataset"]["dataset_id"],
-                "record_count": web_payload["record_count"],
-                "sample_block_kinds": [row["block_kind"] for row in web_payload["sample_rows"]],
-                "title": next(
-                    row["text"]
-                    for row in web_payload["sample_rows"]
-                    if row["block_kind"] == "title"
-                ),
-            },
-            "recipe_manifest": {
-                "recipe_id": recipe_payload["recipe_id"],
-                "launcher": recipe_payload["launch_profile"]["launcher"],
-                "engine": recipe_payload["launch_profile"]["engine"],
-                "estimated_global_batch_size": (
-                    recipe_payload["launch_profile"]["estimated_global_batch_size"]
-                ),
-                "resolved_sources": len(recipe_payload["resolved_sources"]),
-            },
-            "video_cleanup": {
-                "clip_id": video_payload["clip_id"],
-                "removed_span_count": len(video_payload["removed_spans"]),
-                "retained_span_count": len(video_payload["retained_spans"]),
-                "cut_script_lines": len(video_payload["cut_script"]),
-            },
-            "smoke_benchmark": {
-                "benchmark_id": benchmark_payload["benchmark_id"],
-                "model_id": benchmark_payload["model_id"],
-                "iterations": benchmark_payload["iterations"],
-                "median_latency_ms": benchmark_payload["median_latency_ms"],
-                "p95_latency_ms": benchmark_payload["p95_latency_ms"],
-            },
-            "proof": {
-                "route_count": proof_payload["route_count"],
-                "test_count": proof_payload["test_count"],
-                "verification_command_count": len(proof_payload["verification_commands"]),
-                "connector_kinds": proof_payload["connector_kinds"],
-            },
-            "readiness": {
-                "posture": readiness_payload["posture"],
-                "compiled_recipe_count": readiness_payload["compiled_recipe_count"],
-                "resolved_recipe_count": readiness_payload["resolved_recipe_count"],
-                "check_names": [item["name"] for item in readiness_payload["checks"]],
-            },
-        },
-    }
-
-    proof_dir = ROOT / "proof"
-    proof_dir.mkdir(parents=True, exist_ok=True)
-    json_path = proof_dir / "example-bundle.json"
-    markdown_path = proof_dir / "example-bundle.md"
-
-    json_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    markdown_path.write_text(_render_markdown(payload), encoding="utf-8")
-    print(json_path)
-    print(markdown_path)
+        raise
+    else:
+        finish_script_execution(
+            lane="example_bundle_export",
+            command="python3 scripts/export_example_bundle.py",
+            artifacts=artifacts,
+            started_at=started_at,
+            start_counter=start_counter,
+            status="pass",
+            notes=["Example bundle regenerated from live routes."],
+        )
 
 
 def _render_markdown(payload: dict) -> str:

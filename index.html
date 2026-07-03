@@ -1523,6 +1523,24 @@
     </section>
 
     <section class="section">
+      <div class="section-panel">
+        <div class="section-label">Execution memory</div>
+        <h2>Recent runs, regenerated artifacts, and the lanes they moved through</h2>
+        <div class="pulse-grid" id="execution-journal-grid">
+          <article class="pulse-card">
+            <div class="section-label">Loading</div>
+            <h3>Waiting for recent runs</h3>
+            <p>The atlas will pull recent export and verification records from the persisted execution journal.</p>
+          </article>
+        </div>
+        <div class="hero-actions" style="margin-top:18px;">
+          <a class="pill" href="proof/execution-journal.md">Open the execution journal</a>
+          <a class="pill" href="proof/runtime-proof.md">Open the proof bundle</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
       <div class="section-panel connection-shell">
         <div class="section-label">Connected spines</div>
         <h2>The Python lanes move in sequence, not by coincidence</h2>
@@ -2054,6 +2072,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     const counterNodes = [...document.querySelectorAll("[data-counter-target]")];
     const researchPulseGrid = document.getElementById("research-pulse-grid");
     const runtimePulseGrid = document.getElementById("runtime-pulse-grid");
+    const executionJournalGrid = document.getElementById("execution-journal-grid");
 
     const flowContent = {
       listen: {
@@ -2405,6 +2424,32 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         .join("");
     }
 
+    function renderExecutionJournal(payload) {
+      if (!payload || !executionJournalGrid) return;
+      executionJournalGrid.innerHTML = (payload.recent_runs || [])
+        .slice(0, 3)
+        .map((run) => {
+          const artifacts = (run.artifacts || [])
+            .slice(0, 2)
+            .map((artifact) => `<span class="pulse-chip">${AMAIResearch.escapeHtml(artifact.label)}</span>`)
+            .join("");
+          const notes = (run.notes || [])[0] || "Recorded as part of the repository execution memory.";
+          return `
+            <article class="pulse-card">
+              <div class="section-label">${AMAIResearch.escapeHtml(run.lane)}</div>
+              <h3>${AMAIResearch.escapeHtml(run.status === "pass" ? "Completed cleanly" : "Needs review")}</h3>
+              <p>${AMAIResearch.escapeHtml(notes)}</p>
+              <div class="pulse-chip-row">
+                <span class="pulse-chip">${AMAIResearch.escapeHtml(run.command)}</span>
+                <span class="pulse-chip">${Number(run.duration_ms).toFixed(1)}ms</span>
+                ${artifacts}
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
     async function hydrateProofBundle() {
       try {
         const response = await fetch("proof/runtime-proof.json", { cache: "no-store" });
@@ -2450,6 +2495,16 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         renderRepositoryPulse(pulse);
       } catch (error) {
         console.warn("repository pulse could not be loaded", error);
+      }
+    }
+
+    async function hydrateExecutionJournal() {
+      try {
+        const journal = await AMAIResearch.loadExecutionJournal();
+        if (!journal) return;
+        renderExecutionJournal(journal);
+      } catch (error) {
+        console.warn("execution journal could not be loaded", error);
       }
     }
 
@@ -2499,6 +2554,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     hydrateProofBundle();
     hydrateResearchBundle();
     hydrateRepositoryPulse();
+    hydrateExecutionJournal();
     setInterval(updateClocks, 1000);
     setInterval(() => {
       proofIndex = (proofIndex + 1) % proofSlides.length;

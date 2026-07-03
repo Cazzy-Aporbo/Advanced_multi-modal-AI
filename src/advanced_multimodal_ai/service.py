@@ -46,6 +46,7 @@ from .contracts import (
     DatasetRegistrationRequest,
     DriftBaselineRecord,
     DriftBaselineRequest,
+    ExecutionJournalSummary,
     HealthResponse,
     InferenceRequest,
     InferenceResponse,
@@ -87,6 +88,7 @@ from .contracts import (
 from .domain_ontology import ingest_domain_ontology
 from .drift import assess_population_drift, create_drift_baseline_record
 from .drift_store import DriftStore
+from .execution_journal_store import ExecutionJournalStore
 from .job_store import JobStore
 from .legacy import RESEARCH_MODELS
 from .liability_surface import surface_operational_liability
@@ -187,6 +189,9 @@ class AdvancedMultimodalService:
         self.ontology_store = OntologyStore(self.settings.ontology_db_path)
         self.recipe_store = RecipeStore(self.settings.recipe_db_path)
         self.stewardship_store = StewardshipStore(self.settings.stewardship_db_path)
+        self.execution_journal_store = ExecutionJournalStore(
+            self.settings.execution_journal_db_path
+        )
 
     @property
     def torch_available(self) -> bool:
@@ -639,6 +644,7 @@ class AdvancedMultimodalService:
                 "supply_chain_snapshots": (
                     self.stewardship_store.count_supply_chain_snapshots()
                 ),
+                "execution_journal_runs": self.execution_journal_store.count_records(),
             },
         )
 
@@ -699,10 +705,15 @@ class AdvancedMultimodalService:
         return build_repository_pulse(
             settings=self.settings,
             attestation=attestation,
+            execution_journal=self.execution_journal_store.build_summary(limit=20),
             proof_bundle=proof_bundle,
             readiness=readiness,
             model_cards=self.list_model_research_cards(),
         )
+
+    def execution_journal(self, limit: int = 20) -> ExecutionJournalSummary:
+        record_data_plane("execution_journal")
+        return self.execution_journal_store.build_summary(limit=limit)
 
     def plan(self, request: InferenceRequest):
         return build_inference_plan(request)

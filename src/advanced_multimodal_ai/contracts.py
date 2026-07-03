@@ -798,6 +798,40 @@ class RuntimeProofBundle(BaseModel):
     created_at: str = Field(default_factory=utc_now)
 
 
+ExecutionStatus = Literal["pass", "fail"]
+
+
+class ExecutionArtifactState(BaseModel):
+    label: str
+    path: str
+    status: Literal["present", "missing"]
+    bytes: int = Field(default=0, ge=0)
+    modified_at: str = ""
+    note: str = ""
+
+
+class ExecutionJournalRecord(BaseModel):
+    journal_id: str = Field(default_factory=lambda: str(uuid4()))
+    lane: str
+    source_kind: Literal["script", "api", "ci"] = "script"
+    command: str
+    status: ExecutionStatus
+    started_at: str = Field(default_factory=utc_now)
+    completed_at: str = Field(default_factory=utc_now)
+    duration_ms: float = Field(default=0.0, ge=0.0)
+    notes: List[str] = Field(default_factory=list)
+    artifacts: List[ExecutionArtifactState] = Field(default_factory=list)
+
+
+class ExecutionJournalSummary(BaseModel):
+    total_runs: int = Field(default=0, ge=0)
+    passing_runs: int = Field(default=0, ge=0)
+    failing_runs: int = Field(default=0, ge=0)
+    lane_counts: Dict[str, int] = Field(default_factory=dict)
+    recent_runs: List[ExecutionJournalRecord] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
 class DatasetField(BaseModel):
     name: str = Field(min_length=1)
     dtype: str = Field(min_length=1)

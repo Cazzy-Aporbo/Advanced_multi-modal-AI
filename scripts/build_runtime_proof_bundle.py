@@ -13,24 +13,58 @@ PROOF_DIR = ROOT / "proof"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
+from advanced_multimodal_ai.execution_journal import (  # noqa: E402
+    finish_script_execution,
+    script_execution_window,
+)
+
 
 def main() -> None:
-    from advanced_multimodal_ai.api import create_app
+    started_at, start_counter = script_execution_window()
+    artifacts = [
+        ("proof/runtime-proof.json", "Exported runtime proof bundle."),
+        ("proof/runtime-proof.md", "Readable runtime proof bundle."),
+    ]
+    try:
+        from advanced_multimodal_ai.api import create_app
 
-    client = TestClient(create_app())
-    response = client.get("/v1/proof/bundle")
-    response.raise_for_status()
-    payload = response.json()
+        client = TestClient(create_app())
+        response = client.get("/v1/proof/bundle")
+        response.raise_for_status()
+        payload = response.json()
 
-    PROOF_DIR.mkdir(exist_ok=True)
-    json_path = PROOF_DIR / "runtime-proof.json"
-    md_path = PROOF_DIR / "runtime-proof.md"
+        PROOF_DIR.mkdir(exist_ok=True)
+        json_path = PROOF_DIR / "runtime-proof.json"
+        md_path = PROOF_DIR / "runtime-proof.md"
 
-    json_path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
-    md_path.write_text(_render_markdown(payload), encoding="utf-8")
+        json_path.write_text(
+            json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8"
+        )
+        md_path.write_text(_render_markdown(payload), encoding="utf-8")
 
-    print(json_path)
-    print(md_path)
+        print(json_path)
+        print(md_path)
+    except Exception as exc:
+        finish_script_execution(
+            lane="proof_export",
+            command="python3 scripts/build_runtime_proof_bundle.py",
+            artifacts=artifacts,
+            started_at=started_at,
+            start_counter=start_counter,
+            status="fail",
+            notes=[f"Proof export failed: {exc}"],
+        )
+        raise
+    else:
+        finish_script_execution(
+            lane="proof_export",
+            command="python3 scripts/build_runtime_proof_bundle.py",
+            artifacts=artifacts,
+            started_at=started_at,
+            start_counter=start_counter,
+            status="pass",
+            notes=["Runtime proof bundle regenerated from the live backend."],
+        )
 
 
 def _render_markdown(payload: dict) -> str:

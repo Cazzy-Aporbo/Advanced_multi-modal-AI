@@ -67,6 +67,19 @@ class GeneratedOpenAPIClient:
         path = f"/v1/research/surfaces"
         return self._request("GET", path)
 
+    def repositoryPulseV1RepositoryPulseGet(self) -> Any:
+        """Repository Pulse"""
+        path = f"/v1/repository/pulse"
+        return self._request("GET", path)
+
+    def executionJournalV1ExecutionJournalGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """Execution Journal"""
+        path = f"/v1/execution/journal"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
     def registerDatasetV1CatalogRegisterPost(self, payload: Any) -> Any:
         """Register Dataset"""
         path = f"/v1/catalog/register"

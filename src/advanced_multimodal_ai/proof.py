@@ -58,6 +58,10 @@ def build_runtime_proof_bundle(
                 command="python3 scripts/export_repository_pulse.py",
             ),
             VerificationCommand(
+                label="execution-journal",
+                command="python3 scripts/export_execution_journal.py",
+            ),
+            VerificationCommand(
                 label="acceptance",
                 command="python3 scripts/run_acceptance_spine.py",
             ),

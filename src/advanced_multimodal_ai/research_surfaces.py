@@ -590,6 +590,7 @@ def build_architecture_lanes() -> List[ArchitectureLane]:
             directories=[
                 "proof",
                 "scripts/build_runtime_proof_bundle.py",
+                "scripts/export_execution_journal.py",
                 "scripts/export_readiness_report.py",
                 "scripts/export_example_bundle.py",
                 "scripts/export_research_surfaces.py",
@@ -599,16 +600,19 @@ def build_architecture_lanes() -> List[ArchitectureLane]:
                 "/v1/proof/bundle",
                 "/v1/readiness/report",
                 "/v1/research/surfaces",
+                "/v1/execution/journal",
             ],
             outputs=[
                 "runtime-proof.json",
                 "readiness-report.json",
                 "example-bundle.json",
                 "research-surfaces.json",
+                "execution-journal.json",
             ],
             proof_points=[
                 "Exports can be regenerated locally from the runtime.",
                 "The static site reads the same evidence files that verification emits.",
+                "Export and verification scripts now write their own journal receipts.",
             ],
             why_it_exists=(
                 "A repository becomes easier to trust when proof can be "
@@ -633,6 +637,7 @@ def build_repository_findings(
     drift_count = attestation.store_counts.get("drift_baselines", 0)
     ontology_count = attestation.store_counts.get("ontology_snapshots", 0)
     pipeline_count = attestation.store_counts.get("pipeline_runs", 0)
+    execution_journal_count = attestation.store_counts.get("execution_journal_runs", 0)
 
     findings: List[RepositoryFinding] = [
         RepositoryFinding(
@@ -776,6 +781,38 @@ def build_repository_findings(
                 "src/advanced_multimodal_ai/proof.py",
                 "src/advanced_multimodal_ai/attestation.py",
                 "scripts/export_readiness_report.py",
+            ],
+        ),
+        RepositoryFinding(
+            finding_id="execution-memory-is-persisted",
+            lens="evaluation",
+            title="Export and verification work now leaves its own operational memory",
+            summary=(
+                f"{execution_journal_count} persisted execution-journal runs "
+                "now describe which proof and packaging lanes actually ran, "
+                "what they touched, and when they last changed."
+            ),
+            evidence=[
+                f"execution journal runs: {execution_journal_count}",
+                "proof/execution-journal.json is exported from the backend journal surface.",
+            ],
+            why_it_matters=(
+                "A repository feels more trustworthy when its export and "
+                "verification lanes can be revisited as records instead of "
+                "being remembered only because someone ran them recently."
+            ),
+            next_step=(
+                "Keep letting new export and benchmark lanes write their own "
+                "receipts so operational continuity becomes visible over time."
+            ),
+            related_surfaces=[
+                "/v1/execution/journal",
+                "/v1/repository/pulse",
+            ],
+            related_files=[
+                "src/advanced_multimodal_ai/execution_journal.py",
+                "src/advanced_multimodal_ai/execution_journal_store.py",
+                "scripts/export_execution_journal.py",
             ],
         ),
         RepositoryFinding(

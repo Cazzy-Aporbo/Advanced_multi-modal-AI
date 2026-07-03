@@ -8,21 +8,22 @@
     "http_ndjson",
     "web_html"
   ],
-  "created_at": "2026-07-03T07:52:24.084848+00:00",
+  "created_at": "2026-07-03T08:13:22.497732+00:00",
   "environment": "development",
-  "route_count": 63,
+  "route_count": 64,
   "service": "advanced-multimodal-ai",
   "store_counts": {
-    "async_jobs": 64,
-    "change_controls": 8,
-    "connector_runs": 150,
-    "dataset_catalog": 229,
+    "async_jobs": 68,
+    "change_controls": 10,
+    "connector_runs": 169,
+    "dataset_catalog": 258,
     "drift_baselines": 8,
-    "lifecycle_policies": 8,
-    "ontology_snapshots": 72,
-    "pipeline_runs": 131,
-    "recipe_registry": 29,
-    "supply_chain_snapshots": 8
+    "execution_journal_runs": 13,
+    "lifecycle_policies": 10,
+    "ontology_snapshots": 76,
+    "pipeline_runs": 142,
+    "recipe_registry": 33,
+    "supply_chain_snapshots": 10
   },
   "supported_lanes": [
     "contract_inference",
@@ -37,6 +38,7 @@
     "readiness_report",
     "research_surfaces",
     "repository_pulse",
+    "execution_journal",
     "retrieval",
     "video_cleanup",
     "temporal_alignment",
@@ -47,8 +49,8 @@
     "liability_surface",
     "bias_taxonomy"
   ],
-  "test_count": 35,
-  "verification_artifact_count": 7,
+  "test_count": 36,
+  "verification_artifact_count": 8,
   "verification_artifacts": [
     {
       "detail": "openapi/openapi.json",
@@ -84,6 +86,11 @@
       "detail": "proof/repository-pulse.json",
       "name": "Repository pulse export",
       "status": "present"
+    },
+    {
+      "detail": "proof/execution-journal.json",
+      "name": "Execution journal export",
+      "status": "present"
     }
   ],
   "verification_commands": [
@@ -114,6 +121,10 @@
     {
       "command": "python3 scripts/export_repository_pulse.py",
       "label": "repository-pulse"
+    },
+    {
+      "command": "python3 scripts/export_execution_journal.py",
+      "label": "execution-journal"
     },
     {
       "command": "python3 scripts/run_acceptance_spine.py",

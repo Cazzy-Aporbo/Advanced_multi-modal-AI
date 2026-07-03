@@ -205,6 +205,7 @@
             <tr><td>/v1/runtime/attestation</td><td>GET</td><td>present-tense evidence for generated artifacts and persisted stores</td></tr>
             <tr><td>/v1/readiness/report</td><td>GET</td><td>assemble live checks, recipe evidence, connector coverage, and explicit operating boundaries</td></tr>
             <tr><td>/v1/proof/bundle</td><td>GET</td><td>summarize routes, tests, commands, connectors, artifacts, and store counts</td></tr>
+            <tr><td>/v1/execution/journal</td><td>GET</td><td>list recent export and verification runs with touched artifacts and lane counts</td></tr>
             <tr><td>/v1/bias/taxonomy</td><td>GET</td><td>sixty-category bias register across the system lifecycle</td></tr>
             <tr><td>/v1/bias/assess</td><td>POST</td><td>stage-aware bias findings for an active system</td></tr>
             <tr><td>/v1/plan</td><td>POST</td><td>orchestration steps before execution</td></tr>
@@ -323,6 +324,10 @@
         <article class="mini">
           <strong>readiness</strong>
           <p>A companion report states where evidence is complete, where more proof is still needed, and which operating boundaries remain intentionally narrow.</p>
+        </article>
+        <article class="mini">
+          <strong>execution journal</strong>
+          <p>Recent export and verification runs are persisted with commands, artifact states, and lane counts so operational memory is not lost after one local session.</p>
         </article>
       </div>
     </section>

@@ -8,21 +8,21 @@
     "http_ndjson",
     "web_html"
   ],
-  "created_at": "2026-07-03T07:10:52.230159+00:00",
+  "created_at": "2026-07-03T07:52:24.084848+00:00",
   "environment": "development",
-  "route_count": 58,
+  "route_count": 63,
   "service": "advanced-multimodal-ai",
   "store_counts": {
-    "async_jobs": 52,
-    "change_controls": 2,
-    "connector_runs": 84,
-    "dataset_catalog": 134,
+    "async_jobs": 64,
+    "change_controls": 8,
+    "connector_runs": 150,
+    "dataset_catalog": 229,
     "drift_baselines": 8,
-    "lifecycle_policies": 2,
-    "ontology_snapshots": 58,
-    "pipeline_runs": 90,
-    "recipe_registry": 18,
-    "supply_chain_snapshots": 2
+    "lifecycle_policies": 8,
+    "ontology_snapshots": 72,
+    "pipeline_runs": 131,
+    "recipe_registry": 29,
+    "supply_chain_snapshots": 8
   },
   "supported_lanes": [
     "contract_inference",
@@ -35,6 +35,8 @@
     "web_ingest",
     "recipe_registry",
     "readiness_report",
+    "research_surfaces",
+    "repository_pulse",
     "retrieval",
     "video_cleanup",
     "temporal_alignment",
@@ -45,8 +47,8 @@
     "liability_surface",
     "bias_taxonomy"
   ],
-  "test_count": 33,
-  "verification_artifact_count": 5,
+  "test_count": 35,
+  "verification_artifact_count": 7,
   "verification_artifacts": [
     {
       "detail": "openapi/openapi.json",
@@ -72,6 +74,16 @@
       "detail": "crates/multimodal-core/Cargo.toml",
       "name": "Rust core",
       "status": "present"
+    },
+    {
+      "detail": "proof/research-surfaces.json",
+      "name": "Research surface export",
+      "status": "present"
+    },
+    {
+      "detail": "proof/repository-pulse.json",
+      "name": "Repository pulse export",
+      "status": "present"
     }
   ],
   "verification_commands": [
@@ -96,6 +108,14 @@
       "label": "sdk"
     },
     {
+      "command": "python3 scripts/export_research_surfaces.py",
+      "label": "research-surfaces"
+    },
+    {
+      "command": "python3 scripts/export_repository_pulse.py",
+      "label": "repository-pulse"
+    },
+    {
       "command": "python3 scripts/run_acceptance_spine.py",
       "label": "acceptance"
     },
@@ -108,7 +128,7 @@
       "label": "examples"
     },
     {
-      "command": "npx tsc --noEmit -p sdk/typescript/tsconfig.json",
+      "command": "npm run --prefix sdk/typescript check",
       "label": "typescript"
     }
   ],

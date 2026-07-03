@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Multi-modal AI · Model Observatory</title>
+  <meta name="description" content="Model observatory for the Advanced Multi-modal AI repository: why each model exists, what it does well, where it is weak, and what would make it better.">
+  <link rel="stylesheet" href="site-controls.css">
+  <style>
+    :root {
+      --bg: #100c0a;
+      --surface: rgba(27, 20, 17, 0.84);
+      --surface-strong: rgba(33, 24, 20, 0.94);
+      --line: rgba(246, 239, 232, 0.12);
+      --text: #f6efe8;
+      --muted: #d8c8ba;
+      --copper: #df9c5f;
+      --jade: #8fc9be;
+      --rose: #d7a9b8;
+      --ink: rgba(8, 6, 5, 0.64);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at 16% 16%, rgba(143, 201, 190, 0.12), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(215, 169, 184, 0.14), transparent 24%),
+        radial-gradient(circle at 64% 78%, rgba(223, 156, 95, 0.12), transparent 28%),
+        linear-gradient(180deg, #100c0a 0%, #171210 52%, #0b0907 100%);
+      overflow-x: hidden;
+    }
+    .wrap {
+      width: min(1160px, calc(100vw - 28px));
+      margin: 0 auto;
+      padding: 26px 0 72px;
+    }
+    .nav, .panel, .card {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 22px;
+      position: sticky;
+      top: 14px;
+      z-index: 4;
+    }
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.03);
+    }
+    .hero, .summary-grid, .cards {
+      display: grid;
+      gap: 18px;
+    }
+    .hero {
+      grid-template-columns: 1.1fr 0.9fr;
+      margin-top: 24px;
+    }
+    .panel {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      right: -56px;
+      bottom: -84px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(143, 201, 190, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+    .label {
+      color: var(--copper);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-weight: 600;
+      line-height: 1.06;
+      text-wrap: balance;
+    }
+    h1 { font-size: clamp(2.7rem, 5vw, 4.6rem); max-width: 8ch; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.55rem; }
+    p, li { color: var(--muted); }
+    .summary-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+    .summary-chip {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+    }
+    .summary-chip strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 2.1rem;
+      font-family: "Iowan Old Style", Georgia, serif;
+      background: linear-gradient(135deg, #f6efe8 0%, #f3c7d9 40%, #a1e6da 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .card {
+      padding: 24px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(223, 156, 95, 0.12), transparent 48%),
+        var(--surface-strong);
+      box-shadow: 0 24px 72px rgba(0,0,0,0.22);
+    }
+    .meta-row, .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .meta-pill, .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 0.84rem;
+    }
+    .chip {
+      font-family: "SFMono-Regular", Consolas, monospace;
+    }
+    .meta-pill.ready {
+      border-color: rgba(143, 201, 190, 0.32);
+      background: rgba(143, 201, 190, 0.12);
+    }
+    .meta-pill.archive {
+      border-color: rgba(215, 169, 184, 0.28);
+      background: rgba(215, 169, 184, 0.1);
+    }
+    .section-block {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .section-block strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .question {
+      margin-top: 12px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--ink);
+    }
+    .question h4 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 1.04rem;
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-weight: 600;
+    }
+    .question p {
+      margin: 0 0 8px;
+    }
+    .question p:last-child {
+      margin-bottom: 0;
+    }
+    .footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 920px) {
+      .hero, .summary-grid, .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 720px) {
+      .hero, .summary-grid, .cards {
+        grid-template-columns: 1fr;
+      }
+      .panel, .card {
+        padding: 22px;
+      }
+      h1 {
+        font-size: 2.45rem;
+        max-width: 10ch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div>Model observatory</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="index.html">atlas</a>
+        <a href="field-notes.html">field notes</a>
+        <a href="advanced-technical-portfolio.html">architecture</a>
+        <a href="technical-portfolio.html">catalog</a>
+        <a href="README.md">readme</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="panel">
+        <div class="label">Model observatory</div>
+        <h1>Why each model is here, and what would make it stronger.</h1>
+        <p>
+          This page is meant to slow the reading down a little.
+          It names the models the repository carries, why they matter, what kind of work they support,
+          where they are still thin, and what evidence would make them more persuasive.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="label">Reading posture</div>
+        <p>
+          A respectable model surface does not only list capabilities. It should also say what the model
+          is for, what part of the runtime it influences, what data or evaluation it still lacks, and
+          which questions remain open on purpose.
+        </p>
+        <div class="summary-grid" style="margin-top:18px;" id="summary-grid">
+          <div class="summary-chip">
+            <strong id="summary-model-count">--</strong>
+            <span>models named</span>
+          </div>
+          <div class="summary-chip">
+            <strong id="summary-runtime-count">--</strong>
+            <span>runtime-ready today</span>
+          </div>
+          <div class="summary-chip">
+            <strong id="summary-question-count">--</strong>
+            <span>open questions</span>
+          </div>
+          <div class="summary-chip">
+            <strong id="summary-route-count">--</strong>
+            <span>routes in the live contract</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards" id="model-card-grid">
+      <article class="card">
+        <div class="label">Loading</div>
+        <h3>Waiting for model surfaces</h3>
+        <p>The page will populate from the generated research surface export.</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · <a href="LICENSE" style="color:inherit;">Apache License 2.0</a></div>
+      <div><a href="proof/research-surfaces.md" style="color:inherit;">research report</a> · <a href="proof/runtime-proof.md" style="color:inherit;">runtime proof</a></div>
+    </footer>
+  </div>
+
+  <script src="site-controls.js"></script>
+  <script src="research-surfaces.js"></script>
+  <script>
+    const summaryModelCount = document.getElementById("summary-model-count");
+    const summaryRuntimeCount = document.getElementById("summary-runtime-count");
+    const summaryQuestionCount = document.getElementById("summary-question-count");
+    const summaryRouteCount = document.getElementById("summary-route-count");
+    const modelCardGrid = document.getElementById("model-card-grid");
+
+    function renderCard(card) {
+      const readyClass = card.runtime_ready ? "ready" : "archive";
+      const readyLabel = card.runtime_ready ? "runtime-ready" : "archive-first";
+      const questions = (card.open_questions || [])
+        .map((item) => `
+          <div class="question">
+            <h4>${AMAIResearch.escapeHtml(item.prompt)}</h4>
+            <p>${AMAIResearch.escapeHtml(item.why_it_matters)}</p>
+            <p><strong>Current position:</strong> ${AMAIResearch.escapeHtml(item.current_position)}</p>
+          </div>
+        `)
+        .join("");
+
+      return `
+        <article class="card">
+          <div class="label">Model card</div>
+          <h3>${AMAIResearch.escapeHtml(card.label)}</h3>
+          <p>${AMAIResearch.escapeHtml(card.role_in_system)}</p>
+          <div class="meta-row">
+            <span class="meta-pill ${readyClass}">${AMAIResearch.escapeHtml(readyLabel)}</span>
+            <span class="meta-pill">${AMAIResearch.escapeHtml(card.model_id)}</span>
+            <span class="meta-pill">${AMAIResearch.escapeHtml(card.source_file)}</span>
+          </div>
+
+          <div class="section-block">
+            <strong>Why it lives here</strong>
+            <p>${AMAIResearch.escapeHtml(card.why_used)}</p>
+          </div>
+
+          <div class="section-block">
+            <strong>Evidence surfaces</strong>
+            <div class="chip-row">
+              ${(card.evidence_surfaces || []).map((item) => `<span class="chip">${AMAIResearch.escapeHtml(item)}</span>`).join("")}
+            </div>
+          </div>
+
+          <div class="section-block">
+            <strong>Strengths</strong>
+            ${AMAIResearch.listMarkup(card.strengths, "list")}
+          </div>
+
+          <div class="section-block">
+            <strong>Limits</strong>
+            ${AMAIResearch.listMarkup(card.limits, "list")}
+          </div>
+
+          <div class="section-block">
+            <strong>What would improve it</strong>
+            ${AMAIResearch.listMarkup(card.improvement_paths, "list")}
+          </div>
+
+          <div class="section-block">
+            <strong>Related files</strong>
+            <div class="chip-row">
+              ${(card.related_files || []).map((item) => `<span class="chip">${AMAIResearch.escapeHtml(item)}</span>`).join("")}
+            </div>
+          </div>
+
+          <div class="section-block">
+            <strong>Open questions</strong>
+            ${questions || "<p>None recorded yet.</p>"}
+          </div>
+        </article>
+      `;
+    }
+
+    async function main() {
+      const bundle = await AMAIResearch.loadResearchSurfaceBundle();
+      if (!bundle) {
+        modelCardGrid.innerHTML = `
+          <article class="card">
+            <div class="label">Unavailable</div>
+            <h3>The research surface could not be loaded.</h3>
+            <p>Run <code>python3 scripts/export_research_surfaces.py</code> to regenerate the static bundle.</p>
+          </article>
+        `;
+        return;
+      }
+
+      summaryModelCount.textContent = String(bundle.summary.model_count);
+      summaryRuntimeCount.textContent = String(bundle.summary.runtime_ready_model_count);
+      summaryQuestionCount.textContent = String(bundle.summary.open_question_count);
+      summaryRouteCount.textContent = String(bundle.summary.route_count);
+
+      modelCardGrid.innerHTML = bundle.model_cards.map(renderCard).join("");
+    }
+
+    main();
+  </script>
+</body>
+</html>

@@ -746,6 +746,154 @@
       color: transparent;
     }
 
+    .pulse-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .pulse-card {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(215, 169, 184, 0.12), transparent 54%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pulse-card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -24px;
+      bottom: -30px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(143, 201, 190, 0.16), transparent 68%);
+      pointer-events: none;
+    }
+
+    .pulse-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+    }
+
+    .pulse-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .pulse-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pulse-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 0.82rem;
+    }
+
+    .runtime-pulse-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .runtime-pulse-card {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(159, 224, 212, 0.12), transparent 52%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .runtime-pulse-card::after {
+      content: "";
+      position: absolute;
+      width: 136px;
+      height: 136px;
+      right: -34px;
+      bottom: -40px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(223, 156, 95, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .runtime-pulse-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .runtime-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.045);
+      color: var(--text);
+      font-size: 0.82rem;
+      flex-wrap: wrap;
+    }
+
+    .runtime-meter {
+      margin-top: 16px;
+      width: 100%;
+      height: 11px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.07);
+      position: relative;
+    }
+
+    .runtime-fill {
+      --target-width: 50%;
+      width: var(--target-width);
+      height: 100%;
+      border-radius: inherit;
+      transform-origin: left center;
+      animation: chartGrow 1.15s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+      background: linear-gradient(90deg, rgba(143, 201, 190, 0.96), rgba(223, 156, 95, 0.9), rgba(215, 169, 184, 0.88));
+      box-shadow: 0 0 18px rgba(143, 201, 190, 0.18);
+    }
+
+    .runtime-artifact-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .runtime-artifact {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
     .section {
       margin-top: 44px;
     }
@@ -1057,6 +1205,7 @@
       .cards,
       .connection-map,
       .connection-note-grid,
+      .pulse-grid,
       .stats,
       .job-shell { grid-template-columns: 1fr 1fr; }
       h1 { max-width: none; }
@@ -1071,6 +1220,7 @@
       .cards,
       .connection-map,
       .connection-note-grid,
+      .pulse-grid,
       .stats,
       .job-shell,
       .ring-grid,
@@ -1115,6 +1265,8 @@
         </div>
         <a href="advanced-technical-portfolio.html" data-translate-key="nav_architecture">architecture</a>
         <a href="technical-portfolio.html" data-translate-key="nav_catalog">catalog</a>
+        <a href="model-observatory.html" data-translate-key="nav_models">models</a>
+        <a href="field-notes.html" data-translate-key="nav_findings">field notes</a>
         <a href="README.md" data-translate-key="nav_readme">readme</a>
       </div>
     </nav>
@@ -1138,6 +1290,8 @@
         <div class="hero-actions">
           <a class="pill primary" href="advanced-technical-portfolio.html" data-translate-key="hero_cta_arch">Read the architecture</a>
           <a class="pill" href="technical-portfolio.html" data-translate-key="hero_cta_catalog">Browse the components</a>
+          <a class="pill" href="model-observatory.html" data-translate-key="hero_cta_models">Study the models</a>
+          <a class="pill" href="field-notes.html" data-translate-key="hero_cta_notes">Read the field notes</a>
           <a class="pill" href="examples/README.md" data-translate-key="hero_cta_examples">Run the examples</a>
         </div>
         <div class="hero-ribbon">
@@ -1289,7 +1443,7 @@
           <h3>Model register</h3>
           <p>The repo names which models are bridged, which are contract-ready, and which remain part of the research archive.</p>
         </div>
-        <a class="card-link" href="advanced-technical-portfolio.html#model-registry">inspect registry</a>
+        <a class="card-link" href="model-observatory.html">inspect registry</a>
       </article>
 
       <article class="card" data-group="operations">
@@ -1303,11 +1457,11 @@
 
       <article class="card" data-group="operations">
         <div>
-          <div class="section-label">Examples</div>
-          <h3>Generated example bundle</h3>
-          <p>One worked bundle now shows inference, profiling, connector ingest, recipe compilation, video cleanup, benchmark output, proof, and readiness in one exported artifact.</p>
+          <div class="section-label">Field notes</div>
+          <h3>Generated findings and connections</h3>
+          <p>Findings, model notes, and file-to-surface connections are now exported from the backend and published as a readable research bundle.</p>
         </div>
-        <a class="card-link" href="proof/example-bundle.md">open example bundle</a>
+        <a class="card-link" href="field-notes.html">open field notes</a>
       </article>
     </section>
 
@@ -1328,6 +1482,44 @@
         <strong data-counter-target="4">4</strong>
         <div>backend languages now working together across Python, Rust, TypeScript, and SQL</div>
       </article>
+    </section>
+
+    <section class="section">
+      <div class="section-panel">
+        <div class="section-label">Research pulse</div>
+        <h2>Model intent, live findings, and open questions</h2>
+        <div class="pulse-grid" id="research-pulse-grid">
+          <article class="pulse-card">
+            <div class="section-label">Loading</div>
+            <h3>Waiting for research surfaces</h3>
+            <p>The atlas will pull model, finding, and question notes from the generated research bundle.</p>
+          </article>
+        </div>
+        <div class="hero-actions" style="margin-top:18px;">
+          <a class="pill" href="model-observatory.html">Open the model observatory</a>
+          <a class="pill" href="field-notes.html">Open the field notes</a>
+          <a class="pill" href="proof/research-surfaces.md">Open the research report</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-panel">
+        <div class="section-label">Runtime pulse</div>
+        <h2>Which parts are active, exported, and ready to be leaned on</h2>
+        <div class="runtime-pulse-grid" id="runtime-pulse-grid">
+          <article class="runtime-pulse-card">
+            <div class="section-label">Loading</div>
+            <h3>Waiting for the repository pulse</h3>
+            <p>The atlas will pull lane health, generated artifacts, and live-score signals from the backend pulse export.</p>
+          </article>
+        </div>
+        <div class="hero-actions" style="margin-top:18px;">
+          <a class="pill" href="proof/repository-pulse.md">Open the pulse report</a>
+          <a class="pill" href="advanced-technical-portfolio.html#lane-map">Read the lane map</a>
+          <a class="pill" href="technical-portfolio.html">Browse the file catalog</a>
+        </div>
+      </div>
     </section>
 
     <section class="section">
@@ -1650,6 +1842,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
   </div>
 
   <script src="site-controls.js"></script>
+  <script src="research-surfaces.js"></script>
   <script>
     window.AMAI_TRANSLATIONS = {
       en: {
@@ -1657,12 +1850,16 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         brand_tag: "signal atlas",
         nav_architecture: "architecture",
         nav_catalog: "catalog",
+        nav_models: "models",
+        nav_findings: "field notes",
         nav_readme: "readme",
         hero_eyebrow: "Runtime atlas",
         hero_title: "Signals kept legible. Runtime kept answerable.",
         hero_intro: "The archive remains visible, but the working edge no longer has to hide inside it. Quality checks, provenance receipts, drift baselines, web intake receipts, pipeline runs, ontology snapshots, liability checks, and transcript-led video review now sit close to inference and can be read on their own terms.",
         hero_cta_arch: "Read the architecture",
         hero_cta_catalog: "Browse the components",
+        hero_cta_models: "Study the models",
+        hero_cta_notes: "Read the field notes",
         hero_cta_examples: "Run the examples",
         ribbon_connector_title: "Connector-fed",
         ribbon_connector_body: "Rows can enter through typed file, object-store, HTTP, and public web lanes before they become modality tensors.",
@@ -1685,12 +1882,16 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         brand_tag: "Signalatlas",
         nav_architecture: "Architektur",
         nav_catalog: "Katalog",
+        nav_models: "Modelle",
+        nav_findings: "Feldnotizen",
         nav_readme: "Readme",
         hero_eyebrow: "Laufzeitatlas",
         hero_title: "Signale bleiben lesbar. Die Laufzeit bleibt rechenschaftsfähig.",
         hero_intro: "Das Archiv bleibt sichtbar, doch die aktive Laufzeit muss sich nicht länger darin verstecken. Qualitätsprüfungen, Herkunftsbelege, Drift-Baselines, Web-Aufnahmebelege, Pipeline-Läufe, Ontologie-Schnappschüsse, Haftungsprüfungen und transkriptgeführte Videoprüfung liegen nun dicht an der Inferenz.",
         hero_cta_arch: "Architektur lesen",
         hero_cta_catalog: "Komponenten ansehen",
+        hero_cta_models: "Modelle lesen",
+        hero_cta_notes: "Feldnotizen lesen",
         hero_cta_examples: "Beispiele ausführen",
         ribbon_connector_title: "Über Konnektoren geführt",
         ribbon_connector_body: "Zeilen können über typisierte Datei-, Objektspeicher-, HTTP- und öffentliche Web-Pfade eintreffen, bevor sie zu Modalitätstensoren werden.",
@@ -1713,12 +1914,16 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         brand_tag: "атлас сигналов",
         nav_architecture: "архитектура",
         nav_catalog: "каталог",
+        nav_models: "модели",
+        nav_findings: "заметки",
         nav_readme: "readme",
         hero_eyebrow: "Атлас runtime",
         hero_title: "Сигналы остаются читаемыми. Runtime остаётся подотчётным.",
         hero_intro: "Архив остаётся видимым, но рабочему краю больше не нужно прятаться внутри него. Проверки качества, квитанции происхождения, базовые линии дрейфа, квитанции веб-приёма, прогоны pipeline, снимки онтологии, проверки ответственности и обзор видео по транскрипту теперь стоят рядом с выводом.",
         hero_cta_arch: "Смотреть архитектуру",
         hero_cta_catalog: "Открыть компоненты",
+        hero_cta_models: "Изучить модели",
+        hero_cta_notes: "Читать заметки",
         hero_cta_examples: "Запустить примеры",
         ribbon_connector_title: "Через коннекторы",
         ribbon_connector_body: "Строки могут входить через типизированные файловые, объектные, HTTP и публичные веб-пути, прежде чем стать тензорами модальностей.",
@@ -1741,12 +1946,16 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         brand_tag: "シグナル・アトラス",
         nav_architecture: "アーキテクチャ",
         nav_catalog: "カタログ",
+        nav_models: "モデル",
+        nav_findings: "ノート",
         nav_readme: "readme",
         hero_eyebrow: "ランタイム・アトラス",
         hero_title: "信号は読みやすく。ランタイムは説明可能に。",
         hero_intro: "アーカイブはそのまま見えるように保ちつつ、動くエッジはもう中に隠れません。品質チェック、来歴レシート、ドリフト基準、Web取得レシート、パイプライン実行、オントロジースナップショット、責任確認、そして転記主導の動画レビューが推論のすぐそばに置かれます。",
         hero_cta_arch: "設計面を見る",
         hero_cta_catalog: "構成を見る",
+        hero_cta_models: "モデルを見る",
+        hero_cta_notes: "ノートを読む",
         hero_cta_examples: "例を動かす",
         ribbon_connector_title: "コネクタ起点",
         ribbon_connector_body: "行データは型付きファイル、オブジェクトストア、HTTP、公開Webの各レーンから入り、モダリティテンソルへ変わります。",
@@ -1769,12 +1978,16 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         brand_tag: "atlas des signaux",
         nav_architecture: "architecture",
         nav_catalog: "catalogue",
+        nav_models: "modèles",
+        nav_findings: "notes",
         nav_readme: "readme",
         hero_eyebrow: "Atlas runtime",
         hero_title: "Des signaux lisibles. Un runtime qui répond de lui-même.",
         hero_intro: "L’archive reste visible, mais la lisière active n’a plus besoin de s’y cacher. Contrôles de qualité, reçus de provenance, bases de dérive, reçus d’ingestion web, exécutions de pipeline, instantanés d’ontologie, contrôles de responsabilité et revue vidéo guidée par transcription restent désormais proches de l’inférence.",
         hero_cta_arch: "Lire l’architecture",
         hero_cta_catalog: "Voir les composants",
+        hero_cta_models: "Voir les modèles",
+        hero_cta_notes: "Lire les notes",
         hero_cta_examples: "Lancer les exemples",
         ribbon_connector_title: "Alimenté par connecteurs",
         ribbon_connector_body: "Les lignes peuvent entrer par des voies typées de fichier, d’objet, de HTTP et de web public avant de devenir des tenseurs multimodaux.",
@@ -1797,12 +2010,16 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         brand_tag: "atlas de señales",
         nav_architecture: "arquitectura",
         nav_catalog: "catálogo",
+        nav_models: "modelos",
+        nav_findings: "notas",
         nav_readme: "readme",
         hero_eyebrow: "Atlas runtime",
         hero_title: "Señales legibles. Runtime responsable.",
         hero_intro: "El archivo sigue visible, pero el borde operativo ya no tiene que esconderse dentro de él. Controles de calidad, recibos de procedencia, líneas base de deriva, recibos de ingesta web, corridas de pipeline, instantáneas de ontología, verificaciones de responsabilidad y revisión de video guiada por transcripción quedan cerca de la inferencia.",
         hero_cta_arch: "Leer la arquitectura",
         hero_cta_catalog: "Ver componentes",
+        hero_cta_models: "Ver modelos",
+        hero_cta_notes: "Leer notas",
         hero_cta_examples: "Ejecutar ejemplos",
         ribbon_connector_title: "Conectores primero",
         ribbon_connector_body: "Las filas pueden entrar por rutas tipadas de archivos, object store, HTTP y web pública antes de convertirse en tensores multimodales.",
@@ -1835,6 +2052,8 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     const proofPrev = document.getElementById("proof-prev");
     const proofNext = document.getElementById("proof-next");
     const counterNodes = [...document.querySelectorAll("[data-counter-target]")];
+    const researchPulseGrid = document.getElementById("research-pulse-grid");
+    const runtimePulseGrid = document.getElementById("runtime-pulse-grid");
 
     const flowContent = {
       listen: {
@@ -2110,6 +2329,82 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
       });
     }
 
+    function renderResearchPulse(bundle) {
+      if (!bundle || !researchPulseGrid) return;
+      const leadModel = bundle.model_cards[0];
+      const leadFinding = bundle.findings[0];
+      const leadConnection = bundle.connections[0];
+      const openQuestions = bundle.model_cards.flatMap((item) => item.open_questions || []).slice(0, 2);
+
+      researchPulseGrid.innerHTML = `
+        <article class="pulse-card">
+          <div class="section-label">Lead model</div>
+          <h3>${AMAIResearch.escapeHtml(leadModel ? leadModel.label : "No model card yet")}</h3>
+          <p>${AMAIResearch.escapeHtml(leadModel ? leadModel.why_used : "The research bundle has not named a lead model yet.")}</p>
+          <div class="pulse-chip-row">
+            ${(leadModel?.evidence_surfaces || []).slice(0, 3).map((item) => `<span class="pulse-chip">${AMAIResearch.escapeHtml(item)}</span>`).join("")}
+          </div>
+        </article>
+        <article class="pulse-card">
+          <div class="section-label">Current finding</div>
+          <h3>${AMAIResearch.escapeHtml(leadFinding ? leadFinding.title : "No finding yet")}</h3>
+          <p>${AMAIResearch.escapeHtml(leadFinding ? leadFinding.summary : "The bundle has not recorded a finding yet.")}</p>
+          <div class="pulse-chip-row">
+            ${(leadFinding?.related_surfaces || []).slice(0, 3).map((item) => `<span class="pulse-chip">${AMAIResearch.escapeHtml(item)}</span>`).join("")}
+          </div>
+        </article>
+        <article class="pulse-card">
+          <div class="section-label">Open questions</div>
+          <h3>${bundle.summary.open_question_count} questions still worth keeping</h3>
+          <p>${AMAIResearch.escapeHtml(leadConnection ? leadConnection.learning_value : "The connection map will appear here once it is generated.")}</p>
+          <div class="pulse-chip-row">
+            ${openQuestions.map((item) => `<span class="pulse-chip">${AMAIResearch.escapeHtml(item.prompt)}</span>`).join("")}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderRepositoryPulse(pulse) {
+      if (!pulse || !runtimePulseGrid) return;
+      runtimePulseGrid.innerHTML = pulse.lanes
+        .slice(0, 6)
+        .map((lane) => {
+          const artifacts = (lane.artifacts || [])
+            .slice(0, 3)
+            .map((artifact) => `
+              <div class="runtime-artifact">
+                <span>${AMAIResearch.escapeHtml(artifact.label)}</span>
+                <span>${artifact.exists ? "ready" : "missing"}</span>
+              </div>
+            `)
+            .join("");
+          const action =
+            (lane.suggested_actions || [])[0] ||
+            "Keep this lane under repeatable verification.";
+
+          return `
+            <article class="runtime-pulse-card">
+              <div class="section-label">${AMAIResearch.escapeHtml(lane.emphasis)}</div>
+              <h3>${AMAIResearch.escapeHtml(lane.label)}</h3>
+              <p>${AMAIResearch.escapeHtml(lane.summary)}</p>
+              <div class="runtime-badge">
+                <span>${lane.live_score}/100 live</span>
+                <span>${lane.active_count} active</span>
+                <span>${lane.warning_count} watch</span>
+              </div>
+              <div class="runtime-meter">
+                <div class="runtime-fill" style="--target-width:${Math.max(8, Math.min(100, lane.live_score))}%"></div>
+              </div>
+              <div class="runtime-artifact-list">${artifacts}</div>
+              <div class="pulse-chip-row">
+                <span class="pulse-chip">${AMAIResearch.escapeHtml(action)}</span>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
     async function hydrateProofBundle() {
       try {
         const response = await fetch("proof/runtime-proof.json", { cache: "no-store" });
@@ -2135,6 +2430,26 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         renderProofSlide(proofIndex);
       } catch (error) {
         console.warn("proof bundle could not be loaded", error);
+      }
+    }
+
+    async function hydrateResearchBundle() {
+      try {
+        const bundle = await AMAIResearch.loadResearchSurfaceBundle();
+        if (!bundle) return;
+        renderResearchPulse(bundle);
+      } catch (error) {
+        console.warn("research bundle could not be loaded", error);
+      }
+    }
+
+    async function hydrateRepositoryPulse() {
+      try {
+        const pulse = await AMAIResearch.loadRepositoryPulse();
+        if (!pulse) return;
+        renderRepositoryPulse(pulse);
+      } catch (error) {
+        console.warn("repository pulse could not be loaded", error);
       }
     }
 
@@ -2182,6 +2497,8 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     updateClocks();
     animateAllCounters();
     hydrateProofBundle();
+    hydrateResearchBundle();
+    hydrateRepositoryPulse();
     setInterval(updateClocks, 1000);
     setInterval(() => {
       proofIndex = (proofIndex + 1) % proofSlides.length;

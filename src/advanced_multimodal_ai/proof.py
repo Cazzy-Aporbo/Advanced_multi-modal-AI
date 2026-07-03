@@ -50,6 +50,14 @@ def build_runtime_proof_bundle(
                 command="python3 scripts/generate_sdk_surfaces.py",
             ),
             VerificationCommand(
+                label="research-surfaces",
+                command="python3 scripts/export_research_surfaces.py",
+            ),
+            VerificationCommand(
+                label="repository-pulse",
+                command="python3 scripts/export_repository_pulse.py",
+            ),
+            VerificationCommand(
                 label="acceptance",
                 command="python3 scripts/run_acceptance_spine.py",
             ),
@@ -63,7 +71,7 @@ def build_runtime_proof_bundle(
             ),
             VerificationCommand(
                 label="typescript",
-                command="npx tsc --noEmit -p sdk/typescript/tsconfig.json",
+                command="npm run --prefix sdk/typescript check",
             ),
         ],
         verification_artifacts=attestation.verification_artifacts,

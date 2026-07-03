@@ -47,6 +47,26 @@ class GeneratedOpenAPIClient:
         path = f"/v1/models"
         return self._request("GET", path)
 
+    def researchModelsV1ResearchModelsGet(self) -> Any:
+        """Research Models"""
+        path = f"/v1/research/models"
+        return self._request("GET", path)
+
+    def researchFindingsV1ResearchFindingsGet(self) -> Any:
+        """Research Findings"""
+        path = f"/v1/research/findings"
+        return self._request("GET", path)
+
+    def researchConnectionsV1ResearchConnectionsGet(self) -> Any:
+        """Research Connections"""
+        path = f"/v1/research/connections"
+        return self._request("GET", path)
+
+    def researchSurfacesV1ResearchSurfacesGet(self) -> Any:
+        """Research Surfaces"""
+        path = f"/v1/research/surfaces"
+        return self._request("GET", path)
+
     def registerDatasetV1CatalogRegisterPost(self, payload: Any) -> Any:
         """Register Dataset"""
         path = f"/v1/catalog/register"

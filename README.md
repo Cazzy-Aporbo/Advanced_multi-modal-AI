@@ -10,18 +10,22 @@ This repository now holds two things in a clearer arrangement:
 - a working runtime edge with typed contracts, retrieval, temporal alignment,
   provenance receipts, and transcript-first video tooling.
 
-[Signal Atlas](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html)  
-[Architecture Surface](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html)  
+[Signal Atlas](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html)
+[Architecture Surface](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html)
 [Component Catalog](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html)
+[Model Observatory](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/model-observatory.html)
+[Field Notes](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/field-notes.html)
 
 ## Table of contents
 
 - [What this repository is](#what-this-repository-is)
+- [System boundaries](#system-boundaries)
 - [What runs today](#what-runs-today)
 - [The multimodal data plane](#the-multimodal-data-plane)
 - [Dataset contracts and evolution](#dataset-contracts-and-evolution)
 - [Connector-fed ingestion](#connector-fed-ingestion)
 - [Stewardship, change control, and supply chain](#stewardship-change-control-and-supply-chain)
+- [Research surfaces and model cards](#research-surfaces-and-model-cards)
 - [Runtime surfaces](#runtime-surfaces)
 - [Repository layout](#repository-layout)
 - [How the Python files connect](#how-the-python-files-connect)
@@ -43,6 +47,28 @@ It is a polyglot repository with a practical runtime spine:
 
 The larger aim is straightforward. Keep the research visible, keep the runtime
 clear, and make the interfaces small enough to verify.
+
+## System boundaries
+
+This repository is layered on purpose. It should not read like one blurred
+application where every file does a little of everything.
+
+| lane | primary location | what belongs there | what does not |
+| --- | --- | --- | --- |
+| public surfaces | `index.html`, `advanced-technical-portfolio.html`, `technical-portfolio.html`, `model-observatory.html`, `field-notes.html` | reading generated proof, rendering explanations, linking to artifacts | inference, connector logic, policy evaluation |
+| runtime backend | `src/advanced_multimodal_ai/` | contracts, API routes, ingestion, inference, replay, stewardship, jobs, retrieval | presentation styling, static storytelling |
+| compiled core | `crates/multimodal-core/` | deterministic primitives that benefit from a compiled lane | API orchestration, persistence concerns |
+| generated clients | `sdk/python`, `sdk/typescript`, `openapi/openapi.json` | reusable client contracts regenerated from the running app | handwritten drift from the live API |
+| proof exports | `proof/`, export scripts under `scripts/` | evidence bundles, readiness exports, research surface exports, worked examples | ad hoc claims that cannot be regenerated |
+
+The flow is equally deliberate:
+
+1. data enters through typed connectors or direct contracts
+2. catalog and pipeline surfaces shape that data into reviewed runtime input
+3. quality, provenance, alignment, drift, and stewardship lanes measure it
+4. inference, replay, retrieval, and async work operate on the measured input
+5. proof, readiness, research surfaces, and generated clients export the state
+6. the browser pages read those exports rather than improvising their own truth
 
 ## What runs today
 
@@ -188,6 +214,28 @@ becomes too old to carry forward safely.
 This is the part of the runtime that helps a team answer practical questions:
 what can move, what should pause for review, what has started to age out, and
 what still lacks a clean retirement path.
+
+## Research surfaces and model cards
+
+`GET /v1/research/models`
+`GET /v1/research/findings`
+`GET /v1/research/connections`
+`GET /v1/research/surfaces`
+
+The repository now exports a typed research bundle as well.
+
+- architecture lanes explain how the public pages, runtime backend, compiled
+  core, generated clients, and proof exports stay distinct while still flowing
+  through one reproducible system
+- model cards explain why each model is present, what it is good at, what is
+  still weak, and what evidence would improve it
+- findings are generated from runtime proof, readiness, persisted store counts,
+  and the model cards instead of being written as a disconnected essay
+- connection notes explain how files, API surfaces, and review lanes fit
+  together so the backend can be studied as a system rather than as an index
+
+This makes the public site less static and gives the repository a better way
+to explain itself without flattening everything into one long README section.
 
 ## Recipe registry
 
@@ -472,6 +520,7 @@ Advanced_multi-modal-AI/
 ├── scripts/build_runtime_proof_bundle.py
 ├── scripts/export_example_bundle.py
 ├── scripts/export_openapi.py
+├── scripts/export_research_surfaces.py
 ├── scripts/generate_sdk_surfaces.py
 ├── scripts/run_acceptance_spine.py
 ├── complete_model.py
@@ -616,6 +665,7 @@ npx tsc --noEmit -p tsconfig.json
 ```bash
 python3 scripts/export_openapi.py
 python3 scripts/generate_sdk_surfaces.py
+python3 scripts/export_research_surfaces.py
 python3 scripts/export_readiness_report.py
 python3 scripts/export_example_bundle.py
 python3 scripts/build_runtime_proof_bundle.py

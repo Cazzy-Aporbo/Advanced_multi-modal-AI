@@ -96,6 +96,20 @@
       margin-bottom: 8px;
       color: var(--text);
     }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .chip {
+      border: 1px solid rgba(223, 156, 95, 0.22);
+      border-radius: 999px;
+      padding: 6px 11px;
+      background: rgba(223, 156, 95, 0.08);
+      color: #f5d6bc;
+      font-size: 0.84rem;
+    }
     .split { grid-template-columns: 1fr 1fr; margin-top: 22px; }
     .table-shell { margin-top: 18px; overflow: hidden; }
     table { width: 100%; border-collapse: collapse; }
@@ -126,6 +140,8 @@
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <a href="index.html">atlas</a>
         <a href="technical-portfolio.html">catalog</a>
+        <a href="model-observatory.html">models</a>
+        <a href="field-notes.html">field notes</a>
         <a href="README.md">readme</a>
       </div>
     </nav>
@@ -151,6 +167,17 @@
         </ul>
       </section>
     </div>
+
+    <section id="lane-map" class="panel">
+      <div class="label">Operating lanes</div>
+      <h2>Frontend, runtime, compiled core, client surfaces, and proof stay separate on purpose</h2>
+      <div class="grid" id="lane-grid">
+        <article class="mini">
+          <strong>Loading lane map</strong>
+          <p>The architecture page now reads its lane map from the generated research surface bundle.</p>
+        </article>
+      </div>
+    </section>
 
     <section id="api-surface" class="panel">
       <div class="label">API surface</div>
@@ -369,5 +396,51 @@ cargo test -p multimodal-core</pre>
     </section>
   </div>
   <script src="site-controls.js"></script>
+  <script src="research-surfaces.js"></script>
+  <script>
+    (async function hydrateLaneMap() {
+      const laneGrid = document.getElementById("lane-grid");
+      if (!laneGrid || !window.AMAIResearch) return;
+
+      try {
+        const bundle = await window.AMAIResearch.loadResearchSurfaceBundle();
+        if (!bundle || !Array.isArray(bundle.lanes) || !bundle.lanes.length) return;
+
+        laneGrid.innerHTML = bundle.lanes
+          .map((lane) => {
+            const directories = (lane.directories || [])
+              .map((item) => `<span class="chip">\`${window.AMAIResearch.escapeHtml(item)}\`</span>`)
+              .join("");
+            const entries = (lane.entry_surfaces || [])
+              .map((item) => `<li><code>${window.AMAIResearch.escapeHtml(item)}</code></li>`)
+              .join("");
+            const outputs = (lane.outputs || [])
+              .map((item) => `<li>${window.AMAIResearch.escapeHtml(item)}</li>`)
+              .join("");
+
+            return `
+              <article class="mini">
+                <strong>${window.AMAIResearch.escapeHtml(lane.label)}</strong>
+                <p>${window.AMAIResearch.escapeHtml(lane.purpose)}</p>
+                <div class="chips">${directories}</div>
+                <p><strong>Why it exists</strong><br>${window.AMAIResearch.escapeHtml(lane.why_it_exists)}</p>
+                <p><strong>Entry surfaces</strong></p>
+                <ul>${entries}</ul>
+                <p><strong>Outputs</strong></p>
+                <ul>${outputs}</ul>
+              </article>
+            `;
+          })
+          .join("");
+      } catch (_error) {
+        laneGrid.innerHTML = `
+          <article class="mini">
+            <strong>Lane map unavailable</strong>
+            <p>Run <code>python3 scripts/export_research_surfaces.py</code> to refresh the architecture bundle.</p>
+          </article>
+        `;
+      }
+    })();
+  </script>
 </body>
 </html>

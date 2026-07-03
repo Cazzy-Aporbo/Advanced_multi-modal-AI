@@ -64,6 +64,8 @@ from .contracts import (
     ReadinessReport,
     RecipeCompileRequest,
     RecipeRecord,
+    RepositoryPulse,
+    ResearchSurfaceBundle,
     RetrievalQueryRequest,
     RetrievalQueryResponse,
     RetrievalUpsertRequest,
@@ -101,6 +103,11 @@ from .recipe_store import RecipeStore
 from .recipes import compile_recipe_record
 from .registry import list_registered_models
 from .replay import compare_replay, export_pipeline_run
+from .repository_pulse import build_repository_pulse
+from .research_surfaces import (
+    build_model_research_cards,
+    build_research_surface_bundle,
+)
 from .retrieval import create_vector_index
 from .rust_bridge import signature_from_payload, video_cuts_from_payload
 from .signal_math import arrays_from_request, output_summary, signature
@@ -203,6 +210,10 @@ class AdvancedMultimodalService:
 
     def list_models(self):
         return list_registered_models(torch_available=self.torch_available)
+
+    def list_model_research_cards(self):
+        record_data_plane("research_models")
+        return build_model_research_cards(registered_models=self.list_models())
 
     def list_bias_taxonomy(self) -> List[BiasCategory]:
         record_data_plane("bias_taxonomy")
@@ -650,6 +661,47 @@ class AdvancedMultimodalService:
             attestation=attestation,
             proof_bundle=proof_bundle,
             recipes=recipes,
+        )
+
+    def research_surface_bundle(self, route_count: int) -> ResearchSurfaceBundle:
+        record_data_plane("research_surfaces")
+        attestation = self.runtime_attestation()
+        proof_bundle = build_runtime_proof_bundle(
+            attestation=attestation,
+            route_count=route_count,
+        )
+        readiness = build_readiness_report(
+            attestation=attestation,
+            proof_bundle=proof_bundle,
+            recipes=self.recipe_store.list_recipes(limit=1000),
+        )
+        return build_research_surface_bundle(
+            service_name=self.settings.service_name,
+            version=self.settings.service_version,
+            attestation=attestation,
+            proof_bundle=proof_bundle,
+            readiness=readiness,
+            registered_models=self.list_models(),
+        )
+
+    def repository_pulse(self, route_count: int) -> RepositoryPulse:
+        record_data_plane("repository_pulse")
+        attestation = self.runtime_attestation()
+        proof_bundle = build_runtime_proof_bundle(
+            attestation=attestation,
+            route_count=route_count,
+        )
+        readiness = build_readiness_report(
+            attestation=attestation,
+            proof_bundle=proof_bundle,
+            recipes=self.recipe_store.list_recipes(limit=1000),
+        )
+        return build_repository_pulse(
+            settings=self.settings,
+            attestation=attestation,
+            proof_bundle=proof_bundle,
+            readiness=readiness,
+            model_cards=self.list_model_research_cards(),
         )
 
     def plan(self, request: InferenceRequest):

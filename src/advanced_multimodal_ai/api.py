@@ -71,6 +71,28 @@ def create_app() -> FastAPI:
     def models():
         return service.list_models()
 
+    @app.get("/v1/research/models")
+    def research_models():
+        return service.list_model_research_cards()
+
+    @app.get("/v1/research/findings")
+    def research_findings():
+        return service.research_surface_bundle(route_count=_runtime_route_count(app)).findings
+
+    @app.get("/v1/research/connections")
+    def research_connections():
+        return (
+            service.research_surface_bundle(route_count=_runtime_route_count(app)).connections
+        )
+
+    @app.get("/v1/research/surfaces")
+    def research_surfaces():
+        return service.research_surface_bundle(route_count=_runtime_route_count(app))
+
+    @app.get("/v1/repository/pulse")
+    def repository_pulse():
+        return service.repository_pulse(route_count=_runtime_route_count(app))
+
     @app.post("/v1/catalog/register")
     def register_dataset(request: DatasetRegistrationRequest):
         return service.register_dataset(request)
@@ -182,23 +204,11 @@ def create_app() -> FastAPI:
 
     @app.get("/v1/proof/bundle")
     def runtime_proof_bundle():
-        runtime_routes = [
-            route
-            for route in app.routes
-            if getattr(route, "path", "").startswith("/v1/")
-            or getattr(route, "path", "") in {"/", "/metrics"}
-        ]
-        return service.runtime_proof_bundle(route_count=len(runtime_routes))
+        return service.runtime_proof_bundle(route_count=_runtime_route_count(app))
 
     @app.get("/v1/readiness/report")
     def readiness_report():
-        runtime_routes = [
-            route
-            for route in app.routes
-            if getattr(route, "path", "").startswith("/v1/")
-            or getattr(route, "path", "") in {"/", "/metrics"}
-        ]
-        return service.readiness_report(route_count=len(runtime_routes))
+        return service.readiness_report(route_count=_runtime_route_count(app))
 
     @app.get("/v1/bias/taxonomy")
     def bias_taxonomy():
@@ -397,3 +407,13 @@ def create_app() -> FastAPI:
         return Response(content=payload, media_type=content_type)
 
     return app
+
+
+def _runtime_route_count(app: FastAPI) -> int:
+    runtime_routes = [
+        route
+        for route in app.routes
+        if getattr(route, "path", "").startswith("/v1/")
+        or getattr(route, "path", "") in {"/", "/metrics"}
+    ]
+    return len(runtime_routes)

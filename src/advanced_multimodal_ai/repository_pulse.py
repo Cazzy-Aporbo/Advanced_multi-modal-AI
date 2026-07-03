@@ -1,0 +1,293 @@
+from __future__ import annotations
+
+from datetime import datetime, timezone
+from pathlib import Path
+
+from .config import Settings
+from .contracts import (
+    ModelResearchCard,
+    PulseArtifact,
+    PulseLane,
+    ReadinessReport,
+    RepositoryPulse,
+    RuntimeAttestationResponse,
+    RuntimeProofBundle,
+)
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
+def build_repository_pulse(
+    *,
+    settings: Settings,
+    attestation: RuntimeAttestationResponse,
+    proof_bundle: RuntimeProofBundle,
+    readiness: ReadinessReport,
+    model_cards: list[ModelResearchCard],
+) -> RepositoryPulse:
+    lanes = [
+        _frontend_lane(),
+        _backend_lane(attestation=attestation, proof_bundle=proof_bundle),
+        _compiled_lane(),
+        _client_lane(),
+        _evidence_lane(),
+        _model_lane(model_cards=model_cards),
+    ]
+
+    return RepositoryPulse(
+        service=settings.service_name,
+        version=settings.service_version,
+        route_count=proof_bundle.route_count,
+        test_count=proof_bundle.test_count,
+        model_count=len(model_cards),
+        readiness_posture=readiness.posture,
+        lanes=lanes,
+    )
+
+
+def _frontend_lane() -> PulseLane:
+    files = [
+        "index.html",
+        "advanced-technical-portfolio.html",
+        "technical-portfolio.html",
+        "model-observatory.html",
+        "field-notes.html",
+        "research-surfaces.js",
+        "site-controls.css",
+        "site-controls.js",
+    ]
+    artifacts = [_artifact(path, note="Browser-facing surface file.") for path in files]
+    return _lane(
+        lane_id="frontend_atlas",
+        label="Frontend atlas",
+        emphasis="frontend",
+        summary=(
+            "The public site stays downstream from generated proof and "
+            "research exports rather than inventing its own runtime story."
+        ),
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Keep the browser lane reading generated evidence files.",
+            "Prefer live bundle hydration over static text repetition.",
+        ],
+    )
+
+
+def _backend_lane(
+    *,
+    attestation: RuntimeAttestationResponse,
+    proof_bundle: RuntimeProofBundle,
+) -> PulseLane:
+    files = [
+        "src/advanced_multimodal_ai/api.py",
+        "src/advanced_multimodal_ai/service.py",
+        "src/advanced_multimodal_ai/connectors.py",
+        "src/advanced_multimodal_ai/pipelines.py",
+        "src/advanced_multimodal_ai/quality.py",
+        "src/advanced_multimodal_ai/stewardship_store.py",
+        "src/advanced_multimodal_ai/repository_pulse.py",
+    ]
+    artifacts = [_artifact(path, note="Backend runtime source file.") for path in files]
+    active_count = (
+        proof_bundle.route_count
+        + attestation.store_counts.get("connector_runs", 0)
+        + attestation.store_counts.get("pipeline_runs", 0)
+    )
+    warning_count = sum(
+        1 for store in ("connector_runs", "pipeline_runs", "ontology_snapshots")
+        if attestation.store_counts.get(store, 0) == 0
+    )
+    score = min(100, 45 + proof_bundle.route_count + len(attestation.store_counts) * 2)
+    return PulseLane(
+        lane_id="runtime_backend",
+        label="Runtime backend",
+        emphasis="backend",
+        live_score=score,
+        summary=(
+            f"{proof_bundle.route_count} routes, {proof_bundle.test_count} "
+            "tests, and persisted governance stores keep the API lane active."
+        ),
+        active_count=active_count,
+        warning_count=warning_count,
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Keep connector and replay evidence accumulating under varied inputs.",
+            "Let governance stores grow beside active route traces.",
+        ],
+    )
+
+
+def _compiled_lane() -> PulseLane:
+    files = [
+        "crates/multimodal-core/Cargo.toml",
+        "crates/multimodal-core/src/lib.rs",
+        "src/advanced_multimodal_ai/rust_bridge.py",
+    ]
+    artifacts = [
+        _artifact(
+            path,
+            note=(
+                "Compiled signal primitive." if "multimodal-core" in path else
+                "Python bridge into the compiled core."
+            ),
+        )
+        for path in files
+    ]
+    return _lane(
+        lane_id="compiled_core",
+        label="Compiled core",
+        emphasis="compiled",
+        summary=(
+            "Deterministic signal work stays in a compiled lane and remains "
+            "reachable through a small Python bridge."
+        ),
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Keep the compiled lane narrow and measured.",
+            "Add new Rust only where deterministic math or replay earns it.",
+        ],
+    )
+
+
+def _client_lane() -> PulseLane:
+    files = [
+        "openapi/openapi.json",
+        "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
+        "sdk/typescript/src/generated-openapi.ts",
+        "sdk/typescript/package.json",
+    ]
+    artifacts = [_artifact(path, note="Client or contract artifact.") for path in files]
+    return _lane(
+        lane_id="generated_clients",
+        label="Generated clients",
+        emphasis="client",
+        summary=(
+            "The Python and TypeScript client surfaces are generated from the "
+            "live contract rather than maintained as parallel lore."
+        ),
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Regenerate client surfaces whenever the API contract moves.",
+            "Keep TypeScript compilation in the proof path.",
+        ],
+    )
+
+
+def _evidence_lane() -> PulseLane:
+    files = [
+        "proof/runtime-proof.json",
+        "proof/readiness-report.json",
+        "proof/example-bundle.json",
+        "proof/research-surfaces.json",
+        "scripts/build_runtime_proof_bundle.py",
+        "scripts/export_readiness_report.py",
+        "scripts/export_example_bundle.py",
+        "scripts/export_research_surfaces.py",
+    ]
+    artifacts = [_artifact(path, note="Exported proof or export script.") for path in files]
+    return _lane(
+        lane_id="evidence_exports",
+        label="Evidence exports",
+        emphasis="evidence",
+        summary=(
+            "Proof, readiness, worked examples, and research surfaces can be "
+            "regenerated as files the public site reads directly."
+        ),
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Keep exports close to CI and local verification.",
+            "Prefer regenerated artifacts to hand-edited summaries.",
+        ],
+    )
+
+
+def _model_lane(*, model_cards: list[ModelResearchCard]) -> PulseLane:
+    files = sorted({card.source_file for card in model_cards})
+    artifacts = [
+        _artifact(
+            path,
+            note=(
+                "Runtime-ready model file." if any(
+                    card.source_file == path and card.runtime_ready
+                    for card in model_cards
+                ) else "Research model file."
+            ),
+        )
+        for path in files
+    ]
+    runtime_ready_count = sum(1 for card in model_cards if card.runtime_ready)
+    score = min(100, 35 + runtime_ready_count * 12 + len(model_cards) * 5)
+    return PulseLane(
+        lane_id="model_registry",
+        label="Model registry",
+        emphasis="models",
+        live_score=score,
+        summary=(
+            f"{runtime_ready_count} of {len(model_cards)} named models are "
+            "runtime-ready in the current environment."
+        ),
+        active_count=len(model_cards),
+        warning_count=max(0, len(model_cards) - runtime_ready_count),
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Promote research models only when proof and replay back them.",
+            "Keep model notes honest about what is live and what is still exploratory.",
+        ],
+    )
+
+
+def _lane(
+    *,
+    lane_id: str,
+    label: str,
+    emphasis: str,
+    summary: str,
+    files: list[str],
+    artifacts: list[PulseArtifact],
+    suggested_actions: list[str],
+) -> PulseLane:
+    active_count = sum(1 for artifact in artifacts if artifact.exists)
+    warning_count = sum(1 for artifact in artifacts if artifact.status != "pass")
+    live_score = round((active_count / len(artifacts)) * 100) if artifacts else 0
+    return PulseLane(
+        lane_id=lane_id,
+        label=label,
+        emphasis=emphasis,
+        live_score=live_score,
+        summary=summary,
+        active_count=active_count,
+        warning_count=warning_count,
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=suggested_actions,
+    )
+
+
+def _artifact(path_text: str, *, note: str) -> PulseArtifact:
+    path = REPO_ROOT / path_text
+    if not path.exists():
+        return PulseArtifact(
+            label=path.name,
+            path=path_text,
+            exists=False,
+            status="missing",
+            note=note,
+        )
+
+    stats = path.stat()
+    modified_at = datetime.fromtimestamp(stats.st_mtime, tz=timezone.utc).isoformat()
+    return PulseArtifact(
+        label=path.name,
+        path=path_text,
+        exists=True,
+        bytes=stats.st_size,
+        modified_at=modified_at,
+        status="pass",
+        note=note,
+    )

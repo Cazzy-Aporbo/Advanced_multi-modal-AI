@@ -30,6 +30,14 @@ def build_runtime_attestation(
         ),
         _artifact("Runtime schema", REPO_ROOT / "sql" / "runtime_schema.sql"),
         _artifact("Rust core", REPO_ROOT / "crates" / "multimodal-core" / "Cargo.toml"),
+        _artifact(
+            "Research surface export",
+            REPO_ROOT / "proof" / "research-surfaces.json",
+        ),
+        _artifact(
+            "Repository pulse export",
+            REPO_ROOT / "proof" / "repository-pulse.json",
+        ),
     ]
 
     return RuntimeAttestationResponse(
@@ -49,6 +57,8 @@ def build_runtime_attestation(
             "web_ingest",
             "recipe_registry",
             "readiness_report",
+            "research_surfaces",
+            "repository_pulse",
             "retrieval",
             "video_cleanup",
             "temporal_alignment",

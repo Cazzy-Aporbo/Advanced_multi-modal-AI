@@ -70,6 +70,86 @@
         }
       }
     },
+    "/v1/research/models": {
+      "get": {
+        "summary": "Research Models",
+        "operationId": "research_models_v1_research_models_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/research/findings": {
+      "get": {
+        "summary": "Research Findings",
+        "operationId": "research_findings_v1_research_findings_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/research/connections": {
+      "get": {
+        "summary": "Research Connections",
+        "operationId": "research_connections_v1_research_connections_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/research/surfaces": {
+      "get": {
+        "summary": "Research Surfaces",
+        "operationId": "research_surfaces_v1_research_surfaces_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/repository/pulse": {
+      "get": {
+        "summary": "Repository Pulse",
+        "operationId": "repository_pulse_v1_repository_pulse_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/catalog/register": {
       "post": {
         "summary": "Register Dataset",

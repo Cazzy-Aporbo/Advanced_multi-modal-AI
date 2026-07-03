@@ -114,6 +114,107 @@ class RegisteredModelResponse(BaseModel):
     notes: str
 
 
+class ModelResearchQuestion(BaseModel):
+    prompt: str
+    why_it_matters: str
+    current_position: str
+
+
+class ModelResearchCard(BaseModel):
+    model_id: str
+    label: str
+    source_file: str
+    runtime_ready: bool
+    supports_contract_mode: bool
+    supports_research_mode: bool
+    role_in_system: str
+    why_used: str
+    strengths: List[str] = Field(default_factory=list)
+    limits: List[str] = Field(default_factory=list)
+    improvement_paths: List[str] = Field(default_factory=list)
+    evidence_surfaces: List[str] = Field(default_factory=list)
+    related_files: List[str] = Field(default_factory=list)
+    open_questions: List[ModelResearchQuestion] = Field(default_factory=list)
+
+
+class RepositoryFinding(BaseModel):
+    finding_id: str
+    lens: Literal["runtime", "research", "data", "governance", "evaluation"]
+    title: str
+    summary: str
+    evidence: List[str] = Field(default_factory=list)
+    why_it_matters: str
+    next_step: str
+    related_surfaces: List[str] = Field(default_factory=list)
+    related_files: List[str] = Field(default_factory=list)
+
+
+class RepositoryConnection(BaseModel):
+    connection_id: str
+    title: str
+    summary: str
+    files: List[str] = Field(default_factory=list)
+    api_surfaces: List[str] = Field(default_factory=list)
+    learning_value: str
+    watch_points: List[str] = Field(default_factory=list)
+
+
+class ArchitectureLane(BaseModel):
+    lane_id: str
+    label: str
+    layer: Literal["frontend", "backend", "compiled", "client", "evidence"]
+    purpose: str
+    directories: List[str] = Field(default_factory=list)
+    entry_surfaces: List[str] = Field(default_factory=list)
+    outputs: List[str] = Field(default_factory=list)
+    proof_points: List[str] = Field(default_factory=list)
+    why_it_exists: str
+
+
+class ResearchSurfaceSummary(BaseModel):
+    route_count: int = Field(ge=0)
+    test_count: int = Field(ge=0)
+    connector_kind_count: int = Field(ge=0)
+    model_count: int = Field(ge=0)
+    runtime_ready_model_count: int = Field(ge=0)
+    open_question_count: int = Field(ge=0)
+    generated_at: str = Field(default_factory=utc_now)
+
+
+class PulseArtifact(BaseModel):
+    label: str
+    path: str
+    exists: bool
+    bytes: int = Field(default=0, ge=0)
+    modified_at: Optional[str] = None
+    status: Literal["pass", "watch", "missing"]
+    note: str
+
+
+class PulseLane(BaseModel):
+    lane_id: str
+    label: str
+    emphasis: Literal["frontend", "backend", "compiled", "client", "evidence", "models"]
+    live_score: int = Field(ge=0, le=100)
+    summary: str
+    active_count: int = Field(default=0, ge=0)
+    warning_count: int = Field(default=0, ge=0)
+    files: List[str] = Field(default_factory=list)
+    artifacts: List[PulseArtifact] = Field(default_factory=list)
+    suggested_actions: List[str] = Field(default_factory=list)
+
+
+class RepositoryPulse(BaseModel):
+    service: str
+    version: str
+    route_count: int = Field(ge=0)
+    test_count: int = Field(ge=0)
+    model_count: int = Field(ge=0)
+    readiness_posture: ReadinessPosture
+    lanes: List[PulseLane] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
 class RetrievalRecord(BaseModel):
     record_id: str
     modality: ModalityKind
@@ -1080,6 +1181,18 @@ class ReadinessReport(BaseModel):
     checks: List[ReadinessCheck] = Field(default_factory=list)
     blockers: List[str] = Field(default_factory=list)
     boundaries: List[ReadinessBoundary] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class ResearchSurfaceBundle(BaseModel):
+    service: str
+    version: str
+    readiness_posture: ReadinessPosture
+    summary: ResearchSurfaceSummary
+    lanes: List[ArchitectureLane] = Field(default_factory=list)
+    model_cards: List[ModelResearchCard] = Field(default_factory=list)
+    findings: List[RepositoryFinding] = Field(default_factory=list)
+    connections: List[RepositoryConnection] = Field(default_factory=list)
     created_at: str = Field(default_factory=utc_now)
 
 

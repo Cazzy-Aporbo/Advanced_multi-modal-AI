@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Multi-modal AI · Field Notes</title>
+  <meta name="description" content="Field notes for the Advanced Multi-modal AI repository: current findings, evidence, system connections, and what still needs more proof.">
+  <link rel="stylesheet" href="site-controls.css">
+  <style>
+    :root {
+      --bg: #0f0b09;
+      --surface: rgba(28, 21, 17, 0.84);
+      --surface-strong: rgba(32, 24, 20, 0.95);
+      --line: rgba(246, 239, 232, 0.12);
+      --text: #f6efe8;
+      --muted: #d9c9bb;
+      --copper: #df9c5f;
+      --jade: #8fc9be;
+      --rose: #d7a9b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.66;
+      background:
+        radial-gradient(circle at 12% 14%, rgba(223, 156, 95, 0.14), transparent 24%),
+        radial-gradient(circle at 84% 8%, rgba(143, 201, 190, 0.14), transparent 24%),
+        radial-gradient(circle at 68% 78%, rgba(215, 169, 184, 0.12), transparent 30%),
+        linear-gradient(180deg, #0f0b09 0%, #171210 52%, #0a0807 100%);
+    }
+    .wrap {
+      width: min(1160px, calc(100vw - 28px));
+      margin: 0 auto;
+      padding: 26px 0 72px;
+    }
+    .nav, .panel, .finding, .connection {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 22px;
+      position: sticky;
+      top: 14px;
+      z-index: 4;
+    }
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.03);
+    }
+    .hero, .insight-grid, .connection-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .hero {
+      grid-template-columns: 1.05fr 0.95fr;
+      margin-top: 24px;
+    }
+    .panel {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      right: -56px;
+      bottom: -84px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(215, 169, 184, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+    .label {
+      color: var(--copper);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-weight: 600;
+      line-height: 1.06;
+      text-wrap: balance;
+    }
+    h1 { font-size: clamp(2.7rem, 5vw, 4.6rem); max-width: 9ch; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.45rem; }
+    p, li { color: var(--muted); }
+    .insight-grid,
+    .connection-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+    .finding, .connection {
+      padding: 24px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(143, 201, 190, 0.1), transparent 50%),
+        var(--surface-strong);
+      box-shadow: 0 24px 72px rgba(0,0,0,0.22);
+    }
+    .lens {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-size: 0.82rem;
+      margin-bottom: 14px;
+    }
+    .section-block {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .section-block strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 0.96rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 0.84rem;
+      font-family: "SFMono-Regular", Consolas, monospace;
+    }
+    .footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 920px) {
+      .hero, .insight-grid, .connection-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 720px) {
+      .hero, .insight-grid, .connection-grid {
+        grid-template-columns: 1fr;
+      }
+      .panel, .finding, .connection {
+        padding: 22px;
+      }
+      h1 {
+        font-size: 2.4rem;
+        max-width: 11ch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div>Field notes</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="index.html">atlas</a>
+        <a href="model-observatory.html">models</a>
+        <a href="advanced-technical-portfolio.html">architecture</a>
+        <a href="technical-portfolio.html">catalog</a>
+        <a href="README.md">readme</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="panel">
+        <div class="label">Field notes</div>
+        <h1>What held up, what still needs more proof.</h1>
+        <p>
+          These notes are generated from the same runtime evidence that feeds the proof bundle and readiness
+          report. They are not meant to dazzle. They are meant to help a reader understand what the repository
+          has actually earned, what it is learning, and where more pressure would be useful.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="label">What this page keeps together</div>
+        <ul>
+          <li>current findings from the runtime, evidence, and stores</li>
+          <li>the file-to-surface connections that make the backend legible</li>
+          <li>the next questions that would deepen credibility instead of merely enlarging the codebase</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="insight-grid" id="finding-grid">
+      <article class="finding">
+        <div class="label">Loading</div>
+        <h3>Waiting for findings</h3>
+        <p>The page will populate from the generated research surface export.</p>
+      </article>
+    </section>
+
+    <section class="connection-grid" id="connection-grid">
+      <article class="connection">
+        <div class="label">Loading</div>
+        <h3>Waiting for connection notes</h3>
+        <p>The connection map will appear once the research surface bundle is available.</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · <a href="LICENSE" style="color:inherit;">Apache License 2.0</a></div>
+      <div><a href="proof/research-surfaces.md" style="color:inherit;">research report</a> · <a href="proof/readiness-report.md" style="color:inherit;">readiness</a></div>
+    </footer>
+  </div>
+
+  <script src="site-controls.js"></script>
+  <script src="research-surfaces.js"></script>
+  <script>
+    const findingGrid = document.getElementById("finding-grid");
+    const connectionGrid = document.getElementById("connection-grid");
+
+    function renderFinding(item) {
+      return `
+        <article class="finding">
+          <span class="lens">${AMAIResearch.escapeHtml(item.lens)}</span>
+          <h3>${AMAIResearch.escapeHtml(item.title)}</h3>
+          <p>${AMAIResearch.escapeHtml(item.summary)}</p>
+
+          <div class="section-block">
+            <strong>Evidence</strong>
+            ${AMAIResearch.listMarkup(item.evidence, "list")}
+          </div>
+
+          <div class="section-block">
+            <strong>Why it matters</strong>
+            <p>${AMAIResearch.escapeHtml(item.why_it_matters)}</p>
+          </div>
+
+          <div class="section-block">
+            <strong>Next step</strong>
+            <p>${AMAIResearch.escapeHtml(item.next_step)}</p>
+          </div>
+
+          <div class="section-block">
+            <strong>Related surfaces</strong>
+            <div class="chip-row">
+              ${(item.related_surfaces || []).map((surface) => `<span class="chip">${AMAIResearch.escapeHtml(surface)}</span>`).join("")}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderConnection(item) {
+      return `
+        <article class="connection">
+          <div class="label">Connection</div>
+          <h3>${AMAIResearch.escapeHtml(item.title)}</h3>
+          <p>${AMAIResearch.escapeHtml(item.summary)}</p>
+
+          <div class="section-block">
+            <strong>Files</strong>
+            <div class="chip-row">
+              ${(item.files || []).map((file) => `<span class="chip">${AMAIResearch.escapeHtml(file)}</span>`).join("")}
+            </div>
+          </div>
+
+          <div class="section-block">
+            <strong>Learning value</strong>
+            <p>${AMAIResearch.escapeHtml(item.learning_value)}</p>
+          </div>
+
+          <div class="section-block">
+            <strong>Watch points</strong>
+            ${AMAIResearch.listMarkup(item.watch_points, "list")}
+          </div>
+        </article>
+      `;
+    }
+
+    async function main() {
+      const bundle = await AMAIResearch.loadResearchSurfaceBundle();
+      if (!bundle) {
+        findingGrid.innerHTML = `
+          <article class="finding">
+            <div class="label">Unavailable</div>
+            <h3>The field notes could not be loaded.</h3>
+            <p>Run <code>python3 scripts/export_research_surfaces.py</code> to regenerate the static bundle.</p>
+          </article>
+        `;
+        connectionGrid.innerHTML = "";
+        return;
+      }
+
+      findingGrid.innerHTML = bundle.findings.map(renderFinding).join("");
+      connectionGrid.innerHTML = bundle.connections.map(renderConnection).join("");
+    }
+
+    main();
+  </script>
+</body>
+</html>

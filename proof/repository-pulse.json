@@ -1,0 +1,453 @@
+{
+  "service": "advanced-multimodal-ai",
+  "version": "0.5.0",
+  "route_count": 63,
+  "test_count": 35,
+  "model_count": 4,
+  "readiness_posture": "needs_buildout",
+  "lanes": [
+    {
+      "lane_id": "frontend_atlas",
+      "label": "Frontend atlas",
+      "emphasis": "frontend",
+      "live_score": 100,
+      "summary": "The public site stays downstream from generated proof and research exports rather than inventing its own runtime story.",
+      "active_count": 8,
+      "warning_count": 0,
+      "files": [
+        "index.html",
+        "advanced-technical-portfolio.html",
+        "technical-portfolio.html",
+        "model-observatory.html",
+        "field-notes.html",
+        "research-surfaces.js",
+        "site-controls.css",
+        "site-controls.js"
+      ],
+      "artifacts": [
+        {
+          "label": "index.html",
+          "path": "index.html",
+          "exists": true,
+          "bytes": 94897,
+          "modified_at": "2026-07-03T07:51:22.473134+00:00",
+          "status": "pass",
+          "note": "Browser-facing surface file."
+        },
+        {
+          "label": "advanced-technical-portfolio.html",
+          "path": "advanced-technical-portfolio.html",
+          "exists": true,
+          "bytes": 20983,
+          "modified_at": "2026-07-03T07:42:41.859528+00:00",
+          "status": "pass",
+          "note": "Browser-facing surface file."
+        },
+        {
+          "label": "technical-portfolio.html",
+          "path": "technical-portfolio.html",
+          "exists": true,
+          "bytes": 21010,
+          "modified_at": "2026-07-03T07:32:54.992093+00:00",
+          "status": "pass",
+          "note": "Browser-facing surface file."
+        },
+        {
+          "label": "model-observatory.html",
+          "path": "model-observatory.html",
+          "exists": true,
+          "bytes": 12782,
+          "modified_at": "2026-07-03T07:30:37.912441+00:00",
+          "status": "pass",
+          "note": "Browser-facing surface file."
+        },
+        {
+          "label": "field-notes.html",
+          "path": "field-notes.html",
+          "exists": true,
+          "bytes": 10385,
+          "modified_at": "2026-07-03T07:31:25.437631+00:00",
+          "status": "pass",
+          "note": "Browser-facing surface file."
+        },
+        {
+          "label": "research-surfaces.js",
+          "path": "research-surfaces.js",
+          "exists": true,
+          "bytes": 1542,
+          "modified_at": "2026-07-03T07:48:56.554075+00:00",
+          "status": "pass",
+          "note": "Browser-facing surface file."
+        },
+        {
+          "label": "site-controls.css",
+          "path": "site-controls.css",
+          "exists": true,
+          "bytes": 2877,
+          "modified_at": "2026-07-03T07:06:27.308506+00:00",
+          "status": "pass",
+          "note": "Browser-facing surface file."
+        },
+        {
+          "label": "site-controls.js",
+          "path": "site-controls.js",
+          "exists": true,
+          "bytes": 3924,
+          "modified_at": "2026-07-03T07:06:49.119232+00:00",
+          "status": "pass",
+          "note": "Browser-facing surface file."
+        }
+      ],
+      "suggested_actions": [
+        "Keep the browser lane reading generated evidence files.",
+        "Prefer live bundle hydration over static text repetition."
+      ]
+    },
+    {
+      "lane_id": "runtime_backend",
+      "label": "Runtime backend",
+      "emphasis": "backend",
+      "live_score": 100,
+      "summary": "63 routes, 35 tests, and persisted governance stores keep the API lane active.",
+      "active_count": 344,
+      "warning_count": 0,
+      "files": [
+        "src/advanced_multimodal_ai/api.py",
+        "src/advanced_multimodal_ai/service.py",
+        "src/advanced_multimodal_ai/connectors.py",
+        "src/advanced_multimodal_ai/pipelines.py",
+        "src/advanced_multimodal_ai/quality.py",
+        "src/advanced_multimodal_ai/stewardship_store.py",
+        "src/advanced_multimodal_ai/repository_pulse.py"
+      ],
+      "artifacts": [
+        {
+          "label": "api.py",
+          "path": "src/advanced_multimodal_ai/api.py",
+          "exists": true,
+          "bytes": 15104,
+          "modified_at": "2026-07-03T07:47:42.806111+00:00",
+          "status": "pass",
+          "note": "Backend runtime source file."
+        },
+        {
+          "label": "service.py",
+          "path": "src/advanced_multimodal_ai/service.py",
+          "exists": true,
+          "bytes": 49885,
+          "modified_at": "2026-07-03T07:51:51.610637+00:00",
+          "status": "pass",
+          "note": "Backend runtime source file."
+        },
+        {
+          "label": "connectors.py",
+          "path": "src/advanced_multimodal_ai/connectors.py",
+          "exists": true,
+          "bytes": 25293,
+          "modified_at": "2026-07-03T06:41:33.072546+00:00",
+          "status": "pass",
+          "note": "Backend runtime source file."
+        },
+        {
+          "label": "pipelines.py",
+          "path": "src/advanced_multimodal_ai/pipelines.py",
+          "exists": true,
+          "bytes": 2102,
+          "modified_at": "2026-07-03T04:37:14.847767+00:00",
+          "status": "pass",
+          "note": "Backend runtime source file."
+        },
+        {
+          "label": "quality.py",
+          "path": "src/advanced_multimodal_ai/quality.py",
+          "exists": true,
+          "bytes": 5294,
+          "modified_at": "2026-07-03T04:05:08.862320+00:00",
+          "status": "pass",
+          "note": "Backend runtime source file."
+        },
+        {
+          "label": "stewardship_store.py",
+          "path": "src/advanced_multimodal_ai/stewardship_store.py",
+          "exists": true,
+          "bytes": 8754,
+          "modified_at": "2026-07-03T06:55:10.293095+00:00",
+          "status": "pass",
+          "note": "Backend runtime source file."
+        },
+        {
+          "label": "repository_pulse.py",
+          "path": "src/advanced_multimodal_ai/repository_pulse.py",
+          "exists": true,
+          "bytes": 9296,
+          "modified_at": "2026-07-03T07:46:08.979658+00:00",
+          "status": "pass",
+          "note": "Backend runtime source file."
+        }
+      ],
+      "suggested_actions": [
+        "Keep connector and replay evidence accumulating under varied inputs.",
+        "Let governance stores grow beside active route traces."
+      ]
+    },
+    {
+      "lane_id": "compiled_core",
+      "label": "Compiled core",
+      "emphasis": "compiled",
+      "live_score": 67,
+      "summary": "Deterministic signal work stays in a compiled lane and remains reachable through a small Python bridge.",
+      "active_count": 2,
+      "warning_count": 1,
+      "files": [
+        "crates/multimodal-core/Cargo.toml",
+        "crates/multimodal-core/src/lib.rs",
+        "src/advanced_multimodal_ai/rust_bridge.py"
+      ],
+      "artifacts": [
+        {
+          "label": "Cargo.toml",
+          "path": "crates/multimodal-core/Cargo.toml",
+          "exists": true,
+          "bytes": 331,
+          "modified_at": "2026-07-03T04:54:07.954729+00:00",
+          "status": "pass",
+          "note": "Compiled signal primitive."
+        },
+        {
+          "label": "lib.rs",
+          "path": "crates/multimodal-core/src/lib.rs",
+          "exists": false,
+          "bytes": 0,
+          "modified_at": null,
+          "status": "missing",
+          "note": "Compiled signal primitive."
+        },
+        {
+          "label": "rust_bridge.py",
+          "path": "src/advanced_multimodal_ai/rust_bridge.py",
+          "exists": true,
+          "bytes": 2355,
+          "modified_at": "2026-07-03T04:55:09.251387+00:00",
+          "status": "pass",
+          "note": "Python bridge into the compiled core."
+        }
+      ],
+      "suggested_actions": [
+        "Keep the compiled lane narrow and measured.",
+        "Add new Rust only where deterministic math or replay earns it."
+      ]
+    },
+    {
+      "lane_id": "generated_clients",
+      "label": "Generated clients",
+      "emphasis": "client",
+      "live_score": 100,
+      "summary": "The Python and TypeScript client surfaces are generated from the live contract rather than maintained as parallel lore.",
+      "active_count": 4,
+      "warning_count": 0,
+      "files": [
+        "openapi/openapi.json",
+        "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
+        "sdk/typescript/src/generated-openapi.ts",
+        "sdk/typescript/package.json"
+      ],
+      "artifacts": [
+        {
+          "label": "openapi.json",
+          "path": "openapi/openapi.json",
+          "exists": true,
+          "bytes": 111625,
+          "modified_at": "2026-07-03T07:52:23.824300+00:00",
+          "status": "pass",
+          "note": "Client or contract artifact."
+        },
+        {
+          "label": "generated_openapi.py",
+          "path": "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
+          "exists": true,
+          "bytes": 14063,
+          "modified_at": "2026-07-03T07:52:20.464447+00:00",
+          "status": "pass",
+          "note": "Client or contract artifact."
+        },
+        {
+          "label": "generated-openapi.ts",
+          "path": "sdk/typescript/src/generated-openapi.ts",
+          "exists": true,
+          "bytes": 17085,
+          "modified_at": "2026-07-03T07:52:20.463967+00:00",
+          "status": "pass",
+          "note": "Client or contract artifact."
+        },
+        {
+          "label": "package.json",
+          "path": "sdk/typescript/package.json",
+          "exists": true,
+          "bytes": 613,
+          "modified_at": "2026-07-03T07:03:48.596897+00:00",
+          "status": "pass",
+          "note": "Client or contract artifact."
+        }
+      ],
+      "suggested_actions": [
+        "Regenerate client surfaces whenever the API contract moves.",
+        "Keep TypeScript compilation in the proof path."
+      ]
+    },
+    {
+      "lane_id": "evidence_exports",
+      "label": "Evidence exports",
+      "emphasis": "evidence",
+      "live_score": 100,
+      "summary": "Proof, readiness, worked examples, and research surfaces can be regenerated as files the public site reads directly.",
+      "active_count": 8,
+      "warning_count": 0,
+      "files": [
+        "proof/runtime-proof.json",
+        "proof/readiness-report.json",
+        "proof/example-bundle.json",
+        "proof/research-surfaces.json",
+        "scripts/build_runtime_proof_bundle.py",
+        "scripts/export_readiness_report.py",
+        "scripts/export_example_bundle.py",
+        "scripts/export_research_surfaces.py"
+      ],
+      "artifacts": [
+        {
+          "label": "runtime-proof.json",
+          "path": "proof/runtime-proof.json",
+          "exists": true,
+          "bytes": 2978,
+          "modified_at": "2026-07-03T07:43:54.272881+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        },
+        {
+          "label": "readiness-report.json",
+          "path": "proof/readiness-report.json",
+          "exists": true,
+          "bytes": 2700,
+          "modified_at": "2026-07-03T07:52:23.715935+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        },
+        {
+          "label": "example-bundle.json",
+          "path": "proof/example-bundle.json",
+          "exists": true,
+          "bytes": 2569,
+          "modified_at": "2026-07-03T07:43:55.042869+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        },
+        {
+          "label": "research-surfaces.json",
+          "path": "proof/research-surfaces.json",
+          "exists": true,
+          "bytes": 24647,
+          "modified_at": "2026-07-03T07:52:23.987048+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        },
+        {
+          "label": "build_runtime_proof_bundle.py",
+          "path": "scripts/build_runtime_proof_bundle.py",
+          "exists": true,
+          "bytes": 2080,
+          "modified_at": "2026-07-03T05:18:31.155918+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        },
+        {
+          "label": "export_readiness_report.py",
+          "path": "scripts/export_readiness_report.py",
+          "exists": true,
+          "bytes": 1649,
+          "modified_at": "2026-07-03T05:56:07.610668+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        },
+        {
+          "label": "export_example_bundle.py",
+          "path": "scripts/export_example_bundle.py",
+          "exists": true,
+          "bytes": 16004,
+          "modified_at": "2026-07-03T06:44:37.336316+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        },
+        {
+          "label": "export_research_surfaces.py",
+          "path": "scripts/export_research_surfaces.py",
+          "exists": true,
+          "bytes": 5057,
+          "modified_at": "2026-07-03T07:41:00.821510+00:00",
+          "status": "pass",
+          "note": "Exported proof or export script."
+        }
+      ],
+      "suggested_actions": [
+        "Keep exports close to CI and local verification.",
+        "Prefer regenerated artifacts to hand-edited summaries."
+      ]
+    },
+    {
+      "lane_id": "model_registry",
+      "label": "Model registry",
+      "emphasis": "models",
+      "live_score": 55,
+      "summary": "0 of 4 named models are runtime-ready in the current environment.",
+      "active_count": 4,
+      "warning_count": 4,
+      "files": [
+        "complete_model.py",
+        "core/attention_mechanisms.py",
+        "dynamic_transformer.py",
+        "fusion_strategies.py"
+      ],
+      "artifacts": [
+        {
+          "label": "complete_model.py",
+          "path": "complete_model.py",
+          "exists": true,
+          "bytes": 60066,
+          "modified_at": "2026-07-03T01:23:50.575757+00:00",
+          "status": "pass",
+          "note": "Research model file."
+        },
+        {
+          "label": "attention_mechanisms.py",
+          "path": "core/attention_mechanisms.py",
+          "exists": true,
+          "bytes": 30134,
+          "modified_at": "2026-07-03T01:23:50.576058+00:00",
+          "status": "pass",
+          "note": "Research model file."
+        },
+        {
+          "label": "dynamic_transformer.py",
+          "path": "dynamic_transformer.py",
+          "exists": true,
+          "bytes": 54214,
+          "modified_at": "2026-07-03T01:23:50.576273+00:00",
+          "status": "pass",
+          "note": "Research model file."
+        },
+        {
+          "label": "fusion_strategies.py",
+          "path": "fusion_strategies.py",
+          "exists": true,
+          "bytes": 25665,
+          "modified_at": "2026-07-03T01:23:50.576436+00:00",
+          "status": "pass",
+          "note": "Research model file."
+        }
+      ],
+      "suggested_actions": [
+        "Promote research models only when proof and replay back them.",
+        "Keep model notes honest about what is live and what is still exploratory."
+      ]
+    }
+  ],
+  "generated_at": "2026-07-03T07:52:24.068392+00:00"
+}

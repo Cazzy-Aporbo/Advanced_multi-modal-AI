@@ -64,6 +64,56 @@ def test_runtime_readiness_report_surfaces_limits_and_live_checks():
     assert any(boundary["area"] == "public web intake" for boundary in payload["boundaries"])
 
 
+def test_research_surfaces_explain_models_findings_and_connections():
+    response = client.get("/v1/research/surfaces")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["summary"]["model_count"] >= 4
+    assert payload["summary"]["open_question_count"] >= 1
+    assert any(
+        item["lane_id"] == "runtime_backend"
+        and "/v1/research/surfaces" in item["entry_surfaces"]
+        for item in payload["lanes"]
+    )
+    assert any(
+        item["model_id"] == "adaptive_transformer" and item["improvement_paths"]
+        for item in payload["model_cards"]
+    )
+    assert any(
+        item["finding_id"] == "connector-spine-is-real"
+        for item in payload["findings"]
+    )
+    assert any(
+        item["connection_id"] == "rows-to-batches"
+        for item in payload["connections"]
+    )
+
+    model_response = client.get("/v1/research/models")
+    assert model_response.status_code == 200
+    assert any(
+        item["model_id"] == "complete_multimodal"
+        for item in model_response.json()
+    )
+
+
+def test_repository_pulse_tracks_lane_health_and_artifacts():
+    response = client.get("/v1/repository/pulse")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["route_count"] >= 40
+    assert payload["test_count"] >= 1
+    assert any(
+        item["lane_id"] == "generated_clients"
+        and item["live_score"] >= 50
+        for item in payload["lanes"]
+    )
+    assert any(
+        artifact["path"] == "openapi/openapi.json"
+        for lane in payload["lanes"]
+        for artifact in lane["artifacts"]
+    )
+
+
 def test_dataset_catalog_registration_and_evolution_report():
     register = client.post(
         "/v1/catalog/register",

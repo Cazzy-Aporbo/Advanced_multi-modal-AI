@@ -39,6 +39,30 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("GET", path);
   }
 
+  /** Research Models */
+  async researchModelsV1ResearchModelsGet(): Promise<unknown> {
+    let path = `/v1/research/models`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Research Findings */
+  async researchFindingsV1ResearchFindingsGet(): Promise<unknown> {
+    let path = `/v1/research/findings`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Research Connections */
+  async researchConnectionsV1ResearchConnectionsGet(): Promise<unknown> {
+    let path = `/v1/research/connections`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Research Surfaces */
+  async researchSurfacesV1ResearchSurfacesGet(): Promise<unknown> {
+    let path = `/v1/research/surfaces`;
+    return this.request<unknown>("GET", path);
+  }
+
   /** Register Dataset */
   async registerDatasetV1CatalogRegisterPost(payload: unknown): Promise<unknown> {
     let path = `/v1/catalog/register`;

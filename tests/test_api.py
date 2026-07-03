@@ -1,7 +1,7 @@
 import base64
 import json
 
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
 
 from advanced_multimodal_ai.api import create_app
 from advanced_multimodal_ai.execution_journal import (

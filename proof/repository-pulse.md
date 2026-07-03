@@ -57,7 +57,7 @@ Suggested actions:
 - Lane id: `runtime_backend`
 - Emphasis: `backend`
 - Live score: `100`
-- Active count: `590`
+- Active count: `646`
 - Warning count: `0`
 
 69 routes, 46 tests, and persisted governance stores keep the API lane active.
@@ -105,9 +105,9 @@ Files:
 Artifacts:
 - `src/advanced_multimodal_ai/benchmarks.py` · pass · 819 bytes · updated 2026-07-03T16:21:06.066556+00:00
 - `src/advanced_multimodal_ai/service.py` · pass · 74961 bytes · updated 2026-07-03T18:26:19.131453+00:00
-- `scripts/export_benchmark_surfaces.py` · pass · 4045 bytes · updated 2026-07-03T16:47:03.511647+00:00
-- `proof/benchmark-surfaces.json` · pass · 3980 bytes · updated 2026-07-03T18:27:12.780013+00:00
-- `proof/benchmark-surfaces.md` · pass · 2843 bytes · updated 2026-07-03T18:27:12.780168+00:00
+- `scripts/export_benchmark_surfaces.py` · pass · 4085 bytes · updated 2026-07-03T18:46:54.702734+00:00
+- `proof/benchmark-surfaces.json` · pass · 3976 bytes · updated 2026-07-03T18:47:22.209695+00:00
+- `proof/benchmark-surfaces.md` · pass · 2843 bytes · updated 2026-07-03T18:47:22.209893+00:00
 
 Suggested actions:
 - Keep the benchmark tied to real persisted lanes, not stand-alone timers.
@@ -156,7 +156,7 @@ Files:
 - `sdk/typescript/package.json`
 
 Artifacts:
-- `openapi/openapi.json` · pass · 127993 bytes · updated 2026-07-03T18:27:06.797543+00:00
+- `openapi/openapi.json` · pass · 127993 bytes · updated 2026-07-03T18:47:17.921101+00:00
 - `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py` · pass · 15753 bytes · updated 2026-07-03T18:27:08.619488+00:00
 - `sdk/typescript/src/generated-openapi.ts` · pass · 19233 bytes · updated 2026-07-03T18:27:08.619073+00:00
 - `sdk/typescript/package.json` · pass · 613 bytes · updated 2026-07-03T07:03:48.596897+00:00
@@ -193,20 +193,20 @@ Files:
 - `scripts/export_research_surfaces.py`
 
 Artifacts:
-- `proof/runtime-proof.json` · pass · 3769 bytes · updated 2026-07-03T17:32:56.661111+00:00
-- `proof/readiness-report.json` · pass · 2784 bytes · updated 2026-07-03T17:30:10.588031+00:00
-- `proof/example-bundle.json` · pass · 2600 bytes · updated 2026-07-03T17:30:47.671905+00:00
-- `proof/benchmark-surfaces.json` · pass · 3980 bytes · updated 2026-07-03T18:27:12.780013+00:00
-- `proof/cymatic-surface.json` · pass · 12222 bytes · updated 2026-07-03T18:27:15.033190+00:00
-- `proof/research-surfaces.json` · pass · 29922 bytes · updated 2026-07-03T18:27:10.514918+00:00
-- `proof/execution-journal.json` · pass · 19702 bytes · updated 2026-07-03T17:31:17.468737+00:00
-- `scripts/build_runtime_proof_bundle.py` · pass · 3258 bytes · updated 2026-07-03T08:01:25.111055+00:00
-- `scripts/export_benchmark_surfaces.py` · pass · 4045 bytes · updated 2026-07-03T16:47:03.511647+00:00
-- `scripts/export_cymatic_surface.py` · pass · 5167 bytes · updated 2026-07-03T18:26:19.129290+00:00
-- `scripts/export_execution_journal.py` · pass · 3170 bytes · updated 2026-07-03T08:01:44.421366+00:00
-- `scripts/export_readiness_report.py` · pass · 2849 bytes · updated 2026-07-03T08:01:24.963842+00:00
-- `scripts/export_example_bundle.py` · pass · 18403 bytes · updated 2026-07-03T08:09:50.090499+00:00
-- `scripts/export_research_surfaces.py` · pass · 6323 bytes · updated 2026-07-03T08:01:25.400015+00:00
+- `proof/runtime-proof.json` · pass · 4004 bytes · updated 2026-07-03T18:27:21.875590+00:00
+- `proof/readiness-report.json` · pass · 2785 bytes · updated 2026-07-03T18:27:18.025224+00:00
+- `proof/example-bundle.json` · pass · 2598 bytes · updated 2026-07-03T18:27:20.174650+00:00
+- `proof/benchmark-surfaces.json` · pass · 3976 bytes · updated 2026-07-03T18:47:22.209695+00:00
+- `proof/cymatic-surface.json` · pass · 12222 bytes · updated 2026-07-03T18:47:24.860806+00:00
+- `proof/research-surfaces.json` · pass · 29916 bytes · updated 2026-07-03T18:47:19.610327+00:00
+- `proof/execution-journal.json` · pass · 20517 bytes · updated 2026-07-03T18:27:23.425764+00:00
+- `scripts/build_runtime_proof_bundle.py` · pass · 3260 bytes · updated 2026-07-03T18:46:55.612228+00:00
+- `scripts/export_benchmark_surfaces.py` · pass · 4085 bytes · updated 2026-07-03T18:46:54.702734+00:00
+- `scripts/export_cymatic_surface.py` · pass · 5169 bytes · updated 2026-07-03T18:46:54.415961+00:00
+- `scripts/export_execution_journal.py` · pass · 3172 bytes · updated 2026-07-03T18:46:55.757890+00:00
+- `scripts/export_readiness_report.py` · pass · 2851 bytes · updated 2026-07-03T18:46:54.982749+00:00
+- `scripts/export_example_bundle.py` · pass · 18405 bytes · updated 2026-07-03T18:46:54.561862+00:00
+- `scripts/export_research_surfaces.py` · pass · 6325 bytes · updated 2026-07-03T18:46:55.908200+00:00
 
 Suggested actions:
 - Keep exports close to CI and local verification.
@@ -218,10 +218,10 @@ Suggested actions:
 - Lane id: `execution_history`
 - Emphasis: `evidence`
 - Live score: `100`
-- Active count: `53`
+- Active count: `64`
 - Warning count: `0`
 
-53 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.
+64 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.
 
 Files:
 - `src/advanced_multimodal_ai/execution_journal.py`
@@ -232,8 +232,8 @@ Files:
 Artifacts:
 - `src/advanced_multimodal_ai/execution_journal.py` · pass · 3025 bytes · updated 2026-07-03T07:57:44.389341+00:00
 - `src/advanced_multimodal_ai/execution_journal_store.py` · pass · 5238 bytes · updated 2026-07-03T08:04:38.170459+00:00
-- `proof/execution-journal.json` · pass · 19702 bytes · updated 2026-07-03T17:31:17.468737+00:00
-- `proof/execution-journal.md` · pass · 7732 bytes · updated 2026-07-03T17:31:17.468991+00:00
+- `proof/execution-journal.json` · pass · 20517 bytes · updated 2026-07-03T18:27:23.425764+00:00
+- `proof/execution-journal.md` · pass · 8044 bytes · updated 2026-07-03T18:27:23.426016+00:00
 
 Suggested actions:
 - Let export and verification lanes keep writing their own receipts.

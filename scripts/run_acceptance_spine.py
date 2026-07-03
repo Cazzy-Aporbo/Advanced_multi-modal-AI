@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pyarrow as pa
 import pyarrow.parquet as pq
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"

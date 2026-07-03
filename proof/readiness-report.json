@@ -1,5 +1,5 @@
 {
-  "report_id": "49b1f17d-8937-4a17-9954-aef918c164bc",
+  "report_id": "c8061092-f27c-4ccf-b81a-34aaeedbe064",
   "posture": "review_ready",
   "route_count": 69,
   "test_count": 46,
@@ -13,8 +13,8 @@
     "http_ndjson",
     "web_html"
   ],
-  "resolved_recipe_count": 65,
-  "compiled_recipe_count": 65,
+  "resolved_recipe_count": 78,
+  "compiled_recipe_count": 78,
   "checks": [
     {
       "name": "contract_surface",
@@ -39,27 +39,27 @@
     {
       "name": "connector_evidence",
       "state": "pass",
-      "detail": "293 persisted connector runs are recorded."
+      "detail": "325 persisted connector runs are recorded."
     },
     {
       "name": "recipe_resolution",
       "state": "pass",
-      "detail": "65 of 65 compiled recipes have fully resolved source evidence."
+      "detail": "78 of 78 compiled recipes have fully resolved source evidence."
     },
     {
       "name": "governance_evidence",
       "state": "pass",
-      "detail": "drift baselines=8, ontology snapshots=102, pipeline runs=228"
+      "detail": "drift baselines=8, ontology snapshots=107, pipeline runs=252"
     },
     {
       "name": "stewardship_surface",
       "state": "pass",
-      "detail": "lifecycle policies=21, change controls=21, supply snapshots=21"
+      "detail": "lifecycle policies=23, change controls=23, supply snapshots=23"
     },
     {
       "name": "execution_history",
       "state": "pass",
-      "detail": "54 persisted export or verification runs are recorded."
+      "detail": "65 persisted export or verification runs are recorded."
     }
   ],
   "blockers": [],
@@ -85,5 +85,5 @@
       "detail": "Lifecycle, change-control, and supply-chain surfaces document review, retention, and removal intent, but external schedulers still carry out the physical delete or archive operation."
     }
   ],
-  "created_at": "2026-07-03T18:27:18.020957+00:00"
+  "created_at": "2026-07-03T18:47:27.896996+00:00"
 }

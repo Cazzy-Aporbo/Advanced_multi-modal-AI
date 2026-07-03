@@ -1,16 +1,16 @@
 # Reference Benchmark Surface
 
-- Benchmark id: `de5f65b7-90da-490f-9414-3838c7d3dd29`
+- Benchmark id: `9d9e14b6-6433-4416-a0c1-9fb73195f55c`
 - Label: `public-reference-lane`
 - Model id: `adaptive_transformer`
 - Route count: `69`
 - Verification artifacts: `9`
 - Stage count: `8`
 - Row count: `4`
-- Pipeline run id: `d6776f0f-b80d-494f-a242-1930e11d1b15`
+- Pipeline run id: `605a75b1-02ac-4b57-b26e-6075df6211bf`
 - Replay frames: `8`
 - Replay verified: `True`
-- Total duration: `603.03` ms
+- Total duration: `693.26` ms
 
 ## Notes
 
@@ -22,30 +22,30 @@
 ### Connector-backed Parquet ingest
 - Stage id: `connector_ingest`
 - Status: `pass`
-- Duration: `346.39` ms
+- Duration: `416.74` ms
 - Record count: `4`
-- Artifacts: 46cad39f-c7c6-464c-ac3a-b6bcb1693cb9, d6776f0f-b80d-494f-a242-1930e11d1b15
+- Artifacts: 35a825aa-5a6f-40e9-9a7d-b3748a54f19f, 605a75b1-02ac-4b57-b26e-6075df6211bf
 Notes:
-  - pyarrow.parquet pulled 4 rows at 153.0 rows/s.
+  - pyarrow.parquet pulled 4 rows at 143.5 rows/s.
   - Zero-copy candidate: yes.
 
 ### Pipeline replay ledger
 - Stage id: `pipeline_replay`
 - Status: `pass`
-- Duration: `84.20` ms
+- Duration: `91.47` ms
 - Record count: `8`
-- Artifacts: d6776f0f-b80d-494f-a242-1930e11d1b15, replay_frames
+- Artifacts: 605a75b1-02ac-4b57-b26e-6075df6211bf, replay_frames
 Notes:
   - Replay frames sealed: 8.
   - Frame parity: verified.
-  - Replay digest head: 57080e134ce3c4b5…
-  - Recorded head: 6e234734f587683d…
-  - Replayed head: 6e234734f587683d…
+  - Replay digest head: 245c0b7848cb33d1…
+  - Recorded head: 7750b98918c1776c…
+  - Replayed head: 7750b98918c1776c…
 
 ### Cross-modal profile lane
 - Stage id: `profile_lane`
 - Status: `pass`
-- Duration: `15.60` ms
+- Duration: `16.14` ms
 - Record count: `2`
 - Artifacts: /v1/data/profile
 Notes:
@@ -56,9 +56,9 @@ Notes:
 ### Payload provenance receipt
 - Stage id: `provenance_lane`
 - Status: `pass`
-- Duration: `0.23` ms
+- Duration: `0.30` ms
 - Record count: `2`
-- Artifacts: 8d530fb4-e02f-485f-9a3e-78e8968146d8
+- Artifacts: 9f70bd24-3d10-4fb4-affe-f86a8819cc84
 Notes:
   - Payload digest: f0f6dfabcbdc870c…
   - Metadata digest: 44136fa355b3678a…
@@ -66,20 +66,20 @@ Notes:
 ### Persisted concurrent batch lane
 - Stage id: `batch_job`
 - Status: `pass`
-- Duration: `77.11` ms
+- Duration: `69.35` ms
 - Record count: `4`
-- Artifacts: 34b79e2a-360d-4e72-ad1f-8d821275d98c
+- Artifacts: 59e53578-577c-4ccf-8bf7-defd9231d91a
 Notes:
   - Workers used: 4 of 4 requested.
-  - Median latency: 56.61 ms.
+  - Median latency: 61.58 ms.
   - Failed items: 0.
 
 ### Recipe registry handoff
 - Stage id: `recipe_compile`
 - Status: `pass`
-- Duration: `1.40` ms
+- Duration: `1.58` ms
 - Record count: `1`
-- Artifacts: 4251e043-9c03-41ea-a147-adfd6d9c8691
+- Artifacts: 3ba795ef-46f0-416e-b676-b0100c9ac90a
 Notes:
   - Distributed engine: local.
   - Resolved sources: 1.
@@ -88,17 +88,17 @@ Notes:
 ### Deterministic latency check
 - Stage id: `smoke_benchmark`
 - Status: `pass`
-- Duration: `74.29` ms
+- Duration: `92.02` ms
 - Record count: `6`
-- Artifacts: 509161d7-dc7b-4391-9ff8-3dbad654062a
+- Artifacts: d3b59f2a-8a51-40d5-a6ea-3d5b5f41dfa4
 Notes:
-  - Median latency: 12.29 ms.
-  - P95 latency: 12.95 ms.
+  - Median latency: 15.20 ms.
+  - P95 latency: 15.42 ms.
 
 ### Runtime proof surface snapshot
 - Stage id: `proof_bundle`
 - Status: `pass`
-- Duration: `3.64` ms
+- Duration: `5.50` ms
 - Record count: `9`
 - Artifacts: proof/runtime-proof.json
 Notes:

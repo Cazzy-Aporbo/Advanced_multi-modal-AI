@@ -2,15 +2,15 @@
 
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
-- Readiness posture: `needs_buildout`
+- Readiness posture: `review_ready`
 - Route count: `69`
 - Tests: `46`
 - Connector kinds: `7`
 - Replay verified: `True`
-- Baseline harmony: `0.94`
-- Tension index: `0.38`
+- Baseline harmony: `0.95`
+- Tension index: `0.37`
 - Active files counted: `53`
-- Total recorded runs: `52`
+- Total recorded runs: `63`
 
 ## Harmonic bands
 
@@ -18,7 +18,7 @@
   - Routes and connector kinds show how much ground the current runtime can actually hold.
 - **repeatable replay** · intensity `1.00` · drift `0.08`
   - Replay parity matters because a strong claim is easier to revisit than to defend from memory.
-- **review pressure** · intensity `0.70` · drift `0.38`
+- **review pressure** · intensity `0.71` · drift `0.37`
   - Open questions and warnings are treated as part of the operating picture rather than hidden beneath a score.
 - **active movement** · intensity `1.00` · drift `0.00`
   - The engine feels more alive when scripts, exports, and verification runs continue to leave visible traces.
@@ -28,8 +28,8 @@
 ### Ingest and shape
 
 - Stage id: `connector_ingest`
-- Harmony: `0.71`
-- Friction: `0.34`
+- Harmony: `0.70`
+- Friction: `0.36`
 
 Human read:
 Different file shapes are named and typed before they turn into a convincing multimodal story.
@@ -54,7 +54,7 @@ Files:
 - `src/advanced_multimodal_ai/pipelines.py`
 
 Metrics:
-- **duration**: `394.42` ms
+- **duration**: `420.42` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **connector kinds**: `7.0` lanes
@@ -88,7 +88,7 @@ Files:
 - `src/advanced_multimodal_ai/alignment.py`
 
 Metrics:
-- **duration**: `14.93` ms
+- **duration**: `16.92` ms
 - **records**: `2.0` records
 - **artifacts**: `1.0` items
 
@@ -121,7 +121,7 @@ Files:
 - `src/advanced_multimodal_ai/pipeline_store.py`
 
 Metrics:
-- **duration**: `73.75` ms
+- **duration**: `77.91` ms
 - **records**: `6.0` records
 - **artifacts**: `2.0` items
 
@@ -130,7 +130,7 @@ Metrics:
 
 - Stage id: `batch_job`
 - Harmony: `0.84`
-- Friction: `0.13`
+- Friction: `0.14`
 
 Human read:
 Longer work belongs in a job lane with visible status, not in a tab that looks busy and then forgets everything.
@@ -154,7 +154,7 @@ Files:
 - `src/advanced_multimodal_ai/api.py`
 
 Metrics:
-- **duration**: `54.95` ms
+- **duration**: `65.72` ms
 - **records**: `3.0` records
 - **artifacts**: `1.0` items
 
@@ -188,7 +188,7 @@ Files:
 - `src/advanced_multimodal_ai/governance_ledger.py`
 
 Metrics:
-- **duration**: `3.13` ms
+- **duration**: `3.7` ms
 - **records**: `9.0` records
 - **artifacts**: `1.0` items
 - **open questions**: `5.0` questions
@@ -206,7 +206,7 @@ Consequence:
 The cost is not only technical. Repetition flattens taste, reduces surprise, and makes a catalogue feel smaller than it is.
 
 Continuation:
-292 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+324 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 
 ### For operators and review teams

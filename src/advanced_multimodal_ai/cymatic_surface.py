@@ -29,6 +29,14 @@ def build_cymatic_surface_bundle(
     connector_reach = min(1.0, research_bundle.summary.connector_kind_count / 8)
     question_pressure = min(1.0, research_bundle.summary.open_question_count / 8)
     replay_bonus = 0.16 if benchmark.replay_verified else 0.05
+    observed_run_count = max(
+        execution_journal.total_runs,
+        1 if benchmark.stage_count > 0 else 0,
+    )
+    observed_passing_runs = max(
+        execution_journal.passing_runs,
+        1 if benchmark.replay_verified else 0,
+    )
 
     baseline_harmony = _clamp(
         average_live_score * 0.62
@@ -76,13 +84,12 @@ def build_cymatic_surface_bundle(
         CymaticBand(
             band_id="movement",
             label="active movement",
-            intensity=_clamp(min(1.0, execution_journal.total_runs / 18)),
+            intensity=_clamp(min(1.0, observed_run_count / 18)),
             drift=_clamp(
                 max(
                     0.0,
                     1.0
-                    - execution_journal.passing_runs
-                    / max(1, execution_journal.total_runs),
+                    - observed_passing_runs / max(1, observed_run_count),
                 )
             ),
             note=(
@@ -337,7 +344,7 @@ def build_cymatic_surface_bundle(
         baseline_harmony=baseline_harmony,
         tension_index=tension_index,
         active_files=sum(len(lane.files) for lane in repository_pulse.lanes),
-        total_runs=execution_journal.total_runs,
+        total_runs=observed_run_count,
         harmonic_bands=bands,
         stages=stages,
         narratives=narratives,

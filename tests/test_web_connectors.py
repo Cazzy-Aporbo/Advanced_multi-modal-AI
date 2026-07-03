@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
 
 import advanced_multimodal_ai.connectors as connector_module
 from advanced_multimodal_ai.api import create_app

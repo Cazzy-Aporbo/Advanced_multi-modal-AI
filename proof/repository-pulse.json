@@ -149,7 +149,7 @@
       "emphasis": "backend",
       "live_score": 100,
       "summary": "69 routes, 46 tests, and persisted governance stores keep the API lane active.",
-      "active_count": 590,
+      "active_count": 646,
       "warning_count": 0,
       "files": [
         "src/advanced_multimodal_ai/api.py",
@@ -268,8 +268,8 @@
           "label": "export_benchmark_surfaces.py",
           "path": "scripts/export_benchmark_surfaces.py",
           "exists": true,
-          "bytes": 4045,
-          "modified_at": "2026-07-03T16:47:03.511647+00:00",
+          "bytes": 4085,
+          "modified_at": "2026-07-03T18:46:54.702734+00:00",
           "status": "pass",
           "note": "Benchmark lane source or generated artifact."
         },
@@ -277,8 +277,8 @@
           "label": "benchmark-surfaces.json",
           "path": "proof/benchmark-surfaces.json",
           "exists": true,
-          "bytes": 3980,
-          "modified_at": "2026-07-03T18:27:12.780013+00:00",
+          "bytes": 3976,
+          "modified_at": "2026-07-03T18:47:22.209695+00:00",
           "status": "pass",
           "note": "Benchmark lane source or generated artifact."
         },
@@ -287,7 +287,7 @@
           "path": "proof/benchmark-surfaces.md",
           "exists": true,
           "bytes": 2843,
-          "modified_at": "2026-07-03T18:27:12.780168+00:00",
+          "modified_at": "2026-07-03T18:47:22.209893+00:00",
           "status": "pass",
           "note": "Benchmark lane source or generated artifact."
         }
@@ -364,7 +364,7 @@
           "path": "openapi/openapi.json",
           "exists": true,
           "bytes": 127993,
-          "modified_at": "2026-07-03T18:27:06.797543+00:00",
+          "modified_at": "2026-07-03T18:47:17.921101+00:00",
           "status": "pass",
           "note": "Client or contract artifact."
         },
@@ -430,8 +430,8 @@
           "label": "runtime-proof.json",
           "path": "proof/runtime-proof.json",
           "exists": true,
-          "bytes": 3769,
-          "modified_at": "2026-07-03T17:32:56.661111+00:00",
+          "bytes": 4004,
+          "modified_at": "2026-07-03T18:27:21.875590+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -439,8 +439,8 @@
           "label": "readiness-report.json",
           "path": "proof/readiness-report.json",
           "exists": true,
-          "bytes": 2784,
-          "modified_at": "2026-07-03T17:30:10.588031+00:00",
+          "bytes": 2785,
+          "modified_at": "2026-07-03T18:27:18.025224+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -448,8 +448,8 @@
           "label": "example-bundle.json",
           "path": "proof/example-bundle.json",
           "exists": true,
-          "bytes": 2600,
-          "modified_at": "2026-07-03T17:30:47.671905+00:00",
+          "bytes": 2598,
+          "modified_at": "2026-07-03T18:27:20.174650+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -457,8 +457,8 @@
           "label": "benchmark-surfaces.json",
           "path": "proof/benchmark-surfaces.json",
           "exists": true,
-          "bytes": 3980,
-          "modified_at": "2026-07-03T18:27:12.780013+00:00",
+          "bytes": 3976,
+          "modified_at": "2026-07-03T18:47:22.209695+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -467,7 +467,7 @@
           "path": "proof/cymatic-surface.json",
           "exists": true,
           "bytes": 12222,
-          "modified_at": "2026-07-03T18:27:15.033190+00:00",
+          "modified_at": "2026-07-03T18:47:24.860806+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -475,8 +475,8 @@
           "label": "research-surfaces.json",
           "path": "proof/research-surfaces.json",
           "exists": true,
-          "bytes": 29922,
-          "modified_at": "2026-07-03T18:27:10.514918+00:00",
+          "bytes": 29916,
+          "modified_at": "2026-07-03T18:47:19.610327+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -484,8 +484,8 @@
           "label": "execution-journal.json",
           "path": "proof/execution-journal.json",
           "exists": true,
-          "bytes": 19702,
-          "modified_at": "2026-07-03T17:31:17.468737+00:00",
+          "bytes": 20517,
+          "modified_at": "2026-07-03T18:27:23.425764+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -493,8 +493,8 @@
           "label": "build_runtime_proof_bundle.py",
           "path": "scripts/build_runtime_proof_bundle.py",
           "exists": true,
-          "bytes": 3258,
-          "modified_at": "2026-07-03T08:01:25.111055+00:00",
+          "bytes": 3260,
+          "modified_at": "2026-07-03T18:46:55.612228+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -502,8 +502,8 @@
           "label": "export_benchmark_surfaces.py",
           "path": "scripts/export_benchmark_surfaces.py",
           "exists": true,
-          "bytes": 4045,
-          "modified_at": "2026-07-03T16:47:03.511647+00:00",
+          "bytes": 4085,
+          "modified_at": "2026-07-03T18:46:54.702734+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -511,8 +511,8 @@
           "label": "export_cymatic_surface.py",
           "path": "scripts/export_cymatic_surface.py",
           "exists": true,
-          "bytes": 5167,
-          "modified_at": "2026-07-03T18:26:19.129290+00:00",
+          "bytes": 5169,
+          "modified_at": "2026-07-03T18:46:54.415961+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -520,8 +520,8 @@
           "label": "export_execution_journal.py",
           "path": "scripts/export_execution_journal.py",
           "exists": true,
-          "bytes": 3170,
-          "modified_at": "2026-07-03T08:01:44.421366+00:00",
+          "bytes": 3172,
+          "modified_at": "2026-07-03T18:46:55.757890+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -529,8 +529,8 @@
           "label": "export_readiness_report.py",
           "path": "scripts/export_readiness_report.py",
           "exists": true,
-          "bytes": 2849,
-          "modified_at": "2026-07-03T08:01:24.963842+00:00",
+          "bytes": 2851,
+          "modified_at": "2026-07-03T18:46:54.982749+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -538,8 +538,8 @@
           "label": "export_example_bundle.py",
           "path": "scripts/export_example_bundle.py",
           "exists": true,
-          "bytes": 18403,
-          "modified_at": "2026-07-03T08:09:50.090499+00:00",
+          "bytes": 18405,
+          "modified_at": "2026-07-03T18:46:54.561862+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -547,8 +547,8 @@
           "label": "export_research_surfaces.py",
           "path": "scripts/export_research_surfaces.py",
           "exists": true,
-          "bytes": 6323,
-          "modified_at": "2026-07-03T08:01:25.400015+00:00",
+          "bytes": 6325,
+          "modified_at": "2026-07-03T18:46:55.908200+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         }
@@ -563,8 +563,8 @@
       "label": "Execution history",
       "emphasis": "evidence",
       "live_score": 100,
-      "summary": "53 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.",
-      "active_count": 53,
+      "summary": "64 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.",
+      "active_count": 64,
       "warning_count": 0,
       "files": [
         "src/advanced_multimodal_ai/execution_journal.py",
@@ -595,8 +595,8 @@
           "label": "execution-journal.json",
           "path": "proof/execution-journal.json",
           "exists": true,
-          "bytes": 19702,
-          "modified_at": "2026-07-03T17:31:17.468737+00:00",
+          "bytes": 20517,
+          "modified_at": "2026-07-03T18:27:23.425764+00:00",
           "status": "pass",
           "note": "Execution-memory file or export."
         },
@@ -604,8 +604,8 @@
           "label": "execution-journal.md",
           "path": "proof/execution-journal.md",
           "exists": true,
-          "bytes": 7732,
-          "modified_at": "2026-07-03T17:31:17.468991+00:00",
+          "bytes": 8044,
+          "modified_at": "2026-07-03T18:27:23.426016+00:00",
           "status": "pass",
           "note": "Execution-memory file or export."
         }
@@ -673,5 +673,5 @@
       ]
     }
   ],
-  "generated_at": "2026-07-03T18:27:16.558507+00:00"
+  "generated_at": "2026-07-03T18:47:26.440239+00:00"
 }

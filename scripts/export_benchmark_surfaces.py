@@ -4,7 +4,7 @@ import json
 import sys
 from pathlib import Path
 
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
@@ -97,6 +97,7 @@ def _render_markdown(payload: dict[str, object]) -> str:
         )
 
     notes = "\n".join(f"- {item}" for item in payload.get("notes", [])) or "- none"
+    rendered_stages = "\n\n".join(stage_lines)
 
     return f"""# Reference Benchmark Surface
 
@@ -118,7 +119,7 @@ def _render_markdown(payload: dict[str, object]) -> str:
 
 ## Stages
 
-{'\n\n'.join(stage_lines)}
+{rendered_stages}
 """
 
 

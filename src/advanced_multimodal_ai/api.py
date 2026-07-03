@@ -19,6 +19,8 @@ from .contracts import (
     DriftBaselineRequest,
     InferenceRequest,
     LiabilitySurfacingRequest,
+    MusicFeatureExtractionRequest,
+    MusicTrackManifestRequest,
     OntologyIngestRequest,
     PipelineIngestRequest,
     PopulationDriftRequest,
@@ -116,6 +118,67 @@ def create_app() -> FastAPI:
     @app.get("/v1/research/cymatic-surface")
     def research_cymatic_surface() -> CymaticSurfaceBundle:
         return service.cymatic_surface_bundle(route_count=_runtime_route_count(app))
+
+    @app.get("/v1/music/overview")
+    def music_overview(limit: int = 6):
+        return service.music_overview(limit=limit)
+
+    @app.get("/v1/music/snapshot")
+    def music_snapshot(limit: int = 12):
+        return service.music_snapshot(limit=limit)
+
+    @app.post("/v1/music/manifests")
+    def register_music_manifest(request: MusicTrackManifestRequest):
+        return service.register_music_manifest(request)
+
+    @app.get("/v1/music/manifests")
+    def list_music_manifests(limit: int = 50):
+        return service.list_music_manifests(limit=limit)
+
+    @app.get("/v1/music/manifests/{manifest_id}")
+    def get_music_manifest(manifest_id: str):
+        record = service.get_music_manifest(manifest_id)
+        if record is None:
+            raise HTTPException(status_code=404, detail="music manifest not found")
+        return record
+
+    @app.post("/v1/music/features/extract")
+    def extract_music_features(request: MusicFeatureExtractionRequest):
+        try:
+            return service.extract_music_features(request)
+        except ValueError as error:
+            raise HTTPException(status_code=400, detail=str(error)) from error
+
+    @app.get("/v1/music/features/runs")
+    def list_music_feature_runs(limit: int = 50):
+        return service.list_music_feature_runs(limit=limit)
+
+    @app.get("/v1/music/features/runs/{run_id}")
+    def get_music_feature_run(run_id: str):
+        record = service.get_music_feature_run(run_id)
+        if record is None:
+            raise HTTPException(status_code=404, detail="music feature run not found")
+        return record
+
+    @app.get("/v1/music/features/query")
+    def query_music_feature_rows(limit: int = 32, manifest_id: str = "", run_id: str = ""):
+        return service.music_feature_slice(limit=limit, manifest_id=manifest_id, run_id=run_id)
+
+    @app.get("/v1/music/segments")
+    def list_music_segments(limit: int = 48, manifest_id: str = "", run_id: str = ""):
+        return service.list_music_segments(limit=limit, manifest_id=manifest_id, run_id=run_id)
+
+    @app.get("/v1/music/alignment")
+    def music_alignment(run_id: str = ""):
+        return service.music_alignment_preview(run_id=run_id)
+
+    @app.get("/v1/music/drift")
+    def music_drift(limit: int = 12):
+        return service.music_drift_report(limit=limit)
+
+    @app.get("/v1/music/proof/change-report")
+    def music_change_proof(limit: int = 12):
+        return service.music_change_proof(limit=limit)
 
     @app.get("/v1/repository/pulse")
     def repository_pulse():

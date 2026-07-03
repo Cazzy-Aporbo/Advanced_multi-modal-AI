@@ -101,6 +101,37 @@
     return null;
   }
 
+  async function loadMusicOverview() {
+    const candidates = ["proof/music-observatory.json", "/v1/music/overview"];
+    for (const url of candidates) {
+      try {
+        const response = await fetch(url, { cache: "no-store" });
+        if (response.ok) {
+          const payload = await response.json();
+          return payload.overview || payload;
+        }
+      } catch (_error) {
+        // keep trying the next surface
+      }
+    }
+    return null;
+  }
+
+  async function loadMusicSnapshot() {
+    const candidates = ["proof/music-observatory.json", "/v1/music/snapshot"];
+    for (const url of candidates) {
+      try {
+        const response = await fetch(url, { cache: "no-store" });
+        if (response.ok) {
+          return await response.json();
+        }
+      } catch (_error) {
+        // keep trying the next surface
+      }
+    }
+    return null;
+  }
+
   function compactNumber(value) {
     return new Intl.NumberFormat(undefined, { notation: "compact" }).format(value);
   }
@@ -118,6 +149,7 @@
       frontend_atlas: "index.html",
       runtime_backend: "advanced-technical-portfolio.html",
       benchmark_lane: "benchmark-observatory.html",
+      music_warehouse: "music-observatory.html",
       compiled_core: "technical-portfolio.html",
       generated_clients: "technical-portfolio.html",
       evidence_exports: "field-notes.html",
@@ -240,6 +272,8 @@
     loadExecutionJournal,
     loadBenchmarkSurface,
     loadCymaticSurface,
+    loadMusicOverview,
+    loadMusicSnapshot,
     hydrateSignalRail,
   };
 

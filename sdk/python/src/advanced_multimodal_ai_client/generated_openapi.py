@@ -72,6 +72,98 @@ class GeneratedOpenAPIClient:
         path = f"/v1/research/cymatic-surface"
         return self._request("GET", path)
 
+    def musicOverviewV1MusicOverviewGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """Music Overview"""
+        path = f"/v1/music/overview"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def musicSnapshotV1MusicSnapshotGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """Music Snapshot"""
+        path = f"/v1/music/snapshot"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def listMusicManifestsV1MusicManifestsGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """List Music Manifests"""
+        path = f"/v1/music/manifests"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def registerMusicManifestV1MusicManifestsPost(self, payload: Any) -> Any:
+        """Register Music Manifest"""
+        path = f"/v1/music/manifests"
+        return self._request("POST", path, payload=payload)
+
+    def getMusicManifestV1MusicManifestsManifestIdGet(self, manifest_id: str | int) -> Any:
+        """Get Music Manifest"""
+        path = f"/v1/music/manifests/{manifest_id}"
+        return self._request("GET", path)
+
+    def extractMusicFeaturesV1MusicFeaturesExtractPost(self, payload: Any) -> Any:
+        """Extract Music Features"""
+        path = f"/v1/music/features/extract"
+        return self._request("POST", path, payload=payload)
+
+    def listMusicFeatureRunsV1MusicFeaturesRunsGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """List Music Feature Runs"""
+        path = f"/v1/music/features/runs"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def getMusicFeatureRunV1MusicFeaturesRunsRunIdGet(self, run_id: str | int) -> Any:
+        """Get Music Feature Run"""
+        path = f"/v1/music/features/runs/{run_id}"
+        return self._request("GET", path)
+
+    def queryMusicFeatureRowsV1MusicFeaturesQueryGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """Query Music Feature Rows"""
+        path = f"/v1/music/features/query"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def listMusicSegmentsV1MusicSegmentsGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """List Music Segments"""
+        path = f"/v1/music/segments"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def musicAlignmentV1MusicAlignmentGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """Music Alignment"""
+        path = f"/v1/music/alignment"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def musicDriftV1MusicDriftGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """Music Drift"""
+        path = f"/v1/music/drift"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def musicChangeProofV1MusicProofChangeReportGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """Music Change Proof"""
+        path = f"/v1/music/proof/change-report"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
     def repositoryPulseV1RepositoryPulseGet(self) -> Any:
         """Repository Pulse"""
         path = f"/v1/repository/pulse"

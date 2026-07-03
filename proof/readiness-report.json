@@ -1,9 +1,9 @@
 {
-  "report_id": "c8061092-f27c-4ccf-b81a-34aaeedbe064",
+  "report_id": "d8eb9b0e-9061-418d-8486-7b83843fe3eb",
   "posture": "review_ready",
-  "route_count": 69,
-  "test_count": 46,
-  "verification_artifact_count": 9,
+  "route_count": 82,
+  "test_count": 48,
+  "verification_artifact_count": 10,
   "connector_kinds": [
     "local_csv",
     "local_jsonl",
@@ -13,23 +13,23 @@
     "http_ndjson",
     "web_html"
   ],
-  "resolved_recipe_count": 78,
-  "compiled_recipe_count": 78,
+  "resolved_recipe_count": 102,
+  "compiled_recipe_count": 102,
   "checks": [
     {
       "name": "contract_surface",
       "state": "pass",
-      "detail": "69 public runtime surfaces are exported."
+      "detail": "82 public runtime surfaces are exported."
     },
     {
       "name": "verification_depth",
       "state": "pass",
-      "detail": "46 tests are currently counted in the proof bundle."
+      "detail": "48 tests are currently counted in the proof bundle."
     },
     {
       "name": "artifact_evidence",
       "state": "pass",
-      "detail": "9 of 9 declared verification artifacts are present."
+      "detail": "10 of 10 declared verification artifacts are present."
     },
     {
       "name": "connector_coverage",
@@ -39,27 +39,27 @@
     {
       "name": "connector_evidence",
       "state": "pass",
-      "detail": "325 persisted connector runs are recorded."
+      "detail": "385 persisted connector runs are recorded."
     },
     {
       "name": "recipe_resolution",
       "state": "pass",
-      "detail": "78 of 78 compiled recipes have fully resolved source evidence."
+      "detail": "102 of 102 compiled recipes have fully resolved source evidence."
     },
     {
       "name": "governance_evidence",
       "state": "pass",
-      "detail": "drift baselines=8, ontology snapshots=107, pipeline runs=252"
+      "detail": "drift baselines=8, ontology snapshots=116, pipeline runs=295"
     },
     {
       "name": "stewardship_surface",
       "state": "pass",
-      "detail": "lifecycle policies=23, change controls=23, supply snapshots=23"
+      "detail": "lifecycle policies=27, change controls=27, supply snapshots=27"
     },
     {
       "name": "execution_history",
       "state": "pass",
-      "detail": "65 persisted export or verification runs are recorded."
+      "detail": "91 persisted export or verification runs are recorded."
     }
   ],
   "blockers": [],
@@ -85,5 +85,5 @@
       "detail": "Lifecycle, change-control, and supply-chain surfaces document review, retention, and removal intent, but external schedulers still carry out the physical delete or archive operation."
     }
   ],
-  "created_at": "2026-07-03T18:47:27.896996+00:00"
+  "created_at": "2026-07-03T20:14:00.746214+00:00"
 }

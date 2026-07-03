@@ -49,6 +49,9 @@ jobs:
       - name: Export example bundle
         run: python scripts/export_example_bundle.py
 
+      - name: Export music observatory
+        run: python scripts/export_music_observatory.py
+
       - name: Build runtime proof bundle
         run: python scripts/build_runtime_proof_bundle.py
 

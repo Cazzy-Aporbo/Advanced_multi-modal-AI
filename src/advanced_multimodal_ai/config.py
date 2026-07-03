@@ -30,6 +30,8 @@ class Settings(BaseSettings):
     recipe_db_path: str = ".runtime/amai_recipes.sqlite3"
     stewardship_db_path: str = ".runtime/amai_stewardship.sqlite3"
     execution_journal_db_path: str = ".runtime/amai_execution_journal.sqlite3"
+    music_warehouse_db_path: str = ".runtime/amai_music_warehouse.sqlite3"
+    music_feature_output_dir: str = ".runtime/music-feature-lake"
     repository_theme: str = "signal observatory"
     site_title: str = "Advanced Multi-modal AI"
     default_hidden_dim: int = Field(default=384, ge=64, le=2048)

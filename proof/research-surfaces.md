@@ -3,8 +3,8 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `69`
-- Test count: `46`
+- Route count: `82`
+- Test count: `48`
 - Connector kinds: `7`
 - Models: `4`
 - Runtime-ready models: `0`
@@ -53,6 +53,49 @@ Outputs:
 Proof points:
 - Generated proof exports are read directly by the browser lane.
 - The atlas remains a display surface rather than a silent compute fork.
+
+
+### Music manifest and feature warehouse
+
+- Lane id: `music_warehouse`
+- Layer: `backend`
+
+Hold manifest-only audio intake, stable segment indexing, derived feature extraction, Parquet persistence, and the public music observatory in one reproducible lane.
+
+Why it exists:
+A serious sound lane needs more than visual reactivity. It needs identity, segmentation, feature memory, and a clear record of what was measured.
+
+Directories:
+- `src/advanced_multimodal_ai/music_store.py`
+- `src/advanced_multimodal_ai/music_features.py`
+- `src/advanced_multimodal_ai/music_embeddings.py`
+- `src/advanced_multimodal_ai/music_queries.py`
+- `src/advanced_multimodal_ai/music_truth.py`
+- `scripts/export_music_observatory.py`
+- `music-observatory.html`
+
+Entry surfaces:
+- `/v1/music/manifests`
+- `/v1/music/features/extract`
+- `/v1/music/overview`
+- `/v1/music/features/query`
+- `/v1/music/alignment`
+- `/v1/music/drift`
+- `/v1/music/proof/change-report`
+- `proof/music-observatory.json`
+
+Outputs:
+- manifest records
+- segment-aligned derived feature tables
+- embedding receipts
+- drift indicators
+- change-proof narratives
+- persisted feature run receipts
+- music observatory export
+
+Proof points:
+- The lane stores manifests and derived Parquet output without committing raw media.
+- Feature runs can be reopened through persisted records, Arrow-backed feature slices, and exported proof.
 
 
 ### Runtime API and orchestration spine
@@ -372,10 +415,10 @@ Open questions:
 - Related surfaces: /v1/connectors/register, /v1/connectors/pipeline-ingest, /v1/catalog/register
 - Related files: src/advanced_multimodal_ai/connectors.py, src/advanced_multimodal_ai/catalog.py, src/advanced_multimodal_ai/pipelines.py
 
-312 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+380 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 Evidence:
-- connector runs recorded: 312
+- connector runs recorded: 380
 - connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html
 
 Why it matters:
@@ -392,14 +435,14 @@ Broaden the evidence base with more repeated connector runs against non-trivial 
 - Related surfaces: /v1/stewardship/posture, /v1/drift/check, /v1/ontology/liability
 - Related files: src/advanced_multimodal_ai/stewardship_store.py, src/advanced_multimodal_ai/drift.py, src/advanced_multimodal_ai/liability_surface.py
 
-Lifecycle policies (22), change controls (22), supply snapshots (22), drift baselines (8), and ontology snapshots (105) are persisted in the same backend story.
+Lifecycle policies (27), change controls (27), supply snapshots (27), drift baselines (8), and ontology snapshots (116) are persisted in the same backend story.
 
 Evidence:
-- lifecycle policies: 22
-- change controls: 22
-- supply snapshots: 22
+- lifecycle policies: 27
+- change controls: 27
+- supply snapshots: 27
 - drift baselines: 8
-- ontology snapshots: 105
+- ontology snapshots: 116
 
 Why it matters:
 It is easier to trust a system when retention, movement, and liability have a code path rather than only a meeting note.
@@ -435,13 +478,13 @@ Add stronger benchmark evidence for the research archive so promotion into the r
 - Related surfaces: /v1/proof/bundle, /v1/runtime/attestation, /v1/readiness/report
 - Related files: src/advanced_multimodal_ai/proof.py, src/advanced_multimodal_ai/attestation.py, scripts/export_readiness_report.py
 
-The bundle currently counts 69 routes, 46 tests, and 9 declared artifacts.
+The bundle currently counts 82 routes, 48 tests, and 10 declared artifacts.
 
 Evidence:
-- route count: 69
-- test count: 46
-- verification artifacts: 9
-- pipeline runs stored: 243
+- route count: 82
+- test count: 48
+- verification artifacts: 10
+- pipeline runs stored: 292
 
 Why it matters:
 Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.
@@ -457,10 +500,10 @@ Keep the export surfaces close to CI and extend replay comparisons so proof cove
 - Related surfaces: /v1/execution/journal, /v1/repository/pulse
 - Related files: src/advanced_multimodal_ai/execution_journal.py, src/advanced_multimodal_ai/execution_journal_store.py, scripts/export_execution_journal.py
 
-60 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
+86 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
 
 Evidence:
-- execution journal runs: 60
+- execution journal runs: 86
 - proof/execution-journal.json is exported from the backend journal surface.
 
 Why it matters:
@@ -502,9 +545,9 @@ The current readiness posture is 'review_ready'. The repo now has a steadier run
 
 Evidence:
 - readiness posture: review_ready
-- connector runs: 312
-- pipeline runs: 243
-- compiled recipes: 73
+- connector runs: 380
+- pipeline runs: 292
+- compiled recipes: 100
 
 Why it matters:
 The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.
@@ -537,6 +580,36 @@ It shows how to keep ingestion, schema care, and tensor preparation in one chain
 Watch points:
 - Too many dropped rows usually means the modality mapping is doing more damage than help.
 - A dataset contract should be registered before batch work becomes the default path.
+
+
+### Audio manifests become a warehouse without dragging raw media into git
+
+- Connection id: `music-manifest-to-warehouse`
+
+music_store.py records track identity, rights posture, and source provenance; music_features.py, music_embeddings.py, and music_truth.py then turn that track into segment maps, derived feature tables, receipts, and queryable drift evidence.
+
+Files:
+- `src/advanced_multimodal_ai/music_store.py`
+- `src/advanced_multimodal_ai/music_features.py`
+- `src/advanced_multimodal_ai/music_embeddings.py`
+- `src/advanced_multimodal_ai/music_truth.py`
+- `src/advanced_multimodal_ai/service.py`
+- `scripts/export_music_observatory.py`
+
+API surfaces:
+- `/v1/music/manifests`
+- `/v1/music/features/extract`
+- `/v1/music/overview`
+- `/v1/music/drift`
+- `/v1/music/proof/change-report`
+
+Learning value:
+This is where the repository shows how to keep sound work auditable, segmented, and reusable without pretending every reviewer needs the raw media.
+
+Watch points:
+- A feature table is only useful if its extraction version and source fingerprint stay attached.
+- Genre and language counts become brittle if the manifest lane is treated as optional.
+- Alignment windows need transcript and frame references if one moment is meant to survive across modalities.
 
 
 ### Measurement sits in front of inference instead of apologizing after it

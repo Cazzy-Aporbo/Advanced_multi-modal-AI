@@ -339,6 +339,48 @@ def build_repository_connections() -> List[RepositoryConnection]:
             ],
         ),
         RepositoryConnection(
+            connection_id="music-manifest-to-warehouse",
+            title="Audio manifests become a warehouse without dragging raw media into git",
+            summary=(
+                "music_store.py records track identity, rights posture, and source provenance; "
+                "music_features.py, music_embeddings.py, and music_truth.py then turn that track "
+                "into segment maps, derived feature tables, receipts, and queryable drift evidence."
+            ),
+            files=[
+                "src/advanced_multimodal_ai/music_store.py",
+                "src/advanced_multimodal_ai/music_features.py",
+                "src/advanced_multimodal_ai/music_embeddings.py",
+                "src/advanced_multimodal_ai/music_truth.py",
+                "src/advanced_multimodal_ai/service.py",
+                "scripts/export_music_observatory.py",
+            ],
+            api_surfaces=[
+                "/v1/music/manifests",
+                "/v1/music/features/extract",
+                "/v1/music/overview",
+                "/v1/music/drift",
+                "/v1/music/proof/change-report",
+            ],
+            learning_value=(
+                "This is where the repository shows how to keep sound work auditable, "
+                "segmented, and reusable without pretending every reviewer needs the raw media."
+            ),
+            watch_points=[
+                (
+                    "A feature table is only useful if its extraction version "
+                    "and source fingerprint stay attached."
+                ),
+                (
+                    "Genre and language counts become brittle if the "
+                    "manifest lane is treated as optional."
+                ),
+                (
+                    "Alignment windows need transcript and frame references "
+                    "if one moment is meant to survive across modalities."
+                ),
+            ],
+        ),
+        RepositoryConnection(
             connection_id="measurement-before-fusion",
             title="Measurement sits in front of inference instead of apologizing after it",
             summary=(
@@ -520,6 +562,59 @@ def build_architecture_lanes() -> List[ArchitectureLane]:
             why_it_exists=(
                 "The public pages should stay legible and alive while remaining "
                 "downstream from the backend source of truth."
+            ),
+        ),
+        ArchitectureLane(
+            lane_id="music_warehouse",
+            label="Music manifest and feature warehouse",
+            layer="backend",
+            purpose=(
+                "Hold manifest-only audio intake, stable segment indexing, "
+                "derived feature extraction, "
+                "Parquet persistence, and the public music observatory in one reproducible lane."
+            ),
+            directories=[
+                "src/advanced_multimodal_ai/music_store.py",
+                "src/advanced_multimodal_ai/music_features.py",
+                "src/advanced_multimodal_ai/music_embeddings.py",
+                "src/advanced_multimodal_ai/music_queries.py",
+                "src/advanced_multimodal_ai/music_truth.py",
+                "scripts/export_music_observatory.py",
+                "music-observatory.html",
+            ],
+            entry_surfaces=[
+                "/v1/music/manifests",
+                "/v1/music/features/extract",
+                "/v1/music/overview",
+                "/v1/music/features/query",
+                "/v1/music/alignment",
+                "/v1/music/drift",
+                "/v1/music/proof/change-report",
+                "proof/music-observatory.json",
+            ],
+            outputs=[
+                "manifest records",
+                "segment-aligned derived feature tables",
+                "embedding receipts",
+                "drift indicators",
+                "change-proof narratives",
+                "persisted feature run receipts",
+                "music observatory export",
+            ],
+            proof_points=[
+                (
+                    "The lane stores manifests and derived Parquet output "
+                    "without committing raw media."
+                ),
+                (
+                    "Feature runs can be reopened through persisted "
+                    "records, Arrow-backed feature slices, and exported proof."
+                ),
+            ],
+            why_it_exists=(
+                "A serious sound lane needs more than visual reactivity. "
+                "It needs identity, segmentation, "
+                "feature memory, and a clear record of what was measured."
             ),
         ),
         ArchitectureLane(

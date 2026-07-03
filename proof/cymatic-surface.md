@@ -3,33 +3,35 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `69`
-- Tests: `46`
+- Route count: `82`
+- Tests: `48`
 - Connector kinds: `7`
 - Replay verified: `True`
 - Baseline harmony: `0.95`
-- Tension index: `0.37`
-- Active files counted: `53`
-- Total recorded runs: `63`
+- Tension index: `0.38`
+- Active files counted: `64`
+- Total recorded runs: `88`
 
 ## Harmonic bands
 
-- **coverage breadth** · intensity `0.86` · drift `0.30`
+- **coverage breadth** · intensity `1.00` · drift `0.30`
   - Routes and connector kinds show how much ground the current runtime can actually hold.
 - **repeatable replay** · intensity `1.00` · drift `0.08`
   - Replay parity matters because a strong claim is easier to revisit than to defend from memory.
-- **review pressure** · intensity `0.71` · drift `0.37`
+- **review pressure** · intensity `0.71` · drift `0.38`
   - Open questions and warnings are treated as part of the operating picture rather than hidden beneath a score.
-- **active movement** · intensity `1.00` · drift `0.00`
+- **active movement** · intensity `1.00` · drift `0.01`
   - The engine feels more alive when scripts, exports, and verification runs continue to leave visible traces.
+- **music warehouse depth** · intensity `0.00` · drift `1.00`
+  - The sound lane gets more persuasive once manifests, segment cuts, and derived feature tables remain visible beside the visual field.
 
 ## Stage cards
 
 ### Ingest and shape
 
 - Stage id: `connector_ingest`
-- Harmony: `0.70`
-- Friction: `0.36`
+- Harmony: `0.83`
+- Friction: `0.16`
 
 Human read:
 Different file shapes are named and typed before they turn into a convincing multimodal story.
@@ -54,7 +56,7 @@ Files:
 - `src/advanced_multimodal_ai/pipelines.py`
 
 Metrics:
-- **duration**: `420.42` ms
+- **duration**: `96.79` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **connector kinds**: `7.0` lanes
@@ -88,7 +90,7 @@ Files:
 - `src/advanced_multimodal_ai/alignment.py`
 
 Metrics:
-- **duration**: `16.92` ms
+- **duration**: `15.53` ms
 - **records**: `2.0` records
 - **artifacts**: `1.0` items
 
@@ -121,7 +123,7 @@ Files:
 - `src/advanced_multimodal_ai/pipeline_store.py`
 
 Metrics:
-- **duration**: `77.91` ms
+- **duration**: `74.01` ms
 - **records**: `6.0` records
 - **artifacts**: `2.0` items
 
@@ -154,16 +156,54 @@ Files:
 - `src/advanced_multimodal_ai/api.py`
 
 Metrics:
-- **duration**: `65.72` ms
+- **duration**: `59.31` ms
 - **records**: `3.0` records
 - **artifacts**: `1.0` items
+
+
+### Segment and warehouse
+
+- Stage id: `music_warehouse`
+- Harmony: `0.86`
+- Friction: `0.11`
+
+Human read:
+A track can stay outside the repository while its segment map and its derived structure remain open to inspection.
+
+Research read:
+This is where the sound lane stops being a decorative waveform and becomes a measurable catalog of timing, repetition, pitch weight, silence, and drift.
+
+Business read:
+Feature tables are cheaper to compare, audit, and retain than raw media, especially when a team needs to explain what changed over time.
+
+Improvement path:
+Keep widening the warehouse with stronger multilingual, regional, and cross-format manifests rather than relying on one narrow musical posture.
+
+Trace paths:
+- `/v1/music/manifests`
+- `/v1/music/features/extract`
+- `/v1/music/overview`
+
+Files:
+- `src/advanced_multimodal_ai/music_features.py`
+- `src/advanced_multimodal_ai/music_store.py`
+- `src/advanced_multimodal_ai/service.py`
+
+Metrics:
+- **duration**: `22.98` ms
+- **records**: `3.0` records
+- **artifacts**: `2.0` items
+- **manifests**: `0.0` records
+- **feature runs**: `0.0` runs
+- **segments**: `0.0` segments
+- **genre spread**: `0.0` genres
 
 
 ### Govern and disclose
 
 - Stage id: `proof_bundle`
-- Harmony: `0.95`
-- Friction: `0.04`
+- Harmony: `0.97`
+- Friction: `0.02`
 
 Human read:
 The public pages stay calmer because the evidence is generated in the backend first and only translated afterward.
@@ -188,8 +228,8 @@ Files:
 - `src/advanced_multimodal_ai/governance_ledger.py`
 
 Metrics:
-- **duration**: `3.7` ms
-- **records**: `9.0` records
+- **duration**: `3.93` ms
+- **records**: `10.0` records
 - **artifacts**: `1.0` items
 - **open questions**: `5.0` questions
 
@@ -206,7 +246,7 @@ Consequence:
 The cost is not only technical. Repetition flattens taste, reduces surprise, and makes a catalogue feel smaller than it is.
 
 Continuation:
-324 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+384 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 
 ### For operators and review teams
@@ -239,6 +279,7 @@ Add evaluated transcript-plus-frame corpora with stronger long-range temporal su
 
 - `advanced-technical-portfolio.html`
 - `benchmark-observatory.html`
+- `music-observatory.html`
 - `model-observatory.html`
 - `field-notes.html`
 - `proof/cymatic-surface.md`

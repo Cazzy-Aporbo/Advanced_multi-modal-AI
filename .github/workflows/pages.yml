@@ -40,6 +40,7 @@ jobs:
           python scripts/export_research_surfaces.py
           python scripts/export_benchmark_surfaces.py
           python scripts/export_cymatic_surface.py
+          python scripts/export_music_observatory.py
           python scripts/export_repository_pulse.py
           python scripts/export_readiness_report.py
           python scripts/export_example_bundle.py
@@ -55,9 +56,11 @@ jobs:
           cp model-observatory.html site/model-observatory.html
           cp benchmark-observatory.html site/benchmark-observatory.html
           cp cymatic-media-engine.html site/cymatic-media-engine.html
+          cp music-observatory.html site/music-observatory.html
           cp field-notes.html site/field-notes.html
           cp cymatic-surface.css site/cymatic-surface.css
           cp cymatic-surface.js site/cymatic-surface.js
+          cp music-observatory.js site/music-observatory.js
           cp research-surfaces.js site/research-surfaces.js
           cp site-controls.css site/site-controls.css
           cp site-controls.js site/site-controls.js

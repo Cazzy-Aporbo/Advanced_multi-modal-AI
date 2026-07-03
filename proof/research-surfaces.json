@@ -3,13 +3,13 @@
   "version": "0.5.0",
   "readiness_posture": "review_ready",
   "summary": {
-    "route_count": 69,
-    "test_count": 46,
+    "route_count": 82,
+    "test_count": 48,
     "connector_kind_count": 7,
     "model_count": 4,
     "runtime_ready_model_count": 0,
     "open_question_count": 5,
-    "generated_at": "2026-07-03T18:47:19.605892+00:00"
+    "generated_at": "2026-07-03T20:13:49.728337+00:00"
   },
   "lanes": [
     {
@@ -50,6 +50,45 @@
         "The atlas remains a display surface rather than a silent compute fork."
       ],
       "why_it_exists": "The public pages should stay legible and alive while remaining downstream from the backend source of truth."
+    },
+    {
+      "lane_id": "music_warehouse",
+      "label": "Music manifest and feature warehouse",
+      "layer": "backend",
+      "purpose": "Hold manifest-only audio intake, stable segment indexing, derived feature extraction, Parquet persistence, and the public music observatory in one reproducible lane.",
+      "directories": [
+        "src/advanced_multimodal_ai/music_store.py",
+        "src/advanced_multimodal_ai/music_features.py",
+        "src/advanced_multimodal_ai/music_embeddings.py",
+        "src/advanced_multimodal_ai/music_queries.py",
+        "src/advanced_multimodal_ai/music_truth.py",
+        "scripts/export_music_observatory.py",
+        "music-observatory.html"
+      ],
+      "entry_surfaces": [
+        "/v1/music/manifests",
+        "/v1/music/features/extract",
+        "/v1/music/overview",
+        "/v1/music/features/query",
+        "/v1/music/alignment",
+        "/v1/music/drift",
+        "/v1/music/proof/change-report",
+        "proof/music-observatory.json"
+      ],
+      "outputs": [
+        "manifest records",
+        "segment-aligned derived feature tables",
+        "embedding receipts",
+        "drift indicators",
+        "change-proof narratives",
+        "persisted feature run receipts",
+        "music observatory export"
+      ],
+      "proof_points": [
+        "The lane stores manifests and derived Parquet output without committing raw media.",
+        "Feature runs can be reopened through persisted records, Arrow-backed feature slices, and exported proof."
+      ],
+      "why_it_exists": "A serious sound lane needs more than visual reactivity. It needs identity, segmentation, feature memory, and a clear record of what was measured."
     },
     {
       "lane_id": "runtime_backend",
@@ -373,9 +412,9 @@
       "finding_id": "connector-spine-is-real",
       "lens": "data",
       "title": "The repository now begins with measured intake instead of hand-shaped payloads alone",
-      "summary": "312 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
+      "summary": "380 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
       "evidence": [
-        "connector runs recorded: 312",
+        "connector runs recorded: 380",
         "connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html"
       ],
       "why_it_matters": "A multimodal repository becomes more credible when data entry is a first-class engineering problem rather than an invisible notebook precondition.",
@@ -395,13 +434,13 @@
       "finding_id": "review-lives-next-to-runtime",
       "lens": "governance",
       "title": "Review work now sits beside inference instead of after it",
-      "summary": "Lifecycle policies (22), change controls (22), supply snapshots (22), drift baselines (8), and ontology snapshots (105) are persisted in the same backend story.",
+      "summary": "Lifecycle policies (27), change controls (27), supply snapshots (27), drift baselines (8), and ontology snapshots (116) are persisted in the same backend story.",
       "evidence": [
-        "lifecycle policies: 22",
-        "change controls: 22",
-        "supply snapshots: 22",
+        "lifecycle policies: 27",
+        "change controls: 27",
+        "supply snapshots: 27",
         "drift baselines: 8",
-        "ontology snapshots: 105"
+        "ontology snapshots: 116"
       ],
       "why_it_matters": "It is easier to trust a system when retention, movement, and liability have a code path rather than only a meeting note.",
       "next_step": "Keep tying review surfaces to real route traces so the governance lane reflects operational movement, not just intended policy.",
@@ -442,12 +481,12 @@
       "finding_id": "proof-is-now-a-backend-surface",
       "lens": "evaluation",
       "title": "Proof is no longer only a README habit",
-      "summary": "The bundle currently counts 69 routes, 46 tests, and 9 declared artifacts.",
+      "summary": "The bundle currently counts 82 routes, 48 tests, and 10 declared artifacts.",
       "evidence": [
-        "route count: 69",
-        "test count: 46",
-        "verification artifacts: 9",
-        "pipeline runs stored: 243"
+        "route count: 82",
+        "test count: 48",
+        "verification artifacts: 10",
+        "pipeline runs stored: 292"
       ],
       "why_it_matters": "Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.",
       "next_step": "Keep the export surfaces close to CI and extend replay comparisons so proof covers behavioral continuity, not only route and artifact presence.",
@@ -466,9 +505,9 @@
       "finding_id": "execution-memory-is-persisted",
       "lens": "evaluation",
       "title": "Export and verification work now leaves its own operational memory",
-      "summary": "60 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
+      "summary": "86 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
       "evidence": [
-        "execution journal runs: 60",
+        "execution journal runs: 86",
         "proof/execution-journal.json is exported from the backend journal surface."
       ],
       "why_it_matters": "A repository feels more trustworthy when its export and verification lanes can be revisited as records instead of being remembered only because someone ran them recently.",
@@ -513,9 +552,9 @@
       "summary": "The current readiness posture is 'review_ready'. The repo now has a steadier runtime edge, though the strongest next step remains more repeated evidence under varied real inputs.",
       "evidence": [
         "readiness posture: review_ready",
-        "connector runs: 312",
-        "pipeline runs: 243",
-        "compiled recipes: 73"
+        "connector runs: 380",
+        "pipeline runs: 292",
+        "compiled recipes: 100"
       ],
       "why_it_matters": "The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.",
       "next_step": "Bring in more repeated warehouse, object-store, and mixed-modality examples so the runtime is exercised under broader operational texture.",
@@ -550,6 +589,32 @@
       "watch_points": [
         "Too many dropped rows usually means the modality mapping is doing more damage than help.",
         "A dataset contract should be registered before batch work becomes the default path."
+      ]
+    },
+    {
+      "connection_id": "music-manifest-to-warehouse",
+      "title": "Audio manifests become a warehouse without dragging raw media into git",
+      "summary": "music_store.py records track identity, rights posture, and source provenance; music_features.py, music_embeddings.py, and music_truth.py then turn that track into segment maps, derived feature tables, receipts, and queryable drift evidence.",
+      "files": [
+        "src/advanced_multimodal_ai/music_store.py",
+        "src/advanced_multimodal_ai/music_features.py",
+        "src/advanced_multimodal_ai/music_embeddings.py",
+        "src/advanced_multimodal_ai/music_truth.py",
+        "src/advanced_multimodal_ai/service.py",
+        "scripts/export_music_observatory.py"
+      ],
+      "api_surfaces": [
+        "/v1/music/manifests",
+        "/v1/music/features/extract",
+        "/v1/music/overview",
+        "/v1/music/drift",
+        "/v1/music/proof/change-report"
+      ],
+      "learning_value": "This is where the repository shows how to keep sound work auditable, segmented, and reusable without pretending every reviewer needs the raw media.",
+      "watch_points": [
+        "A feature table is only useful if its extraction version and source fingerprint stay attached.",
+        "Genre and language counts become brittle if the manifest lane is treated as optional.",
+        "Alignment windows need transcript and frame references if one moment is meant to survive across modalities."
       ]
     },
     {
@@ -641,5 +706,5 @@
       ]
     }
   ],
-  "created_at": "2026-07-03T18:47:19.605899+00:00"
+  "created_at": "2026-07-03T20:13:49.728345+00:00"
 }

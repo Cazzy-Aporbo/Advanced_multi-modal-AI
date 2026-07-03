@@ -30,6 +30,7 @@ def build_repository_pulse(
     lanes = [
         _frontend_lane(),
         _backend_lane(attestation=attestation, proof_bundle=proof_bundle),
+        _music_lane(attestation=attestation),
         _benchmark_lane(),
         _compiled_lane(),
         _client_lane(),
@@ -108,6 +109,46 @@ def _benchmark_lane() -> PulseLane:
         suggested_actions=[
             "Keep the benchmark tied to real persisted lanes, not stand-alone timers.",
             "Prefer repeated reference workloads over one-off smoke claims.",
+        ],
+    )
+
+
+def _music_lane(*, attestation: RuntimeAttestationResponse) -> PulseLane:
+    files = [
+        "src/advanced_multimodal_ai/music_features.py",
+        "src/advanced_multimodal_ai/music_embeddings.py",
+        "src/advanced_multimodal_ai/music_queries.py",
+        "src/advanced_multimodal_ai/music_store.py",
+        "src/advanced_multimodal_ai/music_truth.py",
+        "src/advanced_multimodal_ai/service.py",
+        "scripts/export_music_observatory.py",
+        "proof/music-observatory.json",
+        "proof/music-observatory.md",
+    ]
+    artifacts = [
+        _artifact(path, note="Music manifest, warehouse, or observatory artifact.")
+        for path in files
+    ]
+    manifest_count = attestation.store_counts.get("music_manifests", 0)
+    run_count = attestation.store_counts.get("music_feature_runs", 0)
+    score = min(100, 32 + manifest_count * 8 + run_count * 10)
+    return PulseLane(
+        lane_id="music_warehouse",
+        label="Music warehouse",
+        emphasis="backend",
+        live_score=score,
+        summary=(
+            f"{manifest_count} manifests and {run_count} persisted feature runs now keep the "
+            "sound lane downstream from contracts, provenance, and Parquet output."
+        ),
+        active_count=manifest_count + run_count,
+        warning_count=1 if run_count == 0 else 0,
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Keep raw media outside the repository and derived features inside the proof path.",
+            "Let multilingual, regional, genre, and drift coverage grow "
+            "through manifests rather than hand-waving.",
         ],
     )
 
@@ -222,12 +263,14 @@ def _evidence_lane() -> PulseLane:
         "proof/example-bundle.json",
         "proof/benchmark-surfaces.json",
         "proof/cymatic-surface.json",
+        "proof/music-observatory.json",
         "proof/research-surfaces.json",
         "proof/execution-journal.json",
         "scripts/build_runtime_proof_bundle.py",
         "scripts/export_benchmark_surfaces.py",
         "scripts/export_cymatic_surface.py",
         "scripts/export_execution_journal.py",
+        "scripts/export_music_observatory.py",
         "scripts/export_readiness_report.py",
         "scripts/export_example_bundle.py",
         "scripts/export_research_surfaces.py",

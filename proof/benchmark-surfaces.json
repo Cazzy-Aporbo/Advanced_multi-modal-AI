@@ -1,53 +1,53 @@
 {
-  "benchmark_id": "9d9e14b6-6433-4416-a0c1-9fb73195f55c",
+  "benchmark_id": "a143ad94-f555-4dcf-a0be-0d0af3d515eb",
   "label": "public-reference-lane",
   "model_id": "adaptive_transformer",
-  "route_count": 69,
-  "verification_artifact_count": 9,
-  "stage_count": 8,
+  "route_count": 82,
+  "verification_artifact_count": 10,
+  "stage_count": 9,
   "row_count": 4,
-  "pipeline_run_id": "605a75b1-02ac-4b57-b26e-6075df6211bf",
+  "pipeline_run_id": "465b2c1c-da1d-451f-9c3c-d1a65f5b9b7e",
   "replay_frame_count": 8,
   "replay_verified": true,
-  "total_duration_ms": 693.2646249988466,
+  "total_duration_ms": 468.1377499946393,
   "stages": [
     {
       "stage_id": "connector_ingest",
       "label": "Connector-backed Parquet ingest",
-      "duration_ms": 416.7352500007837,
+      "duration_ms": 141.46287500625476,
       "status": "pass",
       "record_count": 4,
       "notes": [
-        "pyarrow.parquet pulled 4 rows at 143.5 rows/s.",
+        "pyarrow.parquet pulled 4 rows at 3052.2 rows/s.",
         "Zero-copy candidate: yes."
       ],
       "artifacts": [
-        "35a825aa-5a6f-40e9-9a7d-b3748a54f19f",
-        "605a75b1-02ac-4b57-b26e-6075df6211bf"
+        "f131a6d7-ab0d-4c80-94ca-72dfbad08613",
+        "465b2c1c-da1d-451f-9c3c-d1a65f5b9b7e"
       ]
     },
     {
       "stage_id": "pipeline_replay",
       "label": "Pipeline replay ledger",
-      "duration_ms": 91.47454099729657,
+      "duration_ms": 108.0032080062665,
       "status": "pass",
       "record_count": 8,
       "notes": [
         "Replay frames sealed: 8.",
         "Frame parity: verified.",
-        "Replay digest head: 245c0b7848cb33d1\u2026",
-        "Recorded head: 7750b98918c1776c\u2026",
-        "Replayed head: 7750b98918c1776c\u2026"
+        "Replay digest head: 9d02fb12399c5742\u2026",
+        "Recorded head: 53ffd191e6d54716\u2026",
+        "Replayed head: 53ffd191e6d54716\u2026"
       ],
       "artifacts": [
-        "605a75b1-02ac-4b57-b26e-6075df6211bf",
+        "465b2c1c-da1d-451f-9c3c-d1a65f5b9b7e",
         "replay_frames"
       ]
     },
     {
       "stage_id": "profile_lane",
       "label": "Cross-modal profile lane",
-      "duration_ms": 16.142082997248508,
+      "duration_ms": 17.501750000519678,
       "status": "pass",
       "record_count": 2,
       "notes": [
@@ -62,7 +62,7 @@
     {
       "stage_id": "provenance_lane",
       "label": "Payload provenance receipt",
-      "duration_ms": 0.3017089984496124,
+      "duration_ms": 0.3115840008831583,
       "status": "pass",
       "record_count": 2,
       "notes": [
@@ -70,28 +70,28 @@
         "Metadata digest: 44136fa355b3678a\u2026"
       ],
       "artifacts": [
-        "9f70bd24-3d10-4fb4-affe-f86a8819cc84"
+        "3db334de-f9bf-4c88-8c9e-c0e407fc79b7"
       ]
     },
     {
       "stage_id": "batch_job",
       "label": "Persisted concurrent batch lane",
-      "duration_ms": 69.3505829985952,
+      "duration_ms": 86.16479200281901,
       "status": "pass",
       "record_count": 4,
       "notes": [
         "Workers used: 4 of 4 requested.",
-        "Median latency: 61.58 ms.",
+        "Median latency: 67.09 ms.",
         "Failed items: 0."
       ],
       "artifacts": [
-        "59e53578-577c-4ccf-8bf7-defd9231d91a"
+        "76ed34d6-e716-49a8-84c4-2a856342fda3"
       ]
     },
     {
       "stage_id": "recipe_compile",
       "label": "Recipe registry handoff",
-      "duration_ms": 1.5847499962546863,
+      "duration_ms": 1.4523330028168857,
       "status": "pass",
       "record_count": 1,
       "notes": [
@@ -100,32 +100,48 @@
         "Estimated global batch: 2."
       ],
       "artifacts": [
-        "3ba795ef-46f0-416e-b676-b0100c9ac90a"
+        "eaff8068-0f02-4d2a-a7f1-37e37c14e598"
+      ]
+    },
+    {
+      "stage_id": "music_warehouse",
+      "label": "Segmented music feature warehouse",
+      "duration_ms": 21.21741700102575,
+      "status": "pass",
+      "record_count": 3,
+      "notes": [
+        "Feature table: .runtime/music-feature-lake/reference-pulse-field-fd6bd215-20260703201352439153.parquet.",
+        "Average entropy: 0.987.",
+        "Average tempo proxy: 0.0 bpm."
+      ],
+      "artifacts": [
+        "48fd35c9-d663-48c7-8e74-45efe17648c5",
+        ".runtime/music-feature-lake/reference-pulse-field-fd6bd215-20260703201352439153.parquet"
       ]
     },
     {
       "stage_id": "smoke_benchmark",
       "label": "Deterministic latency check",
-      "duration_ms": 92.01958400080912,
+      "duration_ms": 86.56087500276044,
       "status": "pass",
       "record_count": 6,
       "notes": [
-        "Median latency: 15.20 ms.",
-        "P95 latency: 15.42 ms."
+        "Median latency: 14.27 ms.",
+        "P95 latency: 14.80 ms."
       ],
       "artifacts": [
-        "d3b59f2a-8a51-40d5-a6ea-3d5b5f41dfa4"
+        "2bf94cef-e174-4f4d-a233-794f0daf4e2c"
       ]
     },
     {
       "stage_id": "proof_bundle",
       "label": "Runtime proof surface snapshot",
-      "duration_ms": 5.49683300050674,
+      "duration_ms": 5.152457997610327,
       "status": "pass",
-      "record_count": 9,
+      "record_count": 10,
       "notes": [
-        "Route count: 69.",
-        "Verification artifacts: 9.",
+        "Route count: 82.",
+        "Verification artifacts: 10.",
         "Connector kinds: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html."
       ],
       "artifacts": [
@@ -137,5 +153,5 @@
     "This benchmark uses deterministic reference fixtures to exercise live repository lanes.",
     "It is meant to prove orchestration paths, persistence, and evidence export together."
   ],
-  "created_at": "2026-07-03T18:47:22.204078+00:00"
+  "created_at": "2026-07-03T20:13:52.543330+00:00"
 }

@@ -70,6 +70,10 @@ def build_runtime_proof_bundle(
                 command="python3 scripts/export_cymatic_surface.py",
             ),
             VerificationCommand(
+                label="music-observatory",
+                command="python3 scripts/export_music_observatory.py",
+            ),
+            VerificationCommand(
                 label="execution-journal",
                 command="python3 scripts/export_execution_journal.py",
             ),

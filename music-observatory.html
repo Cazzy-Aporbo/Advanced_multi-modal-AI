@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Multi-modal AI · Music Observatory</title>
+  <meta name="description" content="A live music warehouse surface for Advanced Multi-modal AI. It tracks manifest-only audio intake, segment indexing, derived features, drift signals, and change proof without storing raw media in the repository.">
+  <link rel="stylesheet" href="site-controls.css">
+  <style>
+    :root {
+      --bg: #120d12;
+      --surface: rgba(31, 22, 30, 0.84);
+      --surface-strong: rgba(40, 28, 40, 0.95);
+      --line: rgba(245, 233, 236, 0.12);
+      --text: #f8f0f5;
+      --muted: #dbcad3;
+      --copper: #f0b27e;
+      --jade: #9ce2d7;
+      --rose: #efb7d4;
+      --lilac: #c6bbff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.66;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(156, 226, 215, 0.14), transparent 24%),
+        radial-gradient(circle at 84% 12%, rgba(239, 183, 212, 0.18), transparent 26%),
+        radial-gradient(circle at 68% 76%, rgba(198, 187, 255, 0.16), transparent 24%),
+        linear-gradient(180deg, #120d12 0%, #15101a 52%, #09070c 100%);
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      width: min(1200px, calc(100vw - 30px));
+      margin: 0 auto;
+      padding: 24px 0 84px;
+    }
+
+    .nav,
+    .shell-card,
+    .music-panel-block,
+    .music-hero-card,
+    .music-list-shell,
+    .music-metric-card,
+    .music-story-card,
+    .music-timeline-card,
+    .music-alignment-card,
+    .music-list-row,
+    .music-empty-card {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+        radial-gradient(circle at top right, rgba(156, 226, 215, 0.12), transparent 56%),
+        rgba(24, 18, 27, 0.88);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 72px rgba(0, 0, 0, 0.22);
+    }
+
+    .nav {
+      display: grid;
+      gap: 14px;
+      padding: 18px 22px;
+      position: sticky;
+      top: 14px;
+      z-index: 4;
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      display: grid;
+      gap: 4px;
+    }
+
+    .nav-brand strong {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+    }
+
+    .nav-brand small,
+    .music-section-head small,
+    .music-section-label {
+      color: var(--copper);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav a,
+    .music-cta {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.05);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .nav a:hover,
+    .music-cta:hover {
+      border-color: rgba(156, 226, 215, 0.34);
+      background: rgba(156, 226, 215, 0.1);
+      transform: translateY(-1px);
+    }
+
+    #site-dock-host {
+      width: min(360px, 100%);
+      margin-left: auto;
+    }
+
+    .hero {
+      display: grid;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .hero .shell-card {
+      display: block;
+    }
+
+    .shell-card {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+    }
+
+    .shell-card::after,
+    .music-panel-block::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -54px;
+      bottom: -78px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(239, 183, 212, 0.18), transparent 72%);
+      pointer-events: none;
+      animation: bloom 12s ease-in-out infinite;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-weight: 600;
+      line-height: 1.04;
+      text-wrap: balance;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      max-width: 10ch;
+      background: linear-gradient(135deg, #f8f1eb 0%, #efb7d4 42%, #9ce2d7 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    p,
+    li,
+    .music-inline-note,
+    .music-list-row span,
+    .music-list-row small {
+      color: var(--muted);
+    }
+
+    .music-finding-ribbon,
+    .music-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .music-finding-ribbon span,
+    .music-chip-row span,
+    .music-inline-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .music-panel-block {
+      position: relative;
+      overflow: hidden;
+      margin-top: 22px;
+      padding: 24px;
+    }
+
+    .music-hero-grid,
+    .music-two-up {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .music-hero-card,
+    .music-list-shell {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .music-hero-card-alt {
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03)),
+        radial-gradient(circle at bottom left, rgba(198, 187, 255, 0.18), transparent 58%),
+        rgba(28, 21, 35, 0.92);
+    }
+
+    .music-section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .music-section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.35rem);
+      max-width: 20ch;
+    }
+
+    .music-metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .music-metric-card,
+    .music-story-card,
+    .music-timeline-card,
+    .music-alignment-card,
+    .music-list-row,
+    .music-empty-card {
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .music-metric-card small,
+    .music-story-card small,
+    .music-timeline-card small,
+    .music-alignment-card small,
+    .music-signal-card small,
+    .music-link-card small,
+    .music-topology-card small {
+      display: inline-flex;
+      color: var(--copper);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+
+    .music-metric-card strong {
+      display: block;
+      margin-top: 10px;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-family: "Iowan Old Style", Georgia, serif;
+      color: var(--text);
+    }
+
+    .music-scroll-row,
+    .music-timeline {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(280px, 1fr);
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scroll-snap-type: x proximity;
+    }
+
+    .music-story-card,
+    .music-timeline-card {
+      scroll-snap-align: start;
+      min-height: 240px;
+      animation: floatCard 9s ease-in-out infinite;
+    }
+
+    .music-story-card:nth-child(2n),
+    .music-timeline-card:nth-child(2n) {
+      animation-delay: 0.9s;
+    }
+
+    .music-story-card.tone-watch {
+      border-color: rgba(240, 178, 126, 0.28);
+    }
+
+    .music-story-card.tone-alert {
+      border-color: rgba(239, 119, 160, 0.34);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(239, 119, 160, 0.16), transparent 56%),
+        rgba(37, 20, 31, 0.92);
+    }
+
+    .music-signal-grid,
+    .music-link-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .music-signal-card,
+    .music-link-card,
+    .music-topology-card,
+    .music-genre-node {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+        radial-gradient(circle at top right, rgba(156, 226, 215, 0.12), transparent 56%),
+        rgba(24, 18, 27, 0.88);
+      box-shadow: 0 18px 54px rgba(0, 0, 0, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .music-signal-card strong,
+    .music-link-card h3,
+    .music-topology-card h3,
+    .music-genre-node strong {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-family: "Iowan Old Style", Georgia, serif;
+      color: var(--text);
+    }
+
+    .music-signal-card strong {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+    }
+
+    .music-constellation {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .music-genre-node {
+      min-width: 180px;
+      flex: calc(0.9 + var(--weight, 0.4)) 1 220px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, hsla(var(--hue, 24), 82%, 72%, 0.22), transparent 58%),
+        rgba(30, 22, 33, 0.92);
+      animation: floatCard 10s ease-in-out infinite;
+    }
+
+    .music-topology-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .music-topology-track {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .music-topology-track span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .music-topology-bar {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .music-topology-fill {
+      display: block;
+      height: 100%;
+      width: var(--fill, 50%);
+      border-radius: inherit;
+      animation: pulse 8s ease-in-out infinite alternate;
+    }
+
+    .music-topology-fill.tone-jade {
+      background: linear-gradient(90deg, rgba(156, 226, 215, 0.35), var(--jade));
+    }
+
+    .music-topology-fill.tone-rose {
+      background: linear-gradient(90deg, rgba(239, 183, 212, 0.35), var(--rose));
+    }
+
+    .music-topology-fill.tone-lilac {
+      background: linear-gradient(90deg, rgba(198, 187, 255, 0.35), var(--lilac));
+    }
+
+    .music-link-card {
+      min-height: 220px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+    }
+
+    .music-link-card .music-cta {
+      margin-top: auto;
+      width: fit-content;
+    }
+
+    .music-meter {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      margin: 14px 0;
+    }
+
+    .music-meter span {
+      display: block;
+      width: var(--width, 50%);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--copper), var(--rose), var(--jade), var(--lilac));
+      animation: pulse 6s ease-in-out infinite alternate;
+    }
+
+    .music-timeline-card ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+    }
+
+    .music-timeline-index {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+
+    .music-alignment-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .music-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .music-list-row {
+      border-radius: 22px;
+    }
+
+    .music-list-row strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @keyframes bloom {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(-12px, -10px, 0) scale(1.08); }
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes pulse {
+      0% { filter: saturate(0.96); }
+      100% { filter: saturate(1.16); }
+    }
+
+    @media (max-width: 980px) {
+      .music-hero-grid,
+      .music-two-up,
+      .music-alignment-grid,
+      .music-signal-grid,
+      .music-link-grid,
+      .music-topology-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        width: min(100vw - 20px, 100%);
+        padding-top: 14px;
+      }
+
+      .nav {
+        border-radius: 28px;
+        top: 10px;
+      }
+
+      .nav-links {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .nav-links::-webkit-scrollbar,
+      .music-scroll-row::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-links a {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .shell-card,
+      .music-panel-block,
+      .music-hero-card,
+      .music-list-shell {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 12vw, 3.2rem);
+        max-width: none;
+      }
+
+      .music-metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .music-section-head {
+        display: grid;
+      }
+
+      .music-scroll-row,
+      .music-timeline {
+        grid-auto-columns: minmax(250px, 84vw);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="nav-bar">
+        <div class="nav-brand">
+          <strong>Music observatory</strong>
+          <small>manifest lane · feature warehouse · change proof · drift watch</small>
+        </div>
+        <div class="nav-links">
+          <a href="index.html">atlas</a>
+          <a href="cymatic-media-engine.html">signal lab</a>
+          <a href="advanced-technical-portfolio.html">architecture</a>
+          <a href="technical-portfolio.html">catalog</a>
+          <a href="benchmark-observatory.html">benchmarks</a>
+          <a href="model-observatory.html">models</a>
+        </div>
+      </div>
+      <div id="site-dock-host"></div>
+    </nav>
+
+    <section class="hero">
+      <article class="shell-card page-orbit-field">
+        <div class="music-section-label">Audio intelligence lane</div>
+        <h1>The sound field now keeps receipts.</h1>
+        <p>
+          Raw media stays where it belongs. The repository keeps the manifest, segment index,
+          derived features, drift posture, and change proof instead. That makes the lane easier
+          to reopen, compare, and challenge without pretending every reviewer needs the source file.
+        </p>
+        <div class="music-chip-row">
+          <span>manifest-only intake</span>
+          <span>Arrow-backed feature slices</span>
+          <span>embedding receipts</span>
+          <span>cross-modal trace windows</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="signal-rail-host" data-signal-rail aria-label="Repository lane motion">
+      <div class="signal-rail-shell signal-rail-fallback">
+        <small>Repository lane motion</small>
+        <p>The observatory is loading the current proof picture.</p>
+      </div>
+    </section>
+
+    <section data-music-observatory style="margin-top: 24px;">
+      <div class="music-empty-card">The music observatory is loading the latest warehouse snapshot.</div>
+    </section>
+
+    <footer class="footer">
+      <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · <a href="LICENSE" style="color:inherit;">Apache License 2.0</a></div>
+      <div><a href="proof/music-observatory.md" style="color:inherit;">music report</a> · <a href="proof/cymatic-surface.md" style="color:inherit;">signal report</a> · <a href="README.md" style="color:inherit;">readme</a></div>
+    </footer>
+  </div>
+
+  <script src="site-controls.js"></script>
+  <script src="research-surfaces.js"></script>
+  <script src="music-observatory.js"></script>
+</body>
+</html>

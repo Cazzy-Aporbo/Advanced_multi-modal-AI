@@ -234,6 +234,32 @@
   padding: 24px;
 }
 
+.cymatic-warehouse-pulse {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)),
+    radial-gradient(circle at bottom left, rgba(215, 169, 184, 0.14), transparent 54%),
+    rgba(24, 18, 30, 0.84);
+}
+
+.cymatic-warehouse-head {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.cymatic-warehouse-head strong {
+  color: var(--text, #f6efe8);
+  font-size: 1rem;
+}
+
+.cymatic-warehouse-head small {
+  color: var(--muted, #dbcabc);
+}
+
 .cymatic-panel h3,
 .cymatic-detail-panel h3,
 .cymatic-insight-card h3 {
@@ -529,12 +555,20 @@
   }
 
   .cymatic-canvas-shell {
-    min-height: 320px;
+    min-height: 520px;
+  }
+
+  .cymatic-overlay {
+    max-width: none;
   }
 
   .cymatic-title {
-    font-size: clamp(1.55rem, 8vw, 2.25rem);
-    line-height: 1.02;
+    font-size: clamp(1.8rem, 12vw, 3rem);
+    line-height: 0.94;
+  }
+
+  .cymatic-copy {
+    font-size: 0.98rem;
   }
 
   .cymatic-upload-row,
@@ -548,6 +582,7 @@
   .cymatic-file-button,
   .cymatic-action,
   .cymatic-pill-link {
+    width: 100%;
     justify-content: center;
   }
 

@@ -369,6 +369,324 @@ class VideoCleaningResponse(BaseModel):
     created_at: str = Field(default_factory=utc_now)
 
 
+AudioSourceKind = Literal[
+    "object_store",
+    "public_url",
+    "local_path",
+    "stream_log",
+    "reference",
+]
+AudioLicenseKind = Literal[
+    "owned",
+    "licensed",
+    "public_domain",
+    "research_fair_use",
+    "unspecified",
+]
+
+
+def _normalize_audio_source_kind(value: Any) -> Any:
+    if not isinstance(value, str):
+        return value
+    aliases = {
+        "s3_object": "object_store",
+        "s3": "object_store",
+        "http_url": "public_url",
+        "url": "public_url",
+        "local_file": "local_path",
+        "event_log": "stream_log",
+    }
+    return aliases.get(value, value)
+
+
+def _normalize_audio_license_kind(value: Any) -> Any:
+    if not isinstance(value, str):
+        return value
+    aliases = {
+        "public_reference": "research_fair_use",
+        "fair_use": "research_fair_use",
+        "public": "public_domain",
+    }
+    return aliases.get(value, value)
+
+
+class MusicTrackManifestRequest(BaseModel):
+    track_name: str = Field(min_length=1)
+    owner: str = Field(min_length=1)
+    source_uri: str = Field(min_length=1)
+    source_kind: AudioSourceKind = "object_store"
+    content_sha256: str = ""
+    license_kind: AudioLicenseKind = "unspecified"
+    duration_ms: int = Field(gt=0)
+    sample_rate_hz: int = Field(default=48_000, ge=1_000, le=384_000)
+    channel_count: int = Field(default=1, ge=1, le=64)
+    release_year: Optional[int] = Field(default=None, ge=1900, le=2100)
+    languages: List[str] = Field(default_factory=list, max_length=32)
+    regions: List[str] = Field(default_factory=list, max_length=32)
+    genres: List[str] = Field(default_factory=list, max_length=32)
+    tags: List[str] = Field(default_factory=list, max_length=64)
+    notes: List[str] = Field(default_factory=list, max_length=128)
+
+    @field_validator("source_kind", mode="before")
+    @classmethod
+    def normalize_source_kind(cls, value: Any) -> Any:
+        return _normalize_audio_source_kind(value)
+
+    @field_validator("license_kind", mode="before")
+    @classmethod
+    def normalize_license_kind(cls, value: Any) -> Any:
+        return _normalize_audio_license_kind(value)
+
+
+class MusicTrackManifestRecord(BaseModel):
+    manifest_id: str = Field(default_factory=lambda: str(uuid4()))
+    track_name: str
+    owner: str
+    source_uri: str
+    source_kind: AudioSourceKind
+    content_sha256: str = ""
+    license_kind: AudioLicenseKind = "unspecified"
+    duration_ms: int = Field(gt=0)
+    sample_rate_hz: int = Field(ge=1_000, le=384_000)
+    channel_count: int = Field(ge=1, le=64)
+    release_year: Optional[int] = Field(default=None, ge=1900, le=2100)
+    languages: List[str] = Field(default_factory=list)
+    regions: List[str] = Field(default_factory=list)
+    genres: List[str] = Field(default_factory=list)
+    tags: List[str] = Field(default_factory=list)
+    notes: List[str] = Field(default_factory=list)
+    source_fingerprint: str
+    created_at: str = Field(default_factory=utc_now)
+
+    @field_validator("source_kind", mode="before")
+    @classmethod
+    def normalize_source_kind(cls, value: Any) -> Any:
+        return _normalize_audio_source_kind(value)
+
+    @field_validator("license_kind", mode="before")
+    @classmethod
+    def normalize_license_kind(cls, value: Any) -> Any:
+        return _normalize_audio_license_kind(value)
+
+
+class MusicSegmentInput(BaseModel):
+    segment_id: str = Field(default_factory=lambda: str(uuid4()))
+    start_ms: int = Field(ge=0)
+    end_ms: int = Field(gt=0)
+    label: str = "section"
+    transcript_excerpt: str = ""
+    speaker: str = ""
+    sample_rate_hz: int = Field(default=16_000, ge=1000, le=384_000)
+    waveform: List[float] = Field(default_factory=list, max_length=262_144)
+    energy_trace: List[float] = Field(default_factory=list, max_length=65_536)
+    notes: List[str] = Field(default_factory=list, max_length=64)
+    attributes: Dict[str, Any] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def validate_signal(self) -> "MusicSegmentInput":
+        if self.end_ms <= self.start_ms:
+            raise ValueError("Music segments must end after they start")
+        if not self.waveform and not self.energy_trace:
+            raise ValueError("Each music segment needs a waveform or an energy trace")
+        return self
+
+
+class MusicFeatureVector(BaseModel):
+    segment_id: str
+    start_ms: int = Field(ge=0)
+    end_ms: int = Field(gt=0)
+    label: str
+    transcript_excerpt: str = ""
+    speaker: str = ""
+    source_signal: Literal["waveform", "energy_trace"]
+    sample_count: int = Field(ge=1)
+    duration_ms: int = Field(ge=1)
+    rms_energy: float = Field(ge=0.0)
+    silence_ratio: float = Field(ge=0.0, le=1.0)
+    zero_crossing_rate: float = Field(ge=0.0, le=1.0)
+    dynamic_range: float = Field(ge=0.0)
+    crest_factor: float = Field(ge=0.0)
+    entropy_score: float = Field(ge=0.0, le=1.0)
+    spectral_centroid_hz: float = Field(ge=0.0)
+    spectral_bandwidth_hz: float = Field(ge=0.0)
+    spectral_rolloff_hz: float = Field(ge=0.0)
+    spectral_flux: float = Field(ge=0.0)
+    onset_density: float = Field(ge=0.0)
+    tempo_proxy_bpm: float = Field(ge=0.0)
+    repetition_ratio: float = Field(ge=0.0, le=1.0)
+    key_clarity: float = Field(ge=0.0, le=1.0)
+    dominant_pitch_class: str
+    pitch_class_profile: List[float] = Field(min_length=12, max_length=12)
+    notes: List[str] = Field(default_factory=list)
+
+
+class MusicSegmentRecord(BaseModel):
+    run_id: str
+    manifest_id: str
+    track_name: str
+    segment_id: str
+    start_ms: int = Field(ge=0)
+    end_ms: int = Field(gt=0)
+    duration_ms: int = Field(ge=1)
+    label: str
+    speaker: str = ""
+    transcript_excerpt: str = ""
+    transcript_ref: str = ""
+    section_kind: str = ""
+    frame_ref: str = ""
+    video_window_start_ms: Optional[int] = Field(default=None, ge=0)
+    video_window_end_ms: Optional[int] = Field(default=None, ge=0)
+    quality_flags: List[str] = Field(default_factory=list)
+    attributes: Dict[str, Any] = Field(default_factory=dict)
+
+
+class MusicExtractionReceipt(BaseModel):
+    receipt_id: str = Field(default_factory=lambda: str(uuid4()))
+    source_sha256: str
+    source_fingerprint: str
+    extractor_version: str
+    feature_schema_version: str
+    embedding_model: str
+    contract_hash: str
+    output_path: str
+    output_sha256: str
+    output_bytes: int = Field(ge=0)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class MusicEmbeddingRecord(BaseModel):
+    record_id: str
+    run_id: str
+    manifest_id: str
+    segment_id: str
+    model_name: str
+    contract_hash: str
+    vector: List[float] = Field(min_length=1)
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class MusicWarehouseBenchmark(BaseModel):
+    extraction_ms: float = Field(ge=0.0)
+    persist_ms: float = Field(ge=0.0)
+    total_ms: float = Field(ge=0.0)
+    segment_count: int = Field(ge=0)
+    bytes_written: int = Field(ge=0)
+    rows_per_second: float = Field(ge=0.0)
+    average_entropy_score: float = Field(ge=0.0, le=1.0)
+    average_tempo_proxy_bpm: float = Field(ge=0.0)
+    average_key_clarity: float = Field(ge=0.0, le=1.0)
+
+
+class MusicFeatureExtractionRequest(BaseModel):
+    manifest_id: str = ""
+    manifest: Optional[MusicTrackManifestRequest] = None
+    segments: List[MusicSegmentInput] = Field(min_length=1, max_length=1024)
+    partition_label: str = "default"
+    dataset_name: str = ""
+    dataset_version: str = ""
+    register_dataset: bool = True
+    notes: List[str] = Field(default_factory=list, max_length=128)
+
+    @model_validator(mode="after")
+    def validate_manifest_source(self) -> "MusicFeatureExtractionRequest":
+        if not self.manifest_id and self.manifest is None:
+            raise ValueError("Provide a manifest id or an inline manifest for music features")
+        return self
+
+
+class MusicFeatureWarehouseRun(BaseModel):
+    run_id: str = Field(default_factory=lambda: str(uuid4()))
+    manifest_id: str
+    track_name: str
+    owner: str
+    source_uri: str
+    source_kind: AudioSourceKind
+    genres: List[str] = Field(default_factory=list)
+    languages: List[str] = Field(default_factory=list)
+    partition_label: str = "default"
+    feature_schema_version: str = "1.0"
+    feature_table_path: str
+    embedding_table_path: str = ""
+    dataset_id: str = ""
+    dataset_name: str = ""
+    dataset_version: str = ""
+    segment_count: int = Field(ge=0)
+    embedding_model: str = ""
+    embedding_contract_hash: str = ""
+    embedding_record_count: int = Field(default=0, ge=0)
+    benchmark: MusicWarehouseBenchmark
+    segments: List[MusicFeatureVector] = Field(default_factory=list)
+    segment_index: List[MusicSegmentRecord] = Field(default_factory=list)
+    embeddings: List[MusicEmbeddingRecord] = Field(default_factory=list)
+    receipts: List[MusicExtractionReceipt] = Field(default_factory=list)
+    notes: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class MusicFeatureOverview(BaseModel):
+    manifest_count: int = Field(default=0, ge=0)
+    feature_run_count: int = Field(default=0, ge=0)
+    total_segments: int = Field(default=0, ge=0)
+    genre_counts: Dict[str, int] = Field(default_factory=dict)
+    language_counts: Dict[str, int] = Field(default_factory=dict)
+    top_findings: List[str] = Field(default_factory=list)
+    recent_manifests: List[MusicTrackManifestRecord] = Field(default_factory=list)
+    recent_runs: List[MusicFeatureWarehouseRun] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class MusicFeatureSlice(BaseModel):
+    row_count: int = Field(ge=0)
+    source_paths: List[str] = Field(default_factory=list)
+    rows: List[Dict[str, Any]] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class MusicDriftIndicator(BaseModel):
+    indicator_id: str
+    label: str
+    status: Literal["steady", "watch", "elevated"]
+    score: float = Field(ge=0.0, le=1.0)
+    evidence: str
+    why_it_matters: str
+    suggested_action: str
+
+
+class MusicDriftReport(BaseModel):
+    manifest_count: int = Field(ge=0)
+    feature_run_count: int = Field(ge=0)
+    indicators: List[MusicDriftIndicator] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class MusicChangeEvidence(BaseModel):
+    change_id: str
+    title: str
+    entered_through: str
+    summary: str
+    evidence: List[str] = Field(default_factory=list)
+    receipts: List[MusicExtractionReceipt] = Field(default_factory=list)
+
+
+class MusicChangeProofResponse(BaseModel):
+    manifest_count: int = Field(ge=0)
+    feature_run_count: int = Field(ge=0)
+    earliest_run_id: str = ""
+    latest_run_id: str = ""
+    changes: List[MusicChangeEvidence] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class MusicWarehouseSnapshot(BaseModel):
+    overview: MusicFeatureOverview
+    drift: MusicDriftReport
+    change_proof: MusicChangeProofResponse
+    segment_slice: MusicFeatureSlice
+    alignment_preview: TemporalAlignmentResponse
+    created_at: str = Field(default_factory=utc_now)
+
+
 class BenchmarkResult(BaseModel):
     benchmark_id: str
     runtime_mode: RuntimeMode
@@ -1385,6 +1703,10 @@ class CymaticSurfaceBundle(BaseModel):
     tension_index: float = Field(ge=0.0, le=1.0)
     active_files: int = Field(default=0, ge=0)
     total_runs: int = Field(default=0, ge=0)
+    music_manifest_count: int = Field(default=0, ge=0)
+    music_feature_run_count: int = Field(default=0, ge=0)
+    music_total_segments: int = Field(default=0, ge=0)
+    music_top_genres: List[str] = Field(default_factory=list)
     harmonic_bands: List[CymaticBand] = Field(default_factory=list)
     stages: List[CymaticStageCard] = Field(default_factory=list)
     narratives: List[CymaticNarrative] = Field(default_factory=list)

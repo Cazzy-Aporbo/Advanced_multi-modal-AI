@@ -58,6 +58,7 @@ where = ["src"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-q"
+asyncio_default_fixture_loop_scope = "function"
 
 [tool.ruff]
 line-length = 100

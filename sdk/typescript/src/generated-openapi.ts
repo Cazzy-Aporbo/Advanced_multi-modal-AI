@@ -69,6 +69,174 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("GET", path);
   }
 
+  /** Music Overview */
+  async musicOverviewV1MusicOverviewGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/music/overview`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Music Snapshot */
+  async musicSnapshotV1MusicSnapshotGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/music/snapshot`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** List Music Manifests */
+  async listMusicManifestsV1MusicManifestsGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/music/manifests`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Register Music Manifest */
+  async registerMusicManifestV1MusicManifestsPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/music/manifests`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Get Music Manifest */
+  async getMusicManifestV1MusicManifestsManifestIdGet(manifest_id: string | number): Promise<unknown> {
+    let path = `/v1/music/manifests/${encodeURIComponent(String(manifest_id))}`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Extract Music Features */
+  async extractMusicFeaturesV1MusicFeaturesExtractPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/music/features/extract`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** List Music Feature Runs */
+  async listMusicFeatureRunsV1MusicFeaturesRunsGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/music/features/runs`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Get Music Feature Run */
+  async getMusicFeatureRunV1MusicFeaturesRunsRunIdGet(run_id: string | number): Promise<unknown> {
+    let path = `/v1/music/features/runs/${encodeURIComponent(String(run_id))}`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Query Music Feature Rows */
+  async queryMusicFeatureRowsV1MusicFeaturesQueryGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/music/features/query`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** List Music Segments */
+  async listMusicSegmentsV1MusicSegmentsGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/music/segments`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Music Alignment */
+  async musicAlignmentV1MusicAlignmentGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/music/alignment`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Music Drift */
+  async musicDriftV1MusicDriftGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/music/drift`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Music Change Proof */
+  async musicChangeProofV1MusicProofChangeReportGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/music/proof/change-report`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
   /** Repository Pulse */
   async repositoryPulseV1RepositoryPulseGet(): Promise<unknown> {
     let path = `/v1/repository/pulse`;

@@ -2,19 +2,23 @@
   "service": "advanced-multimodal-ai",
   "version": "0.5.0",
   "readiness_posture": "review_ready",
-  "route_count": 69,
-  "test_count": 46,
+  "route_count": 82,
+  "test_count": 48,
   "connector_kind_count": 7,
   "replay_verified": true,
-  "baseline_harmony": 0.950125,
-  "tension_index": 0.3716666666666667,
-  "active_files": 53,
-  "total_runs": 63,
+  "baseline_harmony": 0.954,
+  "tension_index": 0.3768518518518519,
+  "active_files": 64,
+  "total_runs": 88,
+  "music_manifest_count": 0,
+  "music_feature_run_count": 0,
+  "music_total_segments": 0,
+  "music_top_genres": [],
   "harmonic_bands": [
     {
       "band_id": "coverage",
       "label": "coverage breadth",
-      "intensity": 0.8625,
+      "intensity": 1.0,
       "drift": 0.3,
       "note": "Routes and connector kinds show how much ground the current runtime can actually hold."
     },
@@ -28,24 +32,31 @@
     {
       "band_id": "review",
       "label": "review pressure",
-      "intensity": 0.7101,
-      "drift": 0.3716666666666667,
+      "intensity": 0.7060555555555555,
+      "drift": 0.3768518518518519,
       "note": "Open questions and warnings are treated as part of the operating picture rather than hidden beneath a score."
     },
     {
       "band_id": "movement",
       "label": "active movement",
       "intensity": 1.0,
-      "drift": 0.0,
+      "drift": 0.011363636363636354,
       "note": "The engine feels more alive when scripts, exports, and verification runs continue to leave visible traces."
+    },
+    {
+      "band_id": "music_warehouse",
+      "label": "music warehouse depth",
+      "intensity": 0.0,
+      "drift": 1.0,
+      "note": "The sound lane gets more persuasive once manifests, segment cuts, and derived feature tables remain visible beside the visual field."
     }
   ],
   "stages": [
     {
       "stage_id": "connector_ingest",
       "label": "Ingest and shape",
-      "harmony_score": 0.6968338331999258,
-      "friction_score": 0.35887589687211435,
+      "harmony_score": 0.8262825499993051,
+      "friction_score": 0.1595248730010702,
       "trace_paths": [
         "/v1/connectors/register",
         "/v1/connectors/pipeline-ingest",
@@ -64,7 +75,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 420.42,
+          "value": 96.79,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -94,8 +105,8 @@
     {
       "stage_id": "profile_lane",
       "label": "Profile and align",
-      "harmony_score": 0.8432329000002938,
-      "friction_score": 0.12142133399954758,
+      "harmony_score": 0.8437884168000892,
+      "friction_score": 0.12056583812786265,
       "trace_paths": [
         "/v1/data/profile",
         "/v1/alignment/windows"
@@ -113,7 +124,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 16.92,
+          "value": 15.53,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -136,8 +147,8 @@
     {
       "stage_id": "pipeline_replay",
       "label": "Replay and prove",
-      "harmony_score": 0.8788340668013552,
-      "friction_score": 0.11459553712591296,
+      "harmony_score": 0.88039633319946,
+      "friction_score": 0.11218964687283157,
       "trace_paths": [
         "/v1/pipelines/runs/{run_id}/export",
         "/v1/pipelines/runs/{run_id}/replay"
@@ -155,7 +166,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 77.91,
+          "value": 74.01,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -178,8 +189,8 @@
     {
       "stage_id": "batch_job",
       "label": "Concurrent batch work",
-      "harmony_score": 0.8387129836023087,
-      "friction_score": 0.1403820052524446,
+      "harmony_score": 0.8412752164009726,
+      "friction_score": 0.13643616674250222,
       "trace_paths": [
         "/v1/jobs/batch-infer",
         "/v1/jobs"
@@ -197,7 +208,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 65.72,
+          "value": 59.31,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -218,10 +229,81 @@
       ]
     },
     {
+      "stage_id": "music_warehouse",
+      "label": "Segment and warehouse",
+      "harmony_score": 0.8558099668013165,
+      "friction_score": 0.11405265112597261,
+      "trace_paths": [
+        "/v1/music/manifests",
+        "/v1/music/features/extract",
+        "/v1/music/overview"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/music_features.py",
+        "src/advanced_multimodal_ai/music_store.py",
+        "src/advanced_multimodal_ai/service.py"
+      ],
+      "human_read": "A track can stay outside the repository while its segment map and its derived structure remain open to inspection.",
+      "research_read": "This is where the sound lane stops being a decorative waveform and becomes a measurable catalog of timing, repetition, pitch weight, silence, and drift.",
+      "business_read": "Feature tables are cheaper to compare, audit, and retain than raw media, especially when a team needs to explain what changed over time.",
+      "improvement_path": "Keep widening the warehouse with stronger multilingual, regional, and cross-format manifests rather than relying on one narrow musical posture.",
+      "metrics": [
+        {
+          "metric_id": "duration",
+          "label": "duration",
+          "value": 22.98,
+          "unit": "ms",
+          "detail": "Recorded stage duration from the current reference workload."
+        },
+        {
+          "metric_id": "records",
+          "label": "records",
+          "value": 3.0,
+          "unit": "records",
+          "detail": "Records or artifacts this stage reported while the reference workload ran."
+        },
+        {
+          "metric_id": "artifacts",
+          "label": "artifacts",
+          "value": 2.0,
+          "unit": "items",
+          "detail": "Artifacts or identifiers kept visible for this stage."
+        },
+        {
+          "metric_id": "music_manifests",
+          "label": "manifests",
+          "value": 0.0,
+          "unit": "records",
+          "detail": "Audio sources declared through manifest-only intake."
+        },
+        {
+          "metric_id": "music_runs",
+          "label": "feature runs",
+          "value": 0.0,
+          "unit": "runs",
+          "detail": "Persisted music feature extractions with recorded Parquet output."
+        },
+        {
+          "metric_id": "music_segments",
+          "label": "segments",
+          "value": 0.0,
+          "unit": "segments",
+          "detail": "Segment windows currently materialized into the warehouse."
+        },
+        {
+          "metric_id": "music_genres",
+          "label": "genre spread",
+          "value": 0.0,
+          "unit": "genres",
+          "detail": "Named genre coverage currently declared in the manifest lane."
+        }
+      ]
+    },
+    {
       "stage_id": "proof_bundle",
       "label": "Govern and disclose",
-      "harmony_score": 0.9535201332019643,
-      "friction_score": 0.035578994868975075,
+      "harmony_score": 0.9684299667994491,
+      "friction_score": 0.02461785112884829,
       "trace_paths": [
         "/v1/proof/bundle",
         "/v1/repository/pulse",
@@ -240,14 +322,14 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 3.7,
+          "value": 3.93,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
         {
           "metric_id": "records",
           "label": "records",
-          "value": 9.0,
+          "value": 10.0,
           "unit": "records",
           "detail": "Records or artifacts this stage reported while the reference workload ran."
         },
@@ -275,7 +357,7 @@
       "audience": "creator",
       "summary": "When the intake or profile lane begins to roughen, the output usually stops sounding like a nuanced audience and starts sounding like a narrow loop.",
       "consequence": "The cost is not only technical. Repetition flattens taste, reduces surprise, and makes a catalogue feel smaller than it is.",
-      "continuation": "324 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins."
+      "continuation": "384 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins."
     },
     {
       "narrative_id": "operator_lane",
@@ -297,9 +379,10 @@
   "continuation_links": [
     "advanced-technical-portfolio.html",
     "benchmark-observatory.html",
+    "music-observatory.html",
     "model-observatory.html",
     "field-notes.html",
     "proof/cymatic-surface.md"
   ],
-  "created_at": "2026-07-03T18:47:24.859634+00:00"
+  "created_at": "2026-07-03T20:13:54.817338+00:00"
 }

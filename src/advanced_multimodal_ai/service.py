@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import math
 import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -58,6 +59,14 @@ from .contracts import (
     InferenceResponse,
     LiabilitySurfaceResponse,
     LiabilitySurfacingRequest,
+    MusicChangeProofResponse,
+    MusicDriftReport,
+    MusicFeatureExtractionRequest,
+    MusicFeatureOverview,
+    MusicFeatureSlice,
+    MusicFeatureWarehouseRun,
+    MusicTrackManifestRecord,
+    MusicTrackManifestRequest,
     OntologyIngestRequest,
     OntologySnapshot,
     OutputSummary,
@@ -103,6 +112,28 @@ from .governance_ledger import build_compliance_ledger_token
 from .job_store import JobStore
 from .legacy import RESEARCH_MODELS
 from .liability_surface import surface_operational_liability
+from .music_embeddings import (
+    EMBEDDING_MODEL_NAME,
+    build_embedding_records,
+    build_music_receipt,
+    embedding_contract_hash,
+    persist_embedding_records,
+    retrieval_request_from_embeddings,
+)
+from .music_features import (
+    build_music_feature_rows,
+    persist_feature_rows,
+    summarize_music_findings,
+)
+from .music_queries import slice_feature_rows
+from .music_store import MusicStore
+from .music_truth import (
+    build_alignment_preview,
+    build_music_change_proof,
+    build_music_drift_report,
+    build_music_snapshot,
+    build_segment_index,
+)
 from .observability import observe_inference, record_data_plane, record_retrieval
 from .ontology_store import OntologyStore
 from .orchestration import build_inference_plan
@@ -210,6 +241,7 @@ class AdvancedMultimodalService:
         self.execution_journal_store = ExecutionJournalStore(
             self.settings.execution_journal_db_path
         )
+        self.music_store = MusicStore(self.settings.music_warehouse_db_path)
 
     @property
     def torch_available(self) -> bool:
@@ -645,6 +677,257 @@ class AdvancedMultimodalService:
         record_data_plane("connector_list")
         return self.connector_store.list_runs(limit=limit)
 
+    def register_music_manifest(
+        self, request: MusicTrackManifestRequest
+    ) -> MusicTrackManifestRecord:
+        record_data_plane("music_manifest_register")
+        source_fingerprint = hashlib.sha256(
+            "|".join(
+                [
+                    request.track_name.strip().lower(),
+                    request.owner.strip().lower(),
+                    request.source_uri.strip(),
+                    request.content_sha256.strip(),
+                    str(request.duration_ms),
+                    str(request.sample_rate_hz),
+                ]
+            ).encode("utf-8")
+        ).hexdigest()
+        record = MusicTrackManifestRecord(
+            track_name=request.track_name,
+            owner=request.owner,
+            source_uri=request.source_uri,
+            source_kind=request.source_kind,
+            content_sha256=request.content_sha256,
+            license_kind=request.license_kind,
+            duration_ms=request.duration_ms,
+            sample_rate_hz=request.sample_rate_hz,
+            channel_count=request.channel_count,
+            release_year=request.release_year,
+            languages=request.languages,
+            regions=request.regions,
+            genres=request.genres,
+            tags=request.tags,
+            notes=request.notes,
+            source_fingerprint=source_fingerprint,
+        )
+        return self.music_store.save_manifest(record)
+
+    def list_music_manifests(self, limit: int = 50) -> List[MusicTrackManifestRecord]:
+        record_data_plane("music_manifest_list")
+        return self.music_store.list_manifests(limit=limit)
+
+    def get_music_manifest(self, manifest_id: str) -> MusicTrackManifestRecord | None:
+        return self.music_store.get_manifest(manifest_id)
+
+    def extract_music_features(
+        self, request: MusicFeatureExtractionRequest
+    ) -> MusicFeatureWarehouseRun:
+        record_data_plane("music_feature_extract")
+        manifest = self._resolve_music_manifest(request)
+        row_dicts, feature_vectors, benchmark = build_music_feature_rows(manifest, request)
+        output_path = self._music_feature_table_path(manifest=manifest)
+        benchmark = persist_feature_rows(row_dicts, output_path, benchmark)
+        run_id = str(uuid4())
+        segment_index = build_segment_index(
+            run_id=run_id,
+            manifest=manifest,
+            inputs=request.segments,
+            features=feature_vectors,
+        )
+        embedding_records = build_embedding_records(
+            run_id=run_id,
+            manifest=manifest,
+            vectors=feature_vectors,
+        )
+        embedding_path = self._music_embedding_table_path(manifest=manifest)
+        persist_embedding_records(embedding_records, embedding_path)
+        self.vector_index.upsert(retrieval_request_from_embeddings(embedding_records))
+        feature_receipt = build_music_receipt(
+            manifest=manifest,
+            extractor_version=self.settings.service_version,
+            feature_schema_version="1.0",
+            output_path=output_path,
+            embedding_model=EMBEDDING_MODEL_NAME,
+            contract_hash=embedding_contract_hash(),
+        )
+        embedding_receipt = build_music_receipt(
+            manifest=manifest,
+            extractor_version=self.settings.service_version,
+            feature_schema_version="1.0-embedding-lane",
+            output_path=embedding_path,
+            embedding_model=EMBEDDING_MODEL_NAME,
+            contract_hash=embedding_contract_hash(),
+        )
+
+        dataset_id = ""
+        dataset_name = ""
+        dataset_version = ""
+        if request.register_dataset:
+            dataset_name = request.dataset_name or self._default_music_dataset_name(manifest)
+            dataset_version = request.dataset_version or datetime.now(timezone.utc).strftime(
+                "%Y.%m.%d"
+            )
+            dataset = self.catalog_store.save_dataset(
+                register_dataset(
+                    DatasetRegistrationRequest(
+                        dataset_name=dataset_name,
+                        owner=manifest.owner,
+                        version=dataset_version,
+                        modality="audio",
+                        partition_keys=["partition_label"],
+                        primary_keys=["manifest_id", "segment_id"],
+                        fields=infer_dataset_fields(row_dicts),
+                        tags=sorted(
+                            {
+                                *manifest.tags,
+                                *manifest.genres,
+                                "audio",
+                                "feature-warehouse",
+                                "music",
+                            }
+                        ),
+                        notes=[
+                            "Derived music feature table written without "
+                            "storing raw media in the repository.",
+                            f"Source manifest: {manifest.manifest_id}",
+                        ],
+                    ),
+                    self.settings,
+                )
+            )
+            dataset_id = dataset.dataset_id
+
+        run = MusicFeatureWarehouseRun(
+            run_id=run_id,
+            manifest_id=manifest.manifest_id,
+            track_name=manifest.track_name,
+            owner=manifest.owner,
+            source_uri=manifest.source_uri,
+            source_kind=manifest.source_kind,
+            genres=manifest.genres,
+            languages=manifest.languages,
+            partition_label=request.partition_label,
+            feature_table_path=str(output_path),
+            embedding_table_path=str(embedding_path),
+            dataset_id=dataset_id,
+            dataset_name=dataset_name,
+            dataset_version=dataset_version,
+            segment_count=len(feature_vectors),
+            embedding_model=EMBEDDING_MODEL_NAME,
+            embedding_contract_hash=embedding_contract_hash(),
+            embedding_record_count=len(embedding_records),
+            benchmark=benchmark,
+            segments=feature_vectors,
+            segment_index=segment_index,
+            embeddings=embedding_records,
+            receipts=[feature_receipt, embedding_receipt],
+            notes=[
+                *request.notes,
+                "Only derived features were persisted. Raw waveform material "
+                "stayed outside the repository ledger.",
+            ],
+        )
+        return self.music_store.save_run(run)
+
+    def list_music_feature_runs(self, limit: int = 50) -> List[MusicFeatureWarehouseRun]:
+        record_data_plane("music_feature_list")
+        return self.music_store.list_runs(limit=limit)
+
+    def get_music_feature_run(self, run_id: str) -> MusicFeatureWarehouseRun | None:
+        return self.music_store.get_run(run_id)
+
+    def music_overview(self, limit: int = 6) -> MusicFeatureOverview:
+        record_data_plane("music_overview")
+        manifests = self.music_store.list_manifests(limit=max(limit, 24))
+        runs = self.music_store.list_runs(limit=max(limit, 24))
+        genre_counts, language_counts, findings, total_segments = summarize_music_findings(
+            manifests=manifests,
+            runs=runs,
+        )
+        return MusicFeatureOverview(
+            manifest_count=self.music_store.count_manifests(),
+            feature_run_count=self.music_store.count_runs(),
+            total_segments=total_segments,
+            genre_counts=genre_counts,
+            language_counts=language_counts,
+            top_findings=findings,
+            recent_manifests=manifests[:limit],
+            recent_runs=runs[:limit],
+        )
+
+    def list_music_segments(
+        self,
+        *,
+        limit: int = 48,
+        manifest_id: str = "",
+        run_id: str = "",
+    ):
+        record_data_plane("music_segments")
+        runs = self.music_store.list_runs(limit=200)
+        records = []
+        for run in runs:
+            if manifest_id and run.manifest_id != manifest_id:
+                continue
+            if run_id and run.run_id != run_id:
+                continue
+            records.extend(run.segment_index)
+        return records[:limit]
+
+    def music_feature_slice(
+        self,
+        *,
+        limit: int = 32,
+        manifest_id: str = "",
+        run_id: str = "",
+    ) -> MusicFeatureSlice:
+        record_data_plane("music_feature_slice")
+        runs = self.music_store.list_runs(limit=200)
+        return slice_feature_rows(
+            runs,
+            manifest_id=manifest_id,
+            run_id=run_id,
+            limit=limit,
+        )
+
+    def music_alignment_preview(self, run_id: str = "") -> TemporalAlignmentResponse:
+        record_data_plane("music_alignment_preview")
+        if run_id:
+            run = self.music_store.get_run(run_id)
+        else:
+            runs = self.music_store.list_runs(limit=1)
+            run = runs[0] if runs else None
+        if run is None:
+            return TemporalAlignmentResponse(
+                windows=[],
+                modality_coverage_ms={},
+                uncovered_modalities=[],
+            )
+        return build_alignment_preview(run)
+
+    def music_drift_report(self, limit: int = 12) -> MusicDriftReport:
+        record_data_plane("music_drift_report")
+        manifests = self.music_store.list_manifests(limit=max(limit, 24))
+        runs = self.music_store.list_runs(limit=max(limit, 24))
+        return build_music_drift_report(manifests=manifests, runs=runs)
+
+    def music_change_proof(self, limit: int = 12) -> MusicChangeProofResponse:
+        record_data_plane("music_change_proof")
+        manifests = self.music_store.list_manifests(limit=max(limit, 24))
+        runs = self.music_store.list_runs(limit=max(limit, 24))
+        return build_music_change_proof(manifests=manifests, runs=runs)
+
+    def music_snapshot(self, limit: int = 12):
+        record_data_plane("music_snapshot")
+        overview = self.music_overview(limit=limit)
+        return build_music_snapshot(
+            overview=overview,
+            drift=self.music_drift_report(limit=limit),
+            change_proof=self.music_change_proof(limit=limit),
+            segment_slice=self.music_feature_slice(limit=limit),
+            alignment_preview=self.music_alignment_preview(),
+        )
+
     def _runtime_store_counts(self) -> Dict[str, int]:
         return {
             "async_jobs": self.job_store.count_jobs(),
@@ -658,6 +941,8 @@ class AdvancedMultimodalService:
             "change_controls": self.stewardship_store.count_change_controls(),
             "supply_chain_snapshots": self.stewardship_store.count_supply_chain_snapshots(),
             "execution_journal_runs": self.execution_journal_store.count_records(),
+            "music_manifests": self.music_store.count_manifests(),
+            "music_feature_runs": self.music_store.count_runs(),
         }
 
     def runtime_attestation(self) -> RuntimeAttestationResponse:
@@ -758,6 +1043,7 @@ class AdvancedMultimodalService:
                 request=ReferenceBenchmarkRequest(),
             ),
             execution_journal=self.execution_journal(limit=12),
+            music_overview=self.music_overview(limit=6),
         )
 
     def execution_journal(self, limit: int = 20) -> ExecutionJournalSummary:
@@ -1459,6 +1745,22 @@ class AdvancedMultimodalService:
             artifacts=[recipe_record.recipe_id],
         )
 
+        music_started = perf_counter()
+        music_run = self.extract_music_features(self._reference_music_feature_request())
+        record_stage(
+            stage_id="music_warehouse",
+            label="Segmented music feature warehouse",
+            started=music_started,
+            status="pass",
+            record_count=music_run.segment_count,
+            stage_notes=[
+                f"Feature table: {music_run.feature_table_path}.",
+                f"Average entropy: {music_run.benchmark.average_entropy_score:.3f}.",
+                f"Average tempo proxy: {music_run.benchmark.average_tempo_proxy_bpm:.1f} bpm.",
+            ],
+            artifacts=[music_run.run_id, music_run.feature_table_path],
+        )
+
         if benchmark_request.include_smoke_benchmark:
             smoke_started = perf_counter()
             smoke_result = self.run_smoke_benchmark(
@@ -1572,6 +1874,154 @@ class AdvancedMultimodalService:
                 )
             )
         return requests
+
+    def _resolve_music_manifest(
+        self, request: MusicFeatureExtractionRequest
+    ) -> MusicTrackManifestRecord:
+        if request.manifest_id:
+            manifest = self.music_store.get_manifest(request.manifest_id)
+            if manifest is None:
+                raise ValueError(f"Music manifest '{request.manifest_id}' was not found")
+            return manifest
+        if request.manifest is None:
+            raise ValueError("Music feature extraction requires a manifest")
+        return self.register_music_manifest(request.manifest)
+
+    def _default_music_dataset_name(self, manifest: MusicTrackManifestRecord) -> str:
+        safe_name = "".join(
+            character.lower() if character.isalnum() else "_"
+            for character in manifest.track_name.strip()
+        ).strip("_")
+        return f"music_features_{safe_name or manifest.manifest_id[:8]}"
+
+    def _music_feature_table_path(self, *, manifest: MusicTrackManifestRecord) -> Path:
+        output_dir = Path(self.settings.music_feature_output_dir)
+        safe_name = "".join(
+            character.lower() if character.isalnum() else "-"
+            for character in manifest.track_name.strip()
+        ).strip("-")
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S%f")
+        file_name = (
+            f"{safe_name or manifest.manifest_id[:8]}-"
+            f"{manifest.manifest_id[:8]}-{stamp}.parquet"
+        )
+        return output_dir / file_name
+
+    def _music_embedding_table_path(self, *, manifest: MusicTrackManifestRecord) -> Path:
+        output_dir = Path(self.settings.music_feature_output_dir)
+        safe_name = "".join(
+            character.lower() if character.isalnum() else "-"
+            for character in manifest.track_name.strip()
+        ).strip("-")
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S%f")
+        file_name = (
+            f"{safe_name or manifest.manifest_id[:8]}-"
+            f"{manifest.manifest_id[:8]}-{stamp}-embeddings.parquet"
+        )
+        return output_dir / file_name
+
+    def _reference_music_feature_request(self) -> MusicFeatureExtractionRequest:
+        return MusicFeatureExtractionRequest(
+            manifest=MusicTrackManifestRequest(
+                track_name="Reference Pulse Field",
+                owner="reference-benchmark",
+                source_uri="reference://cymatic-field",
+                source_kind="reference",
+                content_sha256="reference-cymatic-field-v1",
+                license_kind="research_fair_use",
+                duration_ms=24_000,
+                sample_rate_hz=16_000,
+                channel_count=1,
+                release_year=2026,
+                languages=["instrumental"],
+                regions=["global"],
+                genres=["signal-study", "reference"],
+                tags=["benchmark", "cymatic", "music"],
+                notes=["Deterministic reference waveform for the music warehouse lane."],
+            ),
+            partition_label="reference",
+            dataset_name="music_reference_features",
+            dataset_version=datetime.now(timezone.utc).strftime("%Y.%m.%d"),
+            notes=[
+                "Reference workload used to keep the public signal lab tied "
+                "to a real feature store."
+            ],
+            segments=[
+                {
+                    "start_ms": 0,
+                    "end_ms": 8_000,
+                    "label": "intro",
+                    "transcript_excerpt": "soft emergence",
+                    "speaker": "section-a",
+                    "attributes": {
+                        "transcript_ref": "transcript-intro",
+                        "speaker_or_section": "intro",
+                        "frame_ref": "frame-001",
+                        "video_window_start_ms": 120,
+                        "video_window_end_ms": 7_400,
+                    },
+                    "waveform": [
+                        round(
+                            math.sin(index * 0.055) * (0.55 + 0.15 * math.sin(index * 0.009)),
+                            6,
+                        )
+                        for index in range(1024)
+                    ],
+                },
+                {
+                    "start_ms": 8_000,
+                    "end_ms": 16_000,
+                    "label": "lift",
+                    "transcript_excerpt": "denser movement",
+                    "speaker": "section-b",
+                    "attributes": {
+                        "transcript_ref": "transcript-lift",
+                        "speaker_or_section": "lift",
+                        "frame_ref": "frame-014",
+                        "video_window_start_ms": 8_220,
+                        "video_window_end_ms": 15_560,
+                    },
+                    "waveform": [
+                        round(
+                            (
+                                math.sin(index * 0.08)
+                                + 0.35 * math.sin(index * 0.16)
+                                + 0.12 * math.cos(index * 0.023)
+                            )
+                            * 0.68,
+                            6,
+                        )
+                        for index in range(1024)
+                    ],
+                },
+                {
+                    "start_ms": 16_000,
+                    "end_ms": 24_000,
+                    "label": "resolve",
+                    "transcript_excerpt": "return to clarity",
+                    "speaker": "section-c",
+                    "attributes": {
+                        "transcript_ref": "transcript-resolve",
+                        "speaker_or_section": "resolve",
+                        "frame_ref": "frame-027",
+                        "video_window_start_ms": 16_180,
+                        "video_window_end_ms": 23_480,
+                    },
+                    "waveform": [
+                        round(
+                            (
+                                0.72 * math.sin(index * 0.061)
+                                + 0.18 * math.sin(index * 0.123)
+                                + 0.08 * math.cos(index * 0.014)
+                            )
+                            * (0.88 - (index / 1024) * 0.3),
+                            6,
+                        )
+                        for index in range(1024)
+                    ],
+                },
+            ],
+        )
 
     def _maybe_run_population_drift_gate(
         self, request: InferenceRequest

@@ -152,6 +152,532 @@
         }
       }
     },
+    "/v1/music/overview": {
+      "get": {
+        "summary": "Music Overview",
+        "operationId": "music_overview_v1_music_overview_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 6,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/snapshot": {
+      "get": {
+        "summary": "Music Snapshot",
+        "operationId": "music_snapshot_v1_music_snapshot_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 12,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/manifests": {
+      "post": {
+        "summary": "Register Music Manifest",
+        "operationId": "register_music_manifest_v1_music_manifests_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MusicTrackManifestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Music Manifests",
+        "operationId": "list_music_manifests_v1_music_manifests_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/manifests/{manifest_id}": {
+      "get": {
+        "summary": "Get Music Manifest",
+        "operationId": "get_music_manifest_v1_music_manifests__manifest_id__get",
+        "parameters": [
+          {
+            "name": "manifest_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Manifest Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/features/extract": {
+      "post": {
+        "summary": "Extract Music Features",
+        "operationId": "extract_music_features_v1_music_features_extract_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MusicFeatureExtractionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/features/runs": {
+      "get": {
+        "summary": "List Music Feature Runs",
+        "operationId": "list_music_feature_runs_v1_music_features_runs_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/features/runs/{run_id}": {
+      "get": {
+        "summary": "Get Music Feature Run",
+        "operationId": "get_music_feature_run_v1_music_features_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/features/query": {
+      "get": {
+        "summary": "Query Music Feature Rows",
+        "operationId": "query_music_feature_rows_v1_music_features_query_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 32,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "manifest_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Manifest Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/segments": {
+      "get": {
+        "summary": "List Music Segments",
+        "operationId": "list_music_segments_v1_music_segments_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 48,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "manifest_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Manifest Id"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/alignment": {
+      "get": {
+        "summary": "Music Alignment",
+        "operationId": "music_alignment_v1_music_alignment_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/drift": {
+      "get": {
+        "summary": "Music Drift",
+        "operationId": "music_drift_v1_music_drift_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 12,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/music/proof/change-report": {
+      "get": {
+        "summary": "Music Change Proof",
+        "operationId": "music_change_proof_v1_music_proof_change_report_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 12,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/repository/pulse": {
       "get": {
         "summary": "Repository Pulse",
@@ -3134,6 +3660,31 @@
             "title": "Total Runs",
             "default": 0
           },
+          "music_manifest_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Music Manifest Count",
+            "default": 0
+          },
+          "music_feature_run_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Music Feature Run Count",
+            "default": 0
+          },
+          "music_total_segments": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Music Total Segments",
+            "default": 0
+          },
+          "music_top_genres": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Music Top Genres"
+          },
           "harmonic_bands": {
             "items": {
               "$ref": "#/components/schemas/CymaticBand"
@@ -3657,6 +4208,269 @@
           "traces"
         ],
         "title": "LiabilitySurfacingRequest"
+      },
+      "MusicFeatureExtractionRequest": {
+        "properties": {
+          "manifest_id": {
+            "type": "string",
+            "title": "Manifest Id",
+            "default": ""
+          },
+          "manifest": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MusicTrackManifestRequest"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "segments": {
+            "items": {
+              "$ref": "#/components/schemas/MusicSegmentInput"
+            },
+            "type": "array",
+            "maxItems": 1024,
+            "minItems": 1,
+            "title": "Segments"
+          },
+          "partition_label": {
+            "type": "string",
+            "title": "Partition Label",
+            "default": "default"
+          },
+          "dataset_name": {
+            "type": "string",
+            "title": "Dataset Name",
+            "default": ""
+          },
+          "dataset_version": {
+            "type": "string",
+            "title": "Dataset Version",
+            "default": ""
+          },
+          "register_dataset": {
+            "type": "boolean",
+            "title": "Register Dataset",
+            "default": true
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 128,
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "segments"
+        ],
+        "title": "MusicFeatureExtractionRequest"
+      },
+      "MusicSegmentInput": {
+        "properties": {
+          "segment_id": {
+            "type": "string",
+            "title": "Segment Id"
+          },
+          "start_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Start Ms"
+          },
+          "end_ms": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "End Ms"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label",
+            "default": "section"
+          },
+          "transcript_excerpt": {
+            "type": "string",
+            "title": "Transcript Excerpt",
+            "default": ""
+          },
+          "speaker": {
+            "type": "string",
+            "title": "Speaker",
+            "default": ""
+          },
+          "sample_rate_hz": {
+            "type": "integer",
+            "maximum": 384000.0,
+            "minimum": 1000.0,
+            "title": "Sample Rate Hz",
+            "default": 16000
+          },
+          "waveform": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 262144,
+            "title": "Waveform"
+          },
+          "energy_trace": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 65536,
+            "title": "Energy Trace"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Notes"
+          },
+          "attributes": {
+            "type": "object",
+            "title": "Attributes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_ms",
+          "end_ms"
+        ],
+        "title": "MusicSegmentInput"
+      },
+      "MusicTrackManifestRequest": {
+        "properties": {
+          "track_name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Track Name"
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Owner"
+          },
+          "source_uri": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Source Uri"
+          },
+          "source_kind": {
+            "type": "string",
+            "enum": [
+              "object_store",
+              "public_url",
+              "local_path",
+              "stream_log",
+              "reference"
+            ],
+            "title": "Source Kind",
+            "default": "object_store"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256",
+            "default": ""
+          },
+          "license_kind": {
+            "type": "string",
+            "enum": [
+              "owned",
+              "licensed",
+              "public_domain",
+              "research_fair_use",
+              "unspecified"
+            ],
+            "title": "License Kind",
+            "default": "unspecified"
+          },
+          "duration_ms": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Duration Ms"
+          },
+          "sample_rate_hz": {
+            "type": "integer",
+            "maximum": 384000.0,
+            "minimum": 1000.0,
+            "title": "Sample Rate Hz",
+            "default": 48000
+          },
+          "channel_count": {
+            "type": "integer",
+            "maximum": 64.0,
+            "minimum": 1.0,
+            "title": "Channel Count",
+            "default": 1
+          },
+          "release_year": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 2100.0,
+                "minimum": 1900.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Release Year"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Languages"
+          },
+          "regions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Regions"
+          },
+          "genres": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Genres"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Tags"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 128,
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "track_name",
+          "owner",
+          "source_uri",
+          "duration_ms"
+        ],
+        "title": "MusicTrackManifestRequest"
       },
       "OntologyIngestRequest": {
         "properties": {

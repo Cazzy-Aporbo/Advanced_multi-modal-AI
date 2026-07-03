@@ -1,5 +1,6 @@
 import base64
 import json
+import math
 
 from starlette.testclient import TestClient
 
@@ -30,6 +31,83 @@ def _assert_ledger_headers(response, *, route: str, method: str, status_code: in
     assert payload["status_code"] == status_code
     assert payload["governance_scope"] == scope
     assert payload["governance_lanes"]
+
+
+def _music_feature_payload():
+    return {
+        "manifest": {
+            "track_name": "Archive Choir Study",
+            "owner": "tests",
+            "source_uri": "s3://public-audio/archive-choir-study.wav",
+            "source_kind": "s3_object",
+            "content_sha256": "archive-choir-study-sha",
+            "license_kind": "public_reference",
+            "duration_ms": 18000,
+            "sample_rate_hz": 16000,
+            "channel_count": 1,
+            "languages": ["en", "fil"],
+            "regions": ["ph", "us"],
+            "genres": ["choral", "signal-study"],
+            "tags": ["music", "warehouse", "test"],
+        },
+        "partition_label": "test-reference",
+        "dataset_name": "music_archive_choir_features",
+        "dataset_version": "2026.07.03",
+        "segments": [
+            {
+                "start_ms": 0,
+                "end_ms": 6000,
+                "label": "opening",
+                "speaker": "section-a",
+                "transcript_excerpt": "breath opens the phrase",
+                "attributes": {
+                    "transcript_ref": "line-001",
+                    "speaker_or_section": "opening",
+                    "frame_ref": "frame-001",
+                    "video_window_start_ms": 120,
+                    "video_window_end_ms": 5420,
+                },
+                "waveform": [round(0.64 * math.sin(index * 0.09), 6) for index in range(256)],
+            },
+            {
+                "start_ms": 6000,
+                "end_ms": 12000,
+                "label": "lift",
+                "speaker": "section-b",
+                "transcript_excerpt": "the choir thickens",
+                "attributes": {
+                    "transcript_ref": "line-002",
+                    "speaker_or_section": "lift",
+                    "frame_ref": "frame-009",
+                    "video_window_start_ms": 6240,
+                    "video_window_end_ms": 11360,
+                },
+                "waveform": [
+                    round(
+                        (0.5 * math.sin(index * 0.12))
+                        + (0.18 * math.cos(index * 0.04)),
+                        6,
+                    )
+                    for index in range(256)
+                ],
+            },
+            {
+                "start_ms": 12000,
+                "end_ms": 18000,
+                "label": "resolve",
+                "speaker": "section-c",
+                "transcript_excerpt": "the phrase narrows again",
+                "attributes": {
+                    "transcript_ref": "line-003",
+                    "speaker_or_section": "resolve",
+                    "frame_ref": "frame-018",
+                    "video_window_start_ms": 12160,
+                    "video_window_end_ms": 17380,
+                },
+                "energy_trace": [round(0.32 + ((index % 24) / 100), 6) for index in range(128)],
+            },
+        ],
+    }
 
 
 def test_health_endpoint():
@@ -254,12 +332,79 @@ def test_research_cymatic_surface_stays_tied_to_runtime_proof():
     assert payload["route_count"] >= 40
     assert payload["test_count"] >= 1
     assert payload["total_runs"] >= 1
+    assert payload["music_feature_run_count"] >= 1
     assert payload["harmonic_bands"]
     assert payload["stages"]
     assert payload["continuation_links"]
     assert any(stage["trace_paths"] for stage in payload["stages"])
     assert any(stage["files"] for stage in payload["stages"])
     assert any(item["audience"] == "researcher" for item in payload["narratives"])
+
+
+def test_music_warehouse_endpoints_persist_segments_embeddings_and_receipts():
+    response = client.post("/v1/music/features/extract", json=_music_feature_payload())
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["segment_count"] == 3
+    assert payload["embedding_record_count"] == 3
+    assert len(payload["embeddings"]) == 3
+    assert len(payload["segment_index"]) == 3
+    assert len(payload["receipts"]) == 2
+    assert payload["feature_table_path"].endswith(".parquet")
+    assert payload["embedding_table_path"].endswith(".parquet")
+
+    overview = client.get("/v1/music/overview")
+    assert overview.status_code == 200
+    overview_payload = overview.json()
+    assert overview_payload["manifest_count"] >= 1
+    assert overview_payload["feature_run_count"] >= 1
+    assert overview_payload["total_segments"] >= 3
+
+    feature_rows = client.get("/v1/music/features/query", params={"run_id": payload["run_id"]})
+    assert feature_rows.status_code == 200
+    feature_rows_payload = feature_rows.json()
+    assert feature_rows_payload["row_count"] >= 3
+    assert feature_rows_payload["rows"]
+
+    segments = client.get("/v1/music/segments", params={"run_id": payload["run_id"]})
+    assert segments.status_code == 200
+    segment_payload = segments.json()
+    assert len(segment_payload) == 3
+    assert any("missing-visual-link" not in item["quality_flags"] for item in segment_payload)
+
+    alignment = client.get("/v1/music/alignment", params={"run_id": payload["run_id"]})
+    assert alignment.status_code == 200
+    alignment_payload = alignment.json()
+    assert alignment_payload["windows"]
+    assert any("audio" in item["modalities"] for item in alignment_payload["windows"])
+    assert any("text" in item["modalities"] for item in alignment_payload["windows"])
+
+
+def test_music_snapshot_surfaces_drift_and_change_proof():
+    drift = client.get("/v1/music/drift")
+    assert drift.status_code == 200
+    drift_payload = drift.json()
+    assert drift_payload["feature_run_count"] >= 1
+    assert drift_payload["indicators"]
+    assert any(
+        item["indicator_id"] == "language-share-drift"
+        for item in drift_payload["indicators"]
+    )
+
+    change = client.get("/v1/music/proof/change-report")
+    assert change.status_code == 200
+    change_payload = change.json()
+    assert change_payload["feature_run_count"] >= 1
+    assert change_payload["changes"]
+    assert change_payload["changes"][0]["receipts"]
+
+    snapshot = client.get("/v1/music/snapshot")
+    assert snapshot.status_code == 200
+    snapshot_payload = snapshot.json()
+    assert snapshot_payload["overview"]["feature_run_count"] >= 1
+    assert snapshot_payload["drift"]["indicators"]
+    assert snapshot_payload["change_proof"]["changes"]
+    assert snapshot_payload["segment_slice"]["rows"]
 
 
 def test_repository_pulse_tracks_lane_health_and_artifacts():

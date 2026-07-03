@@ -46,6 +46,10 @@ def build_runtime_attestation(
             "Cymatic surface export",
             REPO_ROOT / "proof" / "cymatic-surface.json",
         ),
+        _artifact(
+            "Music observatory export",
+            REPO_ROOT / "proof" / "music-observatory.json",
+        ),
     ]
 
     return RuntimeAttestationResponse(
@@ -62,6 +66,8 @@ def build_runtime_attestation(
             "change_control",
             "supply_chain_snapshot",
             "connector_ingest",
+            "music_manifest",
+            "music_feature_warehouse",
             "web_ingest",
             "recipe_registry",
             "readiness_report",

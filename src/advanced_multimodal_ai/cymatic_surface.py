@@ -10,6 +10,7 @@ from .contracts import (
     CymaticStageCard,
     CymaticSurfaceBundle,
     ExecutionJournalSummary,
+    MusicFeatureOverview,
     ReferenceBenchmarkResult,
     RepositoryPulse,
     ResearchSurfaceBundle,
@@ -22,12 +23,16 @@ def build_cymatic_surface_bundle(
     repository_pulse: RepositoryPulse,
     benchmark: ReferenceBenchmarkResult,
     execution_journal: ExecutionJournalSummary,
+    music_overview: MusicFeatureOverview | None = None,
 ) -> CymaticSurfaceBundle:
+    if music_overview is None:
+        music_overview = MusicFeatureOverview()
     live_scores = [lane.live_score / 100 for lane in repository_pulse.lanes]
     average_live_score = mean(live_scores) if live_scores else 0.62
     warning_load = sum(lane.warning_count for lane in repository_pulse.lanes)
     connector_reach = min(1.0, research_bundle.summary.connector_kind_count / 8)
     question_pressure = min(1.0, research_bundle.summary.open_question_count / 8)
+    warehouse_reach = min(1.0, music_overview.feature_run_count / 8)
     replay_bonus = 0.16 if benchmark.replay_verified else 0.05
     observed_run_count = max(
         execution_journal.total_runs,
@@ -41,6 +46,7 @@ def build_cymatic_surface_bundle(
     baseline_harmony = _clamp(
         average_live_score * 0.62
         + connector_reach * 0.12
+        + warehouse_reach * 0.1
         + replay_bonus
         + min(0.1, benchmark.stage_count / 80)
     )
@@ -95,6 +101,20 @@ def build_cymatic_surface_bundle(
             note=(
                 "The engine feels more alive when scripts, exports, and "
                 "verification runs continue to leave visible traces."
+            ),
+        ),
+        CymaticBand(
+            band_id="music_warehouse",
+            label="music warehouse depth",
+            intensity=_clamp(
+                min(1.0, music_overview.total_segments / 24)
+                * 0.62
+                + min(1.0, music_overview.feature_run_count / 6) * 0.38
+            ),
+            drift=_clamp(1.0 - min(1.0, len(music_overview.genre_counts) / 6)),
+            note=(
+                "The sound lane gets more persuasive once manifests, segment cuts, "
+                "and derived feature tables remain visible beside the visual field."
             ),
         ),
     ]
@@ -227,6 +247,66 @@ def build_cymatic_surface_bundle(
             ),
         ),
         _build_stage_card(
+            stage=_find_stage(benchmark, "music_warehouse"),
+            label="Segment and warehouse",
+            files=[
+                "src/advanced_multimodal_ai/music_features.py",
+                "src/advanced_multimodal_ai/music_store.py",
+                "src/advanced_multimodal_ai/service.py",
+            ],
+            trace_paths=[
+                "/v1/music/manifests",
+                "/v1/music/features/extract",
+                "/v1/music/overview",
+            ],
+            human_read=(
+                "A track can stay outside the repository while its segment map and its "
+                "derived structure remain open to inspection."
+            ),
+            research_read=(
+                "This is where the sound lane stops being a decorative waveform and becomes "
+                "a measurable catalog of timing, repetition, pitch weight, silence, and drift."
+            ),
+            business_read=(
+                "Feature tables are cheaper to compare, audit, and retain than raw media, "
+                "especially when a team needs to explain what changed over time."
+            ),
+            improvement_path=(
+                "Keep widening the warehouse with stronger multilingual, regional, and "
+                "cross-format manifests rather than relying on one narrow musical posture."
+            ),
+            extra_metrics=[
+                CymaticMetric(
+                    metric_id="music_manifests",
+                    label="manifests",
+                    value=float(music_overview.manifest_count),
+                    unit="records",
+                    detail="Audio sources declared through manifest-only intake.",
+                ),
+                CymaticMetric(
+                    metric_id="music_runs",
+                    label="feature runs",
+                    value=float(music_overview.feature_run_count),
+                    unit="runs",
+                    detail="Persisted music feature extractions with recorded Parquet output.",
+                ),
+                CymaticMetric(
+                    metric_id="music_segments",
+                    label="segments",
+                    value=float(music_overview.total_segments),
+                    unit="segments",
+                    detail="Segment windows currently materialized into the warehouse.",
+                ),
+                CymaticMetric(
+                    metric_id="music_genres",
+                    label="genre spread",
+                    value=float(len(music_overview.genre_counts)),
+                    unit="genres",
+                    detail="Named genre coverage currently declared in the manifest lane.",
+                ),
+            ],
+        ),
+        _build_stage_card(
             stage=_find_stage(benchmark, "proof_bundle"),
             label="Govern and disclose",
             files=[
@@ -345,12 +425,17 @@ def build_cymatic_surface_bundle(
         tension_index=tension_index,
         active_files=sum(len(lane.files) for lane in repository_pulse.lanes),
         total_runs=observed_run_count,
+        music_manifest_count=music_overview.manifest_count,
+        music_feature_run_count=music_overview.feature_run_count,
+        music_total_segments=music_overview.total_segments,
+        music_top_genres=list(music_overview.genre_counts.keys())[:5],
         harmonic_bands=bands,
         stages=stages,
         narratives=narratives,
         continuation_links=[
             "advanced-technical-portfolio.html",
             "benchmark-observatory.html",
+            "music-observatory.html",
             "model-observatory.html",
             "field-notes.html",
             "proof/cymatic-surface.md",

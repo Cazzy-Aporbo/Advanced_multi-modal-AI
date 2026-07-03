@@ -134,6 +134,23 @@
               <span class="cymatic-chip">${surface.connector_kind_count} connector kinds</span>
               <span class="cymatic-chip">${surface.total_runs} recorded runs</span>
             </div>
+            <div class="cymatic-warehouse-pulse">
+              <div class="cymatic-warehouse-head">
+                <strong>Music warehouse</strong>
+                <small>manifest, segments, and derived sound memory</small>
+              </div>
+              <div class="cymatic-chip-row">
+                <span class="cymatic-chip">${surface.music_manifest_count} manifests</span>
+                <span class="cymatic-chip">${surface.music_feature_run_count} runs</span>
+                <span class="cymatic-chip">${surface.music_total_segments} segments</span>
+              </div>
+              <div class="cymatic-chip-row">
+                ${(surface.music_top_genres || []).slice(0, 4).map((item) => `<span class="cymatic-chip">${escapeHtml(item)}</span>`).join("")}
+              </div>
+              <div class="cymatic-action-row" style="margin-top:14px;">
+                <a class="cymatic-pill-link" href="music-observatory.html">open music observatory</a>
+              </div>
+            </div>
           </aside>
         </div>
 

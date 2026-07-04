@@ -12,13 +12,11 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      pages_enabled: ${{ steps.pages-state.outputs.enabled }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -90,70 +88,42 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-        continue-on-error: true
+        with:
+          enablement: true
 
-      - name: Record Pages availability
-        id: pages-state
+      - name: Validate site bundle
         run: |
-          if [ "${{ steps.pages.outcome }}" = "success" ]; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          test -f site/index.html
+          test -f site/model-observatory.html
+          test -f site/proof/research-surfaces.json
+          if find site -type l | grep -q .; then
+            echo "Pages artifact cannot contain symlinks." >&2
+            find site -type l >&2
+            exit 1
           fi
+          if find site -type f -size +100M | grep -q .; then
+            echo "Pages artifact contains a file larger than 100 MB." >&2
+            find site -type f -size +100M >&2
+            exit 1
+          fi
+          echo "Prepared $(find site -type f | wc -l | tr -d ' ') published files."
+          du -sh site
 
       - name: Upload Pages artifact
-        if: steps.pages-state.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
-      - name: Pages skipped
-        if: steps.pages-state.outputs.enabled != 'true'
-        run: echo "GitHub Pages is not enabled for this repository; publish bundle prepared but deployment skipped."
-
   deploy:
-    if: needs.build.outputs.pages_enabled == 'true'
     needs: build
     runs-on: ubuntu-latest
-    continue-on-error: true
     permissions:
       pages: write
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment_third.outputs.page_url || steps.deployment_retry.outputs.page_url || steps.deployment_primary.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment_primary
-        continue-on-error: true
+        id: deployment
         uses: actions/deploy-pages@v5
-
-      - name: Wait before retry
-        if: steps.deployment_primary.outcome != 'success'
-        run: sleep 12
-
-      - name: Retry GitHub Pages deployment
-        id: deployment_retry
-        if: steps.deployment_primary.outcome != 'success'
-        continue-on-error: true
-        uses: actions/deploy-pages@v5
-
-      - name: Wait before final retry
-        if: steps.deployment_primary.outcome != 'success' && steps.deployment_retry.outcome != 'success'
-        run: sleep 24
-
-      - name: Final GitHub Pages deployment retry
-        id: deployment_third
-        if: steps.deployment_primary.outcome != 'success' && steps.deployment_retry.outcome != 'success'
-        continue-on-error: true
-        uses: actions/deploy-pages@v5
-
-      - name: Record degraded deploy state
-        if: steps.deployment_primary.outcome != 'success' && steps.deployment_retry.outcome != 'success' && steps.deployment_third.outcome != 'success'
-        run: |
-          {
-            echo "## Pages deployment did not stabilize"
-            echo
-            echo "The static site bundle built successfully, but GitHub Pages did not accept the deployment after three attempts."
-            echo "This workflow remains green because the failure is on the Pages service edge rather than in the repository build."
-          } >> "$GITHUB_STEP_SUMMARY"

@@ -69,6 +69,36 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("GET", path);
   }
 
+  /** Operator Surfaces */
+  async operatorSurfacesV1OperatorsSurfacesGet(): Promise<unknown> {
+    let path = `/v1/operators/surfaces`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Operator Commands */
+  async operatorCommandsV1OperatorsCommandsGet(): Promise<unknown> {
+    let path = `/v1/operators/commands`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Operator Skills */
+  async operatorSkillsV1OperatorsSkillsGet(): Promise<unknown> {
+    let path = `/v1/operators/skills`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Operator Plugins */
+  async operatorPluginsV1OperatorsPluginsGet(): Promise<unknown> {
+    let path = `/v1/operators/plugins`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Operator Speech Tasks */
+  async operatorSpeechTasksV1OperatorsSpeechTasksGet(): Promise<unknown> {
+    let path = `/v1/operators/speech-tasks`;
+    return this.request<unknown>("GET", path);
+  }
+
   /** Music Overview */
   async musicOverviewV1MusicOverviewGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
     let path = `/v1/music/overview`;
@@ -237,9 +267,39 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("GET", path);
   }
 
+  /** Industry Profiles */
+  async industryProfilesV1IndustriesProfilesGet(): Promise<unknown> {
+    let path = `/v1/industries/profiles`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Industrial Scenarios */
+  async industrialScenariosV1IndustrialScenariosGet(): Promise<unknown> {
+    let path = `/v1/industrial/scenarios`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Industrial Diagnose */
+  async industrialDiagnoseV1IndustrialDiagnosePost(payload: unknown): Promise<unknown> {
+    let path = `/v1/industrial/diagnose`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Industrial Model Check */
+  async industrialModelCheckV1IndustrialModelCheckPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/industrial/model-check`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
   /** Repository Pulse */
   async repositoryPulseV1RepositoryPulseGet(): Promise<unknown> {
     let path = `/v1/repository/pulse`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Repository Growth Snapshot */
+  async repositoryGrowthSnapshotV1GrowthSnapshotGet(): Promise<unknown> {
+    let path = `/v1/growth/snapshot`;
     return this.request<unknown>("GET", path);
   }
 
@@ -256,6 +316,34 @@ export class GeneratedOpenAPIClient {
     if (queryString) {
       path += `?${queryString}`;
     }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Edge Evaluate */
+  async edgeEvaluateV1EdgeEvaluatePost(payload: unknown): Promise<unknown> {
+    let path = `/v1/edge/evaluate`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Edge Ledger */
+  async edgeLedgerV1EdgeLedgerGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/edge/ledger`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Edge Topology */
+  async edgeTopologyV1EdgeTopologyGet(): Promise<unknown> {
+    let path = `/v1/edge/topology`;
     return this.request<unknown>("GET", path);
   }
 

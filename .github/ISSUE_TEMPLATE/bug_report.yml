@@ -1,0 +1,44 @@
+name: Bug report
+description: Report a reproducible fault in the runtime, proof exports, or public surfaces.
+title: "[bug] "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened
+      description: Describe the fault in plain terms.
+      placeholder: The route or page returned a result that does not match the stored proof.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: Include commands, payloads, or page paths.
+      placeholder: |
+        1. Start the API
+        2. POST to /v1/music/features/extract with ...
+        3. Open proof/music-observatory.md
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Link the proof file, route, test, screenshot, or log that best shows the issue.
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification
+      options:
+        - label: I checked whether this issue is already open.
+        - label: I included the route, file, or page involved.
+        - label: I kept any sensitive material out of the public issue.

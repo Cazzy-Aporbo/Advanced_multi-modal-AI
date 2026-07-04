@@ -1594,6 +1594,8 @@
             <a href="benchmark-observatory.html">benchmarks</a>
             <a href="cymatic-media-engine.html">signal lab</a>
             <a href="music-observatory.html">music warehouse</a>
+            <a href="industry-profiles.html">industries</a>
+            <a href="industrial-diagnostics.html">industrial diagnostics</a>
             <a href="field-notes.html" data-translate-key="nav_findings">field notes</a>
             <a href="README.md" data-translate-key="nav_readme">readme</a>
           </div>
@@ -1625,6 +1627,8 @@
           <a class="pill" href="benchmark-observatory.html">Open the benchmark lane</a>
           <a class="pill" href="cymatic-media-engine.html">Open the signal lab</a>
           <a class="pill" href="music-observatory.html">Enter the music warehouse</a>
+          <a class="pill" href="industry-profiles.html">Open industry routes</a>
+          <a class="pill" href="industrial-diagnostics.html">Trace industrial proofs</a>
           <a class="pill" href="field-notes.html" data-translate-key="hero_cta_notes">Read the field notes</a>
           <a class="pill" href="examples/README.md" data-translate-key="hero_cta_examples">Run the examples</a>
         </div>
@@ -1939,6 +1943,30 @@
           <a class="pill" href="benchmark-observatory.html">Open the benchmark observatory</a>
           <a class="pill" href="advanced-technical-portfolio.html#lane-map">Read the lane map</a>
           <a class="pill" href="technical-portfolio.html">Browse the file catalog</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="repository-growth">
+      <div class="section-panel">
+        <div class="section-label">Repository signals</div>
+        <h2>Reach, proof freshness, and contribution health in one lane</h2>
+        <p class="map-note">
+          This surface keeps public repository signals next to the same route, test,
+          and proof counts used elsewhere in the atlas. It gives the project a way to
+          measure whether discovery is growing for the right reasons.
+        </p>
+        <div class="runtime-pulse-grid" data-repository-growth>
+          <article class="runtime-pulse-card">
+            <div class="section-label">Loading</div>
+            <h3>Waiting for repository signals</h3>
+            <p>The atlas will pull GitHub-facing metrics and local proof counts into one quieter summary.</p>
+          </article>
+        </div>
+        <div class="hero-actions" style="margin-top:18px;">
+          <a class="pill" href="proof/repository-growth.md">Open the growth report</a>
+          <a class="pill" href="CONTRIBUTING.md">Read contributing</a>
+          <a class="pill" href="SECURITY.md">Read security posture</a>
         </div>
       </div>
     </section>
@@ -2296,13 +2324,14 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
 
     <footer class="footer">
       <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · <a href="LICENSE" style="color:inherit;">Apache License 2.0</a></div>
-      <div><a href="README.md" style="color:inherit;">readme</a> · <a href="advanced-technical-portfolio.html" style="color:inherit;">architecture</a> · <a href="benchmark-observatory.html" style="color:inherit;">benchmarks</a> · <a href="cymatic-media-engine.html" style="color:inherit;">signal lab</a> · <a href="technical-portfolio.html" style="color:inherit;">catalog</a></div>
+      <div><a href="README.md" style="color:inherit;">readme</a> · <a href="advanced-technical-portfolio.html" style="color:inherit;">architecture</a> · <a href="benchmark-observatory.html" style="color:inherit;">benchmarks</a> · <a href="cymatic-media-engine.html" style="color:inherit;">signal lab</a> · <a href="music-observatory.html" style="color:inherit;">music warehouse</a> · <a href="industry-profiles.html" style="color:inherit;">industries</a> · <a href="industrial-diagnostics.html" style="color:inherit;">industrial diagnostics</a> · <a href="technical-portfolio.html" style="color:inherit;">catalog</a></div>
     </footer>
   </div>
 
   <script src="site-controls.js"></script>
   <script src="research-surfaces.js"></script>
   <script src="cymatic-surface.js"></script>
+  <script src="growth-surface.js"></script>
   <script>
     window.AMAI_TRANSLATIONS = {
       en: {

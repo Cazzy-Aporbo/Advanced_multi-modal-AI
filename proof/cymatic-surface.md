@@ -3,14 +3,14 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `82`
-- Tests: `48`
+- Route count: `95`
+- Tests: `55`
 - Connector kinds: `7`
 - Replay verified: `True`
-- Baseline harmony: `0.95`
-- Tension index: `0.38`
-- Active files counted: `64`
-- Total recorded runs: `88`
+- Baseline harmony: `0.94`
+- Tension index: `0.37`
+- Active files counted: `93`
+- Total recorded runs: `178`
 
 ## Harmonic bands
 
@@ -18,7 +18,7 @@
   - Routes and connector kinds show how much ground the current runtime can actually hold.
 - **repeatable replay** · intensity `1.00` · drift `0.08`
   - Replay parity matters because a strong claim is easier to revisit than to defend from memory.
-- **review pressure** · intensity `0.71` · drift `0.38`
+- **review pressure** · intensity `0.71` · drift `0.37`
   - Open questions and warnings are treated as part of the operating picture rather than hidden beneath a score.
 - **active movement** · intensity `1.00` · drift `0.01`
   - The engine feels more alive when scripts, exports, and verification runs continue to leave visible traces.
@@ -30,8 +30,8 @@
 ### Ingest and shape
 
 - Stage id: `connector_ingest`
-- Harmony: `0.83`
-- Friction: `0.16`
+- Harmony: `0.82`
+- Friction: `0.17`
 
 Human read:
 Different file shapes are named and typed before they turn into a convincing multimodal story.
@@ -56,7 +56,7 @@ Files:
 - `src/advanced_multimodal_ai/pipelines.py`
 
 Metrics:
-- **duration**: `96.79` ms
+- **duration**: `108.53` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **connector kinds**: `7.0` lanes
@@ -90,7 +90,7 @@ Files:
 - `src/advanced_multimodal_ai/alignment.py`
 
 Metrics:
-- **duration**: `15.53` ms
+- **duration**: `15.15` ms
 - **records**: `2.0` records
 - **artifacts**: `1.0` items
 
@@ -98,8 +98,8 @@ Metrics:
 ### Replay and prove
 
 - Stage id: `pipeline_replay`
-- Harmony: `0.88`
-- Friction: `0.11`
+- Harmony: `0.87`
+- Friction: `0.12`
 
 Human read:
 If a run can be replayed cleanly, the repository is giving you memory rather than theatre.
@@ -123,7 +123,7 @@ Files:
 - `src/advanced_multimodal_ai/pipeline_store.py`
 
 Metrics:
-- **duration**: `74.01` ms
+- **duration**: `91.41` ms
 - **records**: `6.0` records
 - **artifacts**: `2.0` items
 
@@ -156,7 +156,7 @@ Files:
 - `src/advanced_multimodal_ai/api.py`
 
 Metrics:
-- **duration**: `59.31` ms
+- **duration**: `57.83` ms
 - **records**: `3.0` records
 - **artifacts**: `1.0` items
 
@@ -190,7 +190,7 @@ Files:
 - `src/advanced_multimodal_ai/service.py`
 
 Metrics:
-- **duration**: `22.98` ms
+- **duration**: `23.78` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **manifests**: `0.0` records
@@ -202,8 +202,8 @@ Metrics:
 ### Govern and disclose
 
 - Stage id: `proof_bundle`
-- Harmony: `0.97`
-- Friction: `0.02`
+- Harmony: `1.00`
+- Friction: `0.00`
 
 Human read:
 The public pages stay calmer because the evidence is generated in the backend first and only translated afterward.
@@ -228,8 +228,8 @@ Files:
 - `src/advanced_multimodal_ai/governance_ledger.py`
 
 Metrics:
-- **duration**: `3.93` ms
-- **records**: `10.0` records
+- **duration**: `4.48` ms
+- **records**: `16.0` records
 - **artifacts**: `1.0` items
 - **open questions**: `5.0` questions
 
@@ -246,7 +246,7 @@ Consequence:
 The cost is not only technical. Repetition flattens taste, reduces surprise, and makes a catalogue feel smaller than it is.
 
 Continuation:
-384 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+495 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 
 ### For operators and review teams

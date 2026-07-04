@@ -1,0 +1,168 @@
+{
+  "topology": {
+    "service": "advanced-multimodal-ai",
+    "version": "0.5.0",
+    "route_count": 95,
+    "ledger_event_count": 4,
+    "retrieval_backend": "memory",
+    "active_policy": {
+      "jurisdiction": "EU_EEA",
+      "max_entropy_limit": 0.86,
+      "max_zero_ratio": 0.72,
+      "min_finite_ratio": 0.995,
+      "allow_cross_border": false,
+      "require_encryption": true,
+      "detail": "EU_EEA packets stay local by default, require encrypted transport, and slow down when modality geometry becomes too unstable."
+    },
+    "connector_kinds": [
+      "local_csv",
+      "local_jsonl",
+      "local_parquet",
+      "s3_parquet",
+      "http_json",
+      "http_ndjson",
+      "web_html"
+    ],
+    "deployment_artifacts": [
+      "Dockerfile",
+      "Makefile",
+      "containers/compose.yaml",
+      "containers/clickhouse-init.sql",
+      "openapi/openapi.json"
+    ],
+    "transport_lanes": [
+      "typed FastAPI contract edge",
+      "connector-backed parquet and web intake",
+      "generated Python and TypeScript client surfaces",
+      "compiled Rust signal lane",
+      "append-only tracking ledger"
+    ],
+    "store_counts": {
+      "async_jobs": 200,
+      "dataset_catalog": 765,
+      "connector_runs": 497,
+      "drift_baselines": 8,
+      "pipeline_runs": 382,
+      "ontology_snapshots": 130,
+      "recipe_registry": 159,
+      "lifecycle_policies": 33,
+      "change_controls": 33,
+      "supply_chain_snapshots": 33,
+      "execution_journal_runs": 186,
+      "edge_packets": 4,
+      "music_manifests": 70,
+      "music_feature_runs": 70
+    },
+    "notes": [
+      "The deployment stack is explicit and versioned, even when the default runtime remains a single local service edge.",
+      "The gateway lane stays narrow: it evaluates packet geometry and routing posture before downstream orchestration claims more than the current code can support.",
+      "Connector, music, replay, and governance stores remain visible so the edge route does not become a disconnected glamour layer."
+    ],
+    "created_at": "2026-07-04T03:01:41.687430+00:00"
+  },
+  "ledger": {
+    "total_events": 4,
+    "action_counts": {
+      "hold": 4
+    },
+    "recent_events": [
+      {
+        "event_id": "64fbfa6a-e407-4cbc-b580-3670245060e5",
+        "transaction_id": "5b83f62c-a12c-40b6-b881-4d27a1c71489",
+        "jurisdiction": "EU_EEA",
+        "source_region": "DE",
+        "target_region": "DE",
+        "route_action": "hold",
+        "manifest_hash": "d803b0fba388c0fca9e637e5a70b8dd506cbe5ab2ed3952a034c46944d6a1751",
+        "overall_entropy_score": 0.8938578654609097,
+        "highest_modality_risk": 1.0,
+        "encrypted_in_transit": true,
+        "cross_border": false,
+        "connector_kind": "s3_parquet",
+        "ledger_parent_hash": "da6b2a78ac6f34a467af805f80dfb6bd96f8c8983d0000f3cb14a61bd7c1bc0f",
+        "ledger_hash": "0a0bc4c01332afd43c7cf98829bfecbafc864e7e2c8f79c88096b67ea69bd2bd",
+        "notes": [
+          "policy=EU_EEA",
+          "connector_kind=s3_parquet",
+          "modalities=audio,text",
+          "audio: entropy crossed the hold threshold.",
+          "text: entropy crossed the hold threshold."
+        ],
+        "created_at": "2026-07-04T03:01:41.680279+00:00"
+      },
+      {
+        "event_id": "e868abd2-3952-48ad-be0f-dfcf0550144a",
+        "transaction_id": "70f69ca0-af64-45c9-af58-df5173e3bede",
+        "jurisdiction": "EU_EEA",
+        "source_region": "DE",
+        "target_region": "DE",
+        "route_action": "hold",
+        "manifest_hash": "e1f3a723d6c2731337538ecf9205e7bdeb48811deb8e7232d205b498177dd0ce",
+        "overall_entropy_score": 0.8938578654609097,
+        "highest_modality_risk": 1.0,
+        "encrypted_in_transit": true,
+        "cross_border": false,
+        "connector_kind": "s3_parquet",
+        "ledger_parent_hash": "076dd4bfde1ab2d2b14c8752261c5b4ecbc358edcc6608532218a0454ada5edb",
+        "ledger_hash": "da6b2a78ac6f34a467af805f80dfb6bd96f8c8983d0000f3cb14a61bd7c1bc0f",
+        "notes": [
+          "policy=EU_EEA",
+          "connector_kind=s3_parquet",
+          "modalities=audio,text",
+          "audio: entropy crossed the hold threshold.",
+          "text: entropy crossed the hold threshold."
+        ],
+        "created_at": "2026-07-04T02:49:40.112927+00:00"
+      },
+      {
+        "event_id": "ac961f5b-751c-475e-9fd0-2051c1b91897",
+        "transaction_id": "9638972a-41f8-4c61-9b55-d90b58e265ec",
+        "jurisdiction": "EU_EEA",
+        "source_region": "DE",
+        "target_region": "DE",
+        "route_action": "hold",
+        "manifest_hash": "0d31bdba74416619b976c465746aafc8c587f210eb19f1ab06eea58fa3e8e165",
+        "overall_entropy_score": 0.8938578654609097,
+        "highest_modality_risk": 1.0,
+        "encrypted_in_transit": true,
+        "cross_border": false,
+        "connector_kind": "s3_parquet",
+        "ledger_parent_hash": "bf01ee25461f878803598a6036f6a9c431d5521e03c5175f007884d2e6a1a960",
+        "ledger_hash": "076dd4bfde1ab2d2b14c8752261c5b4ecbc358edcc6608532218a0454ada5edb",
+        "notes": [
+          "policy=EU_EEA",
+          "connector_kind=s3_parquet",
+          "modalities=audio,text",
+          "audio: entropy crossed the hold threshold.",
+          "text: entropy crossed the hold threshold."
+        ],
+        "created_at": "2026-07-04T02:46:31.006270+00:00"
+      },
+      {
+        "event_id": "94c1b43f-6a74-4774-996b-43743e2db6a7",
+        "transaction_id": "ccd0184c-be6e-4a71-b07c-e5a151062dde",
+        "jurisdiction": "EU_EEA",
+        "source_region": "DE",
+        "target_region": "DE",
+        "route_action": "hold",
+        "manifest_hash": "15c9a5cd7a4b1f7a0e1ac119cfa3380aa7bbdd8ae164d568bced771f456362f0",
+        "overall_entropy_score": 0.8938578654609097,
+        "highest_modality_risk": 1.0,
+        "encrypted_in_transit": true,
+        "cross_border": false,
+        "connector_kind": "s3_parquet",
+        "ledger_parent_hash": "",
+        "ledger_hash": "bf01ee25461f878803598a6036f6a9c431d5521e03c5175f007884d2e6a1a960",
+        "notes": [
+          "policy=EU_EEA",
+          "connector_kind=s3_parquet",
+          "modalities=audio,text",
+          "audio: entropy crossed the hold threshold.",
+          "text: entropy crossed the hold threshold."
+        ],
+        "created_at": "2026-07-04T02:21:57.338922+00:00"
+      }
+    ],
+    "created_at": "2026-07-04T03:01:41.692914+00:00"
+  }
+}

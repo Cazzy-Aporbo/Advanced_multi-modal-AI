@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security concern
+    url: https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/SECURITY.md
+    about: Use the private reporting path for vulnerabilities or sensitive flaws.

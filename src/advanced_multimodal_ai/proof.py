@@ -62,6 +62,10 @@ def build_runtime_proof_bundle(
                 command="python3 scripts/export_repository_pulse.py",
             ),
             VerificationCommand(
+                label="repository-growth",
+                command="python3 scripts/export_repository_growth.py",
+            ),
+            VerificationCommand(
                 label="benchmark-surfaces",
                 command="python3 scripts/export_benchmark_surfaces.py",
             ),
@@ -72,6 +76,22 @@ def build_runtime_proof_bundle(
             VerificationCommand(
                 label="music-observatory",
                 command="python3 scripts/export_music_observatory.py",
+            ),
+            VerificationCommand(
+                label="operator-surfaces",
+                command="python3 scripts/export_operator_surfaces.py",
+            ),
+            VerificationCommand(
+                label="industry-profiles",
+                command="python3 scripts/export_industry_profiles.py",
+            ),
+            VerificationCommand(
+                label="industrial-diagnostics",
+                command="python3 scripts/export_industrial_diagnostics.py",
+            ),
+            VerificationCommand(
+                label="edge-topology",
+                command="python3 scripts/export_edge_topology.py",
             ),
             VerificationCommand(
                 label="execution-journal",

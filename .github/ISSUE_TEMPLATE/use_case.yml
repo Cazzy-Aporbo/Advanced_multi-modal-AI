@@ -1,0 +1,33 @@
+name: Use case or evidence gap
+description: Ask for a new lane, domain profile, proof surface, or capability with a concrete reason.
+title: "[use-case] "
+labels:
+  - enhancement
+body:
+  - type: input
+    id: domain
+    attributes:
+      label: Domain or lane
+      placeholder: healthcare, education, music, supply chain, retrieval, proof export
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What needs to become easier or clearer
+      placeholder: We need a way to inspect where audio-language drift entered before ranking.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What evidence should exist
+      description: Name the route, export, test, or public surface that would make the request real.
+      placeholder: A new /v1/... route, a proof/*.json export, or an observatory section tied to the backend.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Why this matters
+      placeholder: It would make the repository easier to adopt in regulated review or easier to study in public.

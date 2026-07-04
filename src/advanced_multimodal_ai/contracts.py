@@ -171,6 +171,205 @@ class ArchitectureLane(BaseModel):
     why_it_exists: str
 
 
+class IndustryProfile(BaseModel):
+    profile_id: str
+    label: str
+    primary_modalities: List[ModalityKind] = Field(default_factory=list)
+    why_multimodal_matters: str
+    anchor_routes: List[str] = Field(default_factory=list)
+    strict_checks: List[str] = Field(default_factory=list)
+    supply_chain_focus: str
+    signal_questions: List[str] = Field(default_factory=list)
+    proof_surfaces: List[str] = Field(default_factory=list)
+
+
+class IndustryProfileBundle(BaseModel):
+    profile_count: int = Field(ge=0)
+    continuation_links: List[str] = Field(default_factory=list)
+    profiles: List[IndustryProfile] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
+MachineSystemKind = Literal["diesel_engine", "hydraulic_system", "electrical_system"]
+IndustrialVerdict = Literal["route", "hold", "block"]
+IndustrialSeverity = Literal["low", "medium", "high", "critical"]
+IndustrialComplianceStatus = Literal["pass", "watch", "block"]
+IndustrialState = Literal["observe", "isolate", "verify", "intervene", "restart", "hold"]
+
+
+class IndustrialSensorReading(BaseModel):
+    sensor_id: str = Field(min_length=1)
+    value: float
+    unit: str = ""
+    nominal_min: Optional[float] = None
+    nominal_max: Optional[float] = None
+    note: str = ""
+
+
+class IndustrialObservation(BaseModel):
+    observation_id: str = Field(default_factory=lambda: str(uuid4()))
+    component: str = Field(min_length=1)
+    symptom: str = Field(min_length=1)
+    detail: str = ""
+    severity_hint: IndustrialSeverity = "medium"
+
+
+class IndustrialWorkContext(BaseModel):
+    lockout_applied: bool = False
+    energy_isolated: bool = False
+    guard_interlock_verified: bool = False
+    emergency_stop_verified: bool = False
+    manual_reset_verified: bool = False
+    restart_requested: bool = False
+    safety_function_proof_test_overdue: bool = False
+    diagnostic_coverage_percent: float = Field(default=95.0, ge=0.0, le=100.0)
+
+
+class IndustrialDiagnosticRequest(BaseModel):
+    asset_kind: MachineSystemKind
+    machine_family: str = Field(min_length=1)
+    technician_report: str = ""
+    sensors: List[IndustrialSensorReading] = Field(min_length=1, max_length=64)
+    observations: List[IndustrialObservation] = Field(default_factory=list, max_length=32)
+    work_context: IndustrialWorkContext = Field(default_factory=IndustrialWorkContext)
+
+
+class IndustrialDiagnosis(BaseModel):
+    diagnosis_id: str
+    title: str
+    component: str
+    severity: IndustrialSeverity
+    confidence: float = Field(ge=0.0, le=1.0)
+    matched_signals: List[str] = Field(default_factory=list)
+    matched_observations: List[str] = Field(default_factory=list)
+    blocked_actions: List[str] = Field(default_factory=list)
+    next_checks: List[str] = Field(default_factory=list)
+    rationale: str
+
+
+class IndustrialComplianceFinding(BaseModel):
+    standard: str
+    clause: str
+    status: IndustrialComplianceStatus
+    requirement: str
+    evidence: List[str] = Field(default_factory=list)
+    implication: str
+    checked_at: str = Field(default_factory=utc_now)
+
+
+class IndustrialInvariantResult(BaseModel):
+    invariant_id: str
+    description: str
+    holds: bool
+    evidence: List[str] = Field(default_factory=list)
+    checked_at: str = Field(default_factory=utc_now)
+
+
+class IndustrialProofNode(BaseModel):
+    node_id: str
+    parent_id: str = ""
+    label: str
+    detail: str
+    depth: int = Field(ge=0)
+
+
+class IndustrialAuditEntry(BaseModel):
+    entry_id: str
+    label: str
+    parent_hash: str = ""
+    sha256: str
+    recorded_at: str = Field(default_factory=utc_now)
+    note: str = ""
+
+
+class IndustrialTransitionStep(BaseModel):
+    from_state: IndustrialState
+    to_state: IndustrialState
+    command: str
+    lockout_applied: bool
+    energy_isolated: bool
+    guard_interlock_verified: bool
+    emergency_stop_verified: bool
+    manual_reset_verified: bool
+    note: str = ""
+
+
+class IndustrialFaultGraphNode(BaseModel):
+    node_id: str
+    kind: Literal[
+        "sensor",
+        "observation",
+        "diagnosis",
+        "compliance",
+        "invariant",
+        "action",
+        "verdict",
+    ]
+    label: str
+    detail: str = ""
+    severity: str = "info"
+    state: str = ""
+    metrics: Dict[str, Any] = Field(default_factory=dict)
+
+
+class IndustrialFaultGraphEdge(BaseModel):
+    edge_id: str
+    source: str
+    target: str
+    relation: str
+    evidence: str = ""
+
+
+class IndustrialFaultGraph(BaseModel):
+    nodes: List[IndustrialFaultGraphNode] = Field(default_factory=list)
+    edges: List[IndustrialFaultGraphEdge] = Field(default_factory=list)
+    primary_path: List[str] = Field(default_factory=list)
+
+
+class IndustrialDiagnosticResponse(BaseModel):
+    asset_kind: MachineSystemKind
+    machine_family: str
+    verdict: IndustrialVerdict
+    diagnoses: List[IndustrialDiagnosis] = Field(default_factory=list)
+    compliance_findings: List[IndustrialComplianceFinding] = Field(default_factory=list)
+    invariants: List[IndustrialInvariantResult] = Field(default_factory=list)
+    fault_graph: IndustrialFaultGraph = Field(default_factory=IndustrialFaultGraph)
+    proof_tree: List[IndustrialProofNode] = Field(default_factory=list)
+    audit_trail: List[IndustrialAuditEntry] = Field(default_factory=list)
+    formal_trace: List[IndustrialTransitionStep] = Field(default_factory=list)
+    recommended_actions: List[str] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
+class IndustrialModelCheckRequest(BaseModel):
+    work_context: IndustrialWorkContext = Field(default_factory=IndustrialWorkContext)
+    trace: List[IndustrialTransitionStep] = Field(min_length=1)
+    compliance_findings: List[IndustrialComplianceFinding] = Field(default_factory=list)
+
+
+class IndustrialModelCheckResponse(BaseModel):
+    allowed: bool
+    blocked_transitions: List[str] = Field(default_factory=list)
+    invariants: List[IndustrialInvariantResult] = Field(default_factory=list)
+    evaluated_trace: List[IndustrialTransitionStep] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
+class IndustrialScenarioCard(BaseModel):
+    scenario_id: str
+    asset_kind: MachineSystemKind
+    label: str
+    summary: str
+    required_sensors: List[str] = Field(default_factory=list)
+    example_observations: List[str] = Field(default_factory=list)
+    expected_diagnosis_ids: List[str] = Field(default_factory=list)
+
+
+class IndustrialScenarioBundle(BaseModel):
+    scenarios: List[IndustrialScenarioCard] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
 class ResearchSurfaceSummary(BaseModel):
     route_count: int = Field(ge=0)
     test_count: int = Field(ge=0)
@@ -213,6 +412,39 @@ class RepositoryPulse(BaseModel):
     readiness_posture: ReadinessPosture
     lanes: List[PulseLane] = Field(default_factory=list)
     generated_at: str = Field(default_factory=utc_now)
+
+
+class RepositoryGrowthSnapshot(BaseModel):
+    repository: str
+    repository_url: str
+    default_branch: str
+    collection_mode: Literal["github_api", "github_api_partial", "local_fallback"]
+    traffic_window_available: bool = False
+    stars: int = Field(default=0, ge=0)
+    forks: int = Field(default=0, ge=0)
+    watchers: int = Field(default=0, ge=0)
+    subscribers: int = Field(default=0, ge=0)
+    open_issues: int = Field(default=0, ge=0)
+    open_pull_requests: int = Field(default=0, ge=0)
+    contributor_count: int = Field(default=0, ge=0)
+    release_count: int = Field(default=0, ge=0)
+    views_14d: int = Field(default=0, ge=0)
+    unique_visitors_14d: int = Field(default=0, ge=0)
+    clones_14d: int = Field(default=0, ge=0)
+    unique_cloners_14d: int = Field(default=0, ge=0)
+    community_health_percent: int = Field(default=0, ge=0, le=100)
+    route_count: int = Field(default=0, ge=0)
+    test_count: int = Field(default=0, ge=0)
+    public_surface_count: int = Field(default=0, ge=0)
+    proof_export_count: int = Field(default=0, ge=0)
+    docs_count: int = Field(default=0, ge=0)
+    example_count: int = Field(default=0, ge=0)
+    community_file_count: int = Field(default=0, ge=0)
+    notebook_count: int = Field(default=0, ge=0)
+    topics: List[str] = Field(default_factory=list)
+    community_files: List[str] = Field(default_factory=list)
+    notes: List[str] = Field(default_factory=list)
+    captured_at: str = Field(default_factory=utc_now)
 
 
 class RetrievalRecord(BaseModel):
@@ -1221,6 +1453,8 @@ class RuntimeProofBundle(BaseModel):
 
 
 ExecutionStatus = Literal["pass", "fail"]
+EdgeRouteAction = Literal["route", "hold", "block"]
+JurisdictionProfile = Literal["EU_EEA", "US_GLOBAL", "APAC_REGIONAL"]
 
 
 class ExecutionArtifactState(BaseModel):
@@ -1251,6 +1485,99 @@ class ExecutionJournalSummary(BaseModel):
     failing_runs: int = Field(default=0, ge=0)
     lane_counts: Dict[str, int] = Field(default_factory=dict)
     recent_runs: List[ExecutionJournalRecord] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class EdgePacketMetric(BaseModel):
+    modality: ModalityKind
+    entropy_score: float = Field(ge=0.0, le=1.0)
+    zero_ratio: float = Field(ge=0.0, le=1.0)
+    finite_ratio: float = Field(ge=0.0, le=1.0)
+    rms_level: float = Field(ge=0.0)
+    sample_size: int = Field(ge=1)
+    signature_sha256: str
+
+
+class EdgeTrackingLedgerEntry(BaseModel):
+    event_id: str = Field(default_factory=lambda: str(uuid4()))
+    transaction_id: str
+    jurisdiction: JurisdictionProfile
+    source_region: str
+    target_region: str
+    route_action: EdgeRouteAction
+    manifest_hash: str
+    overall_entropy_score: float = Field(ge=0.0, le=1.0)
+    highest_modality_risk: float = Field(ge=0.0, le=1.0)
+    encrypted_in_transit: bool
+    cross_border: bool
+    connector_kind: str = ""
+    ledger_parent_hash: str = ""
+    ledger_hash: str = ""
+    notes: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class EdgeTrackingLedgerSummary(BaseModel):
+    total_events: int = Field(default=0, ge=0)
+    action_counts: Dict[str, int] = Field(default_factory=dict)
+    recent_events: List[EdgeTrackingLedgerEntry] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class EdgeGatewayPolicy(BaseModel):
+    jurisdiction: JurisdictionProfile
+    max_entropy_limit: float = Field(ge=0.0, le=1.0)
+    max_zero_ratio: float = Field(ge=0.0, le=1.0)
+    min_finite_ratio: float = Field(ge=0.0, le=1.0)
+    allow_cross_border: bool
+    require_encryption: bool
+    detail: str
+
+
+class EdgePacketRequest(BaseModel):
+    transaction_id: str = Field(default_factory=lambda: str(uuid4()))
+    jurisdiction: JurisdictionProfile = "EU_EEA"
+    source_region: str = Field(min_length=2)
+    target_region: str = Field(min_length=2)
+    connector_kind: str = ""
+    encrypted_in_transit: bool = True
+    modalities: Dict[ModalityKind, TensorPayload]
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def validate_modalities(self) -> "EdgePacketRequest":
+        if not self.modalities:
+            raise ValueError("At least one modality payload is required")
+        return self
+
+
+class EdgePacketEvaluationResponse(BaseModel):
+    transaction_id: str
+    route_action: EdgeRouteAction
+    authorized_for_execution: bool
+    jurisdiction: JurisdictionProfile
+    cross_border: bool
+    manifest_hash: str
+    overall_entropy_score: float = Field(ge=0.0, le=1.0)
+    highest_modality_risk: float = Field(ge=0.0, le=1.0)
+    metrics: List[EdgePacketMetric] = Field(default_factory=list)
+    notes: List[str] = Field(default_factory=list)
+    active_policy: EdgeGatewayPolicy
+    ledger_entry: EdgeTrackingLedgerEntry
+
+
+class EdgeGatewayTopology(BaseModel):
+    service: str
+    version: str
+    route_count: int = Field(ge=0)
+    ledger_event_count: int = Field(ge=0)
+    retrieval_backend: str
+    active_policy: EdgeGatewayPolicy
+    connector_kinds: List[str] = Field(default_factory=list)
+    deployment_artifacts: List[str] = Field(default_factory=list)
+    transport_lanes: List[str] = Field(default_factory=list)
+    store_counts: Dict[str, int] = Field(default_factory=dict)
+    notes: List[str] = Field(default_factory=list)
     created_at: str = Field(default_factory=utc_now)
 
 
@@ -1535,8 +1862,7 @@ WebExtractMode = Literal["article_blocks", "paragraphs", "headings"]
 
 class WebIngestPolicy(BaseModel):
     user_agent: str = (
-        "AdvancedMultimodalAI/0.5 "
-        "(public research runtime; repository contact through GitHub)"
+        "AdvancedMultimodalAI/0.5 " "(public research runtime; repository contact through GitHub)"
     )
     respect_robots: bool = True
     allowed_domains: List[str] = Field(default_factory=list, max_length=64)
@@ -1710,6 +2036,82 @@ class CymaticSurfaceBundle(BaseModel):
     harmonic_bands: List[CymaticBand] = Field(default_factory=list)
     stages: List[CymaticStageCard] = Field(default_factory=list)
     narratives: List[CymaticNarrative] = Field(default_factory=list)
+    continuation_links: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class OperatorSurfaceMetric(BaseModel):
+    metric_id: str
+    label: str
+    value: str
+    note: str = ""
+
+
+class OperatorCommandSurface(BaseModel):
+    command_id: str
+    label: str
+    method: Literal["GET", "POST"]
+    route: str
+    runtime_lane: str
+    operator_goal: str
+    why_it_holds: str
+    guardrails: List[str] = Field(default_factory=list)
+    contract_paths: List[str] = Field(default_factory=list)
+    proof_paths: List[str] = Field(default_factory=list)
+    extension_seams: List[str] = Field(default_factory=list)
+    continuation: str = ""
+
+
+class OperatorSkillSurface(BaseModel):
+    skill_id: str
+    label: str
+    focus: str
+    why_it_matters: str
+    required_inputs: List[str] = Field(default_factory=list)
+    derived_outputs: List[str] = Field(default_factory=list)
+    related_commands: List[str] = Field(default_factory=list)
+    proof_paths: List[str] = Field(default_factory=list)
+    files: List[str] = Field(default_factory=list)
+
+
+class OperatorPluginSurface(BaseModel):
+    plugin_id: str
+    label: str
+    seam_kind: str
+    entrypoint: str
+    purpose: str
+    guardrail: str
+    proof_paths: List[str] = Field(default_factory=list)
+    files: List[str] = Field(default_factory=list)
+    continuation: str = ""
+
+
+class SpeechTaskSurface(BaseModel):
+    task_id: str
+    label: str
+    focus: str
+    why_it_exists: str
+    required_lanes: List[str] = Field(default_factory=list)
+    derived_signals: List[str] = Field(default_factory=list)
+    caution: str
+    proof_paths: List[str] = Field(default_factory=list)
+    next_step: str = ""
+
+
+class OperatorSurfaceBundle(BaseModel):
+    service: str
+    version: str
+    readiness_posture: ReadinessPosture
+    route_count: int = Field(default=0, ge=0)
+    command_count: int = Field(default=0, ge=0)
+    skill_count: int = Field(default=0, ge=0)
+    plugin_count: int = Field(default=0, ge=0)
+    speech_task_count: int = Field(default=0, ge=0)
+    metrics: List[OperatorSurfaceMetric] = Field(default_factory=list)
+    commands: List[OperatorCommandSurface] = Field(default_factory=list)
+    skills: List[OperatorSkillSurface] = Field(default_factory=list)
+    plugins: List[OperatorPluginSurface] = Field(default_factory=list)
+    speech_tasks: List[SpeechTaskSurface] = Field(default_factory=list)
     continuation_links: List[str] = Field(default_factory=list)
     created_at: str = Field(default_factory=utc_now)
 

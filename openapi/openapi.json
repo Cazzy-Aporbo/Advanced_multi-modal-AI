@@ -152,6 +152,88 @@
         }
       }
     },
+    "/v1/operators/surfaces": {
+      "get": {
+        "summary": "Operator Surfaces",
+        "operationId": "operator_surfaces_v1_operators_surfaces_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperatorSurfaceBundle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/operators/commands": {
+      "get": {
+        "summary": "Operator Commands",
+        "operationId": "operator_commands_v1_operators_commands_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/operators/skills": {
+      "get": {
+        "summary": "Operator Skills",
+        "operationId": "operator_skills_v1_operators_skills_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/operators/plugins": {
+      "get": {
+        "summary": "Operator Plugins",
+        "operationId": "operator_plugins_v1_operators_plugins_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/operators/speech-tasks": {
+      "get": {
+        "summary": "Operator Speech Tasks",
+        "operationId": "operator_speech_tasks_v1_operators_speech_tasks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/music/overview": {
       "get": {
         "summary": "Music Overview",
@@ -678,6 +760,118 @@
         }
       }
     },
+    "/v1/industries/profiles": {
+      "get": {
+        "summary": "Industry Profiles",
+        "operationId": "industry_profiles_v1_industries_profiles_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndustryProfileBundle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/industrial/scenarios": {
+      "get": {
+        "summary": "Industrial Scenarios",
+        "operationId": "industrial_scenarios_v1_industrial_scenarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndustrialScenarioBundle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/industrial/diagnose": {
+      "post": {
+        "summary": "Industrial Diagnose",
+        "operationId": "industrial_diagnose_v1_industrial_diagnose_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IndustrialDiagnosticRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndustrialDiagnosticResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/industrial/model-check": {
+      "post": {
+        "summary": "Industrial Model Check",
+        "operationId": "industrial_model_check_v1_industrial_model_check_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IndustrialModelCheckRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IndustrialModelCheckResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/repository/pulse": {
       "get": {
         "summary": "Repository Pulse",
@@ -688,6 +882,24 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/growth/snapshot": {
+      "get": {
+        "summary": "Repository Growth Snapshot",
+        "operationId": "repository_growth_snapshot_v1_growth_snapshot_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepositoryGrowthSnapshot"
+                }
               }
             }
           }
@@ -725,6 +937,102 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/edge/evaluate": {
+      "post": {
+        "summary": "Edge Evaluate",
+        "operationId": "edge_evaluate_v1_edge_evaluate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EdgePacketRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EdgePacketEvaluationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/edge/ledger": {
+      "get": {
+        "summary": "Edge Ledger",
+        "operationId": "edge_ledger_v1_edge_ledger_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EdgeTrackingLedgerSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/edge/topology": {
+      "get": {
+        "summary": "Edge Topology",
+        "operationId": "edge_topology_v1_edge_topology_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EdgeGatewayTopology"
                 }
               }
             }
@@ -4060,6 +4368,479 @@
         ],
         "title": "DriftBaselineRequest"
       },
+      "EdgeGatewayPolicy": {
+        "properties": {
+          "jurisdiction": {
+            "type": "string",
+            "enum": [
+              "EU_EEA",
+              "US_GLOBAL",
+              "APAC_REGIONAL"
+            ],
+            "title": "Jurisdiction"
+          },
+          "max_entropy_limit": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Max Entropy Limit"
+          },
+          "max_zero_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Max Zero Ratio"
+          },
+          "min_finite_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Min Finite Ratio"
+          },
+          "allow_cross_border": {
+            "type": "boolean",
+            "title": "Allow Cross Border"
+          },
+          "require_encryption": {
+            "type": "boolean",
+            "title": "Require Encryption"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "jurisdiction",
+          "max_entropy_limit",
+          "max_zero_ratio",
+          "min_finite_ratio",
+          "allow_cross_border",
+          "require_encryption",
+          "detail"
+        ],
+        "title": "EdgeGatewayPolicy"
+      },
+      "EdgeGatewayTopology": {
+        "properties": {
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "route_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Route Count"
+          },
+          "ledger_event_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Ledger Event Count"
+          },
+          "retrieval_backend": {
+            "type": "string",
+            "title": "Retrieval Backend"
+          },
+          "active_policy": {
+            "$ref": "#/components/schemas/EdgeGatewayPolicy"
+          },
+          "connector_kinds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Connector Kinds"
+          },
+          "deployment_artifacts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Deployment Artifacts"
+          },
+          "transport_lanes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Transport Lanes"
+          },
+          "store_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Store Counts"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "service",
+          "version",
+          "route_count",
+          "ledger_event_count",
+          "retrieval_backend",
+          "active_policy"
+        ],
+        "title": "EdgeGatewayTopology"
+      },
+      "EdgePacketEvaluationResponse": {
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "title": "Transaction Id"
+          },
+          "route_action": {
+            "type": "string",
+            "enum": [
+              "route",
+              "hold",
+              "block"
+            ],
+            "title": "Route Action"
+          },
+          "authorized_for_execution": {
+            "type": "boolean",
+            "title": "Authorized For Execution"
+          },
+          "jurisdiction": {
+            "type": "string",
+            "enum": [
+              "EU_EEA",
+              "US_GLOBAL",
+              "APAC_REGIONAL"
+            ],
+            "title": "Jurisdiction"
+          },
+          "cross_border": {
+            "type": "boolean",
+            "title": "Cross Border"
+          },
+          "manifest_hash": {
+            "type": "string",
+            "title": "Manifest Hash"
+          },
+          "overall_entropy_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Overall Entropy Score"
+          },
+          "highest_modality_risk": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Highest Modality Risk"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/EdgePacketMetric"
+            },
+            "type": "array",
+            "title": "Metrics"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "active_policy": {
+            "$ref": "#/components/schemas/EdgeGatewayPolicy"
+          },
+          "ledger_entry": {
+            "$ref": "#/components/schemas/EdgeTrackingLedgerEntry"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transaction_id",
+          "route_action",
+          "authorized_for_execution",
+          "jurisdiction",
+          "cross_border",
+          "manifest_hash",
+          "overall_entropy_score",
+          "highest_modality_risk",
+          "active_policy",
+          "ledger_entry"
+        ],
+        "title": "EdgePacketEvaluationResponse"
+      },
+      "EdgePacketMetric": {
+        "properties": {
+          "modality": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "sensor",
+              "tabular"
+            ],
+            "title": "Modality"
+          },
+          "entropy_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Entropy Score"
+          },
+          "zero_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Zero Ratio"
+          },
+          "finite_ratio": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Finite Ratio"
+          },
+          "rms_level": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Rms Level"
+          },
+          "sample_size": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Sample Size"
+          },
+          "signature_sha256": {
+            "type": "string",
+            "title": "Signature Sha256"
+          }
+        },
+        "type": "object",
+        "required": [
+          "modality",
+          "entropy_score",
+          "zero_ratio",
+          "finite_ratio",
+          "rms_level",
+          "sample_size",
+          "signature_sha256"
+        ],
+        "title": "EdgePacketMetric"
+      },
+      "EdgePacketRequest": {
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "title": "Transaction Id"
+          },
+          "jurisdiction": {
+            "type": "string",
+            "enum": [
+              "EU_EEA",
+              "US_GLOBAL",
+              "APAC_REGIONAL"
+            ],
+            "title": "Jurisdiction",
+            "default": "EU_EEA"
+          },
+          "source_region": {
+            "type": "string",
+            "minLength": 2,
+            "title": "Source Region"
+          },
+          "target_region": {
+            "type": "string",
+            "minLength": 2,
+            "title": "Target Region"
+          },
+          "connector_kind": {
+            "type": "string",
+            "title": "Connector Kind",
+            "default": ""
+          },
+          "encrypted_in_transit": {
+            "type": "boolean",
+            "title": "Encrypted In Transit",
+            "default": true
+          },
+          "modalities": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/TensorPayload"
+            },
+            "propertyNames": {
+              "enum": [
+                "text",
+                "image",
+                "audio",
+                "video",
+                "sensor",
+                "tabular"
+              ]
+            },
+            "type": "object",
+            "title": "Modalities"
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_region",
+          "target_region",
+          "modalities"
+        ],
+        "title": "EdgePacketRequest"
+      },
+      "EdgeTrackingLedgerEntry": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "title": "Event Id"
+          },
+          "transaction_id": {
+            "type": "string",
+            "title": "Transaction Id"
+          },
+          "jurisdiction": {
+            "type": "string",
+            "enum": [
+              "EU_EEA",
+              "US_GLOBAL",
+              "APAC_REGIONAL"
+            ],
+            "title": "Jurisdiction"
+          },
+          "source_region": {
+            "type": "string",
+            "title": "Source Region"
+          },
+          "target_region": {
+            "type": "string",
+            "title": "Target Region"
+          },
+          "route_action": {
+            "type": "string",
+            "enum": [
+              "route",
+              "hold",
+              "block"
+            ],
+            "title": "Route Action"
+          },
+          "manifest_hash": {
+            "type": "string",
+            "title": "Manifest Hash"
+          },
+          "overall_entropy_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Overall Entropy Score"
+          },
+          "highest_modality_risk": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Highest Modality Risk"
+          },
+          "encrypted_in_transit": {
+            "type": "boolean",
+            "title": "Encrypted In Transit"
+          },
+          "cross_border": {
+            "type": "boolean",
+            "title": "Cross Border"
+          },
+          "connector_kind": {
+            "type": "string",
+            "title": "Connector Kind",
+            "default": ""
+          },
+          "ledger_parent_hash": {
+            "type": "string",
+            "title": "Ledger Parent Hash",
+            "default": ""
+          },
+          "ledger_hash": {
+            "type": "string",
+            "title": "Ledger Hash",
+            "default": ""
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transaction_id",
+          "jurisdiction",
+          "source_region",
+          "target_region",
+          "route_action",
+          "manifest_hash",
+          "overall_entropy_score",
+          "highest_modality_risk",
+          "encrypted_in_transit",
+          "cross_border"
+        ],
+        "title": "EdgeTrackingLedgerEntry"
+      },
+      "EdgeTrackingLedgerSummary": {
+        "properties": {
+          "total_events": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Events",
+            "default": 0
+          },
+          "action_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Action Counts"
+          },
+          "recent_events": {
+            "items": {
+              "$ref": "#/components/schemas/EdgeTrackingLedgerEntry"
+            },
+            "type": "array",
+            "title": "Recent Events"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "title": "EdgeTrackingLedgerSummary"
+      },
       "FrameSignal": {
         "properties": {
           "index": {
@@ -4107,6 +4888,931 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "IndustrialAuditEntry": {
+        "properties": {
+          "entry_id": {
+            "type": "string",
+            "title": "Entry Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "parent_hash": {
+            "type": "string",
+            "title": "Parent Hash",
+            "default": ""
+          },
+          "sha256": {
+            "type": "string",
+            "title": "Sha256"
+          },
+          "recorded_at": {
+            "type": "string",
+            "title": "Recorded At"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "entry_id",
+          "label",
+          "sha256"
+        ],
+        "title": "IndustrialAuditEntry"
+      },
+      "IndustrialComplianceFinding": {
+        "properties": {
+          "standard": {
+            "type": "string",
+            "title": "Standard"
+          },
+          "clause": {
+            "type": "string",
+            "title": "Clause"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "watch",
+              "block"
+            ],
+            "title": "Status"
+          },
+          "requirement": {
+            "type": "string",
+            "title": "Requirement"
+          },
+          "evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "implication": {
+            "type": "string",
+            "title": "Implication"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "standard",
+          "clause",
+          "status",
+          "requirement",
+          "implication"
+        ],
+        "title": "IndustrialComplianceFinding"
+      },
+      "IndustrialDiagnosis": {
+        "properties": {
+          "diagnosis_id": {
+            "type": "string",
+            "title": "Diagnosis Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "component": {
+            "type": "string",
+            "title": "Component"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Severity"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence"
+          },
+          "matched_signals": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Matched Signals"
+          },
+          "matched_observations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Matched Observations"
+          },
+          "blocked_actions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Blocked Actions"
+          },
+          "next_checks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Next Checks"
+          },
+          "rationale": {
+            "type": "string",
+            "title": "Rationale"
+          }
+        },
+        "type": "object",
+        "required": [
+          "diagnosis_id",
+          "title",
+          "component",
+          "severity",
+          "confidence",
+          "rationale"
+        ],
+        "title": "IndustrialDiagnosis"
+      },
+      "IndustrialDiagnosticRequest": {
+        "properties": {
+          "asset_kind": {
+            "type": "string",
+            "enum": [
+              "diesel_engine",
+              "hydraulic_system",
+              "electrical_system"
+            ],
+            "title": "Asset Kind"
+          },
+          "machine_family": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Machine Family"
+          },
+          "technician_report": {
+            "type": "string",
+            "title": "Technician Report",
+            "default": ""
+          },
+          "sensors": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialSensorReading"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "minItems": 1,
+            "title": "Sensors"
+          },
+          "observations": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialObservation"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Observations"
+          },
+          "work_context": {
+            "$ref": "#/components/schemas/IndustrialWorkContext"
+          }
+        },
+        "type": "object",
+        "required": [
+          "asset_kind",
+          "machine_family",
+          "sensors"
+        ],
+        "title": "IndustrialDiagnosticRequest"
+      },
+      "IndustrialDiagnosticResponse": {
+        "properties": {
+          "asset_kind": {
+            "type": "string",
+            "enum": [
+              "diesel_engine",
+              "hydraulic_system",
+              "electrical_system"
+            ],
+            "title": "Asset Kind"
+          },
+          "machine_family": {
+            "type": "string",
+            "title": "Machine Family"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "route",
+              "hold",
+              "block"
+            ],
+            "title": "Verdict"
+          },
+          "diagnoses": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialDiagnosis"
+            },
+            "type": "array",
+            "title": "Diagnoses"
+          },
+          "compliance_findings": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialComplianceFinding"
+            },
+            "type": "array",
+            "title": "Compliance Findings"
+          },
+          "invariants": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialInvariantResult"
+            },
+            "type": "array",
+            "title": "Invariants"
+          },
+          "fault_graph": {
+            "$ref": "#/components/schemas/IndustrialFaultGraph"
+          },
+          "proof_tree": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialProofNode"
+            },
+            "type": "array",
+            "title": "Proof Tree"
+          },
+          "audit_trail": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialAuditEntry"
+            },
+            "type": "array",
+            "title": "Audit Trail"
+          },
+          "formal_trace": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialTransitionStep"
+            },
+            "type": "array",
+            "title": "Formal Trace"
+          },
+          "recommended_actions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Recommended Actions"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "asset_kind",
+          "machine_family",
+          "verdict"
+        ],
+        "title": "IndustrialDiagnosticResponse"
+      },
+      "IndustrialFaultGraph": {
+        "properties": {
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialFaultGraphNode"
+            },
+            "type": "array",
+            "title": "Nodes"
+          },
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialFaultGraphEdge"
+            },
+            "type": "array",
+            "title": "Edges"
+          },
+          "primary_path": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Primary Path"
+          }
+        },
+        "type": "object",
+        "title": "IndustrialFaultGraph"
+      },
+      "IndustrialFaultGraphEdge": {
+        "properties": {
+          "edge_id": {
+            "type": "string",
+            "title": "Edge Id"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "target": {
+            "type": "string",
+            "title": "Target"
+          },
+          "relation": {
+            "type": "string",
+            "title": "Relation"
+          },
+          "evidence": {
+            "type": "string",
+            "title": "Evidence",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "edge_id",
+          "source",
+          "target",
+          "relation"
+        ],
+        "title": "IndustrialFaultGraphEdge"
+      },
+      "IndustrialFaultGraphNode": {
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "title": "Node Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "sensor",
+              "observation",
+              "diagnosis",
+              "compliance",
+              "invariant",
+              "action",
+              "verdict"
+            ],
+            "title": "Kind"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail",
+            "default": ""
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity",
+            "default": "info"
+          },
+          "state": {
+            "type": "string",
+            "title": "State",
+            "default": ""
+          },
+          "metrics": {
+            "type": "object",
+            "title": "Metrics"
+          }
+        },
+        "type": "object",
+        "required": [
+          "node_id",
+          "kind",
+          "label"
+        ],
+        "title": "IndustrialFaultGraphNode"
+      },
+      "IndustrialInvariantResult": {
+        "properties": {
+          "invariant_id": {
+            "type": "string",
+            "title": "Invariant Id"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "holds": {
+            "type": "boolean",
+            "title": "Holds"
+          },
+          "evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "invariant_id",
+          "description",
+          "holds"
+        ],
+        "title": "IndustrialInvariantResult"
+      },
+      "IndustrialModelCheckRequest": {
+        "properties": {
+          "work_context": {
+            "$ref": "#/components/schemas/IndustrialWorkContext"
+          },
+          "trace": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialTransitionStep"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Trace"
+          },
+          "compliance_findings": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialComplianceFinding"
+            },
+            "type": "array",
+            "title": "Compliance Findings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "trace"
+        ],
+        "title": "IndustrialModelCheckRequest"
+      },
+      "IndustrialModelCheckResponse": {
+        "properties": {
+          "allowed": {
+            "type": "boolean",
+            "title": "Allowed"
+          },
+          "blocked_transitions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Blocked Transitions"
+          },
+          "invariants": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialInvariantResult"
+            },
+            "type": "array",
+            "title": "Invariants"
+          },
+          "evaluated_trace": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialTransitionStep"
+            },
+            "type": "array",
+            "title": "Evaluated Trace"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "allowed"
+        ],
+        "title": "IndustrialModelCheckResponse"
+      },
+      "IndustrialObservation": {
+        "properties": {
+          "observation_id": {
+            "type": "string",
+            "title": "Observation Id"
+          },
+          "component": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Component"
+          },
+          "symptom": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Symptom"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail",
+            "default": ""
+          },
+          "severity_hint": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Severity Hint",
+            "default": "medium"
+          }
+        },
+        "type": "object",
+        "required": [
+          "component",
+          "symptom"
+        ],
+        "title": "IndustrialObservation"
+      },
+      "IndustrialProofNode": {
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "title": "Node Id"
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent Id",
+            "default": ""
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "depth": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Depth"
+          }
+        },
+        "type": "object",
+        "required": [
+          "node_id",
+          "label",
+          "detail",
+          "depth"
+        ],
+        "title": "IndustrialProofNode"
+      },
+      "IndustrialScenarioBundle": {
+        "properties": {
+          "scenarios": {
+            "items": {
+              "$ref": "#/components/schemas/IndustrialScenarioCard"
+            },
+            "type": "array",
+            "title": "Scenarios"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "title": "IndustrialScenarioBundle"
+      },
+      "IndustrialScenarioCard": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "asset_kind": {
+            "type": "string",
+            "enum": [
+              "diesel_engine",
+              "hydraulic_system",
+              "electrical_system"
+            ],
+            "title": "Asset Kind"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "required_sensors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Required Sensors"
+          },
+          "example_observations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Example Observations"
+          },
+          "expected_diagnosis_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Expected Diagnosis Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "asset_kind",
+          "label",
+          "summary"
+        ],
+        "title": "IndustrialScenarioCard"
+      },
+      "IndustrialSensorReading": {
+        "properties": {
+          "sensor_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Sensor Id"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit",
+            "default": ""
+          },
+          "nominal_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nominal Min"
+          },
+          "nominal_max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nominal Max"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "sensor_id",
+          "value"
+        ],
+        "title": "IndustrialSensorReading"
+      },
+      "IndustrialTransitionStep": {
+        "properties": {
+          "from_state": {
+            "type": "string",
+            "enum": [
+              "observe",
+              "isolate",
+              "verify",
+              "intervene",
+              "restart",
+              "hold"
+            ],
+            "title": "From State"
+          },
+          "to_state": {
+            "type": "string",
+            "enum": [
+              "observe",
+              "isolate",
+              "verify",
+              "intervene",
+              "restart",
+              "hold"
+            ],
+            "title": "To State"
+          },
+          "command": {
+            "type": "string",
+            "title": "Command"
+          },
+          "lockout_applied": {
+            "type": "boolean",
+            "title": "Lockout Applied"
+          },
+          "energy_isolated": {
+            "type": "boolean",
+            "title": "Energy Isolated"
+          },
+          "guard_interlock_verified": {
+            "type": "boolean",
+            "title": "Guard Interlock Verified"
+          },
+          "emergency_stop_verified": {
+            "type": "boolean",
+            "title": "Emergency Stop Verified"
+          },
+          "manual_reset_verified": {
+            "type": "boolean",
+            "title": "Manual Reset Verified"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_state",
+          "to_state",
+          "command",
+          "lockout_applied",
+          "energy_isolated",
+          "guard_interlock_verified",
+          "emergency_stop_verified",
+          "manual_reset_verified"
+        ],
+        "title": "IndustrialTransitionStep"
+      },
+      "IndustrialWorkContext": {
+        "properties": {
+          "lockout_applied": {
+            "type": "boolean",
+            "title": "Lockout Applied",
+            "default": false
+          },
+          "energy_isolated": {
+            "type": "boolean",
+            "title": "Energy Isolated",
+            "default": false
+          },
+          "guard_interlock_verified": {
+            "type": "boolean",
+            "title": "Guard Interlock Verified",
+            "default": false
+          },
+          "emergency_stop_verified": {
+            "type": "boolean",
+            "title": "Emergency Stop Verified",
+            "default": false
+          },
+          "manual_reset_verified": {
+            "type": "boolean",
+            "title": "Manual Reset Verified",
+            "default": false
+          },
+          "restart_requested": {
+            "type": "boolean",
+            "title": "Restart Requested",
+            "default": false
+          },
+          "safety_function_proof_test_overdue": {
+            "type": "boolean",
+            "title": "Safety Function Proof Test Overdue",
+            "default": false
+          },
+          "diagnostic_coverage_percent": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Diagnostic Coverage Percent",
+            "default": 95.0
+          }
+        },
+        "type": "object",
+        "title": "IndustrialWorkContext"
+      },
+      "IndustryProfile": {
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "title": "Profile Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "primary_modalities": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "text",
+                "image",
+                "audio",
+                "video",
+                "sensor",
+                "tabular"
+              ]
+            },
+            "type": "array",
+            "title": "Primary Modalities"
+          },
+          "why_multimodal_matters": {
+            "type": "string",
+            "title": "Why Multimodal Matters"
+          },
+          "anchor_routes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Anchor Routes"
+          },
+          "strict_checks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Strict Checks"
+          },
+          "supply_chain_focus": {
+            "type": "string",
+            "title": "Supply Chain Focus"
+          },
+          "signal_questions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Signal Questions"
+          },
+          "proof_surfaces": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Proof Surfaces"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_id",
+          "label",
+          "why_multimodal_matters",
+          "supply_chain_focus"
+        ],
+        "title": "IndustryProfile"
+      },
+      "IndustryProfileBundle": {
+        "properties": {
+          "profile_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Profile Count"
+          },
+          "continuation_links": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Continuation Links"
+          },
+          "profiles": {
+            "items": {
+              "$ref": "#/components/schemas/IndustryProfile"
+            },
+            "type": "array",
+            "title": "Profiles"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "profile_count"
+        ],
+        "title": "IndustryProfileBundle"
       },
       "InferenceRequest": {
         "properties": {
@@ -4511,6 +6217,338 @@
           "artifacts"
         ],
         "title": "OntologyIngestRequest"
+      },
+      "OperatorCommandSurface": {
+        "properties": {
+          "command_id": {
+            "type": "string",
+            "title": "Command Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "GET",
+              "POST"
+            ],
+            "title": "Method"
+          },
+          "route": {
+            "type": "string",
+            "title": "Route"
+          },
+          "runtime_lane": {
+            "type": "string",
+            "title": "Runtime Lane"
+          },
+          "operator_goal": {
+            "type": "string",
+            "title": "Operator Goal"
+          },
+          "why_it_holds": {
+            "type": "string",
+            "title": "Why It Holds"
+          },
+          "guardrails": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Guardrails"
+          },
+          "contract_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Contract Paths"
+          },
+          "proof_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Proof Paths"
+          },
+          "extension_seams": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Extension Seams"
+          },
+          "continuation": {
+            "type": "string",
+            "title": "Continuation",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "command_id",
+          "label",
+          "method",
+          "route",
+          "runtime_lane",
+          "operator_goal",
+          "why_it_holds"
+        ],
+        "title": "OperatorCommandSurface"
+      },
+      "OperatorPluginSurface": {
+        "properties": {
+          "plugin_id": {
+            "type": "string",
+            "title": "Plugin Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "seam_kind": {
+            "type": "string",
+            "title": "Seam Kind"
+          },
+          "entrypoint": {
+            "type": "string",
+            "title": "Entrypoint"
+          },
+          "purpose": {
+            "type": "string",
+            "title": "Purpose"
+          },
+          "guardrail": {
+            "type": "string",
+            "title": "Guardrail"
+          },
+          "proof_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Proof Paths"
+          },
+          "files": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Files"
+          },
+          "continuation": {
+            "type": "string",
+            "title": "Continuation",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "plugin_id",
+          "label",
+          "seam_kind",
+          "entrypoint",
+          "purpose",
+          "guardrail"
+        ],
+        "title": "OperatorPluginSurface"
+      },
+      "OperatorSkillSurface": {
+        "properties": {
+          "skill_id": {
+            "type": "string",
+            "title": "Skill Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "focus": {
+            "type": "string",
+            "title": "Focus"
+          },
+          "why_it_matters": {
+            "type": "string",
+            "title": "Why It Matters"
+          },
+          "required_inputs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Required Inputs"
+          },
+          "derived_outputs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Derived Outputs"
+          },
+          "related_commands": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Related Commands"
+          },
+          "proof_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Proof Paths"
+          },
+          "files": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Files"
+          }
+        },
+        "type": "object",
+        "required": [
+          "skill_id",
+          "label",
+          "focus",
+          "why_it_matters"
+        ],
+        "title": "OperatorSkillSurface"
+      },
+      "OperatorSurfaceBundle": {
+        "properties": {
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "readiness_posture": {
+            "type": "string",
+            "enum": [
+              "review_ready",
+              "needs_evidence",
+              "needs_buildout"
+            ],
+            "title": "Readiness Posture"
+          },
+          "route_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Route Count",
+            "default": 0
+          },
+          "command_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Command Count",
+            "default": 0
+          },
+          "skill_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Skill Count",
+            "default": 0
+          },
+          "plugin_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Plugin Count",
+            "default": 0
+          },
+          "speech_task_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Speech Task Count",
+            "default": 0
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/OperatorSurfaceMetric"
+            },
+            "type": "array",
+            "title": "Metrics"
+          },
+          "commands": {
+            "items": {
+              "$ref": "#/components/schemas/OperatorCommandSurface"
+            },
+            "type": "array",
+            "title": "Commands"
+          },
+          "skills": {
+            "items": {
+              "$ref": "#/components/schemas/OperatorSkillSurface"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "plugins": {
+            "items": {
+              "$ref": "#/components/schemas/OperatorPluginSurface"
+            },
+            "type": "array",
+            "title": "Plugins"
+          },
+          "speech_tasks": {
+            "items": {
+              "$ref": "#/components/schemas/SpeechTaskSurface"
+            },
+            "type": "array",
+            "title": "Speech Tasks"
+          },
+          "continuation_links": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Continuation Links"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "service",
+          "version",
+          "readiness_posture"
+        ],
+        "title": "OperatorSurfaceBundle"
+      },
+      "OperatorSurfaceMetric": {
+        "properties": {
+          "metric_id": {
+            "type": "string",
+            "title": "Metric Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "metric_id",
+          "label",
+          "value"
+        ],
+        "title": "OperatorSurfaceMetric"
       },
       "PipelineEvent": {
         "properties": {
@@ -5160,6 +7198,196 @@
         "type": "object",
         "title": "ReferenceBenchmarkRequest"
       },
+      "RepositoryGrowthSnapshot": {
+        "properties": {
+          "repository": {
+            "type": "string",
+            "title": "Repository"
+          },
+          "repository_url": {
+            "type": "string",
+            "title": "Repository Url"
+          },
+          "default_branch": {
+            "type": "string",
+            "title": "Default Branch"
+          },
+          "collection_mode": {
+            "type": "string",
+            "enum": [
+              "github_api",
+              "github_api_partial",
+              "local_fallback"
+            ],
+            "title": "Collection Mode"
+          },
+          "traffic_window_available": {
+            "type": "boolean",
+            "title": "Traffic Window Available",
+            "default": false
+          },
+          "stars": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Stars",
+            "default": 0
+          },
+          "forks": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Forks",
+            "default": 0
+          },
+          "watchers": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Watchers",
+            "default": 0
+          },
+          "subscribers": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Subscribers",
+            "default": 0
+          },
+          "open_issues": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Open Issues",
+            "default": 0
+          },
+          "open_pull_requests": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Open Pull Requests",
+            "default": 0
+          },
+          "contributor_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Contributor Count",
+            "default": 0
+          },
+          "release_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Release Count",
+            "default": 0
+          },
+          "views_14d": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Views 14D",
+            "default": 0
+          },
+          "unique_visitors_14d": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Unique Visitors 14D",
+            "default": 0
+          },
+          "clones_14d": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Clones 14D",
+            "default": 0
+          },
+          "unique_cloners_14d": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Unique Cloners 14D",
+            "default": 0
+          },
+          "community_health_percent": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Community Health Percent",
+            "default": 0
+          },
+          "route_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Route Count",
+            "default": 0
+          },
+          "test_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Test Count",
+            "default": 0
+          },
+          "public_surface_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Public Surface Count",
+            "default": 0
+          },
+          "proof_export_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Proof Export Count",
+            "default": 0
+          },
+          "docs_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Docs Count",
+            "default": 0
+          },
+          "example_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Example Count",
+            "default": 0
+          },
+          "community_file_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Community File Count",
+            "default": 0
+          },
+          "notebook_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Notebook Count",
+            "default": 0
+          },
+          "topics": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Topics"
+          },
+          "community_files": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Community Files"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "captured_at": {
+            "type": "string",
+            "title": "Captured At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "repository",
+          "repository_url",
+          "default_branch",
+          "collection_mode"
+        ],
+        "title": "RepositoryGrowthSnapshot"
+      },
       "RetrievalQueryRequest": {
         "properties": {
           "modality": {
@@ -5256,6 +7484,65 @@
           "records"
         ],
         "title": "RetrievalUpsertRequest"
+      },
+      "SpeechTaskSurface": {
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "title": "Task Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "focus": {
+            "type": "string",
+            "title": "Focus"
+          },
+          "why_it_exists": {
+            "type": "string",
+            "title": "Why It Exists"
+          },
+          "required_lanes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Required Lanes"
+          },
+          "derived_signals": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Derived Signals"
+          },
+          "caution": {
+            "type": "string",
+            "title": "Caution"
+          },
+          "proof_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Proof Paths"
+          },
+          "next_step": {
+            "type": "string",
+            "title": "Next Step",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "task_id",
+          "label",
+          "focus",
+          "why_it_exists",
+          "caution"
+        ],
+        "title": "SpeechTaskSurface"
       },
       "SupplyChainEdge": {
         "properties": {

@@ -8,24 +8,25 @@
     "http_ndjson",
     "web_html"
   ],
-  "created_at": "2026-07-03T20:14:04.825762+00:00",
+  "created_at": "2026-07-04T03:01:50.802097+00:00",
   "environment": "development",
-  "route_count": 82,
+  "route_count": 95,
   "service": "advanced-multimodal-ai",
   "store_counts": {
-    "async_jobs": 143,
-    "change_controls": 27,
-    "connector_runs": 387,
-    "dataset_catalog": 575,
+    "async_jobs": 200,
+    "change_controls": 33,
+    "connector_runs": 499,
+    "dataset_catalog": 768,
     "drift_baselines": 8,
-    "execution_journal_runs": 93,
-    "lifecycle_policies": 27,
-    "music_feature_runs": 19,
-    "music_manifests": 19,
-    "ontology_snapshots": 116,
-    "pipeline_runs": 296,
-    "recipe_registry": 103,
-    "supply_chain_snapshots": 27
+    "edge_packets": 4,
+    "execution_journal_runs": 190,
+    "lifecycle_policies": 33,
+    "music_feature_runs": 70,
+    "music_manifests": 70,
+    "ontology_snapshots": 130,
+    "pipeline_runs": 383,
+    "recipe_registry": 160,
+    "supply_chain_snapshots": 33
   },
   "supported_lanes": [
     "contract_inference",
@@ -37,11 +38,18 @@
     "connector_ingest",
     "music_manifest",
     "music_feature_warehouse",
+    "operator_surfaces",
+    "industry_profiles",
+    "industrial_diagnostics",
+    "edge_gateway",
+    "tracking_ledger",
+    "deployment_stack",
     "web_ingest",
     "recipe_registry",
     "readiness_report",
     "research_surfaces",
     "repository_pulse",
+    "repository_growth",
     "execution_journal",
     "retrieval",
     "video_cleanup",
@@ -53,8 +61,8 @@
     "liability_surface",
     "bias_taxonomy"
   ],
-  "test_count": 48,
-  "verification_artifact_count": 10,
+  "test_count": 55,
+  "verification_artifact_count": 16,
   "verification_artifacts": [
     {
       "detail": "openapi/openapi.json",
@@ -92,6 +100,11 @@
       "status": "present"
     },
     {
+      "detail": "proof/repository-growth.json",
+      "name": "Repository growth export",
+      "status": "present"
+    },
+    {
       "detail": "proof/execution-journal.json",
       "name": "Execution journal export",
       "status": "present"
@@ -104,6 +117,31 @@
     {
       "detail": "proof/music-observatory.json",
       "name": "Music observatory export",
+      "status": "present"
+    },
+    {
+      "detail": "proof/operator-surfaces.json",
+      "name": "Operator surfaces export",
+      "status": "present"
+    },
+    {
+      "detail": "proof/industry-profiles.json",
+      "name": "Industry profiles export",
+      "status": "present"
+    },
+    {
+      "detail": "proof/industrial-diagnostics.json",
+      "name": "Industrial diagnostics export",
+      "status": "present"
+    },
+    {
+      "detail": "proof/edge-topology.json",
+      "name": "Edge topology export",
+      "status": "present"
+    },
+    {
+      "detail": "containers/compose.yaml",
+      "name": "Deployment stack",
       "status": "present"
     }
   ],
@@ -141,6 +179,10 @@
       "label": "repository-pulse"
     },
     {
+      "command": "python3 scripts/export_repository_growth.py",
+      "label": "repository-growth"
+    },
+    {
       "command": "python3 scripts/export_benchmark_surfaces.py",
       "label": "benchmark-surfaces"
     },
@@ -151,6 +193,22 @@
     {
       "command": "python3 scripts/export_music_observatory.py",
       "label": "music-observatory"
+    },
+    {
+      "command": "python3 scripts/export_operator_surfaces.py",
+      "label": "operator-surfaces"
+    },
+    {
+      "command": "python3 scripts/export_industry_profiles.py",
+      "label": "industry-profiles"
+    },
+    {
+      "command": "python3 scripts/export_industrial_diagnostics.py",
+      "label": "industrial-diagnostics"
+    },
+    {
+      "command": "python3 scripts/export_edge_topology.py",
+      "label": "edge-topology"
     },
     {
       "command": "python3 scripts/export_execution_journal.py",

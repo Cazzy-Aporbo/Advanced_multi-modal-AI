@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Multi-modal AI · Industry Profiles</title>
+  <meta name="description" content="Interactive industry profiles for the Advanced Multi-modal AI repository: healthcare, media, education, supply chain, and other domains tied back to real runtime routes, proof surfaces, and review lanes.">
+  <link rel="stylesheet" href="site-controls.css">
+  <style>
+    :root {
+      --bg: #110d0d;
+      --surface: rgba(29, 22, 24, 0.84);
+      --surface-strong: rgba(35, 26, 29, 0.94);
+      --line: rgba(246, 239, 232, 0.12);
+      --text: #f7efe9;
+      --muted: #d8c6bb;
+      --copper: #df9c5f;
+      --jade: #8fc9be;
+      --rose: #e2a7d6;
+      --lilac: #b8b7ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Inter", system-ui, sans-serif;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(143, 201, 190, 0.15), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(226, 167, 214, 0.14), transparent 28%),
+        radial-gradient(circle at 76% 82%, rgba(223, 156, 95, 0.12), transparent 26%),
+        linear-gradient(180deg, #110d0d 0%, #171113 54%, #0d090b 100%);
+      overflow-x: hidden;
+    }
+    .wrap {
+      width: min(1180px, calc(100vw - 28px));
+      margin: 0 auto;
+      padding: 26px 0 72px;
+    }
+    .nav, .panel, .card, .detail-shell {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      display: grid;
+      gap: 14px;
+      padding: 18px 22px;
+      position: sticky;
+      top: 14px;
+      z-index: 4;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      display: grid;
+      gap: 4px;
+    }
+    .nav-brand strong {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+    }
+    .nav-brand small {
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    #site-dock-host {
+      width: min(360px, 100%);
+      margin-left: auto;
+    }
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.03);
+    }
+    .hero, .summary-grid, .detail-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .hero {
+      grid-template-columns: 1.08fr 0.92fr;
+      margin-top: 24px;
+    }
+    .panel {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-orbit-field {
+      position: relative;
+      isolation: isolate;
+    }
+    .page-orbit-field::before,
+    .page-orbit-field::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.72;
+    }
+    .page-orbit-field::before {
+      inset: auto -8% -16% auto;
+      width: 40%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(226, 167, 214, 0.22), transparent 72%);
+      animation: orbitFloat 12s ease-in-out infinite;
+    }
+    .page-orbit-field::after {
+      inset: 8% auto auto -8%;
+      width: 28%;
+      height: 46%;
+      background: radial-gradient(circle, rgba(143, 201, 190, 0.18), transparent 74%);
+      animation: orbitFloat 15s ease-in-out infinite reverse;
+    }
+    .label {
+      color: var(--copper);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-weight: 600;
+      line-height: 1.04;
+      text-wrap: balance;
+    }
+    h1 {
+      font-size: clamp(2.7rem, 5vw, 4.7rem);
+      max-width: 9ch;
+    }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.6rem; }
+    p, li { color: var(--muted); }
+    .hero-title {
+      background: linear-gradient(135deg, #fbf3ef 0%, #f2bfd8 38%, #9fded5 74%, #cec7ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 180% 180%;
+      animation: gradientFlow 12s ease-in-out infinite;
+    }
+    .page-section-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .page-section-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .summary-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+    .summary-chip {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      min-height: 140px;
+    }
+    .summary-chip strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 2.1rem;
+      font-family: "Iowan Old Style", Georgia, serif;
+      background: linear-gradient(135deg, #fbf3ef 0%, #f2bfd8 40%, #9fded5 80%, #cec7ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .modality-bars {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .modality-row {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+    .modality-row label {
+      color: var(--text);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+    .modality-track {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+      position: relative;
+    }
+    .modality-fill {
+      height: 100%;
+      width: var(--width, 0%);
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(223, 156, 95, 0.9), rgba(143, 201, 190, 0.9), rgba(226, 167, 214, 0.9));
+      background-size: 180% 100%;
+      animation: gradientFlow 10s linear infinite;
+      box-shadow: 0 0 18px rgba(159, 222, 213, 0.3);
+    }
+    .rail-shell {
+      margin-top: 22px;
+      display: grid;
+      gap: 16px;
+    }
+    .rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(260px, 320px);
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+    }
+    .card {
+      min-height: 250px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(150deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(143, 201, 190, 0.16), transparent 54%),
+        radial-gradient(circle at bottom left, rgba(226, 167, 214, 0.14), transparent 48%),
+        var(--surface-strong);
+      box-shadow: 0 24px 72px rgba(0,0,0,0.24);
+      text-align: left;
+      cursor: pointer;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+    .card:hover,
+    .card:focus-visible,
+    .card.is-active {
+      transform: translateY(-2px);
+      border-color: rgba(159, 222, 213, 0.34);
+      box-shadow: 0 28px 84px rgba(0,0,0,0.28);
+      outline: none;
+    }
+    .card small,
+    .detail-label {
+      color: var(--copper);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+    }
+    .card-title,
+    .detail-title {
+      margin-top: 10px;
+      background: linear-gradient(135deg, #fbf3ef 0%, #f2bfd8 34%, #9fded5 68%, #cec7ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 160% 160%;
+      animation: gradientFlow 11s ease-in-out infinite;
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 0.82rem;
+    }
+    .detail-shell {
+      padding: 26px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(143, 201, 190, 0.13), transparent 48%),
+        var(--surface-strong);
+      box-shadow: 0 24px 72px rgba(0,0,0,0.22);
+    }
+    .detail-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      margin-top: 18px;
+    }
+    .list-shell {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+    }
+    .list-shell strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    .list-shell ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .route-chain {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 18px;
+    }
+    .route-pill,
+    .proof-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      text-decoration: none;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 0.84rem;
+    }
+    .route-arrow {
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+    .proof-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .proof-link:hover,
+    .proof-link:focus-visible {
+      border-color: rgba(223, 156, 95, 0.38);
+      background: rgba(223, 156, 95, 0.12);
+      outline: none;
+    }
+    .empty {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px dashed rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+    }
+    @keyframes gradientFlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    @keyframes orbitFloat {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(-8px, -12px, 0) scale(1.05); }
+    }
+    @media (max-width: 920px) {
+      .hero,
+      .detail-grid,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+      .modality-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="nav-bar">
+        <div class="nav-brand">
+          <strong>Industry profiles</strong>
+          <small>domain transfer · runtime truth · evidence lanes</small>
+        </div>
+        <div class="nav-links">
+          <a href="index.html">atlas</a>
+          <a href="advanced-technical-portfolio.html">architecture</a>
+          <a href="technical-portfolio.html">catalog</a>
+          <a href="model-observatory.html">models</a>
+          <a href="music-observatory.html">music warehouse</a>
+          <a href="benchmark-observatory.html">benchmarks</a>
+          <a href="field-notes.html">field notes</a>
+          <a href="README.md">readme</a>
+        </div>
+      </div>
+      <div id="site-dock-host"></div>
+    </nav>
+
+    <div class="hero">
+      <section class="panel page-orbit-field">
+        <div class="label">Transferability</div>
+        <h1 class="hero-title">Where the same runtime learns to behave differently.</h1>
+        <p>
+          The repository is more useful when its range is concrete. These profiles
+          show how healthcare, media, education, supply chains, and other fields
+          stress the same multimodal core in different ways without dissolving into
+          generic claims.
+        </p>
+        <div class="page-section-nav">
+          <a href="#sector-rail">sector rail</a>
+          <a href="#detail-panel">detail panel</a>
+          <a href="#proof-links">proof links</a>
+        </div>
+      </section>
+
+      <section class="panel page-orbit-field">
+        <div class="label">Coverage</div>
+        <div class="summary-grid" id="industry-summary"></div>
+        <div class="modality-bars" id="industry-modality-bars"></div>
+      </section>
+    </div>
+
+    <section class="panel page-orbit-field rail-shell" id="sector-rail">
+      <div class="label">Sector rail</div>
+      <h2>Choose a field and inspect the pressure points.</h2>
+      <p>
+        Each card is tied to routes and proof surfaces that already exist in the
+        repository. Nothing here outruns the code.
+      </p>
+      <div class="rail" id="industry-rail" aria-label="Industry profile rail"></div>
+    </section>
+
+    <section class="detail-shell page-orbit-field" id="detail-panel">
+      <div class="detail-label">Profile detail</div>
+      <div id="industry-detail">
+        <div class="empty">Loading the latest industry profile surface.</div>
+      </div>
+    </section>
+  </div>
+
+  <script src="site-controls.js" defer></script>
+  <script src="industry-profiles.js" defer></script>
+</body>
+</html>

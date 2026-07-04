@@ -1,0 +1,1230 @@
+{
+  "scenarios": {
+    "scenarios": [
+      {
+        "scenario_id": "diesel-engine-overheat-window",
+        "asset_kind": "diesel_engine",
+        "label": "Diesel engine overheat window",
+        "summary": "Pairs lubrication loss, thermal rise, and restart restraint inside one deterministic pass.",
+        "required_sensors": [
+          "oil_pressure_kpa",
+          "coolant_temp_c",
+          "boost_pressure_kpa",
+          "exhaust_opacity_pct"
+        ],
+        "example_observations": [
+          "stall under load",
+          "smoke pulse",
+          "metallic knock"
+        ],
+        "expected_diagnosis_ids": [
+          "diesel-lubrication-collapse",
+          "diesel-airpath-restriction"
+        ]
+      },
+      {
+        "scenario_id": "hydraulic-cavitation-and-debris",
+        "asset_kind": "hydraulic_system",
+        "label": "Hydraulic cavitation and debris",
+        "summary": "Follows heat, contamination, and case drain flow before the actuator loop is trusted again.",
+        "required_sensors": [
+          "line_pressure_bar",
+          "fluid_temp_c",
+          "contamination_iso_code",
+          "case_drain_flow_lpm"
+        ],
+        "example_observations": [
+          "whine at lift",
+          "foam in sight glass",
+          "sticky valve motion"
+        ],
+        "expected_diagnosis_ids": [
+          "hydraulic-cavitation-window",
+          "hydraulic-contamination-escalation"
+        ]
+      },
+      {
+        "scenario_id": "electrical-phase-loss",
+        "asset_kind": "electrical_system",
+        "label": "Electrical phase loss and insulation drift",
+        "summary": "Separates power-distribution faults from insulation decay before the drive is re-energized.",
+        "required_sensors": [
+          "line_voltage_v",
+          "current_imbalance_pct",
+          "insulation_resistance_mohm",
+          "winding_temp_c"
+        ],
+        "example_observations": [
+          "brownout",
+          "ground odor",
+          "repeated trip"
+        ],
+        "expected_diagnosis_ids": [
+          "electrical-phase-loss",
+          "electrical-insulation-breakdown"
+        ]
+      }
+    ],
+    "generated_at": "2026-07-04T03:01:39.122746+00:00"
+  },
+  "sample_request": {
+    "asset_kind": "diesel_engine",
+    "machine_family": "field-diagnostics-reference",
+    "technician_report": "Repeated stall under load with smoke pulse and a light metallic knock.",
+    "sensors": [
+      {
+        "sensor_id": "oil_pressure_kpa",
+        "value": 112.0,
+        "unit": "kPa",
+        "nominal_min": null,
+        "nominal_max": null,
+        "note": ""
+      },
+      {
+        "sensor_id": "coolant_temp_c",
+        "value": 108.4,
+        "unit": "C",
+        "nominal_min": null,
+        "nominal_max": null,
+        "note": ""
+      },
+      {
+        "sensor_id": "boost_pressure_kpa",
+        "value": 101.0,
+        "unit": "kPa",
+        "nominal_min": null,
+        "nominal_max": null,
+        "note": ""
+      },
+      {
+        "sensor_id": "exhaust_opacity_pct",
+        "value": 74.0,
+        "unit": "%",
+        "nominal_min": null,
+        "nominal_max": null,
+        "note": ""
+      }
+    ],
+    "observations": [
+      {
+        "observation_id": "obs-1",
+        "component": "engine",
+        "symptom": "stall",
+        "detail": "stall under load",
+        "severity_hint": "medium"
+      },
+      {
+        "observation_id": "obs-2",
+        "component": "exhaust",
+        "symptom": "smoke",
+        "detail": "dark smoke pulse",
+        "severity_hint": "medium"
+      }
+    ],
+    "work_context": {
+      "lockout_applied": false,
+      "energy_isolated": false,
+      "guard_interlock_verified": true,
+      "emergency_stop_verified": true,
+      "manual_reset_verified": false,
+      "restart_requested": true,
+      "safety_function_proof_test_overdue": true,
+      "diagnostic_coverage_percent": 86.0
+    }
+  },
+  "sample_response": {
+    "asset_kind": "diesel_engine",
+    "machine_family": "field-diagnostics-reference",
+    "verdict": "block",
+    "diagnoses": [
+      {
+        "diagnosis_id": "diesel-lubrication-collapse",
+        "title": "Lubrication collapse risk",
+        "component": "lubrication",
+        "severity": "critical",
+        "confidence": 0.99,
+        "matched_signals": [
+          "oil_pressure_kpa < 145 (observed 112.000)",
+          "coolant_temp_c > 102 (observed 108.400)"
+        ],
+        "matched_observations": [
+          "stall",
+          "knock"
+        ],
+        "blocked_actions": [
+          "restart",
+          "continued_load"
+        ],
+        "next_checks": [
+          "inspect oil circuit",
+          "sample bearing material",
+          "verify relief valve"
+        ],
+        "rationale": "Low oil pressure and rising coolant temperature usually travel together when lubrication loss begins to damage rotating surfaces."
+      },
+      {
+        "diagnosis_id": "diesel-airpath-restriction",
+        "title": "Air-path restriction or boost collapse",
+        "component": "air_path",
+        "severity": "high",
+        "confidence": 0.99,
+        "matched_signals": [
+          "boost_pressure_kpa < 110 (observed 101.000)",
+          "exhaust_opacity_pct > 68 (observed 74.000)"
+        ],
+        "matched_observations": [
+          "smoke"
+        ],
+        "blocked_actions": [
+          "f",
+          "u",
+          "l",
+          "l",
+          "_",
+          "t",
+          "h",
+          "r",
+          "o",
+          "t",
+          "t",
+          "l",
+          "e"
+        ],
+        "next_checks": [
+          "inspect intake restriction",
+          "check turbo actuation",
+          "review injector balance"
+        ],
+        "rationale": "Weak boost and dark exhaust usually mean the engine is over-fueling relative to the air column actually reaching combustion."
+      }
+    ],
+    "compliance_findings": [
+      {
+        "standard": "OSHA 1910",
+        "clause": "1910.147",
+        "status": "block",
+        "requirement": "Lockout and energy isolation must be established before direct intervention.",
+        "evidence": [
+          "lockout_applied=False",
+          "energy_isolated=False"
+        ],
+        "implication": "Hands-on diagnostics cannot continue until hazardous energy is controlled.",
+        "checked_at": "2026-07-04T03:01:39.122857+00:00"
+      },
+      {
+        "standard": "ISO 13849-1",
+        "clause": "5.2.2",
+        "status": "watch",
+        "requirement": "A deliberate reset confirmation is required after the safeguarded stop.",
+        "evidence": [
+          "manual_reset_verified=False"
+        ],
+        "implication": "The machine may not re-enter motion through an automatic restart path.",
+        "checked_at": "2026-07-04T03:01:39.122865+00:00"
+      },
+      {
+        "standard": "IEC 61508",
+        "clause": "7.4.9",
+        "status": "block",
+        "requirement": "Overdue proof testing and weak diagnostic coverage must be cleared before safety claims are reused.",
+        "evidence": [
+          "safety_function_proof_test_overdue=True",
+          "diagnostic_coverage_percent=86.0",
+          "highest_diagnosis_severity=high"
+        ],
+        "implication": "The safety function cannot be treated as fully trustworthy until proof coverage is restored.",
+        "checked_at": "2026-07-04T03:01:39.122872+00:00"
+      }
+    ],
+    "invariants": [
+      {
+        "invariant_id": "lockout-before-intervention",
+        "description": "Manual intervention requires both lockout and verified energy isolation.",
+        "holds": false,
+        "evidence": [
+          "lockout_applied=False",
+          "energy_isolated=False",
+          "trace_length=3"
+        ],
+        "checked_at": "2026-07-04T03:01:39.122890+00:00"
+      },
+      {
+        "invariant_id": "restart-after-protective-controls",
+        "description": "Restart cannot proceed without guard, emergency stop, and manual reset verification.",
+        "holds": false,
+        "evidence": [
+          "restart_requested=True",
+          "guard_interlock_verified=True",
+          "manual_reset_verified=False"
+        ],
+        "checked_at": "2026-07-04T03:01:39.122896+00:00"
+      },
+      {
+        "invariant_id": "critical-faults-do-not-route",
+        "description": "A critical diagnosis or a blocking regulatory finding prevents a route verdict.",
+        "holds": false,
+        "evidence": [
+          "critical_present=True",
+          "blocking_finding_present=True"
+        ],
+        "checked_at": "2026-07-04T03:01:39.122898+00:00"
+      }
+    ],
+    "fault_graph": {
+      "nodes": [
+        {
+          "node_id": "sensor:oil_pressure_kpa",
+          "kind": "sensor",
+          "label": "oil_pressure_kpa",
+          "detail": "112.000 kPa",
+          "severity": "info",
+          "state": "",
+          "metrics": {
+            "value": 112.0,
+            "unit": "kPa"
+          }
+        },
+        {
+          "node_id": "sensor:coolant_temp_c",
+          "kind": "sensor",
+          "label": "coolant_temp_c",
+          "detail": "108.400 C",
+          "severity": "info",
+          "state": "",
+          "metrics": {
+            "value": 108.4,
+            "unit": "C"
+          }
+        },
+        {
+          "node_id": "sensor:boost_pressure_kpa",
+          "kind": "sensor",
+          "label": "boost_pressure_kpa",
+          "detail": "101.000 kPa",
+          "severity": "info",
+          "state": "",
+          "metrics": {
+            "value": 101.0,
+            "unit": "kPa"
+          }
+        },
+        {
+          "node_id": "sensor:exhaust_opacity_pct",
+          "kind": "sensor",
+          "label": "exhaust_opacity_pct",
+          "detail": "74.000 %",
+          "severity": "info",
+          "state": "",
+          "metrics": {
+            "value": 74.0,
+            "unit": "%"
+          }
+        },
+        {
+          "node_id": "observation:0",
+          "kind": "observation",
+          "label": "stall",
+          "detail": "stall under load",
+          "severity": "info",
+          "state": "",
+          "metrics": {
+            "component": "engine"
+          }
+        },
+        {
+          "node_id": "observation:1",
+          "kind": "observation",
+          "label": "smoke",
+          "detail": "dark smoke pulse",
+          "severity": "info",
+          "state": "",
+          "metrics": {
+            "component": "exhaust"
+          }
+        },
+        {
+          "node_id": "verdict:block",
+          "kind": "verdict",
+          "label": "block",
+          "detail": "Final routing posture after deterministic diagnosis and safety review.",
+          "severity": "critical",
+          "state": "block",
+          "metrics": {}
+        },
+        {
+          "node_id": "diagnosis:diesel-lubrication-collapse",
+          "kind": "diagnosis",
+          "label": "Lubrication collapse risk",
+          "detail": "Low oil pressure and rising coolant temperature usually travel together when lubrication loss begins to damage rotating surfaces.",
+          "severity": "critical",
+          "state": "",
+          "metrics": {
+            "confidence": 0.99,
+            "component": "lubrication"
+          }
+        },
+        {
+          "node_id": "action:restart",
+          "kind": "action",
+          "label": "restart",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "critical",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "action:continued_load",
+          "kind": "action",
+          "label": "continued load",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "critical",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "diagnosis:diesel-airpath-restriction",
+          "kind": "diagnosis",
+          "label": "Air-path restriction or boost collapse",
+          "detail": "Weak boost and dark exhaust usually mean the engine is over-fueling relative to the air column actually reaching combustion.",
+          "severity": "high",
+          "state": "",
+          "metrics": {
+            "confidence": 0.99,
+            "component": "air_path"
+          }
+        },
+        {
+          "node_id": "action:f",
+          "kind": "action",
+          "label": "f",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "high",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "action:u",
+          "kind": "action",
+          "label": "u",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "high",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "action:l",
+          "kind": "action",
+          "label": "l",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "high",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "action:_",
+          "kind": "action",
+          "label": " ",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "high",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "action:t",
+          "kind": "action",
+          "label": "t",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "high",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "action:h",
+          "kind": "action",
+          "label": "h",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "high",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "action:r",
+          "kind": "action",
+          "label": "r",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "high",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "action:o",
+          "kind": "action",
+          "label": "o",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "high",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "action:e",
+          "kind": "action",
+          "label": "e",
+          "detail": "Action restricted until the signal chain is resolved.",
+          "severity": "high",
+          "state": "",
+          "metrics": {}
+        },
+        {
+          "node_id": "compliance:0",
+          "kind": "compliance",
+          "label": "OSHA 1910 1910.147",
+          "detail": "Lockout and energy isolation must be established before direct intervention.",
+          "severity": "block",
+          "state": "block",
+          "metrics": {
+            "checked_at": "2026-07-04T03:01:39.122857+00:00"
+          }
+        },
+        {
+          "node_id": "compliance:1",
+          "kind": "compliance",
+          "label": "ISO 13849-1 5.2.2",
+          "detail": "A deliberate reset confirmation is required after the safeguarded stop.",
+          "severity": "watch",
+          "state": "watch",
+          "metrics": {
+            "checked_at": "2026-07-04T03:01:39.122865+00:00"
+          }
+        },
+        {
+          "node_id": "compliance:2",
+          "kind": "compliance",
+          "label": "IEC 61508 7.4.9",
+          "detail": "Overdue proof testing and weak diagnostic coverage must be cleared before safety claims are reused.",
+          "severity": "block",
+          "state": "block",
+          "metrics": {
+            "checked_at": "2026-07-04T03:01:39.122872+00:00"
+          }
+        },
+        {
+          "node_id": "invariant:lockout-before-intervention",
+          "kind": "invariant",
+          "label": "lockout-before-intervention",
+          "detail": "Manual intervention requires both lockout and verified energy isolation.",
+          "severity": "block",
+          "state": "violated",
+          "metrics": {
+            "evidence_count": 3
+          }
+        },
+        {
+          "node_id": "invariant:restart-after-protective-controls",
+          "kind": "invariant",
+          "label": "restart-after-protective-controls",
+          "detail": "Restart cannot proceed without guard, emergency stop, and manual reset verification.",
+          "severity": "block",
+          "state": "violated",
+          "metrics": {
+            "evidence_count": 3
+          }
+        },
+        {
+          "node_id": "invariant:critical-faults-do-not-route",
+          "kind": "invariant",
+          "label": "critical-faults-do-not-route",
+          "detail": "A critical diagnosis or a blocking regulatory finding prevents a route verdict.",
+          "severity": "block",
+          "state": "violated",
+          "metrics": {
+            "evidence_count": 2
+          }
+        }
+      ],
+      "edges": [
+        {
+          "edge_id": "sensor:oil_pressure_kpa->diagnosis:diesel-lubrication-collapse:threshold_trip",
+          "source": "sensor:oil_pressure_kpa",
+          "target": "diagnosis:diesel-lubrication-collapse",
+          "relation": "threshold_trip",
+          "evidence": "oil_pressure_kpa < 145 (observed 112.000)"
+        },
+        {
+          "edge_id": "sensor:coolant_temp_c->diagnosis:diesel-lubrication-collapse:threshold_trip",
+          "source": "sensor:coolant_temp_c",
+          "target": "diagnosis:diesel-lubrication-collapse",
+          "relation": "threshold_trip",
+          "evidence": "coolant_temp_c > 102 (observed 108.400)"
+        },
+        {
+          "edge_id": "observation:0->diagnosis:diesel-lubrication-collapse:symptom_match",
+          "source": "observation:0",
+          "target": "diagnosis:diesel-lubrication-collapse",
+          "relation": "symptom_match",
+          "evidence": "stall"
+        },
+        {
+          "edge_id": "diagnosis:diesel-lubrication-collapse->action:restart:blocks_action",
+          "source": "diagnosis:diesel-lubrication-collapse",
+          "target": "action:restart",
+          "relation": "blocks_action",
+          "evidence": "diesel-lubrication-collapse"
+        },
+        {
+          "edge_id": "action:restart->verdict:block:constrains_verdict",
+          "source": "action:restart",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-lubrication-collapse->action:continued_load:blocks_action",
+          "source": "diagnosis:diesel-lubrication-collapse",
+          "target": "action:continued_load",
+          "relation": "blocks_action",
+          "evidence": "diesel-lubrication-collapse"
+        },
+        {
+          "edge_id": "action:continued_load->verdict:block:constrains_verdict",
+          "source": "action:continued_load",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "sensor:boost_pressure_kpa->diagnosis:diesel-airpath-restriction:threshold_trip",
+          "source": "sensor:boost_pressure_kpa",
+          "target": "diagnosis:diesel-airpath-restriction",
+          "relation": "threshold_trip",
+          "evidence": "boost_pressure_kpa < 110 (observed 101.000)"
+        },
+        {
+          "edge_id": "sensor:exhaust_opacity_pct->diagnosis:diesel-airpath-restriction:threshold_trip",
+          "source": "sensor:exhaust_opacity_pct",
+          "target": "diagnosis:diesel-airpath-restriction",
+          "relation": "threshold_trip",
+          "evidence": "exhaust_opacity_pct > 68 (observed 74.000)"
+        },
+        {
+          "edge_id": "observation:1->diagnosis:diesel-airpath-restriction:symptom_match",
+          "source": "observation:1",
+          "target": "diagnosis:diesel-airpath-restriction",
+          "relation": "symptom_match",
+          "evidence": "smoke"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:f:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:f",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:f->verdict:block:constrains_verdict",
+          "source": "action:f",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:u:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:u",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:u->verdict:block:constrains_verdict",
+          "source": "action:u",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:l:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:l",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:l->verdict:block:constrains_verdict",
+          "source": "action:l",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:l:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:l",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:l->verdict:block:constrains_verdict",
+          "source": "action:l",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:_:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:_",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:_->verdict:block:constrains_verdict",
+          "source": "action:_",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:t:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:t",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:t->verdict:block:constrains_verdict",
+          "source": "action:t",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:h:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:h",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:h->verdict:block:constrains_verdict",
+          "source": "action:h",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:r:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:r",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:r->verdict:block:constrains_verdict",
+          "source": "action:r",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:o:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:o",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:o->verdict:block:constrains_verdict",
+          "source": "action:o",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:t:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:t",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:t->verdict:block:constrains_verdict",
+          "source": "action:t",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:t:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:t",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:t->verdict:block:constrains_verdict",
+          "source": "action:t",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:l:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:l",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:l->verdict:block:constrains_verdict",
+          "source": "action:l",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "diagnosis:diesel-airpath-restriction->action:e:blocks_action",
+          "source": "diagnosis:diesel-airpath-restriction",
+          "target": "action:e",
+          "relation": "blocks_action",
+          "evidence": "diesel-airpath-restriction"
+        },
+        {
+          "edge_id": "action:e->verdict:block:constrains_verdict",
+          "source": "action:e",
+          "target": "verdict:block",
+          "relation": "constrains_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:f->compliance:0:regulated_by",
+          "source": "action:f",
+          "target": "compliance:0",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:u->compliance:0:regulated_by",
+          "source": "action:u",
+          "target": "compliance:0",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:l->compliance:0:regulated_by",
+          "source": "action:l",
+          "target": "compliance:0",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:_->compliance:0:regulated_by",
+          "source": "action:_",
+          "target": "compliance:0",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:t->compliance:0:regulated_by",
+          "source": "action:t",
+          "target": "compliance:0",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:h->compliance:0:regulated_by",
+          "source": "action:h",
+          "target": "compliance:0",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:r->compliance:0:regulated_by",
+          "source": "action:r",
+          "target": "compliance:0",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:o->compliance:0:regulated_by",
+          "source": "action:o",
+          "target": "compliance:0",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:e->compliance:0:regulated_by",
+          "source": "action:e",
+          "target": "compliance:0",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "compliance:0->verdict:block:influences_verdict",
+          "source": "compliance:0",
+          "target": "verdict:block",
+          "relation": "influences_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:f->compliance:1:regulated_by",
+          "source": "action:f",
+          "target": "compliance:1",
+          "relation": "regulated_by",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "action:u->compliance:1:regulated_by",
+          "source": "action:u",
+          "target": "compliance:1",
+          "relation": "regulated_by",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "action:l->compliance:1:regulated_by",
+          "source": "action:l",
+          "target": "compliance:1",
+          "relation": "regulated_by",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "action:_->compliance:1:regulated_by",
+          "source": "action:_",
+          "target": "compliance:1",
+          "relation": "regulated_by",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "action:t->compliance:1:regulated_by",
+          "source": "action:t",
+          "target": "compliance:1",
+          "relation": "regulated_by",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "action:h->compliance:1:regulated_by",
+          "source": "action:h",
+          "target": "compliance:1",
+          "relation": "regulated_by",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "action:r->compliance:1:regulated_by",
+          "source": "action:r",
+          "target": "compliance:1",
+          "relation": "regulated_by",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "action:o->compliance:1:regulated_by",
+          "source": "action:o",
+          "target": "compliance:1",
+          "relation": "regulated_by",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "action:e->compliance:1:regulated_by",
+          "source": "action:e",
+          "target": "compliance:1",
+          "relation": "regulated_by",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "compliance:1->verdict:block:influences_verdict",
+          "source": "compliance:1",
+          "target": "verdict:block",
+          "relation": "influences_verdict",
+          "evidence": "watch"
+        },
+        {
+          "edge_id": "action:f->compliance:2:regulated_by",
+          "source": "action:f",
+          "target": "compliance:2",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:u->compliance:2:regulated_by",
+          "source": "action:u",
+          "target": "compliance:2",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:l->compliance:2:regulated_by",
+          "source": "action:l",
+          "target": "compliance:2",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:_->compliance:2:regulated_by",
+          "source": "action:_",
+          "target": "compliance:2",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:t->compliance:2:regulated_by",
+          "source": "action:t",
+          "target": "compliance:2",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:h->compliance:2:regulated_by",
+          "source": "action:h",
+          "target": "compliance:2",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:r->compliance:2:regulated_by",
+          "source": "action:r",
+          "target": "compliance:2",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:o->compliance:2:regulated_by",
+          "source": "action:o",
+          "target": "compliance:2",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "action:e->compliance:2:regulated_by",
+          "source": "action:e",
+          "target": "compliance:2",
+          "relation": "regulated_by",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "compliance:2->verdict:block:influences_verdict",
+          "source": "compliance:2",
+          "target": "verdict:block",
+          "relation": "influences_verdict",
+          "evidence": "block"
+        },
+        {
+          "edge_id": "compliance:0->invariant:lockout-before-intervention:validated_by",
+          "source": "compliance:0",
+          "target": "invariant:lockout-before-intervention",
+          "relation": "validated_by",
+          "evidence": "lockout-before-intervention"
+        },
+        {
+          "edge_id": "invariant:lockout-before-intervention->verdict:block:finalizes_verdict",
+          "source": "invariant:lockout-before-intervention",
+          "target": "verdict:block",
+          "relation": "finalizes_verdict",
+          "evidence": "lockout-before-intervention"
+        },
+        {
+          "edge_id": "compliance:0->invariant:restart-after-protective-controls:validated_by",
+          "source": "compliance:0",
+          "target": "invariant:restart-after-protective-controls",
+          "relation": "validated_by",
+          "evidence": "restart-after-protective-controls"
+        },
+        {
+          "edge_id": "invariant:restart-after-protective-controls->verdict:block:finalizes_verdict",
+          "source": "invariant:restart-after-protective-controls",
+          "target": "verdict:block",
+          "relation": "finalizes_verdict",
+          "evidence": "restart-after-protective-controls"
+        },
+        {
+          "edge_id": "compliance:0->invariant:critical-faults-do-not-route:validated_by",
+          "source": "compliance:0",
+          "target": "invariant:critical-faults-do-not-route",
+          "relation": "validated_by",
+          "evidence": "critical-faults-do-not-route"
+        },
+        {
+          "edge_id": "invariant:critical-faults-do-not-route->verdict:block:finalizes_verdict",
+          "source": "invariant:critical-faults-do-not-route",
+          "target": "verdict:block",
+          "relation": "finalizes_verdict",
+          "evidence": "critical-faults-do-not-route"
+        }
+      ],
+      "primary_path": [
+        "sensor:oil_pressure_kpa",
+        "diagnosis:diesel-lubrication-collapse",
+        "compliance:0",
+        "action:restart",
+        "verdict:block"
+      ]
+    },
+    "proof_tree": [
+      {
+        "node_id": "root",
+        "parent_id": "",
+        "label": "diesel_engine diagnostic chain",
+        "detail": "Sensors, observations, compliance, and formal invariants are evaluated together.",
+        "depth": 0
+      },
+      {
+        "node_id": "sensors",
+        "parent_id": "root",
+        "label": "Sensor evidence",
+        "detail": "4 sensor values were read for this diagnostic pass.",
+        "depth": 1
+      },
+      {
+        "node_id": "diagnosis-1",
+        "parent_id": "root",
+        "label": "Lubrication collapse risk",
+        "detail": "oil_pressure_kpa < 145 (observed 112.000); coolant_temp_c > 102 (observed 108.400); observation=stall; observation=knock",
+        "depth": 1
+      },
+      {
+        "node_id": "diagnosis-2",
+        "parent_id": "root",
+        "label": "Air-path restriction or boost collapse",
+        "detail": "boost_pressure_kpa < 110 (observed 101.000); exhaust_opacity_pct > 68 (observed 74.000); observation=smoke",
+        "depth": 1
+      },
+      {
+        "node_id": "compliance-1",
+        "parent_id": "root",
+        "label": "OSHA 1910 1910.147",
+        "detail": "Lockout and energy isolation must be established before direct intervention.",
+        "depth": 1
+      },
+      {
+        "node_id": "compliance-2",
+        "parent_id": "root",
+        "label": "ISO 13849-1 5.2.2",
+        "detail": "A deliberate reset confirmation is required after the safeguarded stop.",
+        "depth": 1
+      },
+      {
+        "node_id": "compliance-3",
+        "parent_id": "root",
+        "label": "IEC 61508 7.4.9",
+        "detail": "Overdue proof testing and weak diagnostic coverage must be cleared before safety claims are reused.",
+        "depth": 1
+      },
+      {
+        "node_id": "invariant-1",
+        "parent_id": "root",
+        "label": "lockout-before-intervention",
+        "detail": "Manual intervention requires both lockout and verified energy isolation. \u00b7 holds=False",
+        "depth": 1
+      },
+      {
+        "node_id": "invariant-2",
+        "parent_id": "root",
+        "label": "restart-after-protective-controls",
+        "detail": "Restart cannot proceed without guard, emergency stop, and manual reset verification. \u00b7 holds=False",
+        "depth": 1
+      },
+      {
+        "node_id": "invariant-3",
+        "parent_id": "root",
+        "label": "critical-faults-do-not-route",
+        "detail": "A critical diagnosis or a blocking regulatory finding prevents a route verdict. \u00b7 holds=False",
+        "depth": 1
+      },
+      {
+        "node_id": "verdict",
+        "parent_id": "root",
+        "label": "Final verdict",
+        "detail": "Deterministic disposition: block.",
+        "depth": 1
+      }
+    ],
+    "audit_trail": [
+      {
+        "entry_id": "audit-01",
+        "label": "request",
+        "parent_hash": "",
+        "sha256": "c6d12e2a1974919db69a8f48418b8d9d3e4085f60d35b38a9bc67ab13ebe9434",
+        "recorded_at": "2026-07-04T03:01:39.123284+00:00",
+        "note": "request sealed into the industrial diagnostic chain."
+      },
+      {
+        "entry_id": "audit-02",
+        "label": "diagnoses",
+        "parent_hash": "c6d12e2a1974919db69a8f48418b8d9d3e4085f60d35b38a9bc67ab13ebe9434",
+        "sha256": "261f0761186e28d579d100446f58f5c205cfa04bf6a19dcb81bb16e25418d748",
+        "recorded_at": "2026-07-04T03:01:39.123310+00:00",
+        "note": "diagnoses sealed into the industrial diagnostic chain."
+      },
+      {
+        "entry_id": "audit-03",
+        "label": "compliance",
+        "parent_hash": "261f0761186e28d579d100446f58f5c205cfa04bf6a19dcb81bb16e25418d748",
+        "sha256": "5c884e9c51fe5cf9a833146681a1b5c3fd9c0a4b8b0774d5496e3e37dda4602c",
+        "recorded_at": "2026-07-04T03:01:39.123329+00:00",
+        "note": "compliance sealed into the industrial diagnostic chain."
+      },
+      {
+        "entry_id": "audit-04",
+        "label": "invariants",
+        "parent_hash": "5c884e9c51fe5cf9a833146681a1b5c3fd9c0a4b8b0774d5496e3e37dda4602c",
+        "sha256": "ffbd5542cf46694a7074a5c37e9a32e9688af0541c7c77a901b883081fcb21ac",
+        "recorded_at": "2026-07-04T03:01:39.123342+00:00",
+        "note": "invariants sealed into the industrial diagnostic chain."
+      },
+      {
+        "entry_id": "audit-05",
+        "label": "verdict",
+        "parent_hash": "ffbd5542cf46694a7074a5c37e9a32e9688af0541c7c77a901b883081fcb21ac",
+        "sha256": "6d69226ec6e7ba1640fa4c394f6456fa8774c3bc0a5482520faa94915254c6f3",
+        "recorded_at": "2026-07-04T03:01:39.123349+00:00",
+        "note": "verdict sealed into the industrial diagnostic chain."
+      }
+    ],
+    "formal_trace": [
+      {
+        "from_state": "observe",
+        "to_state": "isolate",
+        "command": "stabilize machine boundary",
+        "lockout_applied": false,
+        "energy_isolated": false,
+        "guard_interlock_verified": true,
+        "emergency_stop_verified": true,
+        "manual_reset_verified": false,
+        "note": "Begin by isolating the machine state before direct intervention."
+      },
+      {
+        "from_state": "isolate",
+        "to_state": "verify",
+        "command": "verify machine-safe state",
+        "lockout_applied": false,
+        "energy_isolated": false,
+        "guard_interlock_verified": true,
+        "emergency_stop_verified": true,
+        "manual_reset_verified": false,
+        "note": "Verification checks whether the machine is ready for direct work."
+      },
+      {
+        "from_state": "verify",
+        "to_state": "hold",
+        "command": "hold machine until controls are complete",
+        "lockout_applied": false,
+        "energy_isolated": false,
+        "guard_interlock_verified": true,
+        "emergency_stop_verified": true,
+        "manual_reset_verified": false,
+        "note": "A blocking condition prevents restart or live intervention."
+      }
+    ],
+    "recommended_actions": [
+      "inspect oil circuit",
+      "sample bearing material",
+      "verify relief valve",
+      "inspect intake restriction",
+      "check turbo actuation",
+      "review injector balance",
+      "OSHA 1910 1910.147: Lockout and energy isolation must be established before direct intervention.",
+      "ISO 13849-1 5.2.2: A deliberate reset confirmation is required after the safeguarded stop.",
+      "IEC 61508 7.4.9: Overdue proof testing and weak diagnostic coverage must be cleared before safety claims are reused.",
+      "Manual intervention requires both lockout and verified energy isolation.",
+      "Restart cannot proceed without guard, emergency stop, and manual reset verification.",
+      "A critical diagnosis or a blocking regulatory finding prevents a route verdict."
+    ],
+    "generated_at": "2026-07-04T03:01:39.123368+00:00"
+  }
+}

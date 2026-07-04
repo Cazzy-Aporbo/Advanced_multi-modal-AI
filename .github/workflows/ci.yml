@@ -29,7 +29,7 @@ jobs:
           python -m pip install -e .[dev]
 
       - name: Lint
-        run: ruff check src tests
+        run: ruff check src tests scripts
 
       - name: Test
         run: pytest
@@ -43,6 +43,9 @@ jobs:
       - name: Generate SDK surfaces
         run: python scripts/generate_sdk_surfaces.py
 
+      - name: Export research surfaces
+        run: python scripts/export_research_surfaces.py
+
       - name: Export readiness report
         run: python scripts/export_readiness_report.py
 
@@ -51,6 +54,33 @@ jobs:
 
       - name: Export music observatory
         run: python scripts/export_music_observatory.py
+
+      - name: Export operator surfaces
+        run: python scripts/export_operator_surfaces.py
+
+      - name: Export industry profiles
+        run: python scripts/export_industry_profiles.py
+
+      - name: Export industrial diagnostics
+        run: python scripts/export_industrial_diagnostics.py
+
+      - name: Export edge topology
+        run: python scripts/export_edge_topology.py
+
+      - name: Export execution journal
+        run: python scripts/export_execution_journal.py
+
+      - name: Export repository pulse
+        run: python scripts/export_repository_pulse.py
+
+      - name: Export repository growth
+        run: python scripts/export_repository_growth.py
+
+      - name: Export benchmark surfaces
+        run: python scripts/export_benchmark_surfaces.py
+
+      - name: Export cymatic surface
+        run: python scripts/export_cymatic_surface.py
 
       - name: Build runtime proof bundle
         run: python scripts/build_runtime_proof_bundle.py

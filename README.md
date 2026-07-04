@@ -71,14 +71,48 @@ connector intake, replay, provenance, and transcript-first video review.
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/cymatic-media-engine.html">Open signal lab</a>
     </td>
     <td valign="top" width="33%">
-      <strong>Signal Atlas</strong><br/>
-      The main atlas now includes a compact live signal window tied to the same evidence exports.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html#cymatic-window">Open atlas window</a>
+      <strong>Music Warehouse</strong><br/>
+      Segment windows, derived features, drift checks, and change proof for declared audio catalogs.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/music-observatory.html">Open music warehouse</a>
     </td>
     <td valign="top" width="33%">
       <strong>Generated Proof</strong><br/>
       Cymatic and benchmark exports stay inspectable as plain files beside the moving surface.<br/>
       <a href="https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/tree/main/proof">Browse proof bundle</a>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" width="33%">
+      <strong>Industry Profiles</strong><br/>
+      Domain-by-domain runtime routes for healthcare, education, media, biology, and supply chain work.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/industry-profiles.html">Open industry surface</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Industry Proof</strong><br/>
+      The same transfer profiles exported as files for review, diffing, and static publication.<br/>
+      <a href="./proof/industry-profiles.md">Read industry proof</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Archive Experiment</strong><br/>
+      A plain Python micro-signal study that replaces notebook state with executable code.<br/>
+      <a href="./Advanced_/microscopic_signal_pathways.py">Open archive experiment</a>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" width="33%">
+      <strong>Industrial Diagnostics</strong><br/>
+      Deterministic field diagnosis, safety-law checks, and restart-state validation in one bounded runtime lane.<br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/industrial-diagnostics.html">Open diagnostics surface</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Industrial Proof</strong><br/>
+      Sample scenarios, proof tree, audit chain, and compliance findings exported as inspectable files.<br/>
+      <a href="./proof/industrial-diagnostics.md">Read industrial proof</a>
+    </td>
+    <td valign="top" width="33%">
+      <strong>Formal Notes</strong><br/>
+      Architecture, formal methods, and regulatory posture for the field-diagnostics lane.<br/>
+      <a href="./docs/formal_methods.md">Read formal notes</a>
     </td>
   </tr>
 </table>
@@ -152,6 +186,7 @@ connector intake, replay, provenance, and transcript-first video review.
 - [Reference benchmark and replay ledger](#reference-benchmark-and-replay-ledger)
 - [Stewardship, change control, and supply chain](#stewardship-change-control-and-supply-chain)
 - [Research surfaces and model cards](#research-surfaces-and-model-cards)
+- [Industry profiles](#industry-profiles)
 - [Runtime surfaces](#runtime-surfaces)
 - [Repository layout](#repository-layout)
 - [How the Python files connect](#how-the-python-files-connect)
@@ -181,7 +216,7 @@ application where every file does a little of everything.
 
 | lane | primary location | what belongs there | what does not |
 | --- | --- | --- | --- |
-| public surfaces | `index.html`, `advanced-technical-portfolio.html`, `technical-portfolio.html`, `model-observatory.html`, `field-notes.html`, `benchmark-observatory.html`, `cymatic-media-engine.html` | reading generated proof, rendering explanations, linking to artifacts, reacting to local audio without becoming a hidden inference fork | inference, connector logic, policy evaluation |
+| public surfaces | `index.html`, `advanced-technical-portfolio.html`, `technical-portfolio.html`, `model-observatory.html`, `music-observatory.html`, `field-notes.html`, `benchmark-observatory.html`, `cymatic-media-engine.html`, `industry-profiles.html` | reading generated proof, rendering explanations, linking to artifacts, reacting to local audio without becoming a hidden inference fork | inference, connector logic, policy evaluation |
 | runtime backend | `src/advanced_multimodal_ai/` | contracts, API routes, ingestion, inference, replay, stewardship, jobs, retrieval | presentation styling, static storytelling |
 | compiled core | `crates/multimodal-core/` | deterministic primitives that benefit from a compiled lane | API orchestration, persistence concerns |
 | generated clients | `sdk/python`, `sdk/typescript`, `openapi/openapi.json` | reusable client contracts regenerated from the running app | handwritten drift from the live API |
@@ -239,6 +274,9 @@ is operational today.
 - typed dataset connectors for local CSV, local Parquet, S3-hosted Parquet,
   local NDJSON, HTTP JSON, HTTP NDJSON, and public HTML pages with robots-aware
   intake rules
+- industry transfer profiles that tie healthcare, employment, education,
+  business operations, sports, media, journalism, dentistry, biology,
+  construction, and supply-chain work back to the same tested routes
 - benchmarked connector runs with persisted records
 - compiled recipe manifests with persisted launch topology and export checks
 - runtime attestation and readiness reporting tied to the generated artifacts
@@ -411,6 +449,27 @@ The repository now exports a typed research bundle as well.
 
 This makes the public site less static and gives the repository a better way
 to explain itself without flattening everything into one long README section.
+
+## Industry profiles
+
+`GET /v1/industries/profiles`
+
+The repository now exports domain-specific transfer profiles instead of leaving
+range as a vague promise.
+
+- healthcare and dentistry emphasize provenance, cohort drift, and chart or
+  imaging review paths
+- education and journalism emphasize transcript cleanup, temporal alignment,
+  correction pressure, and attribution
+- media and sports emphasize segment windows, replay evidence, and sound or
+  language drift
+- construction, business operations, and supply chain emphasize ontology,
+  routing, and governed movement before orchestration expands
+- biology emphasizes microscopic detail, field meaning, and paired evidence
+  across image, table, and note surfaces
+
+The public view is [`industry-profiles.html`](./industry-profiles.html). The
+paired export lives in [`proof/industry-profiles.md`](./proof/industry-profiles.md).
 
 ## Recipe registry
 
@@ -622,7 +681,35 @@ what still needs evidence, and where the runtime is intentionally restrained.
 | `/v1/proof/bundle` | `GET` | summarize routes, tests, verification commands, connectors, artifacts, and store counts |
 | `/v1/readiness/report` | `GET` | assemble evidence checks, connector coverage, recipe resolution, and operating boundaries |
 | `/v1/execution/journal` | `GET` | read recent export and verification runs with touched artifacts and lane counts |
+| `/v1/research/models` | `GET` | list model cards tied to runtime and research lanes |
+| `/v1/research/findings` | `GET` | list generated findings grounded in live proof and store state |
+| `/v1/research/connections` | `GET` | list file-to-surface connections for the active runtime spine |
+| `/v1/research/surfaces` | `GET` | export the combined research bundle used by the public pages |
+| `/v1/research/cymatic-surface` | `GET` | expose the audio-reactive research and benchmark study surface |
+| `/v1/operators/surfaces` | `GET` | expose operator-facing commands, skills, plugins, and speech tasks |
+| `/v1/operators/commands` | `GET` | list operator command lanes drawn from the same operator surface |
+| `/v1/operators/skills` | `GET` | list skill surfaces tied to execution and review work |
+| `/v1/operators/plugins` | `GET` | list plugin surfaces tied to the current runtime posture |
+| `/v1/operators/speech-tasks` | `GET` | list speech and interaction tasks attached to operator work |
 | `/v1/models` | `GET` | registered runtime and research model inventory |
+| `/v1/music/overview` | `GET` | summarize declared music manifests, feature runs, and drift posture |
+| `/v1/music/snapshot` | `GET` | combine warehouse, drift, and change proof into one music surface |
+| `/v1/music/manifests` | `POST` | register a manifest-only audio declaration without storing raw media |
+| `/v1/music/manifests` | `GET` | list registered music manifests |
+| `/v1/music/manifests/{manifest_id}` | `GET` | read one registered music manifest |
+| `/v1/music/features/extract` | `POST` | derive segment-level audio features into a typed warehouse lane |
+| `/v1/music/features/runs` | `GET` | list persisted music feature extraction runs |
+| `/v1/music/features/runs/{run_id}` | `GET` | read one music feature extraction run |
+| `/v1/music/features/query` | `GET` | query derived feature rows without reopening raw media |
+| `/v1/music/segments` | `GET` | inspect the stable segment index used by the feature lane |
+| `/v1/music/alignment` | `GET` | preview cross-modal alignment between segment, transcript, and window timing |
+| `/v1/music/drift` | `GET` | report audio-specific drift across loudness, language, repetition, and coverage |
+| `/v1/music/proof/change-report` | `GET` | answer what changed in the catalog, where it entered, and what proves it |
+| `/v1/industries/profiles` | `GET` | export domain transfer profiles tied to live routes and proof surfaces |
+| `/v1/repository/pulse` | `GET` | summarize lane health, generated artifacts, and current proof coverage |
+| `/v1/edge/evaluate` | `POST` | evaluate route-boundary risk for one packet before expansion |
+| `/v1/edge/ledger` | `GET` | inspect recent edge packet evaluations and tracked findings |
+| `/v1/edge/topology` | `GET` | inspect the current edge topology, risk bands, and boundary map |
 | `/v1/bias/taxonomy` | `GET` | sixty-category bias register across the system lifecycle |
 | `/v1/bias/assess` | `POST` | stage-aware bias findings for an active system |
 | `/v1/plan` | `POST` | orchestration steps before execution |
@@ -662,12 +749,23 @@ Advanced_multi-modal-AI/
 ├── benchmark-observatory.html
 ├── cymatic-media-engine.html
 ├── field-notes.html
+├── growth-surface.js            # repository reach and proof-freshness surface
+├── industrial-diagnostics.html
+├── industry-profiles.html
 ├── index.html
 ├── model-observatory.html
+├── music-observatory.html
 ├── technical-portfolio.html
+├── cymatic-surface.css         # shared signal-lab styling
+├── cymatic-surface.js          # audio-reactive proof window
+├── industrial-diagnostics.js   # deterministic field diagnostics surface
+├── industry-profiles.js        # domain-transfer surface and profile rail
+├── music-observatory.js        # feature warehouse and drift surface
 ├── research-surfaces.js          # shared loader for proof-backed browser surfaces
 ├── site-controls.css             # shared theme, contrast, and motion styling
 ├── site-controls.js              # shared theme, contrast, and language controls
+├── containers/compose.yaml       # fuller local service stack
+├── containers/clickhouse-init.sql
 ├── crates/multimodal-core/       # Rust signal core for signatures and temporal cuts
 ├── sdk/typescript/               # TypeScript client SDK
 ├── src/advanced_multimodal_ai/
@@ -687,12 +785,23 @@ Advanced_multi-modal-AI/
 │   ├── domain_ontology.py        # artifact ingestion and contract compilation
 │   ├── drift.py                  # population-entry drift scoring
 │   ├── drift_store.py            # persisted baseline registry
+│   ├── edge_gateway.py           # packet review and edge-boundary scoring
+│   ├── execution_journal.py      # typed execution history exports
+│   ├── execution_journal_store.py
 │   ├── governance_ledger.py      # deterministic compliance ledger tokens
+│   ├── industry_profiles.py      # domain transfer profiles tied to live routes
+│   ├── industrial_diagnostics/   # symbolic diagnostics, compliance gates, and proof tree generation
 │   ├── job_store.py              # SQLite-backed persisted async run records
 │   ├── legacy.py                 # bridge to existing research models
 │   ├── liability_surface.py      # route trace comparison against constraints
+│   ├── music_embeddings.py       # versioned audio embedding receipts
+│   ├── music_features.py         # derived audio feature extraction and drift math
+│   ├── music_queries.py          # feature and segment warehouse read surfaces
+│   ├── music_store.py            # manifest, segment, and feature persistence
+│   ├── music_truth.py            # music change proof and catalog-level interpretation
 │   ├── observability.py          # Prometheus counters and histograms
 │   ├── ontology_store.py         # persisted ontology snapshots
+│   ├── operator_surfaces.py      # operator-facing command and skill registry
 │   ├── orchestration.py          # runtime planning steps
 │   ├── pipeline_store.py         # persisted multimodal pipeline runs
 │   ├── pipelines.py              # raw event pairing into inference batches
@@ -702,16 +811,32 @@ Advanced_multi-modal-AI/
 │   ├── recipes.py                # recipe compilation and launch shaping
 │   ├── replay.py                 # pipeline export and replay comparison
 │   ├── registry.py               # model inventory surface
+│   ├── repository_growth.py      # GitHub-facing repository signal composition
 │   ├── retrieval.py              # vector index implementations
+│   ├── repository_pulse.py       # lane-health summary exported to public surfaces
+│   ├── research_surfaces.py      # generated findings, lanes, and connections
 │   ├── rust_bridge.py            # optional bridge into the Rust core
 │   ├── service.py                # inference and coordination logic
 │   ├── signal_math.py            # shared tensor summaries and signature math
 │   ├── stewardship_store.py      # persisted lifecycle, change-control, and supply snapshots
+│   ├── tracking_ledger.py        # packet and runtime tracking ledger summaries
+│   ├── vector_mesh.py            # topology and mesh summaries for edge surfaces
 │   └── video.py                  # transcript-first video packet and cleanup lane
 ├── tests/                        # API, retrieval, and video verification
 ├── monitoring/prometheus.yml     # scrape configuration
+├── docs/architecture.md          # industrial diagnostics architecture notes
+├── docs/formal_methods.md        # symbolic and state-transition methods
+├── docs/getting_started.md       # executable quick-start commands
+├── docs/regulatory_compliance.md # OSHA, ISO, and IEC posture notes
 ├── docs/REPOSITORY_LANES.md      # file-by-file lane boundaries
 ├── examples/README.md            # direct runbook for executable examples
+├── examples/diesel_engine.py
+├── examples/hydraulic_system.py
+├── examples/electrical_system.py
+├── CITATION.cff
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
 ├── sql/runtime_schema.sql        # persisted runtime tables
 ├── prompts/elite_engineer_transformation_v3.md
 ├── proof/benchmark-surfaces.json
@@ -720,19 +845,41 @@ Advanced_multi-modal-AI/
 ├── proof/cymatic-surface.md
 ├── proof/example-bundle.json
 ├── proof/example-bundle.md
+├── proof/industrial-diagnostics.json
+├── proof/industrial-diagnostics.md
+├── proof/industry-profiles.json
+├── proof/industry-profiles.md
+├── proof/music-observatory.json
+├── proof/music-observatory.md
+├── proof/operator-surfaces.json
+├── proof/operator-surfaces.md
+├── proof/repository-growth.json
+├── proof/repository-growth.md
+├── proof/repository-growth-history.jsonl
+├── proof/repository-pulse.json
+├── proof/repository-pulse.md
 ├── proof/runtime-proof.json
 ├── proof/runtime-proof.md
 ├── Dockerfile
-├── compose.yaml
+├── docker-compose.yml
 ├── openapi/openapi.json
 ├── scripts/export_benchmark_surfaces.py
 ├── scripts/export_cymatic_surface.py
+├── scripts/export_edge_topology.py
 ├── scripts/build_runtime_proof_bundle.py
+├── scripts/export_execution_journal.py
 ├── scripts/export_example_bundle.py
+├── scripts/export_industrial_diagnostics.py
+├── scripts/export_industry_profiles.py
+├── scripts/export_music_observatory.py
 ├── scripts/export_openapi.py
+├── scripts/export_operator_surfaces.py
+├── scripts/export_repository_growth.py
+├── scripts/export_repository_pulse.py
 ├── scripts/export_research_surfaces.py
 ├── scripts/generate_sdk_surfaces.py
 ├── scripts/run_acceptance_spine.py
+├── Advanced_/microscopic_signal_pathways.py
 ├── complete_model.py
 ├── dynamic_transformer.py
 ├── fusion_strategies.py
@@ -876,6 +1023,8 @@ npx tsc --noEmit -p tsconfig.json
 python3 scripts/export_openapi.py
 python3 scripts/generate_sdk_surfaces.py
 python3 scripts/export_research_surfaces.py
+python3 scripts/export_repository_growth.py
+python3 scripts/export_industrial_diagnostics.py
 python3 scripts/export_readiness_report.py
 python3 scripts/export_example_bundle.py
 python3 scripts/build_runtime_proof_bundle.py
@@ -889,6 +1038,12 @@ Generated outputs:
 - `proof/readiness-report.json`
 - `proof/example-bundle.json`
 - `proof/execution-journal.json`
+- `proof/industrial-diagnostics.json`
+- `proof/industry-profiles.json`
+- `proof/music-observatory.json`
+- `proof/operator-surfaces.json`
+- `proof/repository-growth.json`
+- `proof/repository-pulse.json`
 
 ## Research registry
 
@@ -899,7 +1054,8 @@ components.
 - `dynamic_transformer.py`
 - `fusion_strategies.py`
 - `core/attention_mechanisms.py`
-- several `Advanced_/` experiments
+- `Advanced_/microscopic_signal_pathways.py`
+- other executable `Advanced_/` Python experiments
 
 Those files are still useful. They are simply no longer described as though
 they were already a distributed production engine on their own.

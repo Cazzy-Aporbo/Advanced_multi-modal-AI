@@ -41,7 +41,12 @@ jobs:
           python scripts/export_benchmark_surfaces.py
           python scripts/export_cymatic_surface.py
           python scripts/export_music_observatory.py
+          python scripts/export_operator_surfaces.py
+          python scripts/export_industry_profiles.py
+          python scripts/export_industrial_diagnostics.py
+          python scripts/export_edge_topology.py
           python scripts/export_repository_pulse.py
+          python scripts/export_repository_growth.py
           python scripts/export_readiness_report.py
           python scripts/export_example_bundle.py
           python scripts/build_runtime_proof_bundle.py
@@ -56,15 +61,23 @@ jobs:
           cp model-observatory.html site/model-observatory.html
           cp benchmark-observatory.html site/benchmark-observatory.html
           cp cymatic-media-engine.html site/cymatic-media-engine.html
+          cp industrial-diagnostics.html site/industrial-diagnostics.html
           cp music-observatory.html site/music-observatory.html
+          cp industry-profiles.html site/industry-profiles.html
           cp field-notes.html site/field-notes.html
           cp cymatic-surface.css site/cymatic-surface.css
           cp cymatic-surface.js site/cymatic-surface.js
+          cp growth-surface.js site/growth-surface.js
+          cp industrial-diagnostics.js site/industrial-diagnostics.js
+          cp industry-profiles.js site/industry-profiles.js
           cp music-observatory.js site/music-observatory.js
           cp research-surfaces.js site/research-surfaces.js
           cp site-controls.css site/site-controls.css
           cp site-controls.js site/site-controls.js
           cp README.md site/README.md
+          cp CONTRIBUTING.md site/CONTRIBUTING.md
+          cp CODE_OF_CONDUCT.md site/CODE_OF_CONDUCT.md
+          cp SECURITY.md site/SECURITY.md
           cp -R docs site/docs
           cp -R proof site/proof
           cp -R openapi site/openapi

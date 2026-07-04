@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from time import perf_counter
 
-from .config import Settings
+from .config import Settings, get_settings
 from .contracts import ExecutionArtifactState, ExecutionJournalRecord
 from .execution_journal_store import ExecutionJournalStore
 
@@ -22,7 +22,7 @@ def record_script_execution(
     notes: list[str] | None = None,
     settings: Settings | None = None,
 ) -> ExecutionJournalRecord:
-    active_settings = settings or Settings()
+    active_settings = settings or get_settings()
     store = ExecutionJournalStore(active_settings.execution_journal_db_path)
     record = ExecutionJournalRecord(
         lane=lane,
@@ -58,7 +58,7 @@ def finish_script_execution(
 ) -> ExecutionJournalRecord:
     finished_at = datetime.now(timezone.utc)
     duration_ms = max((perf_counter() - start_counter) * 1000.0, 0.0)
-    active_settings = settings or Settings()
+    active_settings = settings or get_settings()
     store = ExecutionJournalStore(active_settings.execution_journal_db_path)
     record = ExecutionJournalRecord(
         lane=lane,

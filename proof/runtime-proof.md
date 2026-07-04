@@ -3,9 +3,9 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Environment: `development`
-- Route count: `82`
-- Test count: `48`
-- Verification artifacts: `10`
+- Route count: `95`
+- Test count: `55`
+- Verification artifacts: `16`
 
 ## Connector kinds
 - `local_csv`
@@ -25,9 +25,14 @@
 - `python3 scripts/generate_sdk_surfaces.py`
 - `python3 scripts/export_research_surfaces.py`
 - `python3 scripts/export_repository_pulse.py`
+- `python3 scripts/export_repository_growth.py`
 - `python3 scripts/export_benchmark_surfaces.py`
 - `python3 scripts/export_cymatic_surface.py`
 - `python3 scripts/export_music_observatory.py`
+- `python3 scripts/export_operator_surfaces.py`
+- `python3 scripts/export_industry_profiles.py`
+- `python3 scripts/export_industrial_diagnostics.py`
+- `python3 scripts/export_edge_topology.py`
 - `python3 scripts/export_execution_journal.py`
 - `python3 scripts/run_acceptance_spine.py`
 - `python3 scripts/export_readiness_report.py`
@@ -42,6 +47,12 @@
 - `Rust core` · present · `crates/multimodal-core/Cargo.toml`
 - `Research surface export` · present · `proof/research-surfaces.json`
 - `Repository pulse export` · present · `proof/repository-pulse.json`
+- `Repository growth export` · present · `proof/repository-growth.json`
 - `Execution journal export` · present · `proof/execution-journal.json`
 - `Cymatic surface export` · present · `proof/cymatic-surface.json`
 - `Music observatory export` · present · `proof/music-observatory.json`
+- `Operator surfaces export` · present · `proof/operator-surfaces.json`
+- `Industry profiles export` · present · `proof/industry-profiles.json`
+- `Industrial diagnostics export` · present · `proof/industrial-diagnostics.json`
+- `Edge topology export` · present · `proof/edge-topology.json`
+- `Deployment stack` · present · `containers/compose.yaml`

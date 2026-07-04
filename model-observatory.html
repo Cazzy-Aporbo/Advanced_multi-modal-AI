@@ -230,6 +230,248 @@
     .question p:last-child {
       margin-bottom: 0;
     }
+    .feature-heading {
+      display: inline-block;
+      background-size: 180% 180%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: hueShift 14s ease-in-out infinite alternate;
+    }
+    .feature-heading.tone-1 {
+      background-image: linear-gradient(120deg, #f6efe8 0%, #f0b36f 26%, #f3c7d9 58%, #a9ecde 100%);
+    }
+    .feature-heading.tone-2 {
+      background-image: linear-gradient(120deg, #f4c8d7 0%, #f6efe8 28%, #9fe1d5 68%, #a8c8ff 100%);
+    }
+    .feature-heading.tone-3 {
+      background-image: linear-gradient(120deg, #f6efe8 0%, #df9c5f 20%, #f1b1cf 54%, #c3f5ea 100%);
+    }
+    .feature-heading.tone-4 {
+      background-image: linear-gradient(120deg, #fbe6f1 0%, #f6efe8 34%, #b1ecff 68%, #d2f2ca 100%);
+    }
+    .operator-shell {
+      margin-top: 24px;
+    }
+    .operator-summary-grid,
+    .speech-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .operator-summary-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .speech-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .operator-stat {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(215, 169, 184, 0.14), transparent 58%),
+        rgba(34, 25, 22, 0.92);
+    }
+    .operator-stat strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.9rem;
+      font-family: "Iowan Old Style", Georgia, serif;
+    }
+    .operator-card,
+    .speech-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .operator-card::before,
+    .speech-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(240, 179, 111, 0.95), rgba(244, 190, 219, 0.78), rgba(159, 225, 213, 0.95));
+      opacity: 0.88;
+    }
+    .operator-card h3,
+    .speech-card h3 {
+      margin-top: 6px;
+    }
+    .soft-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .soft-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.045);
+      color: var(--text);
+      font-size: 0.82rem;
+    }
+    .operator-subgrid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 20px;
+    }
+    .surface-button {
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      color: inherit;
+      font: inherit;
+      padding: 0;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: transparent;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+    .surface-button:hover,
+    .surface-button.active {
+      transform: translateY(-2px);
+      border-color: rgba(159, 225, 213, 0.34);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+    }
+    .surface-button .surface-body {
+      display: block;
+      padding: 24px;
+    }
+    .chart-shell {
+      margin-top: 22px;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(150deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(143, 201, 190, 0.12), transparent 56%),
+        rgba(24, 18, 20, 0.94);
+    }
+    .chart-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .chart-meta span {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+    .chart-frame {
+      width: 100%;
+      min-height: 320px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+        rgba(11, 8, 7, 0.44);
+      margin-top: 14px;
+      overflow: hidden;
+    }
+    .chart-frame svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+    }
+    .operator-detail-shell,
+    .continuation-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      background:
+        linear-gradient(150deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(223, 156, 95, 0.12), transparent 56%),
+        rgba(24, 18, 20, 0.94);
+    }
+    .operator-detail-shell {
+      margin-top: 20px;
+      padding: 24px;
+    }
+    .operator-detail-grid,
+    .continuation-grid {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .operator-detail-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    .detail-stack {
+      display: grid;
+      gap: 16px;
+    }
+    .detail-panel {
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+    .detail-panel strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+    }
+    .detail-pills,
+    .detail-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .detail-pill,
+    .detail-links a {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.82rem;
+    }
+    .detail-callout {
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(159, 225, 213, 0.18);
+      background: linear-gradient(145deg, rgba(159, 225, 213, 0.08), rgba(255,255,255,0.03));
+    }
+    .continuation-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .continuation-card {
+      padding: 22px;
+    }
+    .continuation-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 2rem;
+      font-family: "Iowan Old Style", Georgia, serif;
+    }
+    .continuation-card a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    @keyframes hueShift {
+      0% { background-position: 0% 50%; filter: saturate(1); }
+      100% { background-position: 100% 50%; filter: saturate(1.16); }
+    }
     .footer {
       margin-top: 36px;
       padding-top: 20px;
@@ -243,6 +485,13 @@
     @media (max-width: 920px) {
       .hero, .summary-grid, .cards {
         grid-template-columns: 1fr 1fr;
+      }
+      .operator-summary-grid,
+      .speech-grid,
+      .operator-subgrid,
+      .operator-detail-grid,
+      .continuation-grid {
+        grid-template-columns: 1fr;
       }
       .nav-bar {
         flex-direction: column;
@@ -280,6 +529,16 @@
       .card {
         scroll-snap-align: start;
       }
+      .speech-grid,
+      .operator-subgrid,
+      .continuation-grid {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(300px, 88vw);
+        overflow-x: auto;
+        grid-template-columns: none;
+        padding-bottom: 8px;
+        scroll-snap-type: x proximity;
+      }
       h1 {
         font-size: 2.45rem;
         max-width: 10ch;
@@ -302,6 +561,8 @@
         <a href="technical-portfolio.html">catalog</a>
         <a href="benchmark-observatory.html">benchmarks</a>
         <a href="cymatic-media-engine.html">signal lab</a>
+        <a href="music-observatory.html">music warehouse</a>
+        <a href="industry-profiles.html">industries</a>
         <a href="README.md">readme</a>
         </div>
       </div>
@@ -382,12 +643,76 @@
       </article>
     </section>
 
+    <section class="panel operator-shell" id="operator-surface">
+      <div class="label">Operator surface</div>
+      <h2 class="feature-heading tone-2">Commands, skills, plugin seams, and speech tasks stay legible together.</h2>
+      <p>
+        This lane keeps the repository closer to an operator’s reading of the system: what can be invoked,
+        what capabilities are carried repeatedly, where extension seams live, and how the sound lane can be
+        inspected without pretending the repository is secretly shipping a private speech service.
+      </p>
+      <div class="operator-summary-grid" id="operator-summary-grid">
+        <article class="operator-stat">
+          <strong>--</strong>
+          <span>Waiting for operator metrics.</span>
+        </article>
+      </div>
+      <div class="chart-shell">
+        <div class="label">Credibility chart</div>
+        <h3 class="feature-heading tone-4">Each model is read through evidence, open questions, and readiness rather than one score.</h3>
+        <p>
+          The bars below are drawn from the generated research surface bundle. They make it easier to see whether a model is mainly a live edge, a broader archive lane, or something still waiting for stronger proof.
+        </p>
+        <div class="chart-meta" id="model-chart-meta">
+          <span>Waiting for bundle metadata.</span>
+        </div>
+        <div class="chart-frame">
+          <svg id="model-credibility-chart" viewBox="0 0 900 320" role="img" aria-label="Model credibility chart"></svg>
+        </div>
+      </div>
+      <div class="operator-subgrid">
+        <div class="cards" id="operator-card-grid">
+          <article class="card operator-card">
+            <div class="label">Loading</div>
+            <h3>Waiting for command and skill surfaces</h3>
+            <p>The operator bundle will appear here once the proof lane loads.</p>
+          </article>
+        </div>
+        <div class="speech-grid" id="speech-task-grid">
+          <article class="card speech-card">
+            <div class="label">Loading</div>
+            <h3>Waiting for speech task surfaces</h3>
+            <p>The music warehouse task lattice will appear here once the same proof lane is available.</p>
+          </article>
+        </div>
+      </div>
+      <div class="operator-detail-shell" id="operator-detail-shell">
+        <div class="label">Selected operator view</div>
+        <h3 class="feature-heading tone-1">Choose a command, skill, plugin seam, or speech task to open its proof context.</h3>
+        <p>
+          The detail pane stays tied to the same generated operator bundle. It is meant to show what the selected surface depends on, what it emits, and where to continue without inventing a second story.
+        </p>
+      </div>
+    </section>
+
     <section class="cards" id="model-card-grid">
       <article class="card">
         <div class="label">Loading</div>
         <h3>Waiting for model surfaces</h3>
         <p>The page will populate from the generated research surface export.</p>
       </article>
+    </section>
+
+    <section class="panel" style="margin-top: 24px;" id="continuation-surface">
+      <div class="label">Continue from here</div>
+      <h2 class="feature-heading tone-3">Move from model reading into runtime memory, benchmark proof, sound lanes, and field notes.</h2>
+      <div class="continuation-grid" id="model-continuation-grid">
+        <article class="continuation-card">
+          <div class="label">Loading</div>
+          <strong class="feature-heading tone-2">--</strong>
+          <p>Waiting for continuation surfaces.</p>
+        </article>
+      </div>
     </section>
 
     <footer class="footer">
@@ -405,6 +730,18 @@
     const summaryRouteCount = document.getElementById("summary-route-count");
     const modelCardGrid = document.getElementById("model-card-grid");
     const modelRibbon = document.getElementById("model-ribbon");
+    const operatorSummaryGrid = document.getElementById("operator-summary-grid");
+    const operatorCardGrid = document.getElementById("operator-card-grid");
+    const speechTaskGrid = document.getElementById("speech-task-grid");
+    const operatorDetailShell = document.getElementById("operator-detail-shell");
+    const modelContinuationGrid = document.getElementById("model-continuation-grid");
+    const modelCredibilityChart = document.getElementById("model-credibility-chart");
+    const modelChartMeta = document.getElementById("model-chart-meta");
+    let operatorSurfaceIndex = new Map();
+
+    function formatCompact(value) {
+      return new Intl.NumberFormat(undefined, { notation: "compact" }).format(Number(value || 0));
+    }
 
     function renderCard(card) {
       const readyClass = card.runtime_ready ? "ready" : "archive";
@@ -420,7 +757,7 @@
         .join("");
 
       return `
-        <article class="card">
+        <article class="card" id="model-card-${AMAIResearch.escapeHtml(card.model_id)}" data-model-card="${AMAIResearch.escapeHtml(card.model_id)}">
           <div class="label">Model card</div>
           <h3>${AMAIResearch.escapeHtml(card.label)}</h3>
           <p>${AMAIResearch.escapeHtml(card.role_in_system)}</p>
@@ -472,8 +809,317 @@
       `;
     }
 
+    function renderModelCredibilityChart(bundle) {
+      if (!modelCredibilityChart) return;
+      const cards = bundle.model_cards || [];
+      if (!cards.length) {
+        modelCredibilityChart.innerHTML = "";
+        return;
+      }
+      const width = 900;
+      const laneHeight = 62;
+      const chartHeight = Math.max(320, cards.length * laneHeight + 42);
+      modelCredibilityChart.setAttribute("viewBox", `0 0 ${width} ${chartHeight}`);
+      const maxEvidence = Math.max(...cards.map((card) => (card.evidence_surfaces || []).length), 1);
+      const maxQuestions = Math.max(...cards.map((card) => (card.open_questions || []).length), 1);
+      const maxImprovements = Math.max(...cards.map((card) => (card.improvement_paths || []).length), 1);
+      const rowMarkup = cards.map((card, index) => {
+        const y = 30 + index * laneHeight;
+        const evidenceWidth = ((card.evidence_surfaces || []).length / maxEvidence) * 240;
+        const questionWidth = ((card.open_questions || []).length / maxQuestions) * 160;
+        const improvementWidth = ((card.improvement_paths || []).length / maxImprovements) * 180;
+        const readinessWidth = card.runtime_ready ? 120 : 54;
+        return `
+          <g class="chart-row" data-model-target="${AMAIResearch.escapeHtml(card.model_id)}" style="cursor:pointer">
+            <text x="24" y="${y}" fill="#f6efe8" font-size="15" font-family="Inter, sans-serif">${AMAIResearch.escapeHtml(card.label)}</text>
+            <rect x="300" y="${y - 18}" rx="12" ry="12" width="${evidenceWidth}" height="14" fill="url(#evidenceGradient)"></rect>
+            <rect x="560" y="${y - 18}" rx="12" ry="12" width="${questionWidth}" height="14" fill="url(#questionGradient)"></rect>
+            <rect x="734" y="${y - 18}" rx="12" ry="12" width="${improvementWidth}" height="14" fill="url(#improveGradient)"></rect>
+            <rect x="300" y="${y + 4}" rx="12" ry="12" width="${readinessWidth}" height="10" fill="${card.runtime_ready ? "#9fe1d5" : "#df9c5f"}"></rect>
+            <text x="300" y="${y - 26}" fill="#d8c8ba" font-size="11" font-family="Inter, sans-serif">evidence ${(card.evidence_surfaces || []).length}</text>
+            <text x="560" y="${y - 26}" fill="#d8c8ba" font-size="11" font-family="Inter, sans-serif">questions ${(card.open_questions || []).length}</text>
+            <text x="734" y="${y - 26}" fill="#d8c8ba" font-size="11" font-family="Inter, sans-serif">improvements ${(card.improvement_paths || []).length}</text>
+            <text x="432" y="${y + 13}" fill="#d8c8ba" font-size="11" font-family="Inter, sans-serif">${card.runtime_ready ? "runtime-ready" : "archive-first"}</text>
+          </g>
+        `;
+      }).join("");
+      modelCredibilityChart.innerHTML = `
+        <defs>
+          <linearGradient id="evidenceGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+            <stop offset="0%" stop-color="#f7eef6"></stop>
+            <stop offset="100%" stop-color="#9fe1d5"></stop>
+          </linearGradient>
+          <linearGradient id="questionGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+            <stop offset="0%" stop-color="#f0b36f"></stop>
+            <stop offset="100%" stop-color="#f3c7d9"></stop>
+          </linearGradient>
+          <linearGradient id="improveGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+            <stop offset="0%" stop-color="#efb8d6"></stop>
+            <stop offset="100%" stop-color="#a9ecde"></stop>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="${width}" height="${chartHeight}" fill="transparent"></rect>
+        ${rowMarkup}
+      `;
+      [...modelCredibilityChart.querySelectorAll("[data-model-target]")].forEach((node) => {
+        node.addEventListener("click", () => {
+          const card = document.getElementById(`model-card-${node.dataset.modelTarget}`);
+          if (card) {
+            card.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        });
+      });
+      modelChartMeta.innerHTML = `
+        <span>${bundle.summary.route_count} routes</span>
+        <span>${bundle.summary.runtime_ready_model_count} runtime-ready</span>
+        <span>${bundle.summary.open_question_count} open questions</span>
+        <span>generated ${new Date(bundle.created_at).toLocaleString()}</span>
+      `;
+    }
+
+    function renderOperatorMetric(metric, index) {
+      return `
+        <article class="operator-stat">
+          <strong class="feature-heading tone-${(index % 4) + 1}">${AMAIResearch.escapeHtml(metric.value)}</strong>
+          <span>${AMAIResearch.escapeHtml(metric.label)}</span>
+          <p>${AMAIResearch.escapeHtml(metric.note)}</p>
+        </article>
+      `;
+    }
+
+    function buildOperatorSurfaceIndex(bundle) {
+      const index = new Map();
+      (bundle.commands || []).forEach((item, position) => {
+        index.set(`command:${position}`, { kind: "command", label: "command", item });
+      });
+      (bundle.skills || []).forEach((item, position) => {
+        index.set(`skill:${position}`, { kind: "skill", label: "skill", item });
+      });
+      (bundle.plugins || []).forEach((item, position) => {
+        index.set(`plugin:${position}`, { kind: "plugin", label: "plugin seam", item });
+      });
+      (bundle.speech_tasks || []).forEach((item, position) => {
+        index.set(`speech:${position}`, { kind: "speech", label: "speech task", item });
+      });
+      return index;
+    }
+
+    function continuationLinksForSurface(kind, item) {
+      const sharedLinks = [{ label: "operator report", href: "proof/operator-surfaces.md" }];
+      if (kind === "command") {
+        return [
+          { label: "open route proof", href: item.continuation || "benchmark-observatory.html" },
+          { label: "runtime proof", href: "proof/runtime-proof.md" },
+          ...sharedLinks,
+        ];
+      }
+      if (kind === "skill") {
+        return [
+          { label: "field notes", href: "field-notes.html" },
+          { label: "architecture", href: "advanced-technical-portfolio.html" },
+          ...sharedLinks,
+        ];
+      }
+      if (kind === "plugin") {
+        return [
+          { label: "catalog", href: "technical-portfolio.html" },
+          { label: "OpenAPI", href: "openapi/openapi.json" },
+          ...sharedLinks,
+        ];
+      }
+      return [
+        { label: "music observatory", href: "music-observatory.html" },
+        { label: "signal lab", href: "cymatic-media-engine.html" },
+        ...sharedLinks,
+      ];
+    }
+
+    function renderOperatorDetail(kind, label, item) {
+      const lead = item.operator_goal || item.focus || item.purpose || "";
+      const support = item.why_it_holds || item.why_it_matters || item.guardrail || item.why_it_exists || "";
+      const leftTitle = kind === "command" ? "Boundaries and proof" : "Inputs and outputs";
+      const primaryList = kind === "command"
+        ? item.guardrails || []
+        : kind === "plugin"
+          ? item.files || []
+          : item.required_inputs || item.required_lanes || [];
+      const secondaryList = kind === "command"
+        ? item.contract_paths || []
+        : kind === "plugin"
+          ? item.proof_paths || []
+          : item.derived_outputs || item.derived_signals || [];
+      const seamList = item.extension_seams || item.related_commands || item.files || [];
+      const links = continuationLinksForSurface(kind, item);
+      operatorDetailShell.innerHTML = `
+        <div class="label">${AMAIResearch.escapeHtml(label)}</div>
+        <h3 class="feature-heading tone-2">${AMAIResearch.escapeHtml(item.label)}</h3>
+        <p>${AMAIResearch.escapeHtml(lead)}</p>
+        <div class="operator-detail-grid">
+          <div class="detail-stack">
+            <section class="detail-panel">
+              <strong>${AMAIResearch.escapeHtml(leftTitle)}</strong>
+              ${AMAIResearch.listMarkup(primaryList, "list")}
+            </section>
+            <section class="detail-panel">
+              <strong>${kind === "command" ? "Contract paths" : kind === "plugin" ? "Proof surfaces" : "Derived surfaces"}</strong>
+              ${AMAIResearch.listMarkup(secondaryList, "list")}
+            </section>
+          </div>
+          <div class="detail-stack">
+            <section class="detail-callout">
+              <strong>Why it matters</strong>
+              <p>${AMAIResearch.escapeHtml(support)}</p>
+            </section>
+            <section class="detail-panel">
+              <strong>${kind === "speech" ? "Signals to watch" : "Connected seams"}</strong>
+              <div class="detail-pills">
+                ${seamList.slice(0, 6).map((entry) => `<span class="detail-pill">${AMAIResearch.escapeHtml(entry)}</span>`).join("") || "<span class=\"detail-pill\">Nothing recorded yet.</span>"}
+              </div>
+            </section>
+            <section class="detail-panel">
+              <strong>Continue learning</strong>
+              <div class="detail-links">
+                ${links.map((link) => `<a href="${AMAIResearch.escapeHtml(link.href)}">${AMAIResearch.escapeHtml(link.label)}</a>`).join("")}
+              </div>
+            </section>
+          </div>
+        </div>
+      `;
+    }
+
+    function bindOperatorSurfaceButtons() {
+      const buttons = [...document.querySelectorAll("[data-surface-key]")];
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const key = button.dataset.surfaceKey;
+          const entry = operatorSurfaceIndex.get(key);
+          if (!entry) return;
+          buttons.forEach((node) => node.classList.toggle("active", node === button));
+          renderOperatorDetail(entry.kind, entry.label, entry.item);
+        });
+      });
+      if (buttons[0]) {
+        buttons[0].click();
+      }
+    }
+
+    function renderOperatorSurface(item, kind, label, index) {
+      const seamMarkup = (item.extension_seams || item.related_commands || item.files || [])
+        .slice(0, 4)
+        .map((entry) => `<span class="soft-tag">${AMAIResearch.escapeHtml(entry)}</span>`)
+        .join("");
+      const proofMarkup = (item.proof_paths || [])
+        .slice(0, 3)
+        .map((entry) => `<span class="chip">${AMAIResearch.escapeHtml(entry)}</span>`)
+        .join("");
+      const lead = item.operator_goal || item.focus || item.purpose || "";
+      const support = item.why_it_holds || item.why_it_matters || item.guardrail || item.caution || "";
+      return `
+        <button class="card operator-card surface-button" data-surface-key="${AMAIResearch.escapeHtml(`${kind}:${index}`)}" type="button">
+          <span class="surface-body">
+          <div class="label">${AMAIResearch.escapeHtml(label)}</div>
+          <h3 class="feature-heading tone-3">${AMAIResearch.escapeHtml(item.label)}</h3>
+          <p>${AMAIResearch.escapeHtml(lead)}</p>
+          <div class="soft-tag-row">${seamMarkup}</div>
+          <div class="section-block">
+            <strong>Why it belongs</strong>
+            <p>${AMAIResearch.escapeHtml(support)}</p>
+          </div>
+          <div class="chip-row">${proofMarkup}</div>
+          </span>
+        </button>
+      `;
+    }
+
+    function renderSpeechTask(task, index) {
+      return `
+        <button class="card speech-card surface-button" data-surface-key="${AMAIResearch.escapeHtml(`speech:${index}`)}" type="button">
+          <span class="surface-body">
+          <div class="label">Speech task ${String(index + 1).padStart(2, "0")}</div>
+          <h3 class="feature-heading tone-${(index % 4) + 1}">${AMAIResearch.escapeHtml(task.label)}</h3>
+          <p>${AMAIResearch.escapeHtml(task.focus)}</p>
+          <div class="section-block">
+            <strong>Why it exists</strong>
+            <p>${AMAIResearch.escapeHtml(task.why_it_exists)}</p>
+          </div>
+          <div class="soft-tag-row">
+            ${(task.derived_signals || []).slice(0, 4).map((entry) => `<span class="soft-tag">${AMAIResearch.escapeHtml(entry)}</span>`).join("")}
+          </div>
+          <div class="section-block">
+            <strong>Use with care</strong>
+            <p>${AMAIResearch.escapeHtml(task.caution)}</p>
+          </div>
+          <div class="section-block">
+            <strong>Continue from here</strong>
+            <p>${AMAIResearch.escapeHtml(task.next_step)}</p>
+          </div>
+          </span>
+        </button>
+      `;
+    }
+
+    function renderContinuationCards(bundle, operatorBundle, journal, pulse, benchmark) {
+      const cards = [
+        {
+          label: "runtime memory",
+          value: formatCompact(journal?.total_runs || 0),
+          tone: "tone-1",
+          note: journal?.recent_runs?.[0]
+            ? `Latest recorded lane: ${journal.recent_runs[0].lane.replaceAll("_", " ")}.`
+            : "Execution receipts appear here once the proof exports run.",
+          href: "field-notes.html",
+          action: "open execution memory",
+        },
+        {
+          label: "benchmark replay",
+          value: formatCompact(benchmark?.stage_count || 0),
+          tone: "tone-2",
+          note: benchmark
+            ? `${benchmark.replay_frame_count} replay frame${benchmark.replay_frame_count === 1 ? "" : "s"} stayed tied to the current workload.`
+            : "The benchmark surface will fill this once the reference export is available.",
+          href: "benchmark-observatory.html",
+          action: "open benchmark lane",
+        },
+        {
+          label: "speech tasks",
+          value: formatCompact(operatorBundle?.speech_task_count || 0),
+          tone: "tone-3",
+          note: operatorBundle
+            ? `${operatorBundle.command_count} command surfaces and ${operatorBundle.speech_task_count} sound tasks are tied to the same exported proof.`
+            : "Sound-lane continuity appears here when the operator bundle is ready.",
+          href: "music-observatory.html",
+          action: "open music lane",
+        },
+        {
+          label: "route motion",
+          value: formatCompact(pulse?.route_count || bundle.summary.route_count || 0),
+          tone: "tone-4",
+          note: pulse
+            ? `${pulse.lanes.length} tracked lane${pulse.lanes.length === 1 ? "" : "s"} keep the repository motion visible beyond a single page.`
+            : `${bundle.summary.open_question_count} open questions remain visible beside the live route count.`,
+          href: "index.html",
+          action: "return to atlas",
+        },
+      ];
+
+      modelContinuationGrid.innerHTML = cards.map((card) => `
+        <article class="continuation-card">
+          <div class="label">${AMAIResearch.escapeHtml(card.label)}</div>
+          <strong class="feature-heading ${AMAIResearch.escapeHtml(card.tone)}">${AMAIResearch.escapeHtml(card.value)}</strong>
+          <p>${AMAIResearch.escapeHtml(card.note)}</p>
+          <a href="${AMAIResearch.escapeHtml(card.href)}">${AMAIResearch.escapeHtml(card.action)}</a>
+        </article>
+      `).join("");
+    }
+
     async function main() {
-      const bundle = await AMAIResearch.loadResearchSurfaceBundle();
+      const [bundle, operatorBundle, journal, pulse, benchmark] = await Promise.all([
+        AMAIResearch.loadResearchSurfaceBundle(),
+        AMAIResearch.loadOperatorSurfaceBundle(),
+        AMAIResearch.loadExecutionJournal(),
+        AMAIResearch.loadRepositoryPulse(),
+        AMAIResearch.loadBenchmarkSurface(),
+      ]);
       if (!bundle) {
         modelCardGrid.innerHTML = `
           <article class="card">
@@ -489,6 +1135,21 @@
       summaryRuntimeCount.textContent = String(bundle.summary.runtime_ready_model_count);
       summaryQuestionCount.textContent = String(bundle.summary.open_question_count);
       summaryRouteCount.textContent = String(bundle.summary.route_count);
+
+      if (operatorBundle) {
+        operatorSurfaceIndex = buildOperatorSurfaceIndex(operatorBundle);
+        operatorSummaryGrid.innerHTML = (operatorBundle.metrics || []).slice(0, 6).map(renderOperatorMetric).join("");
+        const operatorCards = [
+          ...(operatorBundle.commands || []).slice(0, 3).map((item, index) => renderOperatorSurface(item, "command", "command", index)),
+          ...(operatorBundle.skills || []).slice(0, 3).map((item, index) => renderOperatorSurface(item, "skill", "skill", index)),
+          ...(operatorBundle.plugins || []).slice(0, 2).map((item, index) => renderOperatorSurface(item, "plugin", "plugin seam", index)),
+        ];
+        operatorCardGrid.innerHTML = operatorCards.join("");
+        speechTaskGrid.innerHTML = (operatorBundle.speech_tasks || []).slice(0, 4).map(renderSpeechTask).join("");
+        bindOperatorSurfaceButtons();
+      }
+      renderModelCredibilityChart(bundle);
+      renderContinuationCards(bundle, operatorBundle, journal, pulse, benchmark);
 
       if (modelRibbon) {
         modelRibbon.innerHTML = bundle.model_cards.slice(0, 3).map((card, index) => {

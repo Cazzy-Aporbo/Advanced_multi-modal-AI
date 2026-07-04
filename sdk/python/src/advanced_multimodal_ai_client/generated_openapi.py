@@ -72,6 +72,31 @@ class GeneratedOpenAPIClient:
         path = f"/v1/research/cymatic-surface"
         return self._request("GET", path)
 
+    def operatorSurfacesV1OperatorsSurfacesGet(self) -> Any:
+        """Operator Surfaces"""
+        path = f"/v1/operators/surfaces"
+        return self._request("GET", path)
+
+    def operatorCommandsV1OperatorsCommandsGet(self) -> Any:
+        """Operator Commands"""
+        path = f"/v1/operators/commands"
+        return self._request("GET", path)
+
+    def operatorSkillsV1OperatorsSkillsGet(self) -> Any:
+        """Operator Skills"""
+        path = f"/v1/operators/skills"
+        return self._request("GET", path)
+
+    def operatorPluginsV1OperatorsPluginsGet(self) -> Any:
+        """Operator Plugins"""
+        path = f"/v1/operators/plugins"
+        return self._request("GET", path)
+
+    def operatorSpeechTasksV1OperatorsSpeechTasksGet(self) -> Any:
+        """Operator Speech Tasks"""
+        path = f"/v1/operators/speech-tasks"
+        return self._request("GET", path)
+
     def musicOverviewV1MusicOverviewGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
         """Music Overview"""
         path = f"/v1/music/overview"
@@ -164,9 +189,34 @@ class GeneratedOpenAPIClient:
             path = f"{path}?{encoded}"
         return self._request("GET", path)
 
+    def industryProfilesV1IndustriesProfilesGet(self) -> Any:
+        """Industry Profiles"""
+        path = f"/v1/industries/profiles"
+        return self._request("GET", path)
+
+    def industrialScenariosV1IndustrialScenariosGet(self) -> Any:
+        """Industrial Scenarios"""
+        path = f"/v1/industrial/scenarios"
+        return self._request("GET", path)
+
+    def industrialDiagnoseV1IndustrialDiagnosePost(self, payload: Any) -> Any:
+        """Industrial Diagnose"""
+        path = f"/v1/industrial/diagnose"
+        return self._request("POST", path, payload=payload)
+
+    def industrialModelCheckV1IndustrialModelCheckPost(self, payload: Any) -> Any:
+        """Industrial Model Check"""
+        path = f"/v1/industrial/model-check"
+        return self._request("POST", path, payload=payload)
+
     def repositoryPulseV1RepositoryPulseGet(self) -> Any:
         """Repository Pulse"""
         path = f"/v1/repository/pulse"
+        return self._request("GET", path)
+
+    def repositoryGrowthSnapshotV1GrowthSnapshotGet(self) -> Any:
+        """Repository Growth Snapshot"""
+        path = f"/v1/growth/snapshot"
         return self._request("GET", path)
 
     def executionJournalV1ExecutionJournalGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
@@ -175,6 +225,24 @@ class GeneratedOpenAPIClient:
         if query:
             encoded = httpx.QueryParams(query)
             path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def edgeEvaluateV1EdgeEvaluatePost(self, payload: Any) -> Any:
+        """Edge Evaluate"""
+        path = f"/v1/edge/evaluate"
+        return self._request("POST", path, payload=payload)
+
+    def edgeLedgerV1EdgeLedgerGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """Edge Ledger"""
+        path = f"/v1/edge/ledger"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def edgeTopologyV1EdgeTopologyGet(self) -> Any:
+        """Edge Topology"""
+        path = f"/v1/edge/topology"
         return self._request("GET", path)
 
     def registerDatasetV1CatalogRegisterPost(self, payload: Any) -> Any:

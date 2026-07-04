@@ -39,6 +39,10 @@ def build_runtime_attestation(
             REPO_ROOT / "proof" / "repository-pulse.json",
         ),
         _artifact(
+            "Repository growth export",
+            REPO_ROOT / "proof" / "repository-growth.json",
+        ),
+        _artifact(
             "Execution journal export",
             REPO_ROOT / "proof" / "execution-journal.json",
         ),
@@ -49,6 +53,26 @@ def build_runtime_attestation(
         _artifact(
             "Music observatory export",
             REPO_ROOT / "proof" / "music-observatory.json",
+        ),
+        _artifact(
+            "Operator surfaces export",
+            REPO_ROOT / "proof" / "operator-surfaces.json",
+        ),
+        _artifact(
+            "Industry profiles export",
+            REPO_ROOT / "proof" / "industry-profiles.json",
+        ),
+        _artifact(
+            "Industrial diagnostics export",
+            REPO_ROOT / "proof" / "industrial-diagnostics.json",
+        ),
+        _artifact(
+            "Edge topology export",
+            REPO_ROOT / "proof" / "edge-topology.json",
+        ),
+        _artifact(
+            "Deployment stack",
+            REPO_ROOT / "containers" / "compose.yaml",
         ),
     ]
 
@@ -68,11 +92,18 @@ def build_runtime_attestation(
             "connector_ingest",
             "music_manifest",
             "music_feature_warehouse",
+            "operator_surfaces",
+            "industry_profiles",
+            "industrial_diagnostics",
+            "edge_gateway",
+            "tracking_ledger",
+            "deployment_stack",
             "web_ingest",
             "recipe_registry",
             "readiness_report",
             "research_surfaces",
             "repository_pulse",
+            "repository_growth",
             "execution_journal",
             "retrieval",
             "video_cleanup",

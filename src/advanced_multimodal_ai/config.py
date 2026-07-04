@@ -1,4 +1,8 @@
+import os
+import sys
 from functools import lru_cache
+from pathlib import Path
+from tempfile import gettempdir
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -30,10 +34,15 @@ class Settings(BaseSettings):
     recipe_db_path: str = ".runtime/amai_recipes.sqlite3"
     stewardship_db_path: str = ".runtime/amai_stewardship.sqlite3"
     execution_journal_db_path: str = ".runtime/amai_execution_journal.sqlite3"
+    tracking_ledger_db_path: str = ".runtime/amai_tracking_ledger.sqlite3"
     music_warehouse_db_path: str = ".runtime/amai_music_warehouse.sqlite3"
     music_feature_output_dir: str = ".runtime/music-feature-lake"
     repository_theme: str = "signal observatory"
     site_title: str = "Advanced Multi-modal AI"
+    repository_owner: str = "Cazzy-Aporbo"
+    repository_name: str = "Advanced_multi-modal-AI"
+    repository_default_branch: str = "main"
+    repository_url: str = "https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI"
     default_hidden_dim: int = Field(default=384, ge=64, le=2048)
     stream_event_delay_ms: int = Field(default=30, ge=0, le=2000)
     tensor_intercept_default_mode: str = "observe"
@@ -55,4 +64,29 @@ class Settings(BaseSettings):
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
-    return Settings()
+    settings = Settings()
+    if "pytest" not in sys.modules and "PYTEST_CURRENT_TEST" not in os.environ:
+        return settings
+
+    test_runtime_dir = Path(gettempdir()) / f"advanced-multimodal-ai-pytest-{os.getpid()}"
+    test_runtime_dir.mkdir(parents=True, exist_ok=True)
+    return settings.model_copy(
+        update={
+            "async_job_db_path": str(test_runtime_dir / "amai_jobs.sqlite3"),
+            "dataset_catalog_db_path": str(test_runtime_dir / "amai_catalog.sqlite3"),
+            "connector_db_path": str(test_runtime_dir / "amai_connectors.sqlite3"),
+            "drift_baseline_db_path": str(test_runtime_dir / "amai_drift.sqlite3"),
+            "pipeline_run_db_path": str(test_runtime_dir / "amai_pipelines.sqlite3"),
+            "ontology_db_path": str(test_runtime_dir / "amai_ontology.sqlite3"),
+            "recipe_db_path": str(test_runtime_dir / "amai_recipes.sqlite3"),
+            "stewardship_db_path": str(test_runtime_dir / "amai_stewardship.sqlite3"),
+            "execution_journal_db_path": str(
+                test_runtime_dir / "amai_execution_journal.sqlite3"
+            ),
+            "tracking_ledger_db_path": str(
+                test_runtime_dir / "amai_tracking_ledger.sqlite3"
+            ),
+            "music_warehouse_db_path": str(test_runtime_dir / "amai_music_warehouse.sqlite3"),
+            "music_feature_output_dir": str(test_runtime_dir / "music-feature-lake"),
+        }
+    )

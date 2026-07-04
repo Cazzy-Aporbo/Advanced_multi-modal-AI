@@ -1,0 +1,658 @@
+{
+  "service": "advanced-multimodal-ai",
+  "version": "0.5.0",
+  "readiness_posture": "review_ready",
+  "route_count": 95,
+  "command_count": 7,
+  "skill_count": 7,
+  "plugin_count": 6,
+  "speech_task_count": 5,
+  "metrics": [
+    {
+      "metric_id": "routes",
+      "label": "live routes",
+      "value": "95",
+      "note": "The command lattice stays tied to executable contracts."
+    },
+    {
+      "metric_id": "tests",
+      "label": "test functions",
+      "value": "55",
+      "note": "Proof is carried beside the operator surfaces, not after them."
+    },
+    {
+      "metric_id": "models",
+      "label": "named models",
+      "value": "4",
+      "note": "Model count stays visible so command breadth does not drift into theater."
+    },
+    {
+      "metric_id": "music-manifests",
+      "label": "audio manifests",
+      "value": "70",
+      "note": "Raw media stays external while the manifest and feature lane remain inspectable."
+    },
+    {
+      "metric_id": "music-runs",
+      "label": "music feature runs",
+      "value": "70",
+      "note": "Every speech-task card below is backed by the same derived warehouse lane."
+    },
+    {
+      "metric_id": "coverage",
+      "label": "language \u00d7 genre spread",
+      "value": "1 \u00d7 2",
+      "note": "Coverage is counted as declared signal breadth, not treated as decoration."
+    }
+  ],
+  "commands": [
+    {
+      "command_id": "catalog-register",
+      "label": "Seal a dataset contract before it moves",
+      "method": "POST",
+      "route": "/v1/catalog/register",
+      "runtime_lane": "contract edge",
+      "operator_goal": "Name the dataset, its fields, and its hashes before a downstream lane treats it as normal.",
+      "why_it_holds": "Schema fingerprinting and catalog storage make type drift visible at the intake edge rather than during inference.",
+      "guardrails": [
+        "Dataset fields are typed before they become batch assumptions.",
+        "Catalog writes happen before lifecycle or change-control records are accepted."
+      ],
+      "contract_paths": [
+        "src/advanced_multimodal_ai/contracts.py",
+        "openapi/openapi.json"
+      ],
+      "proof_paths": [
+        "proof/runtime-proof.json",
+        "proof/operator-surfaces.json"
+      ],
+      "extension_seams": [
+        "field validators",
+        "change controls",
+        "connector registration"
+      ],
+      "continuation": "benchmark-observatory.html"
+    },
+    {
+      "command_id": "connector-pipeline-ingest",
+      "label": "Ingest rows through a named connector lane",
+      "method": "POST",
+      "route": "/v1/connectors/pipeline-ingest",
+      "runtime_lane": "connector spine",
+      "operator_goal": "Move object-store or file-backed evidence into the replayable pipeline without flattening source provenance.",
+      "why_it_holds": "Connector configs, mappings, and persisted pipeline records stay coupled, which keeps the ingest story readable after the run.",
+      "guardrails": [
+        "Connector benchmarks are stored with each run.",
+        "Pipeline events are sealed before replay claims are surfaced."
+      ],
+      "contract_paths": [
+        "src/advanced_multimodal_ai/connectors.py",
+        "src/advanced_multimodal_ai/pipelines.py"
+      ],
+      "proof_paths": [
+        "proof/benchmark-surfaces.json",
+        "proof/execution-journal.json"
+      ],
+      "extension_seams": [
+        "local parquet",
+        "s3 parquet",
+        "web html"
+      ],
+      "continuation": "advanced-technical-portfolio.html"
+    },
+    {
+      "command_id": "music-feature-extract",
+      "label": "Materialize a sound lane without storing the track",
+      "method": "POST",
+      "route": "/v1/music/features/extract",
+      "runtime_lane": "music warehouse",
+      "operator_goal": "Turn an audio reference into segments, derived features, embeddings, and receipts that can be queried later.",
+      "why_it_holds": "The manifest, segment index, feature vectors, and extraction receipts are versioned together, so the warehouse can change without becoming foggy.",
+      "guardrails": [
+        "Raw audio is referenced, not committed into the repository.",
+        "Feature schema versions and extractor versions are stored with each run."
+      ],
+      "contract_paths": [
+        "src/advanced_multimodal_ai/music_features.py",
+        "src/advanced_multimodal_ai/music_store.py"
+      ],
+      "proof_paths": [
+        "proof/music-observatory.json",
+        "proof/operator-surfaces.json"
+      ],
+      "extension_seams": [
+        "segment labels",
+        "embedding model versions",
+        "cross-modal alignment references"
+      ],
+      "continuation": "music-observatory.html"
+    },
+    {
+      "command_id": "batch-infer",
+      "label": "Queue long-running multimodal work with receipts",
+      "method": "POST",
+      "route": "/v1/jobs/batch-infer",
+      "runtime_lane": "async execution",
+      "operator_goal": "Keep batch work observable while preserving a typed request, a run journal, and replayable artifacts.",
+      "why_it_holds": "The batch route is smaller than a production cluster, but it still writes the receipt trail that a larger worker plane would need.",
+      "guardrails": [
+        "Every submission yields a persisted job record.",
+        "The execution journal keeps command, duration, and status nearby."
+      ],
+      "contract_paths": [
+        "src/advanced_multimodal_ai/api.py",
+        "src/advanced_multimodal_ai/job_store.py"
+      ],
+      "proof_paths": [
+        "proof/execution-journal.json",
+        "proof/runtime-proof.json"
+      ],
+      "extension_seams": [
+        "job queue adapters",
+        "batch model selectors",
+        "worker scaling hooks"
+      ],
+      "continuation": "field-notes.html"
+    },
+    {
+      "command_id": "reference-benchmark",
+      "label": "Re-run the same workload through many lanes",
+      "method": "POST",
+      "route": "/v1/benchmarks/reference",
+      "runtime_lane": "benchmark lane",
+      "operator_goal": "Exercise ingest, replay, batch work, recipe compilation, and proof refresh under one reference workload.",
+      "why_it_holds": "The benchmark records stage durations and artifacts instead of timing one isolated function and calling that proof.",
+      "guardrails": [
+        "Replay has to land on the same persisted frame chain.",
+        "Proof exports are refreshed from the backend edge, not typed by hand."
+      ],
+      "contract_paths": [
+        "src/advanced_multimodal_ai/benchmarks.py",
+        "src/advanced_multimodal_ai/proof.py"
+      ],
+      "proof_paths": [
+        "proof/benchmark-surfaces.json",
+        "proof/repository-pulse.json"
+      ],
+      "extension_seams": [
+        "reference datasets",
+        "connector presets",
+        "recipe profiles"
+      ],
+      "continuation": "benchmark-observatory.html"
+    },
+    {
+      "command_id": "proof-refresh",
+      "label": "Export a readable proof surface from the same runtime",
+      "method": "GET",
+      "route": "/v1/operators/surfaces",
+      "runtime_lane": "proof export",
+      "operator_goal": "Give the frontend, the SDKs, and the repository pages one typed surface to read when the operator lane changes.",
+      "why_it_holds": "The operator bundle is exported the same way as the benchmark, music, and repository pulse surfaces, so it cannot drift into a separate narrative.",
+      "guardrails": [
+        "Proof exports are generated by script and tracked in the journal.",
+        "Continuation links stay pointed at files that already exist in the repository."
+      ],
+      "contract_paths": [
+        "scripts/export_operator_surfaces.py",
+        "proof/operator-surfaces.json"
+      ],
+      "proof_paths": [
+        "proof/operator-surfaces.json",
+        "proof/operator-surfaces.md"
+      ],
+      "extension_seams": [
+        "command cards",
+        "skill cards",
+        "speech task lattice"
+      ],
+      "continuation": "proof/operator-surfaces.md"
+    },
+    {
+      "command_id": "edge-evaluate",
+      "label": "Evaluate a multimodal packet before it moves deeper",
+      "method": "POST",
+      "route": "/v1/edge/evaluate",
+      "runtime_lane": "edge gateway",
+      "operator_goal": "Measure packet geometry, cross-border posture, and encrypted transport before downstream orchestration turns a weak packet into a stronger claim.",
+      "why_it_holds": "The gateway writes a ledger entry for every packet decision, so route, hold, and block actions do not disappear into ephemeral middleware.",
+      "guardrails": [
+        "Cross-border packets can be blocked by jurisdiction profile.",
+        "Entropy-heavy or zero-heavy packets are held instead of quietly treated as normal."
+      ],
+      "contract_paths": [
+        "src/advanced_multimodal_ai/edge_gateway.py",
+        "src/advanced_multimodal_ai/tracking_ledger.py"
+      ],
+      "proof_paths": [
+        "proof/edge-topology.json",
+        "proof/runtime-proof.json"
+      ],
+      "extension_seams": [
+        "policy profiles",
+        "tracking ledger",
+        "deployment stack"
+      ],
+      "continuation": "proof/edge-topology.md"
+    }
+  ],
+  "skills": [
+    {
+      "skill_id": "schema-fingerprinting",
+      "label": "Schema fingerprinting",
+      "focus": "Keep upstream changes from silently mutating downstream assumptions.",
+      "why_it_matters": "Loose objects are easy to pass around and even easier to misunderstand. A contract lane slows that down before the model ever sees the payload.",
+      "required_inputs": [
+        "dataset name",
+        "typed fields",
+        "content hash"
+      ],
+      "derived_outputs": [
+        "catalog record",
+        "schema fingerprint",
+        "evolution diff"
+      ],
+      "related_commands": [
+        "catalog-register"
+      ],
+      "proof_paths": [
+        "proof/runtime-proof.json",
+        "proof/operator-surfaces.json"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/catalog.py",
+        "src/advanced_multimodal_ai/contracts.py"
+      ]
+    },
+    {
+      "skill_id": "music-warehouse-segmentation",
+      "label": "Music warehouse segmentation",
+      "focus": "Translate one audio reference into stable windows that can survive query, drift review, and cross-modal alignment.",
+      "why_it_matters": "A track average is too blunt. Segment-level memory lets the repository talk about where a pattern entered instead of only that it happened.",
+      "required_inputs": [
+        "audio manifest",
+        "segment windows",
+        "optional transcript and frame refs"
+      ],
+      "derived_outputs": [
+        "segment index",
+        "feature rows",
+        "embedding receipts"
+      ],
+      "related_commands": [
+        "music-feature-extract"
+      ],
+      "proof_paths": [
+        "proof/music-observatory.json"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/music_truth.py",
+        "src/advanced_multimodal_ai/music_features.py"
+      ]
+    },
+    {
+      "skill_id": "connector-replay-verification",
+      "label": "Connector replay verification",
+      "focus": "Prove that the reconstructed run still matches the sealed frame chain after ingest.",
+      "why_it_matters": "Without replay, a connector story is mostly memory. Replay turns that memory into an audit surface.",
+      "required_inputs": [
+        "connector config",
+        "pipeline events",
+        "replay artifacts"
+      ],
+      "derived_outputs": [
+        "run id",
+        "replay frames",
+        "parity signal"
+      ],
+      "related_commands": [
+        "connector-pipeline-ingest",
+        "reference-benchmark"
+      ],
+      "proof_paths": [
+        "proof/benchmark-surfaces.json",
+        "proof/execution-journal.json"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/replay.py",
+        "src/advanced_multimodal_ai/pipelines.py"
+      ]
+    },
+    {
+      "skill_id": "bias-liability-reading",
+      "label": "Bias and liability reading",
+      "focus": "Keep weak-signal drift, representational skew, and liability gaps close to the routes that produced them.",
+      "why_it_matters": "A bias taxonomy is only useful when it can still point back to the originating route, dataset, or warehouse segment.",
+      "required_inputs": [
+        "taxonomy categories",
+        "input summaries",
+        "route context"
+      ],
+      "derived_outputs": [
+        "bias findings",
+        "liability surfaces",
+        "review notes"
+      ],
+      "related_commands": [
+        "proof-refresh"
+      ],
+      "proof_paths": [
+        "proof/research-surfaces.json",
+        "proof/repository-pulse.json"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/bias.py",
+        "src/advanced_multimodal_ai/liability_surface.py"
+      ]
+    },
+    {
+      "skill_id": "generated-client-discipline",
+      "label": "Generated client discipline",
+      "focus": "Keep SDKs downstream from FastAPI contracts so the typed edges stay aligned.",
+      "why_it_matters": "Generated clients keep the operator surface from being trapped inside the local Python service.",
+      "required_inputs": [
+        "openapi export",
+        "sdk generation scripts"
+      ],
+      "derived_outputs": [
+        "python client",
+        "typescript client",
+        "shared contract hash"
+      ],
+      "related_commands": [
+        "proof-refresh"
+      ],
+      "proof_paths": [
+        "openapi/openapi.json"
+      ],
+      "files": [
+        "scripts/export_openapi.py",
+        "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
+        "sdk/typescript/src/generated-openapi.ts"
+      ]
+    },
+    {
+      "skill_id": "inspect-plan-run-verify",
+      "label": "Inspect, plan, run, and verify loop",
+      "focus": "Turn the current backend state into the next bounded improvement pass instead of waiting for a human to remember every loose edge.",
+      "why_it_matters": "Recursive capability only becomes respectable when the loop is grounded in real proof surfaces, not in self-congratulating text.",
+      "required_inputs": [
+        "runtime proof",
+        "execution journal",
+        "benchmark surface",
+        "music warehouse state"
+      ],
+      "derived_outputs": [
+        "next actions",
+        "proof refresh targets",
+        "continuation links"
+      ],
+      "related_commands": [
+        "reference-benchmark",
+        "proof-refresh",
+        "batch-infer"
+      ],
+      "proof_paths": [
+        "proof/runtime-proof.json",
+        "proof/execution-journal.json",
+        "proof/operator-surfaces.json"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/service.py",
+        "src/advanced_multimodal_ai/proof.py",
+        "scripts/run_acceptance_spine.py"
+      ]
+    },
+    {
+      "skill_id": "packet-geometry-gate",
+      "label": "Packet geometry gate",
+      "focus": "Use entropy, finite-value coverage, and zero-heavy ratios to slow a packet down before orchestration tries to make more of it.",
+      "why_it_matters": "The gateway lane makes packet quality visible at intake time, which is often earlier and more useful than blaming a later model output for weak source geometry.",
+      "required_inputs": [
+        "typed packet request",
+        "jurisdiction profile",
+        "transport posture"
+      ],
+      "derived_outputs": [
+        "packet metrics",
+        "route-hold-block decision",
+        "tracking ledger entry"
+      ],
+      "related_commands": [
+        "edge-evaluate"
+      ],
+      "proof_paths": [
+        "proof/edge-topology.json",
+        "proof/runtime-proof.json"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/edge_gateway.py",
+        "src/advanced_multimodal_ai/tracking_ledger.py"
+      ]
+    }
+  ],
+  "plugins": [
+    {
+      "plugin_id": "python-client-seam",
+      "label": "Python client seam",
+      "seam_kind": "generated client",
+      "entrypoint": "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
+      "purpose": "Carry the runtime contract into notebooks, batch jobs, and local review tools without rewriting request shapes by hand.",
+      "guardrail": "The client is generated from the same OpenAPI surface the backend serves.",
+      "proof_paths": [
+        "openapi/openapi.json",
+        "proof/runtime-proof.json"
+      ],
+      "files": [
+        "scripts/export_openapi.py",
+        "sdk/python/README.md"
+      ],
+      "continuation": "technical-portfolio.html"
+    },
+    {
+      "plugin_id": "typescript-client-seam",
+      "label": "TypeScript client seam",
+      "seam_kind": "generated client",
+      "entrypoint": "sdk/typescript/src/generated-openapi.ts",
+      "purpose": "Keep browser and tooling surfaces typed when they call the backend.",
+      "guardrail": "The `check` task fails if the generated surface drifts from the contract.",
+      "proof_paths": [
+        "openapi/openapi.json"
+      ],
+      "files": [
+        "sdk/typescript/README.md",
+        "sdk/typescript/package.json"
+      ],
+      "continuation": "index.html"
+    },
+    {
+      "plugin_id": "compiled-core-bridge",
+      "label": "Compiled core bridge",
+      "seam_kind": "ffi lane",
+      "entrypoint": "src/advanced_multimodal_ai/rust_bridge.py",
+      "purpose": "Route hot signal math through the Rust crate when the lane needs lower-level profiling.",
+      "guardrail": "The compiled core stays narrow and typed instead of swallowing the repository whole.",
+      "proof_paths": [
+        "proof/runtime-proof.json"
+      ],
+      "files": [
+        "crates/multimodal-core/src/lib.rs",
+        "src/advanced_multimodal_ai/rust_bridge.py"
+      ],
+      "continuation": "advanced-technical-portfolio.html"
+    },
+    {
+      "plugin_id": "proof-export-spine",
+      "label": "Proof export spine",
+      "seam_kind": "export lane",
+      "entrypoint": "scripts/run_acceptance_spine.py",
+      "purpose": "Refresh the public proof files from the same backend routes the frontend reads.",
+      "guardrail": "Artifacts are exported, logged, and verified rather than manually edited into place.",
+      "proof_paths": [
+        "proof/research-surfaces.json",
+        "proof/benchmark-surfaces.json",
+        "proof/operator-surfaces.json"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/proof.py",
+        "scripts/export_operator_surfaces.py"
+      ],
+      "continuation": "proof/operator-surfaces.md"
+    },
+    {
+      "plugin_id": "recursive-improvement-seam",
+      "label": "Recursive improvement seam",
+      "seam_kind": "task loop",
+      "entrypoint": "src/advanced_multimodal_ai/service.py",
+      "purpose": "Keep the repository capable of reading its own route, proof, benchmark, and warehouse posture before the next repair pass begins.",
+      "guardrail": "The loop only reads persisted proof and generated surfaces; it does not invent new capability claims outside those files.",
+      "proof_paths": [
+        "proof/runtime-proof.json",
+        "proof/repository-pulse.json",
+        "proof/operator-surfaces.json"
+      ],
+      "files": [
+        "src/advanced_multimodal_ai/service.py",
+        "src/advanced_multimodal_ai/repository_pulse.py"
+      ],
+      "continuation": "benchmark-observatory.html"
+    },
+    {
+      "plugin_id": "deployment-stack-seam",
+      "label": "Deployment stack seam",
+      "seam_kind": "local stack",
+      "entrypoint": "containers/compose.yaml",
+      "purpose": "Keep object storage, event log, and analytics surfaces explicit enough to review without pretending the repository already operates a secret production cluster.",
+      "guardrail": "The stack files stay versioned and inspectable, but they do not overclaim distributed control that the current backend has not yet earned.",
+      "proof_paths": [
+        "proof/edge-topology.json"
+      ],
+      "files": [
+        "Dockerfile",
+        "Makefile",
+        "containers/compose.yaml",
+        "containers/clickhouse-init.sql"
+      ],
+      "continuation": "advanced-technical-portfolio.html"
+    }
+  ],
+  "speech_tasks": [
+    {
+      "task_id": "speech-presence-audit",
+      "label": "Speech presence audit",
+      "focus": "Separate spoken intervals from music-first or ambience-first windows without storing the waveform in git.",
+      "why_it_exists": "An audio lane becomes easier to question once speech-heavy and music-heavy segments stop being averaged into one posture.",
+      "required_lanes": [
+        "music manifests",
+        "segment index",
+        "feature receipts"
+      ],
+      "derived_signals": [
+        "silence ratio",
+        "onset density",
+        "mfcc summary",
+        "transcript refs"
+      ],
+      "caution": "The current lane derives this from feature windows and transcript presence; it is not pretending to be a hidden full-ASR service.",
+      "proof_paths": [
+        "proof/music-observatory.json",
+        "proof/operator-surfaces.json"
+      ],
+      "next_step": "Use this first when a reviewer needs to know whether language conclusions came from speech, chant, hooks, or dead air."
+    },
+    {
+      "task_id": "language-share-watch",
+      "label": "Language share watch",
+      "focus": "Keep multilingual coverage visible while the lane is still shaped by instrumental.",
+      "why_it_exists": "Language drift often enters quietly through intake decisions rather than through the model itself.",
+      "required_lanes": [
+        "music manifests",
+        "drift report"
+      ],
+      "derived_signals": [
+        "manifest language counts",
+        "segment transcript refs",
+        "alignment windows"
+      ],
+      "caution": "Declared language coverage is only as honest as the manifest lane, so under-tagging should be treated as a real risk.",
+      "proof_paths": [
+        "proof/music-observatory.json"
+      ],
+      "next_step": "Pair this with segment slices before making any claim about audience or regional reach."
+    },
+    {
+      "task_id": "caption-alignment-trace",
+      "label": "Caption and frame alignment trace",
+      "focus": "Follow one spoken or sung moment across transcript, segment window, and frame reference.",
+      "why_it_exists": "Cross-modal claims are much easier to trust when one moment can be located in time rather than described in averages.",
+      "required_lanes": [
+        "segment index",
+        "alignment preview"
+      ],
+      "derived_signals": [
+        "text/audio/video windows",
+        "coverage gaps",
+        "confidence per window"
+      ],
+      "caution": "The current alignment surface is strongest when transcript and frame references are actually supplied during extraction.",
+      "proof_paths": [
+        "proof/music-observatory.json",
+        "proof/benchmark-surfaces.json"
+      ],
+      "next_step": "Use this when a visual claim needs to stay accountable to the spoken record that traveled beside it."
+    },
+    {
+      "task_id": "silence-padding-audit",
+      "label": "Silence and padding audit",
+      "focus": "Catch dead air, over-long intros, and presentation choices that masquerade as meaningful model evidence.",
+      "why_it_exists": "Silence is part of the story. It should be measurable before it quietly becomes a confound.",
+      "required_lanes": [
+        "feature warehouse",
+        "drift report"
+      ],
+      "derived_signals": [
+        "silence ratio",
+        "dynamic crest",
+        "tempo proxy",
+        "spectral flux"
+      ],
+      "caution": "A calm signal is not automatically a weak one; this task is for spotting padding and imbalance, not punishing quiet material.",
+      "proof_paths": [
+        "proof/music-observatory.json"
+      ],
+      "next_step": "Use this before retention or engagement stories are pinned to content rather than to editing posture."
+    },
+    {
+      "task_id": "chorus-repetition-watch",
+      "label": "Chorus and repetition watch",
+      "focus": "Measure when a catalog narrows around repeated hooks, loops, or production habits rooted in signal-study, reference.",
+      "why_it_exists": "Repetition can be stylistic, commercial, or accidental. The important thing is keeping those meanings from collapsing together.",
+      "required_lanes": [
+        "feature warehouse",
+        "genre counts",
+        "segment index"
+      ],
+      "derived_signals": [
+        "repetition ratio",
+        "beat stability",
+        "chroma summaries",
+        "genre coverage"
+      ],
+      "caution": "The repetition lane is descriptive first. It should help a reviewer ask sharper questions rather than jump to a verdict.",
+      "proof_paths": [
+        "proof/music-observatory.json",
+        "proof/operator-surfaces.json"
+      ],
+      "next_step": "Use this beside the drift cards when one sonic habit starts dominating a wider catalog conversation."
+    }
+  ],
+  "continuation_links": [
+    "model-observatory.html",
+    "benchmark-observatory.html",
+    "music-observatory.html",
+    "proof/operator-surfaces.md",
+    "proof/music-observatory.md",
+    "openapi/openapi.json"
+  ],
+  "created_at": "2026-07-04T03:01:35.068999+00:00"
+}

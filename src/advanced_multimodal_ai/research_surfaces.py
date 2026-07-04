@@ -758,6 +758,43 @@ def build_architecture_lanes() -> List[ArchitectureLane]:
             ),
         ),
         ArchitectureLane(
+            lane_id="edge_gateway",
+            label="Edge gateway and tracking ledger",
+            layer="backend",
+            purpose=(
+                "Evaluate packet geometry before deeper orchestration and keep each "
+                "route, hold, or block decision in a persisted ledger."
+            ),
+            directories=[
+                "src/advanced_multimodal_ai/edge_gateway.py",
+                "src/advanced_multimodal_ai/tracking_ledger.py",
+                "src/advanced_multimodal_ai/vector_mesh.py",
+                "scripts/export_edge_topology.py",
+                "containers/compose.yaml",
+            ],
+            entry_surfaces=[
+                "/v1/edge/evaluate",
+                "/v1/edge/ledger",
+                "/v1/edge/topology",
+            ],
+            outputs=[
+                "edge-topology.json",
+                "tracking ledger summary",
+                "packet route receipts",
+            ],
+            proof_points=[
+                "Packet decisions are persisted rather than left to transient middleware state.",
+                (
+                    "The topology export keeps the local stack explicit and smaller "
+                    "than any later control-plane claim."
+                ),
+            ],
+            why_it_exists=(
+                "A multimodal runtime becomes easier to trust when packet quality and "
+                "routing posture can be read before later layers amplify a weak signal."
+            ),
+        ),
+        ArchitectureLane(
             lane_id="proof_exports",
             label="Proof and replay archive",
             layer="evidence",
@@ -816,6 +853,7 @@ def build_repository_findings(
     ontology_count = attestation.store_counts.get("ontology_snapshots", 0)
     pipeline_count = attestation.store_counts.get("pipeline_runs", 0)
     execution_journal_count = attestation.store_counts.get("execution_journal_runs", 0)
+    edge_packet_count = attestation.store_counts.get("edge_packets", 0)
 
     findings: List[RepositoryFinding] = [
         RepositoryFinding(
@@ -991,6 +1029,38 @@ def build_repository_findings(
                 "src/advanced_multimodal_ai/execution_journal.py",
                 "src/advanced_multimodal_ai/execution_journal_store.py",
                 "scripts/export_execution_journal.py",
+            ],
+        ),
+        RepositoryFinding(
+            finding_id="edge-packets-are-measured",
+            lens="runtime",
+            title="Packet routing no longer begins as an invisible assumption",
+            summary=(
+                f"{edge_packet_count} persisted edge packet events now tie packet geometry, "
+                "cross-border posture, and route decisions into a ledgered runtime seam."
+            ),
+            evidence=[
+                f"edge packet events: {edge_packet_count}",
+                "proof/edge-topology.json exports both the topology and the latest ledger summary.",
+            ],
+            why_it_matters=(
+                "A multimodal repository reads as more serious when it can say what "
+                "entered the system, why it was slowed down, and where that decision "
+                "was recorded."
+            ),
+            next_step=(
+                "Keep feeding the edge lane varied packet shapes so the gateway earns "
+                "a broader review history than one idealized path."
+            ),
+            related_surfaces=[
+                "/v1/edge/evaluate",
+                "/v1/edge/ledger",
+                "/v1/edge/topology",
+            ],
+            related_files=[
+                "src/advanced_multimodal_ai/edge_gateway.py",
+                "src/advanced_multimodal_ai/tracking_ledger.py",
+                "src/advanced_multimodal_ai/vector_mesh.py",
             ],
         ),
         RepositoryFinding(

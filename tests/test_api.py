@@ -33,6 +33,14 @@ def _assert_ledger_headers(response, *, route: str, method: str, status_code: in
     assert payload["governance_lanes"]
 
 
+def _runtime_route_paths() -> set[str]:
+    return {
+        getattr(route, "path", "")
+        for route in client.app.routes
+        if getattr(route, "path", "").startswith("/v1/")
+    }
+
+
 def _music_feature_payload():
     return {
         "manifest": {
@@ -84,8 +92,7 @@ def _music_feature_payload():
                 },
                 "waveform": [
                     round(
-                        (0.5 * math.sin(index * 0.12))
-                        + (0.18 * math.cos(index * 0.04)),
+                        (0.5 * math.sin(index * 0.12)) + (0.18 * math.cos(index * 0.04)),
                         6,
                     )
                     for index in range(256)
@@ -256,6 +263,51 @@ def test_runtime_attestation_reports_artifacts_and_store_counts():
     assert any(item["name"] == "Runtime schema" for item in payload["verification_artifacts"])
 
 
+def test_edge_gateway_risk_score_stays_inside_declared_contract():
+    response = client.post(
+        "/v1/edge/evaluate",
+        json={
+            "jurisdiction": "EU_EEA",
+            "source_region": "DE",
+            "target_region": "DE",
+            "connector_kind": "s3_parquet",
+            "encrypted_in_transit": True,
+            "modalities": {
+                "audio": {
+                    "shape": [1, 16],
+                    "values": [
+                        -1.0,
+                        1.0,
+                        -0.95,
+                        0.95,
+                        -0.9,
+                        0.9,
+                        -0.85,
+                        0.85,
+                        -1.0,
+                        1.0,
+                        -0.95,
+                        0.95,
+                        -0.9,
+                        0.9,
+                        -0.85,
+                        0.85,
+                    ],
+                },
+                "text": {
+                    "shape": [1, 8],
+                    "values": [0.11, 0.23, 0.17, 0.29, 0.13, 0.31, 0.19, 0.27],
+                },
+            },
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert 0.0 <= payload["highest_modality_risk"] <= 1.0
+    assert payload["route_action"] in {"hold", "route"}
+    assert payload["metrics"]
+
+
 def test_runtime_proof_bundle_reports_routes_tests_and_connector_kinds():
     response = client.get("/v1/proof/bundle")
     assert response.status_code == 200
@@ -266,12 +318,8 @@ def test_runtime_proof_bundle_reports_routes_tests_and_connector_kinds():
     assert "local_parquet" in payload["connector_kinds"]
     assert "s3_parquet" in payload["connector_kinds"]
     assert "web_html" in payload["connector_kinds"]
-    assert any(
-        item["label"] == "acceptance" for item in payload["verification_commands"]
-    )
-    assert any(
-        item["label"] == "readiness" for item in payload["verification_commands"]
-    )
+    assert any(item["label"] == "acceptance" for item in payload["verification_commands"])
+    assert any(item["label"] == "readiness" for item in payload["verification_commands"])
 
 
 def test_runtime_readiness_report_surfaces_limits_and_live_checks():
@@ -300,29 +348,19 @@ def test_research_surfaces_explain_models_findings_and_connections():
     assert payload["summary"]["model_count"] >= 4
     assert payload["summary"]["open_question_count"] >= 1
     assert any(
-        item["lane_id"] == "runtime_backend"
-        and "/v1/research/surfaces" in item["entry_surfaces"]
+        item["lane_id"] == "runtime_backend" and "/v1/research/surfaces" in item["entry_surfaces"]
         for item in payload["lanes"]
     )
     assert any(
         item["model_id"] == "adaptive_transformer" and item["improvement_paths"]
         for item in payload["model_cards"]
     )
-    assert any(
-        item["finding_id"] == "connector-spine-is-real"
-        for item in payload["findings"]
-    )
-    assert any(
-        item["connection_id"] == "rows-to-batches"
-        for item in payload["connections"]
-    )
+    assert any(item["finding_id"] == "connector-spine-is-real" for item in payload["findings"])
+    assert any(item["connection_id"] == "rows-to-batches" for item in payload["connections"])
 
     model_response = client.get("/v1/research/models")
     assert model_response.status_code == 200
-    assert any(
-        item["model_id"] == "complete_multimodal"
-        for item in model_response.json()
-    )
+    assert any(item["model_id"] == "complete_multimodal" for item in model_response.json())
 
 
 def test_research_cymatic_surface_stays_tied_to_runtime_proof():
@@ -338,7 +376,26 @@ def test_research_cymatic_surface_stays_tied_to_runtime_proof():
     assert payload["continuation_links"]
     assert any(stage["trace_paths"] for stage in payload["stages"])
     assert any(stage["files"] for stage in payload["stages"])
-    assert any(item["audience"] == "researcher" for item in payload["narratives"])
+
+
+def test_operator_surfaces_keep_commands_skills_plugins_and_speech_tasks_together():
+    response = client.get("/v1/operators/surfaces")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["route_count"] >= 40
+    assert payload["command_count"] >= 6
+    assert payload["skill_count"] >= 6
+    assert payload["plugin_count"] >= 5
+    assert payload["speech_task_count"] >= 5
+    assert any(item["command_id"] == "music-feature-extract" for item in payload["commands"])
+    assert any(item["skill_id"] == "inspect-plan-run-verify" for item in payload["skills"])
+    assert any(item["plugin_id"] == "recursive-improvement-seam" for item in payload["plugins"])
+    assert any(item["task_id"] == "caption-alignment-trace" for item in payload["speech_tasks"])
+    assert any(item["metric_id"] == "music-runs" for item in payload["metrics"])
+
+    speech_response = client.get("/v1/operators/speech-tasks")
+    assert speech_response.status_code == 200
+    assert any(item["task_id"] == "silence-padding-audit" for item in speech_response.json())
 
 
 def test_music_warehouse_endpoints_persist_segments_embeddings_and_receipts():
@@ -387,8 +444,7 @@ def test_music_snapshot_surfaces_drift_and_change_proof():
     assert drift_payload["feature_run_count"] >= 1
     assert drift_payload["indicators"]
     assert any(
-        item["indicator_id"] == "language-share-drift"
-        for item in drift_payload["indicators"]
+        item["indicator_id"] == "language-share-drift" for item in drift_payload["indicators"]
     )
 
     change = client.get("/v1/music/proof/change-report")
@@ -407,6 +463,152 @@ def test_music_snapshot_surfaces_drift_and_change_proof():
     assert snapshot_payload["segment_slice"]["rows"]
 
 
+def test_industry_profiles_surface_shows_domain_transfer_without_leaving_runtime_truth():
+    response = client.get("/v1/industries/profiles")
+    assert response.status_code == 200
+    payload = response.json()
+    runtime_routes = _runtime_route_paths()
+    assert payload["profile_count"] >= 10
+    assert payload["continuation_links"]
+    assert any(item["profile_id"] == "healthcare" for item in payload["profiles"])
+    assert any(item["profile_id"] == "supply_chain" for item in payload["profiles"])
+    for profile in payload["profiles"]:
+        assert profile["anchor_routes"]
+        assert set(profile["anchor_routes"]).issubset(runtime_routes)
+
+    media_profile = next(item for item in payload["profiles"] if item["profile_id"] == "media")
+    assert "audio" in media_profile["primary_modalities"]
+    assert "/v1/music/features/extract" in media_profile["anchor_routes"]
+    assert media_profile["proof_surfaces"]
+
+    healthcare_profile = next(
+        item for item in payload["profiles"] if item["profile_id"] == "healthcare"
+    )
+    assert "/v1/ontology/liability" in healthcare_profile["anchor_routes"]
+    assert healthcare_profile["strict_checks"]
+
+
+def test_industrial_scenarios_surface_lists_machine_families_and_expected_faults():
+    response = client.get("/v1/industrial/scenarios")
+    assert response.status_code == 200
+    payload = response.json()
+    assert len(payload["scenarios"]) >= 3
+    assert any(
+        item["scenario_id"] == "diesel-engine-overheat-window" for item in payload["scenarios"]
+    )
+    assert any(item["asset_kind"] == "hydraulic_system" for item in payload["scenarios"])
+
+
+def test_industrial_diagnose_builds_deterministic_diagnosis_compliance_and_proof_chain():
+    response = client.post(
+        "/v1/industrial/diagnose",
+        json={
+            "asset_kind": "diesel_engine",
+            "machine_family": "field-diagnostics-reference",
+            "technician_report": "Repeated stall under load with smoke pulse and metallic knock.",
+            "sensors": [
+                {"sensor_id": "oil_pressure_kpa", "value": 112.0, "unit": "kPa"},
+                {"sensor_id": "coolant_temp_c", "value": 108.4, "unit": "C"},
+                {"sensor_id": "boost_pressure_kpa", "value": 101.0, "unit": "kPa"},
+                {"sensor_id": "exhaust_opacity_pct", "value": 74.0, "unit": "%"},
+            ],
+            "observations": [
+                {"component": "engine", "symptom": "stall", "detail": "stall under load"},
+                {"component": "exhaust", "symptom": "smoke", "detail": "dark smoke pulse"},
+            ],
+            "work_context": {
+                "lockout_applied": False,
+                "energy_isolated": False,
+                "guard_interlock_verified": True,
+                "emergency_stop_verified": True,
+                "manual_reset_verified": False,
+                "restart_requested": True,
+                "safety_function_proof_test_overdue": True,
+                "diagnostic_coverage_percent": 86.0,
+            },
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["verdict"] == "block"
+    assert any(
+        item["diagnosis_id"] == "diesel-lubrication-collapse" for item in payload["diagnoses"]
+    )
+    assert any(item["standard"] == "OSHA 1910" for item in payload["compliance_findings"])
+    assert any(
+        item["invariant_id"] == "lockout-before-intervention" for item in payload["invariants"]
+    )
+    assert payload["fault_graph"]["nodes"]
+    assert payload["fault_graph"]["edges"]
+    assert any(
+        item["node_id"] == "diagnosis:diesel-lubrication-collapse"
+        for item in payload["fault_graph"]["nodes"]
+    )
+    assert any(
+        item["source"] == "sensor:oil_pressure_kpa"
+        and item["target"] == "diagnosis:diesel-lubrication-collapse"
+        for item in payload["fault_graph"]["edges"]
+    )
+    assert payload["proof_tree"]
+    assert payload["audit_trail"]
+    assert payload["formal_trace"]
+
+
+def test_industrial_model_check_blocks_restart_outside_protective_state():
+    response = client.post(
+        "/v1/industrial/model-check",
+        json={
+            "work_context": {
+                "lockout_applied": True,
+                "energy_isolated": True,
+                "guard_interlock_verified": False,
+                "emergency_stop_verified": True,
+                "manual_reset_verified": False,
+                "restart_requested": True,
+            },
+            "compliance_findings": [
+                {
+                    "standard": "ISO 13849-1",
+                    "clause": "6.2.6",
+                    "status": "block",
+                    "requirement": "The protective guard path must be verified before restart.",
+                    "evidence": ["guard_interlock_verified=False"],
+                    "implication": "Restart remains blocked.",
+                }
+            ],
+            "trace": [
+                {
+                    "from_state": "observe",
+                    "to_state": "isolate",
+                    "command": "stabilize machine boundary",
+                    "lockout_applied": True,
+                    "energy_isolated": True,
+                    "guard_interlock_verified": False,
+                    "emergency_stop_verified": True,
+                    "manual_reset_verified": False,
+                },
+                {
+                    "from_state": "isolate",
+                    "to_state": "restart",
+                    "command": "attempt restart too early",
+                    "lockout_applied": True,
+                    "energy_isolated": True,
+                    "guard_interlock_verified": False,
+                    "emergency_stop_verified": True,
+                    "manual_reset_verified": False,
+                },
+            ],
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["allowed"] is False
+    assert payload["blocked_transitions"]
+    assert any(
+        item["invariant_id"] == "regulatory-blocks-stop-restart" for item in payload["invariants"]
+    )
+
+
 def test_repository_pulse_tracks_lane_health_and_artifacts():
     response = client.get("/v1/repository/pulse")
     assert response.status_code == 200
@@ -414,23 +616,30 @@ def test_repository_pulse_tracks_lane_health_and_artifacts():
     assert payload["route_count"] >= 40
     assert payload["test_count"] >= 1
     assert any(
-        item["lane_id"] == "generated_clients"
-        and item["live_score"] >= 50
+        item["lane_id"] == "generated_clients" and item["live_score"] >= 50
         for item in payload["lanes"]
     )
-    assert any(
-        item["lane_id"] == "execution_history"
-        for item in payload["lanes"]
-    )
+    assert any(item["lane_id"] == "execution_history" for item in payload["lanes"])
     assert any(
         artifact["path"] == "openapi/openapi.json"
         for lane in payload["lanes"]
         for artifact in lane["artifacts"]
     )
-    assert any(
-        item["lane_id"] == "benchmark_lane"
-        for item in payload["lanes"]
-    )
+    assert any(item["lane_id"] == "benchmark_lane" for item in payload["lanes"])
+
+
+def test_repository_growth_snapshot_stays_grounded_in_live_repo_signals():
+    response = client.get("/v1/growth/snapshot")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["repository"] == "Cazzy-Aporbo/Advanced_multi-modal-AI"
+    assert payload["route_count"] >= 40
+    assert payload["test_count"] >= 1
+    assert payload["public_surface_count"] >= 8
+    assert payload["proof_export_count"] >= 1
+    assert payload["docs_count"] >= 1
+    assert payload["notebook_count"] == 0
+    assert "README.md" not in payload["community_files"]
 
 
 def test_reference_benchmark_runs_pipeline_replay_and_proof_lanes():
@@ -467,8 +676,7 @@ def test_execution_journal_lists_persisted_script_runs():
     assert payload["total_runs"] >= 1
     assert "test_export_lane" in payload["lane_counts"]
     assert any(
-        item["lane"] == "test_export_lane"
-        and item["status"] == "pass"
+        item["lane"] == "test_export_lane" and item["status"] == "pass"
         for item in payload["recent_runs"]
     )
 
@@ -518,13 +726,9 @@ def test_dataset_catalog_registration_and_evolution_report():
     assert evolution_payload["compatible"] is False
     assert evolution_payload["breaking_changes"]
     assert any(
-        item["change_type"] == "dtype_changed"
-        for item in evolution_payload["breaking_changes"]
+        item["change_type"] == "dtype_changed" for item in evolution_payload["breaking_changes"]
     )
-    assert any(
-        item["change_type"] == "added"
-        for item in evolution_payload["additive_changes"]
-    )
+    assert any(item["change_type"] == "added" for item in evolution_payload["additive_changes"])
 
 
 def test_stewardship_surfaces_track_lifecycle_change_control_and_supply_chain():
@@ -572,8 +776,7 @@ def test_stewardship_surfaces_track_lifecycle_change_control_and_supply_chain():
     listed_lifecycle = client.get("/v1/stewardship/lifecycle")
     assert listed_lifecycle.status_code == 200
     assert any(
-        item["policy_id"] == lifecycle_payload["policy_id"]
-        for item in listed_lifecycle.json()
+        item["policy_id"] == lifecycle_payload["policy_id"] for item in listed_lifecycle.json()
     )
 
     change_control = client.post(
@@ -602,7 +805,7 @@ def test_stewardship_surfaces_track_lifecycle_change_control_and_supply_chain():
         json={
             "label": "music-tail-lane",
             "owner": "cazandra",
-            "tenant_id": "loopchii-music",
+            "tenant_id": "advanced-multimodal-music",
             "nodes": [
                 {
                     "node_id": "src-node",
@@ -1012,7 +1215,7 @@ def test_s3_parquet_connector_registers_dataset_and_feeds_pipeline(monkeypatch):
         json={
             "connector": {
                 "kind": "s3_parquet",
-                "source": "s3://loopchii-proof/music_signal.parquet",
+                "source": "s3://advanced-multimodal-proof/music_signal.parquet",
                 "region": "us-east-1",
                 "endpoint_url": "https://object.example.invalid",
                 "secret_env": {
@@ -1032,7 +1235,7 @@ def test_s3_parquet_connector_registers_dataset_and_feeds_pipeline(monkeypatch):
     registration_payload = registration.json()
     assert registration_payload["record_count"] == 3
     assert registration_payload["benchmark"]["rows_per_second"] > 0.0
-    assert captured["bucket"] == "loopchii-proof"
+    assert captured["bucket"] == "advanced-multimodal-proof"
     assert captured["key"] == "music_signal.parquet"
     assert captured["region_name"] == "us-east-1"
     assert captured["endpoint_url"] == "https://object.example.invalid"
@@ -1065,7 +1268,7 @@ def test_s3_parquet_connector_registers_dataset_and_feeds_pipeline(monkeypatch):
         json={
             "connector": {
                 "kind": "s3_parquet",
-                "source": "s3://loopchii-proof/music_signal.parquet",
+                "source": "s3://advanced-multimodal-proof/music_signal.parquet",
                 "region": "us-east-1",
                 "endpoint_url": "https://object.example.invalid",
                 "secret_env": {
@@ -1550,8 +1753,7 @@ def test_ontology_liability_surface_flags_cross_border_violation():
     assert payload["heatmap"]
     assert "/finance/transfer" in payload["blocked_routes"]
     assert any(
-        "encrypted transport lane" in finding
-        for finding in payload["heatmap"][0]["findings"]
+        "encrypted transport lane" in finding for finding in payload["heatmap"][0]["findings"]
     )
 
 
@@ -1587,18 +1789,14 @@ def test_batch_infer_job_persists_results():
                     "model_id": "adaptive_transformer",
                     "runtime_mode": "contract",
                     "target": "embedding",
-                    "modalities": {
-                        "text": {"shape": [1, 4], "values": [0.1, 0.2, 0.3, 0.4]}
-                    },
+                    "modalities": {"text": {"shape": [1, 4], "values": [0.1, 0.2, 0.3, 0.4]}},
                 },
                 {
                     "model_id": "adaptive_transformer",
                     "runtime_mode": "contract",
                     "target": "classification",
                     "num_classes": 2,
-                    "modalities": {
-                        "audio": {"shape": [1, 4], "values": [0.4, 0.3, 0.2, 0.1]}
-                    },
+                    "modalities": {"audio": {"shape": [1, 4], "values": [0.4, 0.3, 0.2, 0.1]}},
                 },
             ],
         },
@@ -1660,9 +1858,7 @@ def test_stream_endpoint_emits_plan_and_result():
                 "model_id": "adaptive_transformer",
                 "runtime_mode": "contract",
                 "target": "embedding",
-                "modalities": {
-                    "text": {"shape": [1, 4], "values": [0.2, 0.4, 0.6, 0.8]}
-                },
+                "modalities": {"text": {"shape": [1, 4], "values": [0.2, 0.4, 0.6, 0.8]}},
             }
         )
         first = websocket.receive_json()

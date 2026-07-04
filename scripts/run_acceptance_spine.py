@@ -228,7 +228,7 @@ def main() -> None:
                 self.kwargs = kwargs
 
             def get_object(self, *, Bucket: str, Key: str):
-                assert Bucket == "loopchii-acceptance"
+                assert Bucket == "advanced-multimodal-acceptance"
                 assert Key == "acceptance/music_signal.parquet"
                 assert self.kwargs["region_name"] == "us-east-1"
                 return {"Body": FakeBody()}
@@ -249,7 +249,10 @@ def main() -> None:
             json={
                 "connector": {
                     "kind": "s3_parquet",
-                    "source": "s3://loopchii-acceptance/acceptance/music_signal.parquet",
+                    "source": (
+                        "s3://advanced-multimodal-acceptance/acceptance/"
+                        "music_signal.parquet"
+                    ),
                     "region": "us-east-1",
                     "secret_env": {
                         "aws_access_key_id": "AMAI_ACCEPTANCE_AWS_ACCESS_KEY_ID",

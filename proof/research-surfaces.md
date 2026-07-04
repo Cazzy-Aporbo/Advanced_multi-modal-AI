@@ -3,8 +3,8 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `82`
-- Test count: `48`
+- Route count: `95`
+- Test count: `55`
 - Connector kinds: `7`
 - Models: `4`
 - Runtime-ready models: `0`
@@ -224,6 +224,38 @@ Proof points:
 - TypeScript compilation confirms the generated surface remains coherent.
 
 
+### Edge gateway and tracking ledger
+
+- Lane id: `edge_gateway`
+- Layer: `backend`
+
+Evaluate packet geometry before deeper orchestration and keep each route, hold, or block decision in a persisted ledger.
+
+Why it exists:
+A multimodal runtime becomes easier to trust when packet quality and routing posture can be read before later layers amplify a weak signal.
+
+Directories:
+- `src/advanced_multimodal_ai/edge_gateway.py`
+- `src/advanced_multimodal_ai/tracking_ledger.py`
+- `src/advanced_multimodal_ai/vector_mesh.py`
+- `scripts/export_edge_topology.py`
+- `containers/compose.yaml`
+
+Entry surfaces:
+- `/v1/edge/evaluate`
+- `/v1/edge/ledger`
+- `/v1/edge/topology`
+
+Outputs:
+- edge-topology.json
+- tracking ledger summary
+- packet route receipts
+
+Proof points:
+- Packet decisions are persisted rather than left to transient middleware state.
+- The topology export keeps the local stack explicit and smaller than any later control-plane claim.
+
+
 ### Proof and replay archive
 
 - Lane id: `proof_exports`
@@ -415,10 +447,10 @@ Open questions:
 - Related surfaces: /v1/connectors/register, /v1/connectors/pipeline-ingest, /v1/catalog/register
 - Related files: src/advanced_multimodal_ai/connectors.py, src/advanced_multimodal_ai/catalog.py, src/advanced_multimodal_ai/pipelines.py
 
-380 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+491 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 Evidence:
-- connector runs recorded: 380
+- connector runs recorded: 491
 - connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html
 
 Why it matters:
@@ -435,14 +467,14 @@ Broaden the evidence base with more repeated connector runs against non-trivial 
 - Related surfaces: /v1/stewardship/posture, /v1/drift/check, /v1/ontology/liability
 - Related files: src/advanced_multimodal_ai/stewardship_store.py, src/advanced_multimodal_ai/drift.py, src/advanced_multimodal_ai/liability_surface.py
 
-Lifecycle policies (27), change controls (27), supply snapshots (27), drift baselines (8), and ontology snapshots (116) are persisted in the same backend story.
+Lifecycle policies (33), change controls (33), supply snapshots (33), drift baselines (8), and ontology snapshots (129) are persisted in the same backend story.
 
 Evidence:
-- lifecycle policies: 27
-- change controls: 27
-- supply snapshots: 27
+- lifecycle policies: 33
+- change controls: 33
+- supply snapshots: 33
 - drift baselines: 8
-- ontology snapshots: 116
+- ontology snapshots: 129
 
 Why it matters:
 It is easier to trust a system when retention, movement, and liability have a code path rather than only a meeting note.
@@ -478,13 +510,13 @@ Add stronger benchmark evidence for the research archive so promotion into the r
 - Related surfaces: /v1/proof/bundle, /v1/runtime/attestation, /v1/readiness/report
 - Related files: src/advanced_multimodal_ai/proof.py, src/advanced_multimodal_ai/attestation.py, scripts/export_readiness_report.py
 
-The bundle currently counts 82 routes, 48 tests, and 10 declared artifacts.
+The bundle currently counts 95 routes, 55 tests, and 16 declared artifacts.
 
 Evidence:
-- route count: 82
-- test count: 48
-- verification artifacts: 10
-- pipeline runs stored: 292
+- route count: 95
+- test count: 55
+- verification artifacts: 16
+- pipeline runs stored: 375
 
 Why it matters:
 Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.
@@ -500,10 +532,10 @@ Keep the export surfaces close to CI and extend replay comparisons so proof cove
 - Related surfaces: /v1/execution/journal, /v1/repository/pulse
 - Related files: src/advanced_multimodal_ai/execution_journal.py, src/advanced_multimodal_ai/execution_journal_store.py, scripts/export_execution_journal.py
 
-86 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
+177 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
 
 Evidence:
-- execution journal runs: 86
+- execution journal runs: 177
 - proof/execution-journal.json is exported from the backend journal surface.
 
 Why it matters:
@@ -511,6 +543,26 @@ A repository feels more trustworthy when its export and verification lanes can b
 
 Next step:
 Keep letting new export and benchmark lanes write their own receipts so operational continuity becomes visible over time.
+
+
+### Packet routing no longer begins as an invisible assumption
+
+- Lens: `runtime`
+- Finding id: `edge-packets-are-measured`
+- Related surfaces: /v1/edge/evaluate, /v1/edge/ledger, /v1/edge/topology
+- Related files: src/advanced_multimodal_ai/edge_gateway.py, src/advanced_multimodal_ai/tracking_ledger.py, src/advanced_multimodal_ai/vector_mesh.py
+
+3 persisted edge packet events now tie packet geometry, cross-border posture, and route decisions into a ledgered runtime seam.
+
+Evidence:
+- edge packet events: 3
+- proof/edge-topology.json exports both the topology and the latest ledger summary.
+
+Why it matters:
+A multimodal repository reads as more serious when it can say what entered the system, why it was slowed down, and where that decision was recorded.
+
+Next step:
+Keep feeding the edge lane varied packet shapes so the gateway earns a broader review history than one idealized path.
 
 
 ### The benchmark lane now tests choreography, not just speed
@@ -545,9 +597,9 @@ The current readiness posture is 'review_ready'. The repo now has a steadier run
 
 Evidence:
 - readiness posture: review_ready
-- connector runs: 380
-- pipeline runs: 292
-- compiled recipes: 100
+- connector runs: 491
+- pipeline runs: 375
+- compiled recipes: 156
 
 Why it matters:
 The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.

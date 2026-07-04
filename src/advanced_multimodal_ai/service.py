@@ -53,8 +53,18 @@ from .contracts import (
     DatasetRegistrationRequest,
     DriftBaselineRecord,
     DriftBaselineRequest,
+    EdgeGatewayTopology,
+    EdgePacketEvaluationResponse,
+    EdgePacketRequest,
+    EdgeTrackingLedgerSummary,
     ExecutionJournalSummary,
     HealthResponse,
+    IndustrialDiagnosticRequest,
+    IndustrialDiagnosticResponse,
+    IndustrialModelCheckRequest,
+    IndustrialModelCheckResponse,
+    IndustrialScenarioBundle,
+    IndustryProfileBundle,
     InferenceRequest,
     InferenceResponse,
     LiabilitySurfaceResponse,
@@ -69,6 +79,7 @@ from .contracts import (
     MusicTrackManifestRequest,
     OntologyIngestRequest,
     OntologySnapshot,
+    OperatorSurfaceBundle,
     OutputSummary,
     PipelineIngestRequest,
     PipelineReplayResponse,
@@ -82,6 +93,7 @@ from .contracts import (
     RecipeRecord,
     ReferenceBenchmarkRequest,
     ReferenceBenchmarkResult,
+    RepositoryGrowthSnapshot,
     RepositoryPulse,
     ResearchSurfaceBundle,
     RetrievalQueryRequest,
@@ -107,8 +119,15 @@ from .cymatic_surface import build_cymatic_surface_bundle
 from .domain_ontology import ingest_domain_ontology
 from .drift import assess_population_drift, create_drift_baseline_record
 from .drift_store import DriftStore
+from .edge_gateway import POLICY_PROFILES, evaluate_edge_packet
 from .execution_journal_store import ExecutionJournalStore
 from .governance_ledger import build_compliance_ledger_token
+from .industrial_diagnostics import (
+    list_industrial_scenarios,
+    run_industrial_diagnostic,
+    run_industrial_model_check,
+)
+from .industry_profiles import build_industry_profile_bundle
 from .job_store import JobStore
 from .legacy import RESEARCH_MODELS
 from .liability_surface import surface_operational_liability
@@ -136,6 +155,7 @@ from .music_truth import (
 )
 from .observability import observe_inference, record_data_plane, record_retrieval
 from .ontology_store import OntologyStore
+from .operator_surfaces import build_operator_surface_bundle
 from .orchestration import build_inference_plan
 from .pipeline_store import PipelineStore
 from .pipelines import build_inference_request_from_pipeline
@@ -147,6 +167,7 @@ from .recipe_store import RecipeStore
 from .recipes import compile_recipe_record
 from .registry import list_registered_models
 from .replay import build_replay_frames, compare_replay, export_pipeline_run
+from .repository_growth import build_repository_growth_snapshot
 from .repository_pulse import build_repository_pulse
 from .research_surfaces import (
     build_model_research_cards,
@@ -157,6 +178,8 @@ from .rust_bridge import signature_from_payload, video_cuts_from_payload
 from .signal_math import arrays_from_request, output_summary, signature
 from .stewardship_store import StewardshipStore
 from .tensor_guard import build_tensor_intercept_response
+from .tracking_ledger import TrackingLedgerStore
+from .vector_mesh import build_edge_gateway_topology
 from .video import build_video_cleaning_response, build_video_packet
 
 try:
@@ -241,6 +264,7 @@ class AdvancedMultimodalService:
         self.execution_journal_store = ExecutionJournalStore(
             self.settings.execution_journal_db_path
         )
+        self.tracking_ledger_store = TrackingLedgerStore(self.settings.tracking_ledger_db_path)
         self.music_store = MusicStore(self.settings.music_warehouse_db_path)
 
     @property
@@ -296,9 +320,7 @@ class AdvancedMultimodalService:
         record_data_plane("dataset_catalog_evolution")
         current = self.catalog_store.get_latest_by_name(request.dataset_name)
         if current is None:
-            raise ValueError(
-                f"Dataset '{request.dataset_name}' has not been registered yet"
-            )
+            raise ValueError(f"Dataset '{request.dataset_name}' has not been registered yet")
         return compare_dataset_schemas(current, request)
 
     def register_lifecycle_policy(
@@ -453,9 +475,7 @@ class AdvancedMultimodalService:
         record_data_plane("stewardship_supply_chain_list")
         return self.stewardship_store.list_supply_chain_snapshots(limit=limit)
 
-    def get_supply_chain_snapshot(
-        self, snapshot_id: str
-    ) -> SupplyChainSnapshotRecord | None:
+    def get_supply_chain_snapshot(self, snapshot_id: str) -> SupplyChainSnapshotRecord | None:
         return self.stewardship_store.get_supply_chain_snapshot(snapshot_id)
 
     def stewardship_posture(self) -> StewardshipPostureResponse:
@@ -470,9 +490,7 @@ class AdvancedMultimodalService:
         covered_dataset_count = 0
 
         for dataset in datasets:
-            policy = self.stewardship_store.get_latest_lifecycle_for_dataset(
-                dataset.dataset_name
-            )
+            policy = self.stewardship_store.get_latest_lifecycle_for_dataset(dataset.dataset_name)
             review_due = False
             removal_due = False
             if policy is not None:
@@ -504,9 +522,7 @@ class AdvancedMultimodalService:
         cross_border_edge_count = sum(
             snapshot.cross_border_edge_count for snapshot in supply_snapshots
         )
-        ungoverned_edge_count = sum(
-            snapshot.ungoverned_edge_count for snapshot in supply_snapshots
-        )
+        ungoverned_edge_count = sum(snapshot.ungoverned_edge_count for snapshot in supply_snapshots)
         deletion_ready_edge_count = sum(
             snapshot.deletion_ready_edge_count for snapshot in supply_snapshots
         )
@@ -856,6 +872,28 @@ class AdvancedMultimodalService:
             recent_runs=runs[:limit],
         )
 
+    def industry_profile_bundle(self) -> IndustryProfileBundle:
+        record_data_plane("industry_profiles")
+        return build_industry_profile_bundle()
+
+    def industrial_scenarios(self) -> IndustrialScenarioBundle:
+        record_data_plane("industrial_scenarios")
+        return list_industrial_scenarios()
+
+    def industrial_diagnose(
+        self,
+        request: IndustrialDiagnosticRequest,
+    ) -> IndustrialDiagnosticResponse:
+        record_data_plane("industrial_diagnose")
+        return run_industrial_diagnostic(request)
+
+    def industrial_model_check(
+        self,
+        request: IndustrialModelCheckRequest,
+    ) -> IndustrialModelCheckResponse:
+        record_data_plane("industrial_model_check")
+        return run_industrial_model_check(request)
+
     def list_music_segments(
         self,
         *,
@@ -941,6 +979,7 @@ class AdvancedMultimodalService:
             "change_controls": self.stewardship_store.count_change_controls(),
             "supply_chain_snapshots": self.stewardship_store.count_supply_chain_snapshots(),
             "execution_journal_runs": self.execution_journal_store.count_records(),
+            "edge_packets": self.tracking_ledger_store.count_entries(),
             "music_manifests": self.music_store.count_manifests(),
             "music_feature_runs": self.music_store.count_runs(),
         }
@@ -1033,6 +1072,34 @@ class AdvancedMultimodalService:
             model_cards=self.list_model_research_cards(),
         )
 
+    def repository_growth_snapshot(self, route_count: int) -> RepositoryGrowthSnapshot:
+        record_data_plane("repository_growth")
+        proof_bundle = self.runtime_proof_bundle(route_count=route_count)
+        return build_repository_growth_snapshot(
+            settings=self.settings,
+            proof_bundle=proof_bundle,
+        )
+
+    def operator_surface_bundle(self, route_count: int) -> OperatorSurfaceBundle:
+        record_data_plane("operator_surfaces")
+        attestation = self.runtime_attestation()
+        proof_bundle = build_runtime_proof_bundle(
+            attestation=attestation,
+            route_count=route_count,
+        )
+        readiness = build_readiness_report(
+            attestation=attestation,
+            proof_bundle=proof_bundle,
+            recipes=self.recipe_store.list_recipes(limit=1000),
+        )
+        return build_operator_surface_bundle(
+            settings=self.settings,
+            proof_bundle=proof_bundle,
+            readiness_posture=readiness.posture,
+            music_overview=self.music_overview(limit=12),
+            model_cards=self.list_model_research_cards(),
+        )
+
     def cymatic_surface_bundle(self, route_count: int) -> CymaticSurfaceBundle:
         record_data_plane("cymatic_surface")
         return build_cymatic_surface_bundle(
@@ -1049,6 +1116,32 @@ class AdvancedMultimodalService:
     def execution_journal(self, limit: int = 20) -> ExecutionJournalSummary:
         record_data_plane("execution_journal")
         return self.execution_journal_store.build_summary(limit=limit)
+
+    def evaluate_edge_packet(
+        self,
+        request: EdgePacketRequest,
+    ) -> EdgePacketEvaluationResponse:
+        record_data_plane("edge_gateway")
+        response = evaluate_edge_packet(
+            request,
+            parent_hash=self.tracking_ledger_store.latest_hash(),
+        )
+        self.tracking_ledger_store.save_entry(response.ledger_entry)
+        return response
+
+    def edge_tracking_ledger(self, limit: int = 20) -> EdgeTrackingLedgerSummary:
+        record_data_plane("edge_tracking_ledger")
+        return self.tracking_ledger_store.build_summary(limit=limit)
+
+    def edge_gateway_topology(self, route_count: int) -> EdgeGatewayTopology:
+        record_data_plane("edge_gateway_topology")
+        return build_edge_gateway_topology(
+            settings=self.settings,
+            route_count=route_count,
+            ledger_event_count=self.tracking_ledger_store.count_entries(),
+            store_counts=self._runtime_store_counts(),
+            active_policy=POLICY_PROFILES["EU_EEA"],
+        )
 
     def plan(self, request: InferenceRequest):
         return build_inference_plan(request)
@@ -1099,9 +1192,7 @@ class AdvancedMultimodalService:
         record_data_plane("drift_baseline_list")
         return self.drift_store.list_baselines(limit=limit)
 
-    def check_population_drift(
-        self, request: PopulationDriftRequest
-    ) -> PopulationDriftResponse:
+    def check_population_drift(self, request: PopulationDriftRequest) -> PopulationDriftResponse:
         record_data_plane("drift_check")
         baseline = self.drift_store.get_baseline(request.baseline_label)
         if baseline is None:
@@ -1111,8 +1202,8 @@ class AdvancedMultimodalService:
 
     def ingest_pipeline_batch(self, request: PipelineIngestRequest) -> PipelineRunRecord:
         record_data_plane("pipeline_ingest")
-        inference_request, modality_counts, dropped_events = (
-            build_inference_request_from_pipeline(request)
+        inference_request, modality_counts, dropped_events = build_inference_request_from_pipeline(
+            request
         )
         replay_frames = build_replay_frames(
             events=request.events,
@@ -1147,9 +1238,7 @@ class AdvancedMultimodalService:
             )
             if drift_result.blocked:
                 status = "blocked"
-                notes.append(
-                    "The prepared population gate held this batch out before inference."
-                )
+                notes.append("The prepared population gate held this batch out before inference.")
 
         if status == "accepted":
             inference_response = self.infer(inference_request)
@@ -1223,18 +1312,14 @@ class AdvancedMultimodalService:
         record_data_plane("ontology_list")
         return self.ontology_store.list_snapshots(limit=limit)
 
-    def surface_liability(
-        self, request: LiabilitySurfacingRequest
-    ) -> LiabilitySurfaceResponse:
+    def surface_liability(self, request: LiabilitySurfacingRequest) -> LiabilitySurfaceResponse:
         record_data_plane("ontology_liability")
         snapshot = self.ontology_store.get_snapshot(request.snapshot_id)
         if snapshot is None:
             raise ValueError(f"Ontology snapshot '{request.snapshot_id}' was not found")
         return surface_operational_liability(snapshot=snapshot, traces=request.traces)
 
-    def submit_video_clean_job(
-        self, request: VideoCleaningRequest
-    ) -> AsyncJobSubmissionResponse:
+    def submit_video_clean_job(self, request: VideoCleaningRequest) -> AsyncJobSubmissionResponse:
         return self.job_store.create_job(
             kind="video_clean",
             request_payload=request.model_dump(mode="json"),
@@ -1397,14 +1482,12 @@ class AdvancedMultimodalService:
                 for span in bridge_response.get("removed_spans", [])
             ]
             retained_spans = [
-                TimeSpan.model_validate(span)
-                for span in bridge_response.get("retained_spans", [])
+                TimeSpan.model_validate(span) for span in bridge_response.get("retained_spans", [])
             ]
             removed_duration_ms = sum(span.end_ms - span.start_ms for span in removed_spans)
             kept_duration_ms = sum(span.end_ms - span.start_ms for span in retained_spans)
             cut_script = [
-                f"cut {span.start_ms}ms->{span.end_ms}ms [{span.reason}]"
-                for span in removed_spans
+                f"cut {span.start_ms}ms->{span.end_ms}ms [{span.reason}]" for span in removed_spans
             ]
             return VideoCleaningResponse(
                 clip_id=request.clip_id,
@@ -1501,10 +1584,7 @@ class AdvancedMultimodalService:
                 parquet_path = Path(temp_dir) / "reference_signal.parquet"
                 reference_rows = self._reference_connector_rows(row_count)
                 table = pa.table(
-                    {
-                        key: [row[key] for row in reference_rows]
-                        for key in reference_rows[0]
-                    }
+                    {key: [row[key] for row in reference_rows] for key in reference_rows[0]}
                 )
                 pq.write_table(table, parquet_path)
 
@@ -1588,12 +1668,8 @@ class AdvancedMultimodalService:
             if export_digest:
                 replay_notes.append(f"Replay digest head: {export_digest}…")
             if pipeline_replay is not None:
-                replay_notes.append(
-                    f"Recorded head: {pipeline_replay.recorded_head_digest[:16]}…"
-                )
-                replay_notes.append(
-                    f"Replayed head: {pipeline_replay.replayed_head_digest[:16]}…"
-                )
+                replay_notes.append(f"Recorded head: {pipeline_replay.recorded_head_digest[:16]}…")
+                replay_notes.append(f"Replayed head: {pipeline_replay.replayed_head_digest[:16]}…")
             record_stage(
                 stage_id="pipeline_replay",
                 label="Pipeline replay ledger",
@@ -1663,12 +1739,8 @@ class AdvancedMultimodalService:
                         f"Workers used: {batch_payload.get('max_workers_used', 0)} "
                         f"of {batch_payload.get('max_workers_requested', 0)} requested."
                     ),
-                    (
-                        f"Median latency: {batch_payload.get('median_latency_ms', 0.0):.2f} ms."
-                    ),
-                    (
-                        f"Failed items: {batch_payload.get('failed_count', 0)}."
-                    ),
+                    (f"Median latency: {batch_payload.get('median_latency_ms', 0.0):.2f} ms."),
+                    (f"Failed items: {batch_payload.get('failed_count', 0)}."),
                 ],
                 artifacts=[submission.job_id],
             )
@@ -1723,9 +1795,7 @@ class AdvancedMultimodalService:
                 tags=["reference-benchmark", "recipe-proof"],
             )
         )
-        resolved_source_count = sum(
-            1 for item in recipe_record.resolved_sources if item.resolved
-        )
+        resolved_source_count = sum(1 for item in recipe_record.resolved_sources if item.resolved)
         estimated_global_batch = (
             recipe_record.launch_profile.estimated_global_batch_size
             if recipe_record.launch_profile
@@ -2047,15 +2117,12 @@ class AdvancedMultimodalService:
             raise PopulationDriftBlockedError(result)
         return result
 
-    def _drift_warnings(
-        self, result: PopulationDriftResponse | None
-    ) -> List[str]:
+    def _drift_warnings(self, result: PopulationDriftResponse | None) -> List[str]:
         if result is None:
             return []
         warnings = list(result.warnings)
         warnings.append(
-            "Population baseline "
-            f"{result.baseline_label} drift score: {result.drift_score:.3f}."
+            "Population baseline " f"{result.baseline_label} drift score: {result.drift_score:.3f}."
         )
         return warnings
 
@@ -2072,9 +2139,7 @@ class AdvancedMultimodalService:
                 signatures[modality] = np.asarray(
                     bridge_response.get("signature", []), dtype=np.float32
                 )
-                summaries[modality] = OutputSummary.model_validate(
-                    bridge_response["summary"]
-                )
+                summaries[modality] = OutputSummary.model_validate(bridge_response["summary"])
                 continue
             array = arrays[modality]
             signatures[modality] = signature(array)
@@ -2152,8 +2217,7 @@ class AdvancedMultimodalService:
 
         arrays = arrays_from_request(request)
         torch_inputs = {
-            modality: torch.tensor(array, dtype=torch.float32)
-            for modality, array in arrays.items()
+            modality: torch.tensor(array, dtype=torch.float32) for modality, array in arrays.items()
         }
         warnings: List[str] = []
 

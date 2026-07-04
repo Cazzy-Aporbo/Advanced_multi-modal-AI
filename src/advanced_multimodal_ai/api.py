@@ -17,15 +17,27 @@ from .contracts import (
     DatasetEvolutionRequest,
     DatasetRegistrationRequest,
     DriftBaselineRequest,
+    EdgeGatewayTopology,
+    EdgePacketEvaluationResponse,
+    EdgePacketRequest,
+    EdgeTrackingLedgerSummary,
+    IndustrialDiagnosticRequest,
+    IndustrialDiagnosticResponse,
+    IndustrialModelCheckRequest,
+    IndustrialModelCheckResponse,
+    IndustrialScenarioBundle,
+    IndustryProfileBundle,
     InferenceRequest,
     LiabilitySurfacingRequest,
     MusicFeatureExtractionRequest,
     MusicTrackManifestRequest,
     OntologyIngestRequest,
+    OperatorSurfaceBundle,
     PipelineIngestRequest,
     PopulationDriftRequest,
     RecipeCompileRequest,
     ReferenceBenchmarkRequest,
+    RepositoryGrowthSnapshot,
     RetrievalQueryRequest,
     RetrievalUpsertRequest,
     SupplyChainSnapshotRequest,
@@ -107,9 +119,7 @@ def create_app() -> FastAPI:
 
     @app.get("/v1/research/connections")
     def research_connections():
-        return (
-            service.research_surface_bundle(route_count=_runtime_route_count(app)).connections
-        )
+        return service.research_surface_bundle(route_count=_runtime_route_count(app)).connections
 
     @app.get("/v1/research/surfaces")
     def research_surfaces():
@@ -118,6 +128,26 @@ def create_app() -> FastAPI:
     @app.get("/v1/research/cymatic-surface")
     def research_cymatic_surface() -> CymaticSurfaceBundle:
         return service.cymatic_surface_bundle(route_count=_runtime_route_count(app))
+
+    @app.get("/v1/operators/surfaces")
+    def operator_surfaces() -> OperatorSurfaceBundle:
+        return service.operator_surface_bundle(route_count=_runtime_route_count(app))
+
+    @app.get("/v1/operators/commands")
+    def operator_commands():
+        return service.operator_surface_bundle(route_count=_runtime_route_count(app)).commands
+
+    @app.get("/v1/operators/skills")
+    def operator_skills():
+        return service.operator_surface_bundle(route_count=_runtime_route_count(app)).skills
+
+    @app.get("/v1/operators/plugins")
+    def operator_plugins():
+        return service.operator_surface_bundle(route_count=_runtime_route_count(app)).plugins
+
+    @app.get("/v1/operators/speech-tasks")
+    def operator_speech_tasks():
+        return service.operator_surface_bundle(route_count=_runtime_route_count(app)).speech_tasks
 
     @app.get("/v1/music/overview")
     def music_overview(limit: int = 6):
@@ -180,13 +210,49 @@ def create_app() -> FastAPI:
     def music_change_proof(limit: int = 12):
         return service.music_change_proof(limit=limit)
 
+    @app.get("/v1/industries/profiles")
+    def industry_profiles() -> IndustryProfileBundle:
+        return service.industry_profile_bundle()
+
+    @app.get("/v1/industrial/scenarios")
+    def industrial_scenarios() -> IndustrialScenarioBundle:
+        return service.industrial_scenarios()
+
+    @app.post("/v1/industrial/diagnose")
+    def industrial_diagnose(
+        request: IndustrialDiagnosticRequest,
+    ) -> IndustrialDiagnosticResponse:
+        return service.industrial_diagnose(request)
+
+    @app.post("/v1/industrial/model-check")
+    def industrial_model_check(
+        request: IndustrialModelCheckRequest,
+    ) -> IndustrialModelCheckResponse:
+        return service.industrial_model_check(request)
+
     @app.get("/v1/repository/pulse")
     def repository_pulse():
         return service.repository_pulse(route_count=_runtime_route_count(app))
 
+    @app.get("/v1/growth/snapshot")
+    def repository_growth_snapshot() -> RepositoryGrowthSnapshot:
+        return service.repository_growth_snapshot(route_count=_runtime_route_count(app))
+
     @app.get("/v1/execution/journal")
     def execution_journal(limit: int = 20):
         return service.execution_journal(limit=limit)
+
+    @app.post("/v1/edge/evaluate")
+    def edge_evaluate(request: EdgePacketRequest) -> EdgePacketEvaluationResponse:
+        return service.evaluate_edge_packet(request)
+
+    @app.get("/v1/edge/ledger")
+    def edge_ledger(limit: int = 20) -> EdgeTrackingLedgerSummary:
+        return service.edge_tracking_ledger(limit=limit)
+
+    @app.get("/v1/edge/topology")
+    def edge_topology() -> EdgeGatewayTopology:
+        return service.edge_gateway_topology(route_count=_runtime_route_count(app))
 
     @app.post("/v1/catalog/register")
     def register_dataset(request: DatasetRegistrationRequest):

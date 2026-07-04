@@ -1,13 +1,13 @@
 PYTHON ?= python3
 
-.PHONY: install lint test run benchmark openapi sdk acceptance examples
+.PHONY: install lint test run benchmark openapi sdk acceptance examples proof gateway edge-topology stack-config
 
 install:
 	$(PYTHON) -m pip install --upgrade pip
 	$(PYTHON) -m pip install -e .[dev]
 
 lint:
-	ruff check src tests
+	ruff check src tests scripts
 
 test:
 	pytest
@@ -29,3 +29,30 @@ acceptance:
 
 examples:
 	$(PYTHON) scripts/export_example_bundle.py
+
+gateway:
+	$(PYTHON) scripts/export_edge_topology.py
+
+edge-topology:
+	$(PYTHON) scripts/export_edge_topology.py
+
+proof:
+	$(PYTHON) scripts/export_openapi.py
+	$(PYTHON) scripts/generate_sdk_surfaces.py
+	$(PYTHON) scripts/export_research_surfaces.py
+	$(PYTHON) scripts/export_cymatic_surface.py
+	$(PYTHON) scripts/export_repository_pulse.py
+	$(PYTHON) scripts/export_repository_growth.py
+	$(PYTHON) scripts/export_benchmark_surfaces.py
+	$(PYTHON) scripts/export_music_observatory.py
+	$(PYTHON) scripts/export_operator_surfaces.py
+	$(PYTHON) scripts/export_industry_profiles.py
+	$(PYTHON) scripts/export_industrial_diagnostics.py
+	$(PYTHON) scripts/export_edge_topology.py
+	$(PYTHON) scripts/export_execution_journal.py
+	$(PYTHON) scripts/export_readiness_report.py
+	$(PYTHON) scripts/export_example_bundle.py
+	$(PYTHON) scripts/build_runtime_proof_bundle.py
+
+stack-config:
+	docker compose -f containers/compose.yaml config

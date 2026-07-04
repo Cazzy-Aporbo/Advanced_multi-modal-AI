@@ -18,3 +18,5 @@ target/
 sdk/typescript/node_modules/
 sdk/typescript/dist/
 .runtime/
+*.ipynb
+.ipynb_checkpoints/

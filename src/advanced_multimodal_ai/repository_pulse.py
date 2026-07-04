@@ -14,6 +14,7 @@ from .contracts import (
     RuntimeAttestationResponse,
     RuntimeProofBundle,
 )
+from .repository_growth import load_persisted_repository_growth
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -29,11 +30,15 @@ def build_repository_pulse(
 ) -> RepositoryPulse:
     lanes = [
         _frontend_lane(),
+        _community_lane(),
         _backend_lane(attestation=attestation, proof_bundle=proof_bundle),
+        _edge_lane(attestation=attestation),
         _music_lane(attestation=attestation),
         _benchmark_lane(),
         _compiled_lane(),
         _client_lane(),
+        _operator_lane(),
+        _deployment_lane(),
         _evidence_lane(),
         _execution_lane(execution_journal=execution_journal),
         _model_lane(model_cards=model_cards),
@@ -56,11 +61,16 @@ def _frontend_lane() -> PulseLane:
         "advanced-technical-portfolio.html",
         "technical-portfolio.html",
         "model-observatory.html",
+        "music-observatory.html",
         "field-notes.html",
         "benchmark-observatory.html",
         "cymatic-media-engine.html",
+        "industrial-diagnostics.html",
+        "industry-profiles.html",
+        "industrial-diagnostics.js",
         "cymatic-surface.css",
         "cymatic-surface.js",
+        "growth-surface.js",
         "research-surfaces.js",
         "site-controls.css",
         "site-controls.js",
@@ -83,6 +93,52 @@ def _frontend_lane() -> PulseLane:
     )
 
 
+def _community_lane() -> PulseLane:
+    persisted = load_persisted_repository_growth()
+    files = [
+        "CONTRIBUTING.md",
+        "CODE_OF_CONDUCT.md",
+        "SECURITY.md",
+        ".github/ISSUE_TEMPLATE/bug_report.yml",
+        ".github/ISSUE_TEMPLATE/use_case.yml",
+        ".github/pull_request_template.md",
+        "scripts/export_repository_growth.py",
+        "proof/repository-growth.json",
+        "proof/repository-growth.md",
+    ]
+    artifacts = [
+        _artifact(path, note="Community or repository signal surface.") for path in files
+    ]
+    stars = int(persisted.get("stars", 0))
+    contributors = int(persisted.get("contributor_count", 0))
+    proof_exports = len(list((REPO_ROOT / "proof").glob("*.json")))
+    score = min(100, 34 + contributors * 4 + len([item for item in artifacts if item.exists]) * 4)
+    summary = (
+        f"{stars} stars, {contributors} contributors, and {proof_exports} JSON proof exports are "
+        "being watched through one quieter repository signal lane."
+        if persisted
+        else (
+            "The repository signal lane is ready to collect GitHub-facing "
+            "metrics alongside local proof counts."
+        )
+    )
+    return PulseLane(
+        lane_id="community_signals",
+        label="Community signals",
+        emphasis="evidence",
+        live_score=score,
+        summary=summary,
+        active_count=len([item for item in artifacts if item.exists]),
+        warning_count=1 if not persisted else 0,
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Keep contribution and security files as concrete as the runtime contracts.",
+            "Let repository metrics sit beside proof freshness instead of floating alone.",
+        ],
+    )
+
+
 def _benchmark_lane() -> PulseLane:
     files = [
         "src/advanced_multimodal_ai/benchmarks.py",
@@ -92,8 +148,7 @@ def _benchmark_lane() -> PulseLane:
         "proof/benchmark-surfaces.md",
     ]
     artifacts = [
-        _artifact(path, note="Benchmark lane source or generated artifact.")
-        for path in files
+        _artifact(path, note="Benchmark lane source or generated artifact.") for path in files
     ]
     return _lane(
         lane_id="benchmark_lane",
@@ -153,6 +208,44 @@ def _music_lane(*, attestation: RuntimeAttestationResponse) -> PulseLane:
     )
 
 
+def _edge_lane(*, attestation: RuntimeAttestationResponse) -> PulseLane:
+    files = [
+        "src/advanced_multimodal_ai/edge_gateway.py",
+        "src/advanced_multimodal_ai/tracking_ledger.py",
+        "src/advanced_multimodal_ai/vector_mesh.py",
+        "scripts/export_edge_topology.py",
+        "proof/edge-topology.json",
+        "proof/edge-topology.md",
+    ]
+    artifacts = [
+        _artifact(path, note="Edge gateway, ledger, or exported topology artifact.")
+        for path in files
+    ]
+    event_count = attestation.store_counts.get("edge_packets", 0)
+    score = min(100, 40 + event_count * 12)
+    return PulseLane(
+        lane_id="edge_gateway",
+        label="Edge gateway",
+        emphasis="backend",
+        live_score=score,
+        summary=(
+            f"{event_count} persisted edge packet events now show how packet geometry, "
+            "cross-border posture, and routing decisions are carried into an append-only ledger."
+        ),
+        active_count=event_count,
+        warning_count=1 if event_count == 0 else 0,
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Keep gateway evaluations tied to typed packet contracts rather than loose JSON blobs.",
+            (
+                "Use the ledger to show where routing decisions came from before "
+                "widening the control plane."
+            ),
+        ],
+    )
+
+
 def _backend_lane(
     *,
     attestation: RuntimeAttestationResponse,
@@ -174,7 +267,8 @@ def _backend_lane(
         + attestation.store_counts.get("pipeline_runs", 0)
     )
     warning_count = sum(
-        1 for store in ("connector_runs", "pipeline_runs", "ontology_snapshots")
+        1
+        for store in ("connector_runs", "pipeline_runs", "ontology_snapshots")
         if attestation.store_counts.get(store, 0) == 0
     )
     score = min(100, 45 + proof_bundle.route_count + len(attestation.store_counts) * 2)
@@ -208,8 +302,9 @@ def _compiled_lane() -> PulseLane:
         _artifact(
             path,
             note=(
-                "Compiled signal primitive." if "multimodal-core" in path else
-                "Python bridge into the compiled core."
+                "Compiled signal primitive."
+                if "multimodal-core" in path
+                else "Python bridge into the compiled core."
             ),
         )
         for path in files
@@ -252,6 +347,34 @@ def _client_lane() -> PulseLane:
         suggested_actions=[
             "Regenerate client surfaces whenever the API contract moves.",
             "Keep TypeScript compilation in the proof path.",
+        ],
+    )
+
+
+def _deployment_lane() -> PulseLane:
+    files = [
+        "Dockerfile",
+        "Makefile",
+        "containers/compose.yaml",
+        "containers/clickhouse-init.sql",
+    ]
+    artifacts = [_artifact(path, note="Deployment or local stack artifact.") for path in files]
+    return _lane(
+        lane_id="deployment_stack",
+        label="Deployment stack",
+        emphasis="client",
+        summary=(
+            "Container, local stack, and command surfaces now sit beside the runtime edge "
+            "instead of being implied by prose alone."
+        ),
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            (
+                "Keep the stack definition explicit, versioned, and smaller than the "
+                "claims built on top of it."
+            ),
+            "Let compose, Docker, and Make targets point at the same bounded runtime story.",
         ],
     )
 
@@ -328,10 +451,9 @@ def _model_lane(*, model_cards: list[ModelResearchCard]) -> PulseLane:
         _artifact(
             path,
             note=(
-                "Runtime-ready model file." if any(
-                    card.source_file == path and card.runtime_ready
-                    for card in model_cards
-                ) else "Research model file."
+                "Runtime-ready model file."
+                if any(card.source_file == path and card.runtime_ready for card in model_cards)
+                else "Research model file."
             ),
         )
         for path in files
@@ -354,6 +476,34 @@ def _model_lane(*, model_cards: list[ModelResearchCard]) -> PulseLane:
         suggested_actions=[
             "Promote research models only when proof and replay back them.",
             "Keep model notes honest about what is live and what is still exploratory.",
+        ],
+    )
+
+
+def _operator_lane() -> PulseLane:
+    files = [
+        "src/advanced_multimodal_ai/operator_surfaces.py",
+        "src/advanced_multimodal_ai/api.py",
+        "scripts/export_operator_surfaces.py",
+        "proof/operator-surfaces.json",
+        "proof/operator-surfaces.md",
+    ]
+    artifacts = [
+        _artifact(path, note="Operator surface source or generated artifact.") for path in files
+    ]
+    return _lane(
+        lane_id="operator_surface",
+        label="Operator surface",
+        emphasis="compiled",
+        summary=(
+            "Typed command, skill, plugin, and speech-task surfaces keep the "
+            "repository's improvement and execution lanes readable as one system."
+        ),
+        files=files,
+        artifacts=artifacts,
+        suggested_actions=[
+            "Keep operator cards tied to real routes, files, and proof artifacts.",
+            "Prefer inspect-plan-run-verify loops over hand-written capability claims.",
         ],
     )
 

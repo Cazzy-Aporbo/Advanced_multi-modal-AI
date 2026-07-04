@@ -132,6 +132,21 @@
     return null;
   }
 
+  async function loadOperatorSurfaceBundle() {
+    const candidates = ["proof/operator-surfaces.json", "/v1/operators/surfaces"];
+    for (const url of candidates) {
+      try {
+        const response = await fetch(url, { cache: "no-store" });
+        if (response.ok) {
+          return await response.json();
+        }
+      } catch (_error) {
+        // keep trying the next surface
+      }
+    }
+    return null;
+  }
+
   function compactNumber(value) {
     return new Intl.NumberFormat(undefined, { notation: "compact" }).format(value);
   }
@@ -155,6 +170,7 @@
       evidence_exports: "field-notes.html",
       execution_memory: "field-notes.html",
       model_study: "model-observatory.html",
+      operator_surface: "model-observatory.html#operator-surface",
     };
     return mapping[laneId] || "technical-portfolio.html";
   }
@@ -274,6 +290,7 @@
     loadCymaticSurface,
     loadMusicOverview,
     loadMusicSnapshot,
+    loadOperatorSurfaceBundle,
     hydrateSignalRail,
   };
 

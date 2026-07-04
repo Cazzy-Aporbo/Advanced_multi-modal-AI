@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If this repository informs your work, please cite it using the metadata below."
+title: "Advanced Multi-modal AI"
+authors:
+  - family-names: "Aporbo"
+    given-names: "Cazandra"
+repository-code: "https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI"
+license: "Apache-2.0"
+version: "0.5.0"
+date-released: "2026-07-03"
+abstract: >
+  A multimodal runtime repository with typed ingestion, replay, proof exports,
+  industrial diagnostics, and frontend research surfaces.

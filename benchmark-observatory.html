@@ -313,6 +313,112 @@
     .artifact-item code {
       color: var(--text);
     }
+    .feature-heading {
+      display: inline-block;
+      background-size: 180% 180%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: hueShift 14s ease-in-out infinite alternate;
+    }
+    .feature-heading.tone-1 {
+      background-image: linear-gradient(120deg, #f7eef6 0%, #f0b27e 24%, #efb8d6 58%, #9adfd4 100%);
+    }
+    .feature-heading.tone-2 {
+      background-image: linear-gradient(120deg, #f7eef6 0%, #f6d2c7 30%, #9adfd4 62%, #b7dbff 100%);
+    }
+    .feature-heading.tone-3 {
+      background-image: linear-gradient(120deg, #efb8d6 0%, #f7eef6 30%, #9adfd4 70%, #ffe0b3 100%);
+    }
+    .feature-heading.tone-4 {
+      background-image: linear-gradient(120deg, #ffe6f4 0%, #f0b27e 22%, #f7eef6 55%, #b2f2e8 100%);
+    }
+    .operator-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+    .operator-mini-card {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(150deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        radial-gradient(circle at top right, rgba(239, 184, 214, 0.14), transparent 56%),
+        rgba(25, 19, 31, 0.94);
+    }
+    .operator-mini-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(240, 178, 126, 0.96), rgba(239, 184, 214, 0.88), rgba(154, 223, 212, 0.94));
+    }
+    .operator-mini-card h3 {
+      margin-top: 8px;
+      font-size: 1.28rem;
+    }
+    .operator-mini-card p {
+      margin-bottom: 0;
+    }
+    .operator-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .operator-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 0.82rem;
+    }
+    .flow-shell {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)),
+        rgba(12, 10, 15, 0.54);
+    }
+    .flow-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .flow-meta span {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+    .flow-frame {
+      width: 100%;
+      min-height: 300px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .flow-frame svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+    }
     .continuation-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       margin-top: 22px;
@@ -345,12 +451,17 @@
       0% { transform: scaleX(0.88); transform-origin: left center; }
       100% { transform: scaleX(1); transform-origin: left center; }
     }
+    @keyframes hueShift {
+      0% { background-position: 0% 50%; filter: saturate(1); }
+      100% { background-position: 100% 50%; filter: saturate(1.16); }
+    }
     @media (max-width: 960px) {
       .hero,
       .summary-grid,
       .stage-grid,
       .detail-grid,
-      .continuation-grid {
+      .continuation-grid,
+      .operator-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -370,6 +481,8 @@
           <a href="technical-portfolio.html">catalog</a>
           <a href="cymatic-media-engine.html">signal lab</a>
           <a href="model-observatory.html">models</a>
+          <a href="music-observatory.html">music warehouse</a>
+          <a href="industry-profiles.html">industries</a>
           <a href="field-notes.html">field notes</a>
           <a href="README.md">readme</a>
         </div>
@@ -380,7 +493,7 @@
     <section class="hero">
       <article class="panel page-orbit-field">
         <div class="label">Reference workload</div>
-        <h1>One lane, many checks, no need for guesswork.</h1>
+        <h1 class="feature-heading tone-1">One lane, many checks, no need for guesswork.</h1>
         <p>
           This page follows a single generated workload across connector-backed
           ingest, pipeline sealing, replay verification, concurrent batch work,
@@ -425,7 +538,15 @@
 
     <section class="panel" style="margin-top: 24px;">
       <div class="label">Stage walk</div>
-      <h2>Each stage can be opened on its own</h2>
+      <h2 class="feature-heading tone-3">Each stage can be opened on its own</h2>
+      <div class="flow-shell">
+        <div class="flow-meta" id="benchmark-flow-meta">
+          <span>Waiting for benchmark flow metadata.</span>
+        </div>
+        <div class="flow-frame">
+          <svg id="benchmark-flow-chart" viewBox="0 0 1100 320" role="img" aria-label="Benchmark flow map"></svg>
+        </div>
+      </div>
       <div class="stage-grid" id="stage-grid">
         <button class="stage-button active">
           <strong>Loading</strong>
@@ -447,9 +568,26 @@
       </div>
     </section>
 
+    <section class="panel" style="margin-top: 24px;" id="operator-surface">
+      <div class="label">Operator seam</div>
+      <h2 class="feature-heading tone-2">The benchmark lane can also be read as commands, skills, and recursive repair loops.</h2>
+      <p>
+        The same workload can be opened from another angle: which route starts the motion, which skill
+        keeps the evidence coherent, which plugin seam exports the proof, and which recursive loop reads
+        the current state before the next improvement pass.
+      </p>
+      <div class="operator-grid" id="operator-benchmark-grid">
+        <article class="operator-mini-card">
+          <small>Loading</small>
+          <h3>Waiting for operator surfaces</h3>
+          <p>The benchmark page will pull these from the same generated proof bundle as the rest of the repository.</p>
+        </article>
+      </div>
+    </section>
+
     <section class="panel" style="margin-top: 24px;">
       <div class="label">Continue from here</div>
-      <h2>Open the parts that support the benchmark</h2>
+      <h2 class="feature-heading tone-4">Open the parts that support the benchmark</h2>
       <div class="continuation-grid">
         <article class="continuation-card">
           <h3>Architecture surface</h3>
@@ -476,7 +614,7 @@
 
     <footer class="footer">
       <div>Advanced Multi-modal AI · © 2026 Cazandra Aporbo · <a href="LICENSE" style="color:inherit;">Apache License 2.0</a></div>
-      <div><a href="index.html" style="color:inherit;">atlas</a> · <a href="cymatic-media-engine.html" style="color:inherit;">signal lab</a> · <a href="proof/benchmark-surfaces.md" style="color:inherit;">benchmark report</a> · <a href="README.md" style="color:inherit;">readme</a></div>
+      <div><a href="index.html" style="color:inherit;">atlas</a> · <a href="cymatic-media-engine.html" style="color:inherit;">signal lab</a> · <a href="music-observatory.html" style="color:inherit;">music warehouse</a> · <a href="industry-profiles.html" style="color:inherit;">industries</a> · <a href="proof/benchmark-surfaces.md" style="color:inherit;">benchmark report</a> · <a href="README.md" style="color:inherit;">readme</a></div>
     </footer>
   </div>
 
@@ -487,6 +625,9 @@
     const stageGrid = document.getElementById("stage-grid");
     const stageDetail = document.getElementById("stage-detail");
     const replayLedger = document.getElementById("replay-ledger");
+    const operatorBenchmarkGrid = document.getElementById("operator-benchmark-grid");
+    const benchmarkFlowChart = document.getElementById("benchmark-flow-chart");
+    const benchmarkFlowMeta = document.getElementById("benchmark-flow-meta");
 
     function formatDuration(value) {
       return `${Number(value || 0).toFixed(1)} ms`;
@@ -559,6 +700,70 @@
       `;
     }
 
+    function renderBenchmarkFlow(payload) {
+      const stages = payload.stages || [];
+      if (!benchmarkFlowChart || !stages.length) return;
+      const width = 1100;
+      const nodeWidth = 148;
+      const gap = 28;
+      const maxDuration = Math.max(...stages.map((stage) => Number(stage.duration_ms || 0)), 1);
+      const maxRecords = Math.max(...stages.map((stage) => Number(stage.record_count || 0)), 1);
+      const svgHeight = 320;
+      benchmarkFlowChart.setAttribute("viewBox", `0 0 ${width} ${svgHeight}`);
+
+      const nodeMarkup = stages.map((stage, index) => {
+        const x = 26 + index * (nodeWidth + gap);
+        const height = 70 + (Number(stage.record_count || 0) / maxRecords) * 94;
+        const y = 120 - (height / 2);
+        const tone = stage.status === "pass" ? "#9adfd4" : "#efb8d6";
+        const label = AMAIResearch.escapeHtml(stage.label);
+        return `
+          <g data-stage-flow="${AMAIResearch.escapeHtml(stage.stage_id)}" style="cursor:pointer">
+            <rect x="${x}" y="${y}" width="${nodeWidth}" height="${height}" rx="24" ry="24" fill="rgba(29, 23, 36, 0.94)" stroke="${tone}" stroke-width="1.4"></rect>
+            <text x="${x + 18}" y="${y + 28}" fill="#f7eef6" font-size="12" font-family="Inter, sans-serif">${String(index + 1).padStart(2, "0")} stage</text>
+            <text x="${x + 18}" y="${y + 56}" fill="#f7eef6" font-size="18" font-family="Iowan Old Style, Georgia, serif">${label}</text>
+            <text x="${x + 18}" y="${y + height - 26}" fill="#d8cad8" font-size="12" font-family="Inter, sans-serif">${formatDuration(stage.duration_ms)} · ${stage.record_count} records</text>
+          </g>
+        `;
+      }).join("");
+
+      const linkMarkup = stages.slice(0, -1).map((stage, index) => {
+        const x1 = 26 + index * (nodeWidth + gap) + nodeWidth;
+        const x2 = 26 + (index + 1) * (nodeWidth + gap);
+        const strength = Math.max(10, 8 + (Number(stage.duration_ms || 0) / maxDuration) * 16);
+        const path = `M ${x1} 120 C ${x1 + 32} 120, ${x2 - 32} 120, ${x2} 120`;
+        return `<path d="${path}" fill="none" stroke="url(#flowGradient)" stroke-width="${strength}" stroke-linecap="round" opacity="0.52"></path>`;
+      }).join("");
+
+      benchmarkFlowChart.innerHTML = `
+        <defs>
+          <linearGradient id="flowGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+            <stop offset="0%" stop-color="#f0b27e"></stop>
+            <stop offset="50%" stop-color="#efb8d6"></stop>
+            <stop offset="100%" stop-color="#9adfd4"></stop>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="${width}" height="${svgHeight}" fill="transparent"></rect>
+        ${linkMarkup}
+        ${nodeMarkup}
+      `;
+      benchmarkFlowMeta.innerHTML = `
+        <span>${payload.stage_count} stages</span>
+        <span>${payload.replay_frame_count} replay frames</span>
+        <span>${payload.replay_verified ? "replay verified" : "replay under review"}</span>
+        <span>generated ${new Date(payload.created_at).toLocaleString()}</span>
+      `;
+      [...benchmarkFlowChart.querySelectorAll("[data-stage-flow]")].forEach((node) => {
+        node.addEventListener("click", () => {
+          const target = document.querySelector(`[data-stage-id="${node.dataset.stageFlow}"]`);
+          if (target) {
+            target.click();
+            target.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        });
+      });
+    }
+
     function renderStages(payload) {
       const stages = payload.stages || [];
       stageGrid.innerHTML = stages.map((stage, index) => `
@@ -592,11 +797,57 @@
       });
     }
 
+    function renderOperatorBenchmark(bundle) {
+      const cards = [
+        ...(bundle.commands || []).slice(0, 2).map((item, index) => `
+          <article class="operator-mini-card">
+            <small>command ${String(index + 1).padStart(2, "0")}</small>
+            <h3 class="feature-heading tone-${(index % 4) + 1}">${AMAIResearch.escapeHtml(item.label)}</h3>
+            <p>${AMAIResearch.escapeHtml(item.operator_goal)}</p>
+            <div class="operator-pill-row">
+              <span class="operator-pill">${AMAIResearch.escapeHtml(item.method)}</span>
+              <span class="operator-pill">${AMAIResearch.escapeHtml(item.runtime_lane)}</span>
+            </div>
+          </article>
+        `),
+        ...(bundle.plugins || []).slice(0, 1).map((item, index) => `
+          <article class="operator-mini-card">
+            <small>plugin seam</small>
+            <h3 class="feature-heading tone-${((index + 2) % 4) + 1}">${AMAIResearch.escapeHtml(item.label)}</h3>
+            <p>${AMAIResearch.escapeHtml(item.purpose)}</p>
+            <div class="operator-pill-row">
+              <span class="operator-pill">${AMAIResearch.escapeHtml(item.seam_kind)}</span>
+              <span class="operator-pill">${AMAIResearch.escapeHtml(item.entrypoint)}</span>
+            </div>
+          </article>
+        `),
+        ...(bundle.skills || []).filter((item) => item.skill_id === "inspect-plan-run-verify").map((item, index) => `
+          <article class="operator-mini-card">
+            <small>recursive loop</small>
+            <h3 class="feature-heading tone-${((index + 3) % 4) + 1}">${AMAIResearch.escapeHtml(item.label)}</h3>
+            <p>${AMAIResearch.escapeHtml(item.focus)}</p>
+            <div class="operator-pill-row">
+              ${(item.related_commands || []).slice(0, 3).map((entry) => `<span class="operator-pill">${AMAIResearch.escapeHtml(entry)}</span>`).join("")}
+            </div>
+          </article>
+        `),
+      ];
+      operatorBenchmarkGrid.innerHTML = cards.join("");
+    }
+
     async function hydrateBenchmarkSurface() {
-      const payload = await AMAIResearch.loadBenchmarkSurface();
-      if (!payload) return;
-      renderSummary(payload);
-      renderStages(payload);
+      const [payload, operatorBundle] = await Promise.all([
+        AMAIResearch.loadBenchmarkSurface(),
+        AMAIResearch.loadOperatorSurfaceBundle(),
+      ]);
+      if (payload) {
+        renderSummary(payload);
+        renderBenchmarkFlow(payload);
+        renderStages(payload);
+      }
+      if (operatorBundle) {
+        renderOperatorBenchmark(operatorBundle);
+      }
     }
 
     hydrateBenchmarkSurface().catch((error) => {

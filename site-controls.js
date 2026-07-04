@@ -101,7 +101,7 @@
 
     const dock = document.createElement("details");
     dock.className = "site-dock";
-    dock.open = !window.matchMedia("(max-width: 720px)").matches;
+    dock.open = false;
     dock.innerHTML = `
       <summary class="site-dock-toggle">Display</summary>
       <div class="site-dock-panel">

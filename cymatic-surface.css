@@ -365,11 +365,12 @@
 .cymatic-pipeline {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(264px, 320px);
+  grid-auto-columns: clamp(276px, 28vw, 380px);
   gap: 14px;
   overflow-x: auto;
-  padding: 6px 4px 12px;
-  scroll-snap-type: x proximity;
+  padding: 6px 4px 14px;
+  scroll-padding-inline: 4px;
+  scroll-snap-type: x mandatory;
   scrollbar-width: thin;
   scrollbar-color: rgba(143, 201, 190, 0.38) rgba(255, 255, 255, 0.06);
 }
@@ -391,11 +392,12 @@
 .cymatic-stage-card {
   padding: 18px;
   text-align: left;
-  min-height: 292px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   scroll-snap-align: start;
+  min-width: 0;
 }
 
 .cymatic-stage-card::before,
@@ -440,8 +442,11 @@
   margin: 10px 0 0;
   color: var(--muted, #dbcabc);
   font-size: 0.95rem;
-  max-width: 24ch;
+  max-width: none;
   text-wrap: pretty;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: auto;
 }
 
 .cymatic-stage-heading,
@@ -676,7 +681,7 @@
   }
 
   .cymatic-canvas-shell {
-    min-height: 520px;
+    min-height: 460px;
   }
 
   .cymatic-overlay {
@@ -684,8 +689,8 @@
   }
 
   .cymatic-title {
-    font-size: clamp(1.8rem, 12vw, 3rem);
-    line-height: 0.94;
+    font-size: clamp(1.7rem, 10vw, 2.55rem);
+    line-height: 1.02;
   }
 
   .cymatic-copy {
@@ -709,13 +714,14 @@
 
   .cymatic-pipeline {
     grid-auto-flow: column;
-    grid-auto-columns: minmax(230px, 84%);
+    grid-auto-columns: minmax(260px, 86vw);
     overflow-x: auto;
     padding-bottom: 8px;
-    scroll-snap-type: x proximity;
+    scroll-snap-type: x mandatory;
   }
 
   .cymatic-stage-card {
     scroll-snap-align: start;
+    min-height: 230px;
   }
 }

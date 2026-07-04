@@ -152,7 +152,7 @@
       text-wrap: balance;
     }
 
-    h1 { font-size: clamp(2.8rem, 5vw, 4.8rem); max-width: 9ch; }
+    h1 { font-size: clamp(2.8rem, 5vw, 4.8rem); max-width: 13ch; }
     h2 { font-size: 2rem; }
 
     p,
@@ -226,6 +226,98 @@
       .hero,
       .continuation-grid {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        width: min(100vw - 14px, 100%);
+        padding: 10px 0 60px;
+      }
+
+      .nav {
+        position: relative;
+        top: 0;
+        padding: 14px;
+        border-radius: 26px;
+      }
+
+      .nav-brand strong {
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+      }
+
+      .nav-brand small {
+        font-size: 0.66rem;
+        letter-spacing: 0.08em;
+      }
+
+      .nav-links {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+
+      .nav-links::-webkit-scrollbar,
+      .continuation-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-links a {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 9px 12px;
+      }
+
+      #site-dock-host {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .hero {
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .panel,
+      .continuation-card {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      h1 {
+        max-width: none;
+        font-size: clamp(2rem, 11vw, 3rem);
+        line-height: 1.02;
+      }
+
+      h2 {
+        font-size: clamp(1.45rem, 8vw, 1.8rem);
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions a {
+        min-height: 46px;
+        justify-content: space-between;
+      }
+
+      .continuation-grid {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(260px, 86vw);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 8px;
+      }
+
+      .continuation-card {
+        scroll-snap-align: start;
       }
     }
   </style>
@@ -338,7 +430,7 @@
     </footer>
   </div>
 
-  <script src="site-controls.js"></script>
+  <script src="site-controls.js?v=20260704-mobile"></script>
   <script src="research-surfaces.js"></script>
   <script src="cymatic-surface.js"></script>
 </body>

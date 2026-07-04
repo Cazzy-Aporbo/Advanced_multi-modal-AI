@@ -1299,15 +1299,34 @@
       display: grid;
       gap: 18px;
       margin-top: 20px;
+      min-width: 0;
     }
 
     .flow-rail {
       display: grid;
       grid-auto-flow: column;
-      grid-auto-columns: minmax(220px, 1fr);
+      grid-auto-columns: clamp(250px, 25vw, 340px);
       gap: 14px;
       overflow-x: auto;
-      padding-bottom: 8px;
+      padding: 4px 4px 10px;
+      scroll-padding-inline: 4px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(143, 201, 190, 0.34) rgba(255, 255, 255, 0.06);
+    }
+
+    .flow-rail::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .flow-rail::-webkit-scrollbar-track {
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .flow-rail::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(223, 156, 95, 0.86), rgba(143, 201, 190, 0.84));
     }
 
     .flow-step-button,
@@ -1320,6 +1339,11 @@
       text-align: left;
       cursor: pointer;
       transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+      min-width: 0;
+      scroll-snap-align: start;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: auto;
     }
 
     .flow-step-button:hover,
@@ -1336,6 +1360,13 @@
       display: block;
       margin-bottom: 6px;
       font-size: 1rem;
+      line-height: 1.14;
+    }
+
+    .flow-step-button div,
+    .job-row div {
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     .flow-detail,
@@ -1344,6 +1375,7 @@
       border-radius: 24px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.03);
+      min-width: 0;
     }
 
     .job-shell {
@@ -1436,12 +1468,15 @@
       }
       .nav-disclosure[open] .nav-links {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
       }
       .nav-links a {
         justify-content: space-between;
         text-align: left;
-        min-height: 48px;
+        min-height: 46px;
+        padding: 10px 12px;
+        font-size: 0.92rem;
       }
       .brand {
         gap: 10px;
@@ -1474,7 +1509,10 @@
       .hero-panel,
       .hero-map,
       .section-panel,
-      .card { padding: 22px; }
+      .card {
+        padding: 18px;
+        border-radius: 24px;
+      }
       .hero-actions {
         display: grid;
         grid-template-columns: 1fr;
@@ -1493,8 +1531,8 @@
         font-size: 0.96rem;
       }
       h1 {
-        font-size: clamp(1.75rem, 9vw, 2.45rem);
-        line-height: 1.02;
+        font-size: clamp(1.65rem, 8.4vw, 2.28rem);
+        line-height: 1.05;
         max-width: none;
       }
       .filters,
@@ -1556,6 +1594,20 @@
       }
       .stats {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .flow-shell {
+        gap: 14px;
+      }
+      .flow-rail {
+        grid-auto-columns: minmax(258px, 86vw);
+      }
+      .flow-step-button {
+        min-height: 174px;
+        padding: 16px;
+      }
+      .flow-detail,
+      .job-detail {
+        padding: 18px;
       }
       .storyline-step::before,
       .storyline-step::after {
@@ -2339,7 +2391,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     </footer>
   </div>
 
-  <script src="site-controls.js"></script>
+  <script src="site-controls.js?v=20260704-mobile"></script>
   <script src="research-surfaces.js"></script>
   <script src="cymatic-surface.js"></script>
   <script src="growth-surface.js"></script>

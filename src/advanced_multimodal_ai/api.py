@@ -41,6 +41,12 @@ from .contracts import (
     OperatorSurfaceBundle,
     PipelineIngestRequest,
     PopulationDriftRequest,
+    PrivacyCorpusAuditRequest,
+    PrivacyCorpusAuditResponse,
+    PrivacyRunRecord,
+    PrivacyTaxonomyResponse,
+    PrivacyTextRequest,
+    PrivacyTextResponse,
     RecipeCompileRequest,
     ReferenceBenchmarkRequest,
     RepositoryGrowthSnapshot,
@@ -427,6 +433,31 @@ def create_app() -> FastAPI:
     @app.post("/v1/bias/assess")
     def bias_assessment(request: BiasAssessmentRequest):
         return service.assess_bias(request)
+
+    @app.get("/v1/privacy/taxonomy")
+    def privacy_taxonomy() -> PrivacyTaxonomyResponse:
+        return service.privacy_taxonomy()
+
+    @app.post("/v1/privacy/deidentify")
+    def privacy_deidentify(request: PrivacyTextRequest) -> PrivacyTextResponse:
+        return service.deidentify_privacy_text(request)
+
+    @app.post("/v1/privacy/corpus/audit")
+    def privacy_corpus_audit(
+        request: PrivacyCorpusAuditRequest,
+    ) -> PrivacyCorpusAuditResponse:
+        return service.audit_privacy_corpus(request)
+
+    @app.get("/v1/privacy/runs")
+    def list_privacy_runs(limit: int = 50) -> list[PrivacyRunRecord]:
+        return service.list_privacy_runs(limit=limit)
+
+    @app.get("/v1/privacy/runs/{run_id}")
+    def get_privacy_run(run_id: str) -> PrivacyRunRecord:
+        record = service.get_privacy_run(run_id)
+        if record is None:
+            raise HTTPException(status_code=404, detail="privacy run not found")
+        return record
 
     @app.post("/v1/plan")
     def plan(request: InferenceRequest):

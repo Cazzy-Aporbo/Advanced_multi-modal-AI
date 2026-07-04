@@ -408,6 +408,34 @@ class GeneratedOpenAPIClient:
         path = f"/v1/bias/assess"
         return self._request("POST", path, payload=payload)
 
+    def privacyTaxonomyV1PrivacyTaxonomyGet(self) -> Any:
+        """Privacy Taxonomy"""
+        path = f"/v1/privacy/taxonomy"
+        return self._request("GET", path)
+
+    def privacyDeidentifyV1PrivacyDeidentifyPost(self, payload: Any) -> Any:
+        """Privacy Deidentify"""
+        path = f"/v1/privacy/deidentify"
+        return self._request("POST", path, payload=payload)
+
+    def privacyCorpusAuditV1PrivacyCorpusAuditPost(self, payload: Any) -> Any:
+        """Privacy Corpus Audit"""
+        path = f"/v1/privacy/corpus/audit"
+        return self._request("POST", path, payload=payload)
+
+    def listPrivacyRunsV1PrivacyRunsGet(self, query: dict[str, str | int | float | bool] | None = None) -> Any:
+        """List Privacy Runs"""
+        path = f"/v1/privacy/runs"
+        if query:
+            encoded = httpx.QueryParams(query)
+            path = f"{path}?{encoded}"
+        return self._request("GET", path)
+
+    def getPrivacyRunV1PrivacyRunsRunIdGet(self, run_id: str | int) -> Any:
+        """Get Privacy Run"""
+        path = f"/v1/privacy/runs/{run_id}"
+        return self._request("GET", path)
+
     def planV1PlanPost(self, payload: Any) -> Any:
         """Plan"""
         path = f"/v1/plan"

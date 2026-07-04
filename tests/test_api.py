@@ -1555,6 +1555,93 @@ def test_bias_assessment_maps_risk_to_active_system_stages():
     assert any(item["severity"] in {"elevated", "critical"} for item in payload["findings"])
 
 
+def test_privacy_taxonomy_surfaces_multilingual_deterministic_membrane():
+    response = client.get("/v1/privacy/taxonomy")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["category_count"] >= 54
+    assert payload["language_count"] >= 16
+    assert payload["deterministic_category_count"] >= 30
+    category_ids = {item["category_id"] for item in payload["categories"]}
+    assert {"email_address", "credit_card", "medical_record_number", "private_key"} <= category_ids
+    assert any(
+        "does not claim trained-token classification" in note for note in payload["boundary_notes"]
+    )
+
+
+def test_privacy_deidentify_masks_high_signal_text_and_persists_receipt_only():
+    response = client.post(
+        "/v1/privacy/deidentify",
+        json={
+            "text": (
+                "Name: Maria Santos; email maria.santos@example.com; "
+                "MRN: MRN-448812; card 4242 4242 4242 4242; "
+                "Bearer demo_token_abcdefghijklmnopqrstuvwxyz"
+            ),
+            "languages": ["en", "fil"],
+            "masking_mode": "stable_token",
+            "purpose": "clinical_support_preflight",
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["finding_count"] >= 5
+    assert payload["highest_severity"] == "critical"
+    assert "maria.santos@example.com" not in payload["redacted_text"]
+    assert "4242 4242 4242 4242" not in payload["redacted_text"]
+    assert payload["receipt"]["source_sha256"] != payload["receipt"]["redacted_sha256"]
+    assert "fil" in payload["language_hints"]
+    _assert_ledger_headers(
+        response,
+        route="/v1/privacy/deidentify",
+        method="POST",
+        status_code=200,
+        scope="governance",
+    )
+
+    run_response = client.get(f"/v1/privacy/runs/{payload['run_id']}")
+    assert run_response.status_code == 200
+    run_payload = run_response.json()
+    assert run_payload["persisted_raw_text"] is False
+    assert run_payload["persisted_redacted_text"] is False
+    assert run_payload["finding_count"] == payload["finding_count"]
+    assert run_payload["receipts"][0]["source_sha256"] == payload["receipt"]["source_sha256"]
+    serialized = json.dumps(run_payload)
+    assert "maria.santos@example.com" not in serialized
+    assert "4242 4242 4242 4242" not in serialized
+
+
+def test_privacy_corpus_audit_reports_category_pressure_without_storing_raw_documents():
+    response = client.post(
+        "/v1/privacy/corpus/audit",
+        json={
+            "masking_mode": "bracket_label",
+            "tenant_id": "research-fixture",
+            "documents": [
+                {
+                    "document_id": "support-001",
+                    "text": "Ticket: SUP-44881; phone +1 415 555 0199; address: 8 Market Street",
+                    "languages": ["en"],
+                },
+                {
+                    "document_id": "clinical-002",
+                    "text": "Patient ID: P-77182; genetic marker rs429358; DOB: 1980-02-14",
+                    "languages": ["en"],
+                },
+            ],
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["run"]["document_count"] == 2
+    assert payload["run"]["finding_count"] >= 5
+    assert payload["run"]["persisted_raw_text"] is False
+    assert len(payload["document_audits"]) == 2
+    category_ids = {item["category_id"] for item in payload["category_summaries"]}
+    assert {"support_ticket", "phone_number", "date_of_birth", "genetic_marker"} <= category_ids
+    assert "[phone_number]" in payload["document_audits"][0]["redacted_text"]
+
+
 def test_data_provenance_endpoint_is_deterministic():
     request = {
         "model_id": "adaptive_transformer",

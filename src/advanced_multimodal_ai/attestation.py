@@ -55,6 +55,10 @@ def build_runtime_attestation(
             REPO_ROOT / "proof" / "music-observatory.json",
         ),
         _artifact(
+            "Privacy membrane export",
+            REPO_ROOT / "proof" / "privacy-membrane.json",
+        ),
+        _artifact(
             "Operator surfaces export",
             REPO_ROOT / "proof" / "operator-surfaces.json",
         ),
@@ -92,6 +96,7 @@ def build_runtime_attestation(
             "connector_ingest",
             "music_manifest",
             "music_feature_warehouse",
+            "privacy_membrane",
             "operator_surfaces",
             "industry_profiles",
             "industrial_diagnostics",

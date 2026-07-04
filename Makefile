@@ -46,6 +46,7 @@ proof:
 	$(PYTHON) scripts/export_repository_growth.py
 	$(PYTHON) scripts/export_benchmark_surfaces.py
 	$(PYTHON) scripts/export_music_observatory.py
+	$(PYTHON) scripts/export_privacy_membrane.py
 	$(PYTHON) scripts/export_operator_surfaces.py
 	$(PYTHON) scripts/export_industry_profiles.py
 	$(PYTHON) scripts/export_industrial_diagnostics.py

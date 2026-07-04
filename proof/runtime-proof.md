@@ -3,9 +3,9 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Environment: `development`
-- Route count: `100`
-- Test count: `60`
-- Verification artifacts: `16`
+- Route count: `105`
+- Test count: `63`
+- Verification artifacts: `17`
 
 ## Connector kinds
 - `local_csv`
@@ -51,6 +51,7 @@
 - `Execution journal export` · present · `proof/execution-journal.json`
 - `Cymatic surface export` · present · `proof/cymatic-surface.json`
 - `Music observatory export` · present · `proof/music-observatory.json`
+- `Privacy membrane export` · present · `proof/privacy-membrane.json`
 - `Operator surfaces export` · present · `proof/operator-surfaces.json`
 - `Industry profiles export` · present · `proof/industry-profiles.json`
 - `Industrial diagnostics export` · present · `proof/industrial-diagnostics.json`

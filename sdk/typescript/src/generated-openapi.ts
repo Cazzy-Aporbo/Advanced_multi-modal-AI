@@ -581,6 +581,46 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("POST", path, payload);
   }
 
+  /** Privacy Taxonomy */
+  async privacyTaxonomyV1PrivacyTaxonomyGet(): Promise<unknown> {
+    let path = `/v1/privacy/taxonomy`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Privacy Deidentify */
+  async privacyDeidentifyV1PrivacyDeidentifyPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/privacy/deidentify`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Privacy Corpus Audit */
+  async privacyCorpusAuditV1PrivacyCorpusAuditPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/privacy/corpus/audit`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** List Privacy Runs */
+  async listPrivacyRunsV1PrivacyRunsGet(query: Record<string, string | number | boolean | undefined> = {}): Promise<unknown> {
+    let path = `/v1/privacy/runs`;
+    const search = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) {
+        search.set(key, String(value));
+      }
+    }
+    const queryString = search.toString();
+    if (queryString) {
+      path += `?${queryString}`;
+    }
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Get Privacy Run */
+  async getPrivacyRunV1PrivacyRunsRunIdGet(run_id: string | number): Promise<unknown> {
+    let path = `/v1/privacy/runs/${encodeURIComponent(String(run_id))}`;
+    return this.request<unknown>("GET", path);
+  }
+
   /** Plan */
   async planV1PlanPost(payload: unknown): Promise<unknown> {
     let path = `/v1/plan`;

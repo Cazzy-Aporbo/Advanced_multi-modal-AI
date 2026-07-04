@@ -11,6 +11,7 @@ GOVERNANCE_SCOPE_RULES: tuple[tuple[str, str], ...] = (
     ("/v1/stewardship", "governance"),
     ("/v1/ontology", "governance"),
     ("/v1/bias", "governance"),
+    ("/v1/privacy", "governance"),
     ("/v1/runtime", "runtime"),
     ("/v1/proof", "runtime"),
     ("/v1/readiness", "runtime"),
@@ -35,6 +36,7 @@ SCOPE_LANE_MAP: dict[str, list[str]] = {
         "domain_ontology",
         "liability_surface",
         "bias_taxonomy",
+        "privacy_membrane",
         "pipeline_export_replay",
     ],
     "runtime": [

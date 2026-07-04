@@ -2007,6 +2007,183 @@
         }
       }
     },
+    "/v1/privacy/taxonomy": {
+      "get": {
+        "summary": "Privacy Taxonomy",
+        "operationId": "privacy_taxonomy_v1_privacy_taxonomy_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyTaxonomyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/privacy/deidentify": {
+      "post": {
+        "summary": "Privacy Deidentify",
+        "operationId": "privacy_deidentify_v1_privacy_deidentify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrivacyTextRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyTextResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/privacy/corpus/audit": {
+      "post": {
+        "summary": "Privacy Corpus Audit",
+        "operationId": "privacy_corpus_audit_v1_privacy_corpus_audit_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrivacyCorpusAuditRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyCorpusAuditResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/privacy/runs": {
+      "get": {
+        "summary": "List Privacy Runs",
+        "operationId": "list_privacy_runs_v1_privacy_runs_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PrivacyRunRecord"
+                  },
+                  "title": "Response List Privacy Runs V1 Privacy Runs Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/privacy/runs/{run_id}": {
+      "get": {
+        "summary": "Get Privacy Run",
+        "operationId": "get_privacy_run_v1_privacy_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyRunRecord"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/plan": {
       "post": {
         "summary": "Plan",
@@ -7572,6 +7749,755 @@
           "request"
         ],
         "title": "PopulationDriftRequest"
+      },
+      "PrivacyCategory": {
+        "properties": {
+          "category_id": {
+            "type": "string",
+            "title": "Category Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Severity"
+          },
+          "family": {
+            "type": "string",
+            "title": "Family"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "detector_kinds": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "pattern",
+                "checksum",
+                "context_label",
+                "script_signal"
+              ]
+            },
+            "type": "array",
+            "title": "Detector Kinds"
+          },
+          "language_notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Language Notes"
+          },
+          "examples_are_synthetic": {
+            "type": "boolean",
+            "title": "Examples Are Synthetic",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "category_id",
+          "label",
+          "severity",
+          "family",
+          "description"
+        ],
+        "title": "PrivacyCategory"
+      },
+      "PrivacyCategorySummary": {
+        "properties": {
+          "category_id": {
+            "type": "string",
+            "title": "Category Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Severity"
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Count"
+          },
+          "highest_confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Highest Confidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "category_id",
+          "label",
+          "severity",
+          "count",
+          "highest_confidence"
+        ],
+        "title": "PrivacyCategorySummary"
+      },
+      "PrivacyCorpusAuditRequest": {
+        "properties": {
+          "documents": {
+            "items": {
+              "$ref": "#/components/schemas/PrivacyCorpusDocument"
+            },
+            "type": "array",
+            "maxItems": 256,
+            "minItems": 1,
+            "title": "Documents"
+          },
+          "masking_mode": {
+            "type": "string",
+            "enum": [
+              "stable_token",
+              "bracket_label",
+              "preserve_shape",
+              "remove"
+            ],
+            "title": "Masking Mode",
+            "default": "stable_token"
+          },
+          "categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 128,
+            "title": "Categories"
+          },
+          "min_confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Min Confidence",
+            "default": 0.55
+          },
+          "purpose": {
+            "type": "string",
+            "title": "Purpose",
+            "default": "corpus_audit"
+          },
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id",
+            "default": ""
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "documents"
+        ],
+        "title": "PrivacyCorpusAuditRequest"
+      },
+      "PrivacyCorpusAuditResponse": {
+        "properties": {
+          "run": {
+            "$ref": "#/components/schemas/PrivacyRunRecord"
+          },
+          "document_audits": {
+            "items": {
+              "$ref": "#/components/schemas/PrivacyDocumentAudit"
+            },
+            "type": "array",
+            "title": "Document Audits"
+          },
+          "category_summaries": {
+            "items": {
+              "$ref": "#/components/schemas/PrivacyCategorySummary"
+            },
+            "type": "array",
+            "title": "Category Summaries"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run"
+        ],
+        "title": "PrivacyCorpusAuditResponse"
+      },
+      "PrivacyCorpusDocument": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Document Id"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 200000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Languages"
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "text"
+        ],
+        "title": "PrivacyCorpusDocument"
+      },
+      "PrivacyDocumentAudit": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "risk_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Risk Score"
+          },
+          "finding_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Finding Count"
+          },
+          "category_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Category Ids"
+          },
+          "language_hints": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Language Hints"
+          },
+          "receipt": {
+            "$ref": "#/components/schemas/PrivacyReceipt"
+          },
+          "redacted_text": {
+            "type": "string",
+            "title": "Redacted Text",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "risk_score",
+          "finding_count",
+          "receipt"
+        ],
+        "title": "PrivacyDocumentAudit"
+      },
+      "PrivacyFinding": {
+        "properties": {
+          "finding_id": {
+            "type": "string",
+            "title": "Finding Id"
+          },
+          "category_id": {
+            "type": "string",
+            "title": "Category Id"
+          },
+          "category_label": {
+            "type": "string",
+            "title": "Category Label"
+          },
+          "detector_kind": {
+            "type": "string",
+            "enum": [
+              "pattern",
+              "checksum",
+              "context_label",
+              "script_signal"
+            ],
+            "title": "Detector Kind"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Severity"
+          },
+          "span_start": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Span Start"
+          },
+          "span_end": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Span End"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence"
+          },
+          "replacement": {
+            "type": "string",
+            "title": "Replacement"
+          },
+          "preview": {
+            "type": "string",
+            "title": "Preview",
+            "default": ""
+          },
+          "language_hints": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Language Hints"
+          },
+          "evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "finding_id",
+          "category_id",
+          "category_label",
+          "detector_kind",
+          "severity",
+          "span_start",
+          "span_end",
+          "confidence",
+          "replacement"
+        ],
+        "title": "PrivacyFinding"
+      },
+      "PrivacyReceipt": {
+        "properties": {
+          "receipt_id": {
+            "type": "string",
+            "title": "Receipt Id"
+          },
+          "source_sha256": {
+            "type": "string",
+            "title": "Source Sha256"
+          },
+          "redacted_sha256": {
+            "type": "string",
+            "title": "Redacted Sha256"
+          },
+          "finding_set_sha256": {
+            "type": "string",
+            "title": "Finding Set Sha256"
+          },
+          "detector_version": {
+            "type": "string",
+            "title": "Detector Version"
+          },
+          "masking_mode": {
+            "type": "string",
+            "enum": [
+              "stable_token",
+              "bracket_label",
+              "preserve_shape",
+              "remove"
+            ],
+            "title": "Masking Mode"
+          },
+          "text_length": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Text Length"
+          },
+          "finding_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Finding Count"
+          },
+          "category_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Category Count"
+          },
+          "language_hints": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Language Hints"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_sha256",
+          "redacted_sha256",
+          "finding_set_sha256",
+          "detector_version",
+          "masking_mode",
+          "text_length",
+          "finding_count",
+          "category_count"
+        ],
+        "title": "PrivacyReceipt"
+      },
+      "PrivacyRunRecord": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "route": {
+            "type": "string",
+            "title": "Route"
+          },
+          "purpose": {
+            "type": "string",
+            "title": "Purpose"
+          },
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id",
+            "default": ""
+          },
+          "document_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Document Count"
+          },
+          "finding_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Finding Count"
+          },
+          "risk_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Risk Score"
+          },
+          "highest_severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Highest Severity",
+            "default": "low"
+          },
+          "category_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Category Counts"
+          },
+          "language_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Language Counts"
+          },
+          "receipts": {
+            "items": {
+              "$ref": "#/components/schemas/PrivacyReceipt"
+            },
+            "type": "array",
+            "title": "Receipts"
+          },
+          "persisted_raw_text": {
+            "type": "boolean",
+            "title": "Persisted Raw Text",
+            "default": false
+          },
+          "persisted_redacted_text": {
+            "type": "boolean",
+            "title": "Persisted Redacted Text",
+            "default": false
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "route",
+          "purpose",
+          "document_count",
+          "finding_count",
+          "risk_score"
+        ],
+        "title": "PrivacyRunRecord"
+      },
+      "PrivacyTaxonomyResponse": {
+        "properties": {
+          "detector_version": {
+            "type": "string",
+            "title": "Detector Version"
+          },
+          "category_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Category Count"
+          },
+          "language_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Language Count"
+          },
+          "deterministic_category_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Deterministic Category Count"
+          },
+          "categories": {
+            "items": {
+              "$ref": "#/components/schemas/PrivacyCategory"
+            },
+            "type": "array",
+            "title": "Categories"
+          },
+          "language_hints": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Language Hints"
+          },
+          "boundary_notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Boundary Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detector_version",
+          "category_count",
+          "language_count",
+          "deterministic_category_count"
+        ],
+        "title": "PrivacyTaxonomyResponse"
+      },
+      "PrivacyTextRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 200000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Languages"
+          },
+          "masking_mode": {
+            "type": "string",
+            "enum": [
+              "stable_token",
+              "bracket_label",
+              "preserve_shape",
+              "remove"
+            ],
+            "title": "Masking Mode",
+            "default": "stable_token"
+          },
+          "categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 128,
+            "title": "Categories"
+          },
+          "min_confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Min Confidence",
+            "default": 0.55
+          },
+          "include_context": {
+            "type": "boolean",
+            "title": "Include Context",
+            "default": true
+          },
+          "masking_salt": {
+            "type": "string",
+            "title": "Masking Salt",
+            "default": ""
+          },
+          "tenant_id": {
+            "type": "string",
+            "title": "Tenant Id",
+            "default": ""
+          },
+          "purpose": {
+            "type": "string",
+            "title": "Purpose",
+            "default": "deidentify"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 64,
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "PrivacyTextRequest"
+      },
+      "PrivacyTextResponse": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "redacted_text": {
+            "type": "string",
+            "title": "Redacted Text"
+          },
+          "risk_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Risk Score"
+          },
+          "highest_severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Highest Severity",
+            "default": "low"
+          },
+          "finding_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Finding Count"
+          },
+          "category_summaries": {
+            "items": {
+              "$ref": "#/components/schemas/PrivacyCategorySummary"
+            },
+            "type": "array",
+            "title": "Category Summaries"
+          },
+          "language_hints": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Language Hints"
+          },
+          "findings": {
+            "items": {
+              "$ref": "#/components/schemas/PrivacyFinding"
+            },
+            "type": "array",
+            "title": "Findings"
+          },
+          "receipt": {
+            "$ref": "#/components/schemas/PrivacyReceipt"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "redacted_text",
+          "risk_score",
+          "finding_count",
+          "receipt"
+        ],
+        "title": "PrivacyTextResponse"
       },
       "RecipeCompileRequest": {
         "properties": {

@@ -40,6 +40,7 @@ jobs:
           python scripts/export_benchmark_surfaces.py
           python scripts/export_cymatic_surface.py
           python scripts/export_music_observatory.py
+          python scripts/export_privacy_membrane.py
           python scripts/export_operator_surfaces.py
           python scripts/export_industry_profiles.py
           python scripts/export_industrial_diagnostics.py
@@ -60,6 +61,7 @@ jobs:
           cp model-observatory.html site/model-observatory.html
           cp benchmark-observatory.html site/benchmark-observatory.html
           cp cymatic-media-engine.html site/cymatic-media-engine.html
+          cp privacy-membrane.html site/privacy-membrane.html
           cp research-influence.html site/research-influence.html
           cp industrial-diagnostics.html site/industrial-diagnostics.html
           cp music-observatory.html site/music-observatory.html
@@ -71,6 +73,7 @@ jobs:
           cp industrial-diagnostics.js site/industrial-diagnostics.js
           cp industry-profiles.js site/industry-profiles.js
           cp music-observatory.js site/music-observatory.js
+          cp privacy-membrane.js site/privacy-membrane.js
           cp research-influence.js site/research-influence.js
           cp research-surfaces.js site/research-surfaces.js
           cp site-controls.css site/site-controls.css

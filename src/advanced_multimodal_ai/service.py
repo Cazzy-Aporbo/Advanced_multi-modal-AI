@@ -93,6 +93,12 @@ from .contracts import (
     PipelineRunRecord,
     PopulationDriftRequest,
     PopulationDriftResponse,
+    PrivacyCorpusAuditRequest,
+    PrivacyCorpusAuditResponse,
+    PrivacyRunRecord,
+    PrivacyTaxonomyResponse,
+    PrivacyTextRequest,
+    PrivacyTextResponse,
     ProvenanceReceipt,
     ReadinessReport,
     RecipeCompileRequest,
@@ -168,6 +174,8 @@ from .operator_surfaces import build_operator_surface_bundle
 from .orchestration import build_inference_plan
 from .pipeline_store import PipelineStore
 from .pipelines import build_inference_request_from_pipeline
+from .privacy_membrane import audit_corpus, deidentify_text, privacy_taxonomy
+from .privacy_store import PrivacyStore
 from .proof import build_runtime_proof_bundle
 from .provenance import build_provenance_receipt
 from .quality import build_data_profile
@@ -282,6 +290,7 @@ class AdvancedMultimodalService:
         )
         self.tracking_ledger_store = TrackingLedgerStore(self.settings.tracking_ledger_db_path)
         self.music_store = MusicStore(self.settings.music_warehouse_db_path)
+        self.privacy_store = PrivacyStore(self.settings.privacy_membrane_db_path)
 
     @property
     def torch_available(self) -> bool:
@@ -317,6 +326,32 @@ class AdvancedMultimodalService:
     def assess_bias(self, request: BiasAssessmentRequest) -> BiasAssessmentResponse:
         record_data_plane("bias_assessment")
         return assess_bias(request)
+
+    def privacy_taxonomy(self) -> PrivacyTaxonomyResponse:
+        record_data_plane("privacy_taxonomy")
+        return privacy_taxonomy()
+
+    def deidentify_privacy_text(self, request: PrivacyTextRequest) -> PrivacyTextResponse:
+        record_data_plane("privacy_deidentify")
+        response, run = deidentify_text(request)
+        self.privacy_store.save_run(run)
+        return response
+
+    def audit_privacy_corpus(
+        self,
+        request: PrivacyCorpusAuditRequest,
+    ) -> PrivacyCorpusAuditResponse:
+        record_data_plane("privacy_corpus_audit")
+        response = audit_corpus(request)
+        self.privacy_store.save_run(response.run)
+        return response
+
+    def list_privacy_runs(self, limit: int = 50) -> List[PrivacyRunRecord]:
+        record_data_plane("privacy_runs_list")
+        return self.privacy_store.list_runs(limit=limit)
+
+    def get_privacy_run(self, run_id: str) -> PrivacyRunRecord | None:
+        return self.privacy_store.get_run(run_id)
 
     def register_dataset(self, request: DatasetRegistrationRequest) -> DatasetRecord:
         record_data_plane("dataset_catalog_register")
@@ -998,6 +1033,7 @@ class AdvancedMultimodalService:
             "edge_packets": self.tracking_ledger_store.count_entries(),
             "music_manifests": self.music_store.count_manifests(),
             "music_feature_runs": self.music_store.count_runs(),
+            "privacy_runs": self.privacy_store.count_runs(),
         }
 
     def runtime_attestation(self) -> RuntimeAttestationResponse:

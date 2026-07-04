@@ -100,6 +100,13 @@
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/music-observatory.html">open</a>
     </td>
     <td width="25%" valign="top">
+      <strong>Privacy Membrane</strong><br/>
+      <sub>Local de-identification and receipt proof.</sub><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/privacy-membrane.html">open</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="25%" valign="top">
       <strong>Industry Profiles</strong><br/>
       <sub>Domain routes tied to live endpoints.</sub><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/industry-profiles.html">open</a>
@@ -148,6 +155,7 @@ make acceptance
 | API and contracts | `src/advanced_multimodal_ai/api.py`, `contracts.py`, `service.py` | `openapi/openapi.json`, generated Python and TypeScript clients |
 | Ingestion | typed local, HTTP, public-web, CSV, NDJSON, Parquet, and S3-shaped connectors | connector run records, catalog fingerprints, pipeline replay |
 | Music features | manifest-only audio intake, segment index, feature warehouse, embeddings, drift | `proof/music-observatory.*`, `/v1/music/*` |
+| Privacy membrane | deterministic PII detection, masking, corpus audit, receipt-only persistence | `proof/privacy-membrane.*`, `/v1/privacy/*` |
 | Industrial diagnostics | symbolic fault rules, safety checks, formal transition review, fault graph | `proof/industrial-diagnostics.*`, `/v1/industrial/*` |
 | Edge review | packet scoring, policy profile, ledger entries, topology export | `proof/edge-topology.*`, `/v1/edge/*` |
 | Research surfaces | model cards, findings, connection map, operator surfaces | `proof/research-surfaces.*`, `proof/operator-surfaces.*` |
@@ -193,7 +201,7 @@ connector or request
 | Data review | `/v1/data/profile`, `/v1/data/provenance`, `/v1/alignment/windows`, `/v1/drift/*` |
 | Music | `/v1/music/manifests`, `/v1/music/features/*`, `/v1/music/drift`, `/v1/music/proof/change-report` |
 | Video | `/v1/video/packet`, `/v1/video/clean`, `/v1/jobs/video-clean` |
-| Governance and stewardship | `/v1/stewardship/*`, `/v1/ontology/*`, `/v1/bias/*`, `/v1/edge/*` |
+| Governance and stewardship | `/v1/stewardship/*`, `/v1/ontology/*`, `/v1/bias/*`, `/v1/privacy/*`, `/v1/edge/*` |
 | Industrial diagnostics | `/v1/industrial/scenarios`, `/v1/industrial/diagnose`, `/v1/industrial/model-check` |
 | Proof and public research | `/v1/proof/bundle`, `/v1/research/*`, `/v1/operators/*`, `/v1/industries/profiles`, `/v1/repository/pulse`, `/v1/growth/snapshot` |
 
@@ -219,6 +227,31 @@ Useful surfaces:
 - `GET /v1/music/drift`
 - `GET /v1/music/proof/change-report`
 - [`proof/music-observatory.md`](./proof/music-observatory.md)
+
+</details>
+
+<details>
+  <summary><strong>Privacy membrane</strong></summary>
+
+The privacy lane is local and deterministic. It does not claim a trained token
+classifier. It catches high-signal personal data through checksums, explicit
+labels, credential patterns, and multilingual label hints, then returns masked
+text plus receipts. The run store keeps aggregate counts and hashes; it does not
+persist raw or redacted sensitive text.
+
+```bash
+curl -s http://127.0.0.1:8000/v1/privacy/deidentify \
+  -H "content-type: application/json" \
+  -d '{"text":"Name: Ana Reyes; email ana@example.org; card 4242 4242 4242 4242","languages":["en"],"masking_mode":"stable_token"}'
+```
+
+Useful surfaces:
+
+- `GET /v1/privacy/taxonomy`
+- `POST /v1/privacy/deidentify`
+- `POST /v1/privacy/corpus/audit`
+- `GET /v1/privacy/runs`
+- [`proof/privacy-membrane.md`](./proof/privacy-membrane.md)
 
 </details>
 
@@ -259,6 +292,7 @@ Advanced_multi-modal-AI/
 ├── model-observatory.html
 ├── benchmark-observatory.html
 ├── music-observatory.html
+├── privacy-membrane.html
 ├── industry-profiles.html
 ├── industrial-diagnostics.html
 ├── field-notes.html
@@ -274,6 +308,8 @@ Advanced_multi-modal-AI/
 │   ├── drift.py
 │   ├── music_features.py
 │   ├── music_truth.py
+│   ├── privacy_membrane.py
+│   ├── privacy_store.py
 │   ├── edge_gateway.py
 │   ├── industrial_diagnostics/
 │   └── repository_growth.py
@@ -307,6 +343,7 @@ Advanced_multi-modal-AI/
 | `contracts.py`, `service.py`, `api.py` | hold typed requests, coordinate runtime behavior, expose routes |
 | `drift.py`, `domain_ontology.py`, `liability_surface.py`, `stewardship_store.py` | review population shifts, operational movement, lifecycle coverage, and route constraints |
 | `music_features.py`, `music_embeddings.py`, `music_truth.py`, `music_store.py` | create derived audio feature lanes and catalog-level change proof |
+| `privacy_membrane.py`, `privacy_store.py` | detect high-signal PII locally, mask it, and persist receipt-only audit records |
 | `industrial_diagnostics/` | diagnose machine faults, evaluate compliance posture, produce graph and audit proof |
 | `attestation.py`, `proof.py`, `readiness.py`, `execution_journal.py` | export what exists, what ran, and what still needs coverage |
 
@@ -321,6 +358,7 @@ Advanced_multi-modal-AI/
 | `proof/readiness-report.md` | present-tense checks and boundaries |
 | `proof/benchmark-surfaces.md` | benchmark and replay evidence |
 | `proof/music-observatory.md` | music feature warehouse and drift evidence |
+| `proof/privacy-membrane.md` | privacy taxonomy, sample receipt, and non-persistence proof |
 | `proof/industrial-diagnostics.md` | industrial scenario, proof tree, audit chain, compliance findings |
 | `proof/industry-profiles.md` | domain transfer routes and proof surfaces |
 | `proof/repository-growth.md` | repo health, contribution, proof freshness, and publishing signals |

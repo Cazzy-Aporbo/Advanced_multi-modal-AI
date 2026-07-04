@@ -1,0 +1,921 @@
+{
+  "taxonomy": {
+    "detector_version": "privacy-membrane-2026.07",
+    "category_count": 63,
+    "language_count": 20,
+    "deterministic_category_count": 101,
+    "categories": [
+      {
+        "category_id": "person_name",
+        "label": "Person name",
+        "severity": "high",
+        "family": "identity",
+        "description": "A named person captured through an explicit label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [
+          "multilingual labels"
+        ],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "email_address",
+        "label": "Email address",
+        "severity": "high",
+        "family": "contact",
+        "description": "Mailbox or login address.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "phone_number",
+        "label": "Phone number",
+        "severity": "high",
+        "family": "contact",
+        "description": "International or domestic telephone number.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "street_address",
+        "label": "Street address",
+        "severity": "high",
+        "family": "location",
+        "description": "Address captured through an explicit label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "postal_code",
+        "label": "Postal code",
+        "severity": "medium",
+        "family": "location",
+        "description": "Postal or ZIP code.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "precise_coordinate",
+        "label": "Precise coordinate",
+        "severity": "high",
+        "family": "location",
+        "description": "Latitude and longitude pair.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "date",
+        "label": "Date",
+        "severity": "medium",
+        "family": "temporal",
+        "description": "Calendar date that can become identifying in narrow contexts.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "date_of_birth",
+        "label": "Date of birth",
+        "severity": "critical",
+        "family": "identity",
+        "description": "Birth date captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "age",
+        "label": "Age",
+        "severity": "medium",
+        "family": "identity",
+        "description": "Age value captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "credit_card",
+        "label": "Payment card",
+        "severity": "critical",
+        "family": "financial",
+        "description": "Payment card number validated with Luhn checksum.",
+        "detector_kinds": [
+          "checksum"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "iban",
+        "label": "IBAN",
+        "severity": "critical",
+        "family": "financial",
+        "description": "International bank account number validated with MOD-97.",
+        "detector_kinds": [
+          "checksum"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "bank_routing",
+        "label": "Bank routing number",
+        "severity": "critical",
+        "family": "financial",
+        "description": "US-style bank routing number.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "bank_account",
+        "label": "Bank account",
+        "severity": "critical",
+        "family": "financial",
+        "description": "Account number captured through an explicit label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "swift_bic",
+        "label": "SWIFT/BIC",
+        "severity": "high",
+        "family": "financial",
+        "description": "International bank routing code.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "crypto_wallet",
+        "label": "Crypto wallet",
+        "severity": "high",
+        "family": "financial",
+        "description": "Common wallet address format.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "ssn_us",
+        "label": "US Social Security number",
+        "severity": "critical",
+        "family": "government",
+        "description": "US SSN pattern.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "national_id",
+        "label": "National ID",
+        "severity": "critical",
+        "family": "government",
+        "description": "Government identifier captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "passport_number",
+        "label": "Passport number",
+        "severity": "critical",
+        "family": "government",
+        "description": "Passport identifier captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "drivers_license",
+        "label": "Driver license",
+        "severity": "critical",
+        "family": "government",
+        "description": "Driver license identifier captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "tax_id",
+        "label": "Tax ID",
+        "severity": "critical",
+        "family": "government",
+        "description": "Taxpayer identifier captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "medical_record_number",
+        "label": "Medical record number",
+        "severity": "critical",
+        "family": "healthcare",
+        "description": "MRN or patient record number.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "claim_id",
+        "label": "Claim ID",
+        "severity": "high",
+        "family": "healthcare",
+        "description": "Insurance or benefits claim identifier.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "insurance_member_id",
+        "label": "Insurance member ID",
+        "severity": "critical",
+        "family": "healthcare",
+        "description": "Health-plan member or subscriber identifier.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "diagnosis_context",
+        "label": "Diagnosis context",
+        "severity": "medium",
+        "family": "healthcare",
+        "description": "Diagnosis label coupled with personal context.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "genetic_marker",
+        "label": "Genetic marker",
+        "severity": "critical",
+        "family": "biometric",
+        "description": "Genomic or sequence identifier.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "biometric_reference",
+        "label": "Biometric reference",
+        "severity": "critical",
+        "family": "biometric",
+        "description": "Face, voice, gait, or fingerprint reference.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "voiceprint_id",
+        "label": "Voiceprint ID",
+        "severity": "critical",
+        "family": "biometric",
+        "description": "Voiceprint enrollment identifier.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "face_template_id",
+        "label": "Face template ID",
+        "severity": "critical",
+        "family": "biometric",
+        "description": "Face embedding or template identifier.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "employee_id",
+        "label": "Employee ID",
+        "severity": "high",
+        "family": "workforce",
+        "description": "Employee identifier.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "student_id",
+        "label": "Student ID",
+        "severity": "high",
+        "family": "education",
+        "description": "Student or learner identifier.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "case_number",
+        "label": "Case number",
+        "severity": "high",
+        "family": "legal",
+        "description": "Legal, support, or investigation case number.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "support_ticket",
+        "label": "Support ticket",
+        "severity": "medium",
+        "family": "operations",
+        "description": "Ticket identifier that can join to a customer record.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "order_id",
+        "label": "Order ID",
+        "severity": "medium",
+        "family": "commerce",
+        "description": "Order identifier.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "invoice_id",
+        "label": "Invoice ID",
+        "severity": "medium",
+        "family": "commerce",
+        "description": "Invoice identifier.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "ip_address",
+        "label": "IP address",
+        "severity": "high",
+        "family": "network",
+        "description": "IPv4 or IPv6 network address.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "mac_address",
+        "label": "MAC address",
+        "severity": "high",
+        "family": "network",
+        "description": "Hardware network address.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "device_id",
+        "label": "Device ID",
+        "severity": "high",
+        "family": "device",
+        "description": "Device identifier captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "imei",
+        "label": "IMEI",
+        "severity": "critical",
+        "family": "device",
+        "description": "Mobile device IMEI.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "imsi",
+        "label": "IMSI",
+        "severity": "critical",
+        "family": "device",
+        "description": "Subscriber identity for mobile networks.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "vehicle_vin",
+        "label": "Vehicle VIN",
+        "severity": "high",
+        "family": "industrial",
+        "description": "Vehicle identification number.",
+        "detector_kinds": [
+          "checksum",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "license_plate",
+        "label": "License plate",
+        "severity": "medium",
+        "family": "industrial",
+        "description": "Vehicle plate captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "asset_serial",
+        "label": "Asset serial",
+        "severity": "medium",
+        "family": "industrial",
+        "description": "Machine or hardware serial number.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "private_key",
+        "label": "Private key",
+        "severity": "critical",
+        "family": "credential",
+        "description": "PEM private key block.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "bearer_token",
+        "label": "Bearer token",
+        "severity": "critical",
+        "family": "credential",
+        "description": "Bearer authorization token.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "jwt",
+        "label": "JWT",
+        "severity": "critical",
+        "family": "credential",
+        "description": "JSON Web Token.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "api_key",
+        "label": "API key",
+        "severity": "critical",
+        "family": "credential",
+        "description": "API key or cloud access key.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "password",
+        "label": "Password",
+        "severity": "critical",
+        "family": "credential",
+        "description": "Password captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "session_cookie",
+        "label": "Session cookie",
+        "severity": "critical",
+        "family": "credential",
+        "description": "Session cookie captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "url_secret",
+        "label": "URL secret",
+        "severity": "critical",
+        "family": "credential",
+        "description": "URL query string carrying a secret-bearing parameter.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "social_handle",
+        "label": "Social handle",
+        "severity": "medium",
+        "family": "online",
+        "description": "User handle or account name.",
+        "detector_kinds": [
+          "pattern",
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "profile_url",
+        "label": "Profile URL",
+        "severity": "medium",
+        "family": "online",
+        "description": "Social or professional profile URL.",
+        "detector_kinds": [
+          "pattern"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "religion",
+        "label": "Religion",
+        "severity": "high",
+        "family": "sensitive_attribute",
+        "description": "Religious affiliation captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "political_affiliation",
+        "label": "Political affiliation",
+        "severity": "high",
+        "family": "sensitive_attribute",
+        "description": "Political affiliation captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "union_membership",
+        "label": "Union membership",
+        "severity": "high",
+        "family": "sensitive_attribute",
+        "description": "Union affiliation captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "disability_status",
+        "label": "Disability status",
+        "severity": "high",
+        "family": "sensitive_attribute",
+        "description": "Disability status captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "immigration_status",
+        "label": "Immigration status",
+        "severity": "high",
+        "family": "sensitive_attribute",
+        "description": "Immigration or visa status captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "caregiver_status",
+        "label": "Caregiver status",
+        "severity": "medium",
+        "family": "sensitive_attribute",
+        "description": "Caregiving role captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "minor_status",
+        "label": "Minor status",
+        "severity": "critical",
+        "family": "sensitive_attribute",
+        "description": "Child/minor indicator captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "household_income",
+        "label": "Household income",
+        "severity": "medium",
+        "family": "sensitive_attribute",
+        "description": "Income captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "precise_school",
+        "label": "Precise school",
+        "severity": "medium",
+        "family": "education",
+        "description": "School identity captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "worksite_location",
+        "label": "Worksite location",
+        "severity": "medium",
+        "family": "workforce",
+        "description": "Specific worksite captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "emergency_contact",
+        "label": "Emergency contact",
+        "severity": "critical",
+        "family": "contact",
+        "description": "Emergency contact captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      },
+      {
+        "category_id": "next_of_kin",
+        "label": "Next of kin",
+        "severity": "critical",
+        "family": "contact",
+        "description": "Next-of-kin captured by label.",
+        "detector_kinds": [
+          "context_label"
+        ],
+        "language_notes": [],
+        "examples_are_synthetic": true
+      }
+    ],
+    "language_hints": [
+      "english",
+      "filipino",
+      "spanish",
+      "french",
+      "german",
+      "italian",
+      "portuguese",
+      "dutch",
+      "polish",
+      "russian",
+      "ukrainian",
+      "japanese",
+      "korean",
+      "chinese",
+      "hindi",
+      "arabic",
+      "vietnamese",
+      "thai",
+      "indonesian",
+      "turkish"
+    ],
+    "boundary_notes": [
+      "This lane performs local deterministic detection and masking. It does not claim trained-token classification.",
+      "The recognizers favor high-signal evidence: checksums, explicit labels, keyed secrets, and structured identifiers.",
+      "Broad person-name and street-address recognition is limited to context labels to avoid pretending that general NER is present.",
+      "The store persists receipts and aggregate counts only; raw text and redacted text are returned to the caller but not saved."
+    ]
+  },
+  "sample_receipt": {
+    "receipt_id": "f4ca14bd-5608-4916-a1cc-ef13102e72a7",
+    "source_sha256": "9bd10dbad21a44770ff9d3c19edfcf9c6b98e7752d130595547b02808595fa25",
+    "redacted_sha256": "2a19669fc54fd0ee35c684f74972c91bbab7462dcb70440b51e99211f44a7d6a",
+    "finding_set_sha256": "e9252e999b089fcd24b3e42692de8725d45ac3351e26d142e63655b4262d9b3a",
+    "detector_version": "privacy-membrane-2026.07",
+    "masking_mode": "stable_token",
+    "text_length": 103,
+    "finding_count": 5,
+    "category_count": 5,
+    "language_hints": [
+      "en",
+      "english",
+      "fil"
+    ],
+    "created_at": "2026-07-04T21:38:16.445377+00:00"
+  },
+  "sample_category_summaries": [
+    {
+      "category_id": "credit_card",
+      "label": "Payment card",
+      "severity": "critical",
+      "count": 1,
+      "highest_confidence": 0.96
+    },
+    {
+      "category_id": "date_of_birth",
+      "label": "Date of birth",
+      "severity": "critical",
+      "count": 1,
+      "highest_confidence": 0.82
+    },
+    {
+      "category_id": "email_address",
+      "label": "Email address",
+      "severity": "high",
+      "count": 1,
+      "highest_confidence": 0.98
+    },
+    {
+      "category_id": "medical_record_number",
+      "label": "Medical record number",
+      "severity": "critical",
+      "count": 1,
+      "highest_confidence": 0.92
+    },
+    {
+      "category_id": "person_name",
+      "label": "Person name",
+      "severity": "high",
+      "count": 1,
+      "highest_confidence": 0.82
+    }
+  ],
+  "run_records": [
+    {
+      "run_id": "d554fa3f-dfae-4654-81fa-2bdd9c18e0d3",
+      "route": "/v1/privacy/deidentify",
+      "purpose": "proof_export_fixture",
+      "tenant_id": "",
+      "document_count": 1,
+      "finding_count": 5,
+      "risk_score": 0.8156,
+      "highest_severity": "critical",
+      "category_counts": {
+        "credit_card": 1,
+        "date_of_birth": 1,
+        "email_address": 1,
+        "medical_record_number": 1,
+        "person_name": 1
+      },
+      "language_counts": {
+        "en": 1,
+        "english": 1,
+        "fil": 1
+      },
+      "receipts": [
+        {
+          "receipt_id": "f4ca14bd-5608-4916-a1cc-ef13102e72a7",
+          "source_sha256": "9bd10dbad21a44770ff9d3c19edfcf9c6b98e7752d130595547b02808595fa25",
+          "redacted_sha256": "2a19669fc54fd0ee35c684f74972c91bbab7462dcb70440b51e99211f44a7d6a",
+          "finding_set_sha256": "e9252e999b089fcd24b3e42692de8725d45ac3351e26d142e63655b4262d9b3a",
+          "detector_version": "privacy-membrane-2026.07",
+          "masking_mode": "stable_token",
+          "text_length": 103,
+          "finding_count": 5,
+          "category_count": 5,
+          "language_hints": [
+            "en",
+            "english",
+            "fil"
+          ],
+          "created_at": "2026-07-04T21:38:16.445377+00:00"
+        }
+      ],
+      "persisted_raw_text": false,
+      "persisted_redacted_text": false,
+      "notes": [
+        "Only receipts and aggregate privacy counts were persisted."
+      ],
+      "created_at": "2026-07-04T21:38:16.445431+00:00"
+    }
+  ],
+  "notes": [
+    "The export is generated from the live API surface.",
+    "The fixture proves masking, receipts, and non-persistence without shipping raw sensitive data."
+  ]
+}

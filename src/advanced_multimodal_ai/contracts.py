@@ -827,6 +827,154 @@ class VideoCleaningResponse(BaseModel):
     created_at: str = Field(default_factory=utc_now)
 
 
+PrivacyMaskingMode = Literal["stable_token", "bracket_label", "preserve_shape", "remove"]
+PrivacyDetectorKind = Literal["pattern", "checksum", "context_label", "script_signal"]
+PrivacySeverity = Literal["low", "medium", "high", "critical"]
+
+
+class PrivacyCategory(BaseModel):
+    category_id: str
+    label: str
+    severity: PrivacySeverity
+    family: str
+    description: str
+    detector_kinds: List[PrivacyDetectorKind] = Field(default_factory=list)
+    language_notes: List[str] = Field(default_factory=list)
+    examples_are_synthetic: bool = True
+
+
+class PrivacyFinding(BaseModel):
+    finding_id: str
+    category_id: str
+    category_label: str
+    detector_kind: PrivacyDetectorKind
+    severity: PrivacySeverity
+    span_start: int = Field(ge=0)
+    span_end: int = Field(gt=0)
+    confidence: float = Field(ge=0.0, le=1.0)
+    replacement: str
+    preview: str = ""
+    language_hints: List[str] = Field(default_factory=list)
+    evidence: List[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_span(self) -> "PrivacyFinding":
+        if self.span_end <= self.span_start:
+            raise ValueError("Privacy findings must end after they start")
+        return self
+
+
+class PrivacyCategorySummary(BaseModel):
+    category_id: str
+    label: str
+    severity: PrivacySeverity
+    count: int = Field(ge=0)
+    highest_confidence: float = Field(ge=0.0, le=1.0)
+
+
+class PrivacyReceipt(BaseModel):
+    receipt_id: str = Field(default_factory=lambda: str(uuid4()))
+    source_sha256: str
+    redacted_sha256: str
+    finding_set_sha256: str
+    detector_version: str
+    masking_mode: PrivacyMaskingMode
+    text_length: int = Field(ge=0)
+    finding_count: int = Field(ge=0)
+    category_count: int = Field(ge=0)
+    language_hints: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class PrivacyTextRequest(BaseModel):
+    text: str = Field(min_length=1, max_length=200_000)
+    languages: List[str] = Field(default_factory=list, max_length=32)
+    masking_mode: PrivacyMaskingMode = "stable_token"
+    categories: List[str] = Field(default_factory=list, max_length=128)
+    min_confidence: float = Field(default=0.55, ge=0.0, le=1.0)
+    include_context: bool = True
+    masking_salt: str = ""
+    tenant_id: str = ""
+    purpose: str = "deidentify"
+    notes: List[str] = Field(default_factory=list, max_length=64)
+
+
+class PrivacyTextResponse(BaseModel):
+    run_id: str = Field(default_factory=lambda: str(uuid4()))
+    redacted_text: str
+    risk_score: float = Field(ge=0.0, le=1.0)
+    highest_severity: PrivacySeverity = "low"
+    finding_count: int = Field(ge=0)
+    category_summaries: List[PrivacyCategorySummary] = Field(default_factory=list)
+    language_hints: List[str] = Field(default_factory=list)
+    findings: List[PrivacyFinding] = Field(default_factory=list)
+    receipt: PrivacyReceipt
+    notes: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class PrivacyCorpusDocument(BaseModel):
+    document_id: str = Field(min_length=1)
+    text: str = Field(min_length=1, max_length=200_000)
+    languages: List[str] = Field(default_factory=list, max_length=32)
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+
+class PrivacyCorpusAuditRequest(BaseModel):
+    documents: List[PrivacyCorpusDocument] = Field(min_length=1, max_length=256)
+    masking_mode: PrivacyMaskingMode = "stable_token"
+    categories: List[str] = Field(default_factory=list, max_length=128)
+    min_confidence: float = Field(default=0.55, ge=0.0, le=1.0)
+    purpose: str = "corpus_audit"
+    tenant_id: str = ""
+    notes: List[str] = Field(default_factory=list, max_length=64)
+
+
+class PrivacyDocumentAudit(BaseModel):
+    document_id: str
+    risk_score: float = Field(ge=0.0, le=1.0)
+    finding_count: int = Field(ge=0)
+    category_ids: List[str] = Field(default_factory=list)
+    language_hints: List[str] = Field(default_factory=list)
+    receipt: PrivacyReceipt
+    redacted_text: str = ""
+
+
+class PrivacyRunRecord(BaseModel):
+    run_id: str
+    route: str
+    purpose: str
+    tenant_id: str = ""
+    document_count: int = Field(ge=0)
+    finding_count: int = Field(ge=0)
+    risk_score: float = Field(ge=0.0, le=1.0)
+    highest_severity: PrivacySeverity = "low"
+    category_counts: Dict[str, int] = Field(default_factory=dict)
+    language_counts: Dict[str, int] = Field(default_factory=dict)
+    receipts: List[PrivacyReceipt] = Field(default_factory=list)
+    persisted_raw_text: bool = False
+    persisted_redacted_text: bool = False
+    notes: List[str] = Field(default_factory=list)
+    created_at: str = Field(default_factory=utc_now)
+
+
+class PrivacyCorpusAuditResponse(BaseModel):
+    run: PrivacyRunRecord
+    document_audits: List[PrivacyDocumentAudit] = Field(default_factory=list)
+    category_summaries: List[PrivacyCategorySummary] = Field(default_factory=list)
+    notes: List[str] = Field(default_factory=list)
+
+
+class PrivacyTaxonomyResponse(BaseModel):
+    detector_version: str
+    category_count: int = Field(ge=0)
+    language_count: int = Field(ge=0)
+    deterministic_category_count: int = Field(ge=0)
+    categories: List[PrivacyCategory] = Field(default_factory=list)
+    language_hints: List[str] = Field(default_factory=list)
+    boundary_notes: List[str] = Field(default_factory=list)
+
+
 AudioSourceKind = Literal[
     "object_store",
     "public_url",

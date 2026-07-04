@@ -72,6 +72,31 @@ class GeneratedOpenAPIClient:
         path = f"/v1/research/cymatic-surface"
         return self._request("GET", path)
 
+    def researchInfluenceV1ResearchInfluenceGet(self) -> Any:
+        """Research Influence"""
+        path = f"/v1/research/influence"
+        return self._request("GET", path)
+
+    def researchHarnessImprovementV1ResearchHarnessImprovementPost(self, payload: Any) -> Any:
+        """Research Harness Improvement"""
+        path = f"/v1/research/harness-improvement"
+        return self._request("POST", path, payload=payload)
+
+    def researchDeliberationAssessmentV1ResearchDeliberationAssessPost(self, payload: Any) -> Any:
+        """Research Deliberation Assessment"""
+        path = f"/v1/research/deliberation/assess"
+        return self._request("POST", path, payload=payload)
+
+    def researchTrustCalibrationV1ResearchTrustCalibratePost(self, payload: Any) -> Any:
+        """Research Trust Calibration"""
+        path = f"/v1/research/trust/calibrate"
+        return self._request("POST", path, payload=payload)
+
+    def researchEpistemicRiskV1ResearchEpistemicRiskAssessPost(self, payload: Any) -> Any:
+        """Research Epistemic Risk"""
+        path = f"/v1/research/epistemic-risk/assess"
+        return self._request("POST", path, payload=payload)
+
     def operatorSurfacesV1OperatorsSurfacesGet(self) -> Any:
         """Operator Surfaces"""
         path = f"/v1/operators/surfaces"

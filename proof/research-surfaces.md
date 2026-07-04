@@ -3,8 +3,8 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `95`
-- Test count: `55`
+- Route count: `100`
+- Test count: `60`
 - Connector kinds: `7`
 - Models: `4`
 - Runtime-ready models: `0`
@@ -447,10 +447,10 @@ Open questions:
 - Related surfaces: /v1/connectors/register, /v1/connectors/pipeline-ingest, /v1/catalog/register
 - Related files: src/advanced_multimodal_ai/connectors.py, src/advanced_multimodal_ai/catalog.py, src/advanced_multimodal_ai/pipelines.py
 
-491 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+501 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 Evidence:
-- connector runs recorded: 491
+- connector runs recorded: 501
 - connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html
 
 Why it matters:
@@ -467,14 +467,14 @@ Broaden the evidence base with more repeated connector runs against non-trivial 
 - Related surfaces: /v1/stewardship/posture, /v1/drift/check, /v1/ontology/liability
 - Related files: src/advanced_multimodal_ai/stewardship_store.py, src/advanced_multimodal_ai/drift.py, src/advanced_multimodal_ai/liability_surface.py
 
-Lifecycle policies (33), change controls (33), supply snapshots (33), drift baselines (8), and ontology snapshots (129) are persisted in the same backend story.
+Lifecycle policies (33), change controls (33), supply snapshots (33), drift baselines (8), and ontology snapshots (130) are persisted in the same backend story.
 
 Evidence:
 - lifecycle policies: 33
 - change controls: 33
 - supply snapshots: 33
 - drift baselines: 8
-- ontology snapshots: 129
+- ontology snapshots: 130
 
 Why it matters:
 It is easier to trust a system when retention, movement, and liability have a code path rather than only a meeting note.
@@ -510,13 +510,13 @@ Add stronger benchmark evidence for the research archive so promotion into the r
 - Related surfaces: /v1/proof/bundle, /v1/runtime/attestation, /v1/readiness/report
 - Related files: src/advanced_multimodal_ai/proof.py, src/advanced_multimodal_ai/attestation.py, scripts/export_readiness_report.py
 
-The bundle currently counts 95 routes, 55 tests, and 16 declared artifacts.
+The bundle currently counts 100 routes, 60 tests, and 16 declared artifacts.
 
 Evidence:
-- route count: 95
-- test count: 55
+- route count: 100
+- test count: 60
 - verification artifacts: 16
-- pipeline runs stored: 375
+- pipeline runs stored: 385
 
 Why it matters:
 Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.
@@ -532,10 +532,10 @@ Keep the export surfaces close to CI and extend replay comparisons so proof cove
 - Related surfaces: /v1/execution/journal, /v1/repository/pulse
 - Related files: src/advanced_multimodal_ai/execution_journal.py, src/advanced_multimodal_ai/execution_journal_store.py, scripts/export_execution_journal.py
 
-177 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
+193 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
 
 Evidence:
-- execution journal runs: 177
+- execution journal runs: 193
 - proof/execution-journal.json is exported from the backend journal surface.
 
 Why it matters:
@@ -552,10 +552,10 @@ Keep letting new export and benchmark lanes write their own receipts so operatio
 - Related surfaces: /v1/edge/evaluate, /v1/edge/ledger, /v1/edge/topology
 - Related files: src/advanced_multimodal_ai/edge_gateway.py, src/advanced_multimodal_ai/tracking_ledger.py, src/advanced_multimodal_ai/vector_mesh.py
 
-3 persisted edge packet events now tie packet geometry, cross-border posture, and route decisions into a ledgered runtime seam.
+4 persisted edge packet events now tie packet geometry, cross-border posture, and route decisions into a ledgered runtime seam.
 
 Evidence:
-- edge packet events: 3
+- edge packet events: 4
 - proof/edge-topology.json exports both the topology and the latest ledger summary.
 
 Why it matters:
@@ -597,9 +597,9 @@ The current readiness posture is 'review_ready'. The repo now has a steadier run
 
 Evidence:
 - readiness posture: review_ready
-- connector runs: 491
-- pipeline runs: 375
-- compiled recipes: 156
+- connector runs: 501
+- pipeline runs: 385
+- compiled recipes: 162
 
 Why it matters:
 The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.

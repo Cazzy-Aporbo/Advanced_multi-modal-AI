@@ -1,10 +1,10 @@
 {
-  "created_at": "2026-07-04T03:01:48.664750+00:00",
+  "created_at": "2026-07-04T04:03:25.312000+00:00",
   "service": "advanced-multimodal-ai",
   "version": "0.5.0",
   "examples": {
     "inference": {
-      "request_id": "435cf02d-f61c-47fd-9c03-81a64426a152",
+      "request_id": "375b7d09-ecdf-43fc-9013-0f520f2d8b20",
       "route": [
         "validate_payloads",
         "encode_audio",
@@ -28,14 +28,14 @@
       "warning_count": 0
     },
     "connector_ingest": {
-      "run_id": "8e7b7e0e-a044-4016-8549-6124bee8f939",
+      "run_id": "8e856520-75f3-494c-b803-197b826f7fa1",
       "connector_kind": "local_parquet",
       "record_count": 3,
-      "pipeline_run_id": "1742c342-b649-40b4-96ee-e8d97dc3832c",
+      "pipeline_run_id": "2ac56955-d6a0-46b7-983a-660ab30de6eb",
       "pipeline_status": "accepted"
     },
     "web_ingest": {
-      "dataset_id": "74cdf7bd-e3a0-4da0-89ed-054fe4d91063",
+      "dataset_id": "82652b9f-eb17-45e5-be00-37c0c45ab928",
       "record_count": 4,
       "sample_block_kinds": [
         "title",
@@ -46,7 +46,7 @@
       "title": "Example Intake"
     },
     "recipe_manifest": {
-      "recipe_id": "55d35e4e-3531-4f97-9b73-9c96e6decf29",
+      "recipe_id": "c9c08739-de5d-4641-97d3-d8fdd9057526",
       "launcher": "python",
       "engine": "local",
       "estimated_global_batch_size": 4,
@@ -59,15 +59,15 @@
       "cut_script_lines": 1
     },
     "smoke_benchmark": {
-      "benchmark_id": "6f4aead7-6760-41e4-bdf2-622e76d60754",
+      "benchmark_id": "612fd5bc-3bc1-4953-b771-ef9b3ba27ddb",
       "model_id": "adaptive_transformer",
       "iterations": 3,
-      "median_latency_ms": 13.662208002642728,
-      "p95_latency_ms": 13.662208002642728
+      "median_latency_ms": 14.208374996087514,
+      "p95_latency_ms": 14.208374996087514
     },
     "proof": {
-      "route_count": 95,
-      "test_count": 55,
+      "route_count": 100,
+      "test_count": 60,
       "verification_command_count": 21,
       "connector_kinds": [
         "local_csv",
@@ -81,8 +81,8 @@
     },
     "readiness": {
       "posture": "review_ready",
-      "compiled_recipe_count": 160,
-      "resolved_recipe_count": 160,
+      "compiled_recipe_count": 165,
+      "resolved_recipe_count": 165,
       "check_names": [
         "contract_surface",
         "verification_depth",

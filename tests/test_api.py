@@ -378,6 +378,178 @@ def test_research_cymatic_surface_stays_tied_to_runtime_proof():
     assert any(stage["files"] for stage in payload["stages"])
 
 
+def test_research_influence_bundle_maps_sources_to_active_routes():
+    response = client.get("/v1/research/influence")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["source_count"] == 4
+    assert payload["mechanism_count"] >= 6
+    assert payload["feature_count"] >= 6
+    assert payload["route_count"] >= 40
+    source_ids = {item["source_id"] for item in payload["sources"]}
+    assert "self_harness_2026" in source_ids
+    assert "epistemic_risks_2026" in source_ids
+    assert any(
+        "/v1/research/epistemic-risk/assess" in item["runtime_routes"]
+        for item in payload["mechanisms"]
+        if item["mechanism_id"] == "epistemic_friction"
+    )
+
+
+def test_research_harness_improvement_turns_repeated_failures_into_proposals():
+    response = client.post(
+        "/v1/research/harness-improvement",
+        json={
+            "base_harness_id": "acceptance-spine",
+            "minimum_support": 2,
+            "protected_invariants": ["openapi export remains reproducible"],
+            "traces": [
+                {
+                    "trace_id": "run-001",
+                    "task_family": "proof-export",
+                    "outcome": "fail",
+                    "failure_tags": ["stale-proof"],
+                    "files_touched": ["scripts/export_research_surfaces.py"],
+                    "verification_commands": ["python3 scripts/export_research_surfaces.py"],
+                },
+                {
+                    "trace_id": "run-002",
+                    "task_family": "proof-export",
+                    "outcome": "fail",
+                    "failure_tags": ["stale-proof"],
+                    "files_touched": ["proof/research-surfaces.json"],
+                    "verification_commands": ["python3 scripts/export_research_surfaces.py"],
+                },
+                {
+                    "trace_id": "run-003",
+                    "task_family": "api-contract",
+                    "outcome": "pass",
+                    "failure_tags": [],
+                },
+            ],
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["failed_trace_count"] == 2
+    assert payload["promoted_proposal_count"] == 1
+    assert payload["clusters"][0]["failure_tag"] == "stale-proof"
+    assert payload["proposals"][0]["status"] == "promote"
+    assert (
+        "python3 scripts/build_runtime_proof_bundle.py"
+        in payload["proposals"][0]["acceptance_gate"]
+    )
+
+
+def test_research_deliberation_detects_missing_roles_and_disagreement():
+    response = client.post(
+        "/v1/research/deliberation/assess",
+        json={
+            "decision_id": "clinical-routing-review",
+            "domain": "healthcare",
+            "required_roles": ["advocate", "skeptic", "reviewer"],
+            "claims": [
+                {
+                    "role": "advocate",
+                    "stance": "approve",
+                    "claim": "The row is usable because all required fields are present.",
+                    "evidence_refs": ["schema:2026-07"],
+                    "uncertainty": 0.28,
+                },
+                {
+                    "role": "skeptic",
+                    "stance": "investigate",
+                    "claim": "The row needs more review because the source population is narrow.",
+                    "evidence_refs": ["coverage:tail"],
+                    "uncertainty": 0.64,
+                },
+            ],
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["disagreement_score"] >= 0.5
+    assert payload["missing_roles"] == ["reviewer"]
+    assert payload["recommendation"] == "escalate"
+    assert payload["next_questions"]
+
+
+def test_research_trust_calibration_requires_review_when_controls_are_thin():
+    response = client.post(
+        "/v1/research/trust/calibrate",
+        json={
+            "route": "/v1/industrial/diagnose",
+            "purpose": "field diagnostic support",
+            "precision": 0.74,
+            "human_control": 0.42,
+            "oversight": 0.35,
+            "validation_evidence": 0.68,
+            "reversibility": 0.58,
+            "harm_level": "high",
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["review_required"] is True
+    assert payload["band"] in {"low", "medium"}
+    assert "human_control" in payload["missing_controls"]
+    assert "oversight" in payload["missing_controls"]
+    assert payload["factors"]
+
+
+def test_research_epistemic_risk_scores_repetition_and_overcertainty():
+    repeated_claim = "The catalog is balanced because the average score is stable."
+    response = client.post(
+        "/v1/research/epistemic-risk/assess",
+        json={
+            "assessment_id": "music-catalog-review",
+            "domain": "media",
+            "intended_use": "catalog quality review",
+            "evidence": [
+                {
+                    "source_id": "metric-001",
+                    "source_type": "measurement",
+                    "perspective": "runtime",
+                    "claim": repeated_claim,
+                    "confidence": 0.91,
+                    "uncertainty_visible": False,
+                    "human_generated": False,
+                    "age_days": 12,
+                },
+                {
+                    "source_id": "claim-002",
+                    "source_type": "claim",
+                    "perspective": "runtime",
+                    "claim": repeated_claim,
+                    "confidence": 0.87,
+                    "uncertainty_visible": False,
+                    "human_generated": False,
+                    "age_days": 14,
+                },
+                {
+                    "source_id": "log-003",
+                    "source_type": "system_log",
+                    "perspective": "pipeline",
+                    "claim": "No human review was attached to this slice.",
+                    "confidence": 0.78,
+                    "uncertainty_visible": True,
+                    "human_generated": False,
+                    "age_days": 201,
+                },
+            ],
+        },
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["band"] in {"watch", "elevated", "critical"}
+    assert payload["score"] >= 0.28
+    indicators = {item["indicator_id"]: item for item in payload["indicators"]}
+    assert indicators["unsupported-certainty"]["score"] > 0
+    assert indicators["repetition-pressure"]["score"] > 0
+    assert indicators["human-review-gap"]["score"] == 1.0
+    assert payload["non_delegable_checks"]
+
+
 def test_operator_surfaces_keep_commands_skills_plugins_and_speech_tasks_together():
     response = client.get("/v1/operators/surfaces")
     assert response.status_code == 200

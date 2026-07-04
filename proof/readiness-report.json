@@ -1,8 +1,8 @@
 {
-  "report_id": "9f70a789-524c-4655-ad6f-0a7c6a3d966a",
+  "report_id": "61e003f7-178d-49f0-b1c8-d3a711a53584",
   "posture": "review_ready",
-  "route_count": 95,
-  "test_count": 55,
+  "route_count": 100,
+  "test_count": 60,
   "verification_artifact_count": 16,
   "connector_kinds": [
     "local_csv",
@@ -13,18 +13,18 @@
     "http_ndjson",
     "web_html"
   ],
-  "resolved_recipe_count": 159,
-  "compiled_recipe_count": 159,
+  "resolved_recipe_count": 164,
+  "compiled_recipe_count": 164,
   "checks": [
     {
       "name": "contract_surface",
       "state": "pass",
-      "detail": "95 public runtime surfaces are exported."
+      "detail": "100 public runtime surfaces are exported."
     },
     {
       "name": "verification_depth",
       "state": "pass",
-      "detail": "55 tests are currently counted in the proof bundle."
+      "detail": "60 tests are currently counted in the proof bundle."
     },
     {
       "name": "artifact_evidence",
@@ -39,17 +39,17 @@
     {
       "name": "connector_evidence",
       "state": "pass",
-      "detail": "497 persisted connector runs are recorded."
+      "detail": "503 persisted connector runs are recorded."
     },
     {
       "name": "recipe_resolution",
       "state": "pass",
-      "detail": "159 of 159 compiled recipes have fully resolved source evidence."
+      "detail": "164 of 164 compiled recipes have fully resolved source evidence."
     },
     {
       "name": "governance_evidence",
       "state": "pass",
-      "detail": "drift baselines=8, ontology snapshots=130, pipeline runs=382"
+      "detail": "drift baselines=8, ontology snapshots=130, pipeline runs=387"
     },
     {
       "name": "stewardship_surface",
@@ -59,7 +59,7 @@
     {
       "name": "execution_history",
       "state": "pass",
-      "detail": "188 persisted export or verification runs are recorded."
+      "detail": "205 persisted export or verification runs are recorded."
     }
   ],
   "blockers": [],
@@ -85,5 +85,5 @@
       "detail": "Lifecycle, change-control, and supply-chain surfaces document review, retention, and removal intent, but external schedulers still carry out the physical delete or archive operation."
     }
   ],
-  "created_at": "2026-07-04T03:01:46.272645+00:00"
+  "created_at": "2026-07-04T04:03:22.687542+00:00"
 }

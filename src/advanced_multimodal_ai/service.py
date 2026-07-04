@@ -51,13 +51,19 @@ from .contracts import (
     DatasetEvolutionResponse,
     DatasetRecord,
     DatasetRegistrationRequest,
+    DeliberationAssessmentRequest,
+    DeliberationAssessmentResponse,
     DriftBaselineRecord,
     DriftBaselineRequest,
     EdgeGatewayTopology,
     EdgePacketEvaluationResponse,
     EdgePacketRequest,
     EdgeTrackingLedgerSummary,
+    EpistemicRiskRequest,
+    EpistemicRiskResponse,
     ExecutionJournalSummary,
+    HarnessImprovementRequest,
+    HarnessImprovementResponse,
     HealthResponse,
     IndustrialDiagnosticRequest,
     IndustrialDiagnosticResponse,
@@ -95,6 +101,7 @@ from .contracts import (
     ReferenceBenchmarkResult,
     RepositoryGrowthSnapshot,
     RepositoryPulse,
+    ResearchInfluenceBundle,
     ResearchSurfaceBundle,
     RetrievalQueryRequest,
     RetrievalQueryResponse,
@@ -110,6 +117,8 @@ from .contracts import (
     TemporalAlignmentResponse,
     TensorInterceptResponse,
     TimeSpan,
+    TrustCalibrationRequest,
+    TrustCalibrationResponse,
     VideoCleaningRequest,
     VideoCleaningResponse,
     VideoPacketRequest,
@@ -169,6 +178,13 @@ from .registry import list_registered_models
 from .replay import build_replay_frames, compare_replay, export_pipeline_run
 from .repository_growth import build_repository_growth_snapshot
 from .repository_pulse import build_repository_pulse
+from .research_influence import (
+    assess_deliberation,
+    assess_epistemic_risk,
+    build_research_influence_bundle,
+    calibrate_trust,
+    mine_harness_improvements,
+)
 from .research_surfaces import (
     build_model_research_cards,
     build_research_surface_bundle,
@@ -1050,6 +1066,48 @@ class AdvancedMultimodalService:
             readiness=readiness,
             registered_models=self.list_models(),
         )
+
+    def research_influence_bundle(self, route_count: int) -> ResearchInfluenceBundle:
+        record_data_plane("research_influence")
+        attestation = self.runtime_attestation()
+        proof_bundle = build_runtime_proof_bundle(
+            attestation=attestation,
+            route_count=route_count,
+        )
+        return build_research_influence_bundle(
+            service_name=self.settings.service_name,
+            version=self.settings.service_version,
+            route_count=route_count,
+            test_count=proof_bundle.test_count,
+        )
+
+    def mine_harness_improvements(
+        self,
+        request: HarnessImprovementRequest,
+    ) -> HarnessImprovementResponse:
+        record_data_plane("research_harness_improvement")
+        return mine_harness_improvements(request)
+
+    def assess_research_deliberation(
+        self,
+        request: DeliberationAssessmentRequest,
+    ) -> DeliberationAssessmentResponse:
+        record_data_plane("research_deliberation")
+        return assess_deliberation(request)
+
+    def calibrate_research_trust(
+        self,
+        request: TrustCalibrationRequest,
+    ) -> TrustCalibrationResponse:
+        record_data_plane("research_trust_calibration")
+        return calibrate_trust(request)
+
+    def assess_research_epistemic_risk(
+        self,
+        request: EpistemicRiskRequest,
+    ) -> EpistemicRiskResponse:
+        record_data_plane("research_epistemic_risk")
+        return assess_epistemic_risk(request)
 
     def repository_pulse(self, route_count: int) -> RepositoryPulse:
         record_data_plane("repository_pulse")

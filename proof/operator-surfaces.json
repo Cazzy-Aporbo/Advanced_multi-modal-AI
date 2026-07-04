@@ -2,7 +2,7 @@
   "service": "advanced-multimodal-ai",
   "version": "0.5.0",
   "readiness_posture": "review_ready",
-  "route_count": 95,
+  "route_count": 100,
   "command_count": 7,
   "skill_count": 7,
   "plugin_count": 6,
@@ -11,13 +11,13 @@
     {
       "metric_id": "routes",
       "label": "live routes",
-      "value": "95",
+      "value": "100",
       "note": "The command lattice stays tied to executable contracts."
     },
     {
       "metric_id": "tests",
       "label": "test functions",
-      "value": "55",
+      "value": "60",
       "note": "Proof is carried beside the operator surfaces, not after them."
     },
     {
@@ -29,13 +29,13 @@
     {
       "metric_id": "music-manifests",
       "label": "audio manifests",
-      "value": "70",
+      "value": "74",
       "note": "Raw media stays external while the manifest and feature lane remain inspectable."
     },
     {
       "metric_id": "music-runs",
       "label": "music feature runs",
-      "value": "70",
+      "value": "74",
       "note": "Every speech-task card below is backed by the same derived warehouse lane."
     },
     {
@@ -654,5 +654,5 @@
     "proof/music-observatory.md",
     "openapi/openapi.json"
   ],
-  "created_at": "2026-07-04T03:01:35.068999+00:00"
+  "created_at": "2026-07-04T04:03:10.989920+00:00"
 }

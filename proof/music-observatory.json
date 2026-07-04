@@ -1,7 +1,7 @@
 {
   "overview": {
-    "manifest_count": 70,
-    "feature_run_count": 70,
+    "manifest_count": 74,
+    "feature_run_count": 74,
     "total_segments": 72,
     "genre_counts": {
       "signal-study": 24,
@@ -14,6 +14,138 @@
       "Recent runs show a healthier spread of motion, energy, and pitch weight across segments."
     ],
     "recent_manifests": [
+      {
+        "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
+        "track_name": "Reference Pulse Field",
+        "owner": "reference-benchmark",
+        "source_uri": "reference://cymatic-field",
+        "source_kind": "reference",
+        "content_sha256": "reference-cymatic-field-v1",
+        "license_kind": "research_fair_use",
+        "duration_ms": 24000,
+        "sample_rate_hz": 16000,
+        "channel_count": 1,
+        "release_year": 2026,
+        "languages": [
+          "instrumental"
+        ],
+        "regions": [
+          "global"
+        ],
+        "genres": [
+          "signal-study",
+          "reference"
+        ],
+        "tags": [
+          "benchmark",
+          "cymatic",
+          "music"
+        ],
+        "notes": [
+          "Deterministic reference waveform for the music warehouse lane."
+        ],
+        "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+        "created_at": "2026-07-04T04:03:05.988653+00:00"
+      },
+      {
+        "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
+        "track_name": "Reference Pulse Field",
+        "owner": "reference-benchmark",
+        "source_uri": "reference://cymatic-field",
+        "source_kind": "reference",
+        "content_sha256": "reference-cymatic-field-v1",
+        "license_kind": "research_fair_use",
+        "duration_ms": 24000,
+        "sample_rate_hz": 16000,
+        "channel_count": 1,
+        "release_year": 2026,
+        "languages": [
+          "instrumental"
+        ],
+        "regions": [
+          "global"
+        ],
+        "genres": [
+          "signal-study",
+          "reference"
+        ],
+        "tags": [
+          "benchmark",
+          "cymatic",
+          "music"
+        ],
+        "notes": [
+          "Deterministic reference waveform for the music warehouse lane."
+        ],
+        "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+        "created_at": "2026-07-04T04:02:58.470343+00:00"
+      },
+      {
+        "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
+        "track_name": "Reference Pulse Field",
+        "owner": "reference-benchmark",
+        "source_uri": "reference://cymatic-field",
+        "source_kind": "reference",
+        "content_sha256": "reference-cymatic-field-v1",
+        "license_kind": "research_fair_use",
+        "duration_ms": 24000,
+        "sample_rate_hz": 16000,
+        "channel_count": 1,
+        "release_year": 2026,
+        "languages": [
+          "instrumental"
+        ],
+        "regions": [
+          "global"
+        ],
+        "genres": [
+          "signal-study",
+          "reference"
+        ],
+        "tags": [
+          "benchmark",
+          "cymatic",
+          "music"
+        ],
+        "notes": [
+          "Deterministic reference waveform for the music warehouse lane."
+        ],
+        "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+        "created_at": "2026-07-04T04:02:26.409330+00:00"
+      },
+      {
+        "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
+        "track_name": "Reference Pulse Field",
+        "owner": "reference-benchmark",
+        "source_uri": "reference://cymatic-field",
+        "source_kind": "reference",
+        "content_sha256": "reference-cymatic-field-v1",
+        "license_kind": "research_fair_use",
+        "duration_ms": 24000,
+        "sample_rate_hz": 16000,
+        "channel_count": 1,
+        "release_year": 2026,
+        "languages": [
+          "instrumental"
+        ],
+        "regions": [
+          "global"
+        ],
+        "genres": [
+          "signal-study",
+          "reference"
+        ],
+        "tags": [
+          "benchmark",
+          "cymatic",
+          "music"
+        ],
+        "notes": [
+          "Deterministic reference waveform for the music warehouse lane."
+        ],
+        "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+        "created_at": "2026-07-04T04:01:08.707692+00:00"
+      },
       {
         "manifest_id": "006d7792-779a-4293-88ce-35eabcb8c55f",
         "track_name": "Reference Pulse Field",
@@ -277,141 +409,1525 @@
         ],
         "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
         "created_at": "2026-07-04T02:46:20.824959+00:00"
-      },
-      {
-        "manifest_id": "f5131f7d-b7fc-4b0e-bab6-a921cce8ad3b",
-        "track_name": "Reference Pulse Field",
-        "owner": "reference-benchmark",
-        "source_uri": "reference://cymatic-field",
-        "source_kind": "reference",
-        "content_sha256": "reference-cymatic-field-v1",
-        "license_kind": "research_fair_use",
-        "duration_ms": 24000,
-        "sample_rate_hz": 16000,
-        "channel_count": 1,
-        "release_year": 2026,
-        "languages": [
-          "instrumental"
-        ],
-        "regions": [
-          "global"
-        ],
-        "genres": [
-          "signal-study",
-          "reference"
-        ],
-        "tags": [
-          "benchmark",
-          "cymatic",
-          "music"
-        ],
-        "notes": [
-          "Deterministic reference waveform for the music warehouse lane."
-        ],
-        "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-        "created_at": "2026-07-04T02:46:14.293058+00:00"
-      },
-      {
-        "manifest_id": "87706b41-4533-4ee3-9b95-f4ef76c92dbd",
-        "track_name": "Reference Pulse Field",
-        "owner": "reference-benchmark",
-        "source_uri": "reference://cymatic-field",
-        "source_kind": "reference",
-        "content_sha256": "reference-cymatic-field-v1",
-        "license_kind": "research_fair_use",
-        "duration_ms": 24000,
-        "sample_rate_hz": 16000,
-        "channel_count": 1,
-        "release_year": 2026,
-        "languages": [
-          "instrumental"
-        ],
-        "regions": [
-          "global"
-        ],
-        "genres": [
-          "signal-study",
-          "reference"
-        ],
-        "tags": [
-          "benchmark",
-          "cymatic",
-          "music"
-        ],
-        "notes": [
-          "Deterministic reference waveform for the music warehouse lane."
-        ],
-        "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-        "created_at": "2026-07-04T02:38:51.348987+00:00"
-      },
-      {
-        "manifest_id": "41829d3d-3b6a-4889-b227-64d380f300e1",
-        "track_name": "Reference Pulse Field",
-        "owner": "reference-benchmark",
-        "source_uri": "reference://cymatic-field",
-        "source_kind": "reference",
-        "content_sha256": "reference-cymatic-field-v1",
-        "license_kind": "research_fair_use",
-        "duration_ms": 24000,
-        "sample_rate_hz": 16000,
-        "channel_count": 1,
-        "release_year": 2026,
-        "languages": [
-          "instrumental"
-        ],
-        "regions": [
-          "global"
-        ],
-        "genres": [
-          "signal-study",
-          "reference"
-        ],
-        "tags": [
-          "benchmark",
-          "cymatic",
-          "music"
-        ],
-        "notes": [
-          "Deterministic reference waveform for the music warehouse lane."
-        ],
-        "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-        "created_at": "2026-07-04T02:25:20.430887+00:00"
-      },
-      {
-        "manifest_id": "61c4124f-621e-4f89-b48e-0c9e2a86435f",
-        "track_name": "Reference Pulse Field",
-        "owner": "reference-benchmark",
-        "source_uri": "reference://cymatic-field",
-        "source_kind": "reference",
-        "content_sha256": "reference-cymatic-field-v1",
-        "license_kind": "research_fair_use",
-        "duration_ms": 24000,
-        "sample_rate_hz": 16000,
-        "channel_count": 1,
-        "release_year": 2026,
-        "languages": [
-          "instrumental"
-        ],
-        "regions": [
-          "global"
-        ],
-        "genres": [
-          "signal-study",
-          "reference"
-        ],
-        "tags": [
-          "benchmark",
-          "cymatic",
-          "music"
-        ],
-        "notes": [
-          "Deterministic reference waveform for the music warehouse lane."
-        ],
-        "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-        "created_at": "2026-07-04T02:21:48.945797+00:00"
       }
     ],
     "recent_runs": [
+      {
+        "run_id": "e91f378e-a350-4d1d-a364-0db26557a0cc",
+        "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
+        "track_name": "Reference Pulse Field",
+        "owner": "reference-benchmark",
+        "source_uri": "reference://cymatic-field",
+        "source_kind": "reference",
+        "genres": [
+          "signal-study",
+          "reference"
+        ],
+        "languages": [
+          "instrumental"
+        ],
+        "partition_label": "reference",
+        "feature_schema_version": "1.0",
+        "feature_table_path": ".runtime/music-feature-lake/reference-pulse-field-dc7fd746-20260704040305995032.parquet",
+        "embedding_table_path": ".runtime/music-feature-lake/reference-pulse-field-dc7fd746-20260704040305997441-embeddings.parquet",
+        "dataset_id": "9e52b002-a13b-43e7-9513-79863aeca739",
+        "dataset_name": "music_reference_features",
+        "dataset_version": "2026.07.04",
+        "segment_count": 3,
+        "embedding_model": "amai.audio.segment.signature.v1",
+        "embedding_contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+        "embedding_record_count": 3,
+        "benchmark": {
+          "extraction_ms": 5.623083998216316,
+          "persist_ms": 1.9959170022048056,
+          "total_ms": 7.619001000421122,
+          "segment_count": 3,
+          "bytes_written": 13432,
+          "rows_per_second": 533.5150605880372,
+          "average_entropy_score": 0.9870591890515499,
+          "average_tempo_proxy_bpm": 0.0,
+          "average_key_clarity": 0.5266176462173462
+        },
+        "segments": [
+          {
+            "segment_id": "76b09675-de82-4515-b364-b466aec3bcbf",
+            "start_ms": 0,
+            "end_ms": 8000,
+            "label": "intro",
+            "transcript_excerpt": "soft emergence",
+            "speaker": "section-a",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.41889968514442444,
+            "silence_ratio": 0.0244140625,
+            "zero_crossing_rate": 0.016617790811339198,
+            "dynamic_range": 0.6149592995643616,
+            "crest_factor": 1.668516394597843,
+            "entropy_score": 0.9938953483119174,
+            "spectral_centroid_hz": 141.20631408691406,
+            "spectral_bandwidth_hz": 67.0228500366211,
+            "spectral_rolloff_hz": 187.5,
+            "spectral_flux": 0.3351845443248749,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9984267950057983,
+            "key_clarity": 0.6592541933059692,
+            "dominant_pitch_class": "B",
+            "pitch_class_profile": [
+              5.0834467401728034e-05,
+              0.00042738133925013244,
+              3.58999204763677e-05,
+              0.006477270275354385,
+              2.8571916118380614e-05,
+              0.00021852593636140227,
+              0.33210036158561707,
+              1.665292620600667e-05,
+              0.0001220077247126028,
+              0.0011904914863407612,
+              7.782179454807192e-05,
+              0.6592541933059692
+            ],
+            "notes": []
+          },
+          {
+            "segment_id": "aac06a1b-c67f-4741-bcd8-a9429fa78ff9",
+            "start_ms": 8000,
+            "end_ms": 16000,
+            "label": "lift",
+            "transcript_excerpt": "denser movement",
+            "speaker": "section-b",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.5138004422187805,
+            "silence_ratio": 0.04296875,
+            "zero_crossing_rate": 0.02541544477028348,
+            "dynamic_range": 0.7987010478973389,
+            "crest_factor": 1.711615854079417,
+            "entropy_score": 0.9928251047324964,
+            "spectral_centroid_hz": 242.39991760253906,
+            "spectral_bandwidth_hz": 120.77648162841797,
+            "spectral_rolloff_hz": 375.0,
+            "spectral_flux": 0.19552570581436157,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9957289099693298,
+            "key_clarity": 0.4405476748943329,
+            "dominant_pitch_class": "F#",
+            "pitch_class_profile": [
+              6.348071474349126e-05,
+              0.003240081947296858,
+              4.144086778978817e-05,
+              0.02682526409626007,
+              3.08083908748813e-05,
+              0.0005614739493466914,
+              0.4405476748943329,
+              1.6723479348002e-05,
+              0.00020972378842998296,
+              0.10567477345466614,
+              0.00010843632480828092,
+              0.4226800501346588
+            ],
+            "notes": []
+          },
+          {
+            "segment_id": "4abfd45c-99f6-406b-b274-e85c22d2c757",
+            "start_ms": 16000,
+            "end_ms": 24000,
+            "label": "resolve",
+            "transcript_excerpt": "return to clarity",
+            "speaker": "section-c",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.39154911041259766,
+            "silence_ratio": 0.029296875,
+            "zero_crossing_rate": 0.01857282502443793,
+            "dynamic_range": 0.6011701822280884,
+            "crest_factor": 1.9355630539568258,
+            "entropy_score": 0.9744571141102361,
+            "spectral_centroid_hz": 177.95791625976562,
+            "spectral_bandwidth_hz": 94.36720275878906,
+            "spectral_rolloff_hz": 312.5,
+            "spectral_flux": 0.29659417271614075,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9977570176124573,
+            "key_clarity": 0.48005107045173645,
+            "dominant_pitch_class": "B",
+            "pitch_class_profile": [
+              4.947719571646303e-05,
+              0.0005223038024269044,
+              3.347782330820337e-05,
+              0.10709965229034424,
+              2.5288081815233454e-05,
+              0.00024513312382623553,
+              0.4101051688194275,
+              1.3774890248896554e-05,
+              0.00012949990923516452,
+              0.0016466622473672032,
+              7.843477214919403e-05,
+              0.48005107045173645
+            ],
+            "notes": []
+          }
+        ],
+        "segment_index": [
+          {
+            "run_id": "e91f378e-a350-4d1d-a364-0db26557a0cc",
+            "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "76b09675-de82-4515-b364-b466aec3bcbf",
+            "start_ms": 0,
+            "end_ms": 8000,
+            "duration_ms": 8000,
+            "label": "intro",
+            "speaker": "section-a",
+            "transcript_excerpt": "soft emergence",
+            "transcript_ref": "transcript-intro",
+            "section_kind": "intro",
+            "frame_ref": "frame-001",
+            "video_window_start_ms": 120,
+            "video_window_end_ms": 7400,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-001",
+              "speaker_or_section": "intro",
+              "transcript_ref": "transcript-intro",
+              "video_window_end_ms": 7400,
+              "video_window_start_ms": 120
+            }
+          },
+          {
+            "run_id": "e91f378e-a350-4d1d-a364-0db26557a0cc",
+            "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "aac06a1b-c67f-4741-bcd8-a9429fa78ff9",
+            "start_ms": 8000,
+            "end_ms": 16000,
+            "duration_ms": 8000,
+            "label": "lift",
+            "speaker": "section-b",
+            "transcript_excerpt": "denser movement",
+            "transcript_ref": "transcript-lift",
+            "section_kind": "lift",
+            "frame_ref": "frame-014",
+            "video_window_start_ms": 8220,
+            "video_window_end_ms": 15560,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-014",
+              "speaker_or_section": "lift",
+              "transcript_ref": "transcript-lift",
+              "video_window_end_ms": 15560,
+              "video_window_start_ms": 8220
+            }
+          },
+          {
+            "run_id": "e91f378e-a350-4d1d-a364-0db26557a0cc",
+            "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "4abfd45c-99f6-406b-b274-e85c22d2c757",
+            "start_ms": 16000,
+            "end_ms": 24000,
+            "duration_ms": 8000,
+            "label": "resolve",
+            "speaker": "section-c",
+            "transcript_excerpt": "return to clarity",
+            "transcript_ref": "transcript-resolve",
+            "section_kind": "resolve",
+            "frame_ref": "frame-027",
+            "video_window_start_ms": 16180,
+            "video_window_end_ms": 23480,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-027",
+              "speaker_or_section": "resolve",
+              "transcript_ref": "transcript-resolve",
+              "video_window_end_ms": 23480,
+              "video_window_start_ms": 16180
+            }
+          }
+        ],
+        "embeddings": [
+          {
+            "record_id": "b0e2981d-4b76-4392-b445-abd028ce23f4",
+            "run_id": "e91f378e-a350-4d1d-a364-0db26557a0cc",
+            "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
+            "segment_id": "76b09675-de82-4515-b364-b466aec3bcbf",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.4189,
+              0.024414,
+              0.993895,
+              0.017651,
+              1.0,
+              0.0,
+              0.998427,
+              0.659254
+            ],
+            "metadata": {
+              "end_ms": 8000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "intro",
+              "start_ms": 0,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:03:05.997402+00:00"
+          },
+          {
+            "record_id": "431a835c-713d-4d0f-82c3-bf887b8fd7d3",
+            "run_id": "e91f378e-a350-4d1d-a364-0db26557a0cc",
+            "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
+            "segment_id": "aac06a1b-c67f-4741-bcd8-a9429fa78ff9",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.5138,
+              0.042969,
+              0.992825,
+              0.0303,
+              0.782103,
+              0.0,
+              0.995729,
+              0.440548
+            ],
+            "metadata": {
+              "end_ms": 16000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "lift",
+              "start_ms": 8000,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:03:05.997420+00:00"
+          },
+          {
+            "record_id": "7dfcf279-9587-44ab-8951-4d82b4a5076a",
+            "run_id": "e91f378e-a350-4d1d-a364-0db26557a0cc",
+            "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
+            "segment_id": "4abfd45c-99f6-406b-b274-e85c22d2c757",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.391549,
+              0.029297,
+              0.974457,
+              0.022245,
+              1.0,
+              0.0,
+              0.997757,
+              0.480051
+            ],
+            "metadata": {
+              "end_ms": 24000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "resolve",
+              "start_ms": 16000,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:03:05.997431+00:00"
+          }
+        ],
+        "receipts": [
+          {
+            "receipt_id": "df130e0f-8815-4622-937e-8c5c39efed94",
+            "source_sha256": "reference-cymatic-field-v1",
+            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+            "extractor_version": "0.5.0",
+            "feature_schema_version": "1.0",
+            "embedding_model": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-dc7fd746-20260704040305995032.parquet",
+            "output_sha256": "8607bdf6d157180cb7dd215d7f06a02fdb2256681fa0269b1fdf69dede892732",
+            "output_bytes": 13432,
+            "created_at": "2026-07-04T04:03:05.998585+00:00"
+          },
+          {
+            "receipt_id": "b6b9facd-fbc5-480f-9de2-26874ca63ad6",
+            "source_sha256": "reference-cymatic-field-v1",
+            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+            "extractor_version": "0.5.0",
+            "feature_schema_version": "1.0-embedding-lane",
+            "embedding_model": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-dc7fd746-20260704040305997441-embeddings.parquet",
+            "output_sha256": "008bb7dff398357c47b39dccb4d62e8909cbb0bf917c42bdc7bc7a79adf97775",
+            "output_bytes": 6618,
+            "created_at": "2026-07-04T04:03:05.998641+00:00"
+          }
+        ],
+        "notes": [
+          "Reference workload used to keep the public signal lab tied to a real feature store.",
+          "Only derived features were persisted. Raw waveform material stayed outside the repository ledger."
+        ],
+        "created_at": "2026-07-04T04:03:06.008556+00:00"
+      },
+      {
+        "run_id": "7c220596-601d-4a25-8657-113e07c86cad",
+        "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
+        "track_name": "Reference Pulse Field",
+        "owner": "reference-benchmark",
+        "source_uri": "reference://cymatic-field",
+        "source_kind": "reference",
+        "genres": [
+          "signal-study",
+          "reference"
+        ],
+        "languages": [
+          "instrumental"
+        ],
+        "partition_label": "reference",
+        "feature_schema_version": "1.0",
+        "feature_table_path": ".runtime/music-feature-lake/reference-pulse-field-3f92df55-20260704040258476743.parquet",
+        "embedding_table_path": ".runtime/music-feature-lake/reference-pulse-field-3f92df55-20260704040258479280-embeddings.parquet",
+        "dataset_id": "e9250901-000d-4cbd-a050-f3e8edc9985f",
+        "dataset_name": "music_reference_features",
+        "dataset_version": "2026.07.04",
+        "segment_count": 3,
+        "embedding_model": "amai.audio.segment.signature.v1",
+        "embedding_contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+        "embedding_record_count": 3,
+        "benchmark": {
+          "extraction_ms": 5.425541996373795,
+          "persist_ms": 2.0789169939234853,
+          "total_ms": 7.50445899029728,
+          "segment_count": 3,
+          "bytes_written": 13432,
+          "rows_per_second": 552.9401490219916,
+          "average_entropy_score": 0.9870591890515499,
+          "average_tempo_proxy_bpm": 0.0,
+          "average_key_clarity": 0.5266176462173462
+        },
+        "segments": [
+          {
+            "segment_id": "0dfb0bbb-5ec3-4ece-ae9c-46981449be7b",
+            "start_ms": 0,
+            "end_ms": 8000,
+            "label": "intro",
+            "transcript_excerpt": "soft emergence",
+            "speaker": "section-a",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.41889968514442444,
+            "silence_ratio": 0.0244140625,
+            "zero_crossing_rate": 0.016617790811339198,
+            "dynamic_range": 0.6149592995643616,
+            "crest_factor": 1.668516394597843,
+            "entropy_score": 0.9938953483119174,
+            "spectral_centroid_hz": 141.20631408691406,
+            "spectral_bandwidth_hz": 67.0228500366211,
+            "spectral_rolloff_hz": 187.5,
+            "spectral_flux": 0.3351845443248749,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9984267950057983,
+            "key_clarity": 0.6592541933059692,
+            "dominant_pitch_class": "B",
+            "pitch_class_profile": [
+              5.0834467401728034e-05,
+              0.00042738133925013244,
+              3.58999204763677e-05,
+              0.006477270275354385,
+              2.8571916118380614e-05,
+              0.00021852593636140227,
+              0.33210036158561707,
+              1.665292620600667e-05,
+              0.0001220077247126028,
+              0.0011904914863407612,
+              7.782179454807192e-05,
+              0.6592541933059692
+            ],
+            "notes": []
+          },
+          {
+            "segment_id": "8e211f73-427f-4bb6-be96-feb27dc7534c",
+            "start_ms": 8000,
+            "end_ms": 16000,
+            "label": "lift",
+            "transcript_excerpt": "denser movement",
+            "speaker": "section-b",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.5138004422187805,
+            "silence_ratio": 0.04296875,
+            "zero_crossing_rate": 0.02541544477028348,
+            "dynamic_range": 0.7987010478973389,
+            "crest_factor": 1.711615854079417,
+            "entropy_score": 0.9928251047324964,
+            "spectral_centroid_hz": 242.39991760253906,
+            "spectral_bandwidth_hz": 120.77648162841797,
+            "spectral_rolloff_hz": 375.0,
+            "spectral_flux": 0.19552570581436157,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9957289099693298,
+            "key_clarity": 0.4405476748943329,
+            "dominant_pitch_class": "F#",
+            "pitch_class_profile": [
+              6.348071474349126e-05,
+              0.003240081947296858,
+              4.144086778978817e-05,
+              0.02682526409626007,
+              3.08083908748813e-05,
+              0.0005614739493466914,
+              0.4405476748943329,
+              1.6723479348002e-05,
+              0.00020972378842998296,
+              0.10567477345466614,
+              0.00010843632480828092,
+              0.4226800501346588
+            ],
+            "notes": []
+          },
+          {
+            "segment_id": "9ece938d-d972-4684-896c-eaf73e05625b",
+            "start_ms": 16000,
+            "end_ms": 24000,
+            "label": "resolve",
+            "transcript_excerpt": "return to clarity",
+            "speaker": "section-c",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.39154911041259766,
+            "silence_ratio": 0.029296875,
+            "zero_crossing_rate": 0.01857282502443793,
+            "dynamic_range": 0.6011701822280884,
+            "crest_factor": 1.9355630539568258,
+            "entropy_score": 0.9744571141102361,
+            "spectral_centroid_hz": 177.95791625976562,
+            "spectral_bandwidth_hz": 94.36720275878906,
+            "spectral_rolloff_hz": 312.5,
+            "spectral_flux": 0.29659417271614075,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9977570176124573,
+            "key_clarity": 0.48005107045173645,
+            "dominant_pitch_class": "B",
+            "pitch_class_profile": [
+              4.947719571646303e-05,
+              0.0005223038024269044,
+              3.347782330820337e-05,
+              0.10709965229034424,
+              2.5288081815233454e-05,
+              0.00024513312382623553,
+              0.4101051688194275,
+              1.3774890248896554e-05,
+              0.00012949990923516452,
+              0.0016466622473672032,
+              7.843477214919403e-05,
+              0.48005107045173645
+            ],
+            "notes": []
+          }
+        ],
+        "segment_index": [
+          {
+            "run_id": "7c220596-601d-4a25-8657-113e07c86cad",
+            "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "0dfb0bbb-5ec3-4ece-ae9c-46981449be7b",
+            "start_ms": 0,
+            "end_ms": 8000,
+            "duration_ms": 8000,
+            "label": "intro",
+            "speaker": "section-a",
+            "transcript_excerpt": "soft emergence",
+            "transcript_ref": "transcript-intro",
+            "section_kind": "intro",
+            "frame_ref": "frame-001",
+            "video_window_start_ms": 120,
+            "video_window_end_ms": 7400,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-001",
+              "speaker_or_section": "intro",
+              "transcript_ref": "transcript-intro",
+              "video_window_end_ms": 7400,
+              "video_window_start_ms": 120
+            }
+          },
+          {
+            "run_id": "7c220596-601d-4a25-8657-113e07c86cad",
+            "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "8e211f73-427f-4bb6-be96-feb27dc7534c",
+            "start_ms": 8000,
+            "end_ms": 16000,
+            "duration_ms": 8000,
+            "label": "lift",
+            "speaker": "section-b",
+            "transcript_excerpt": "denser movement",
+            "transcript_ref": "transcript-lift",
+            "section_kind": "lift",
+            "frame_ref": "frame-014",
+            "video_window_start_ms": 8220,
+            "video_window_end_ms": 15560,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-014",
+              "speaker_or_section": "lift",
+              "transcript_ref": "transcript-lift",
+              "video_window_end_ms": 15560,
+              "video_window_start_ms": 8220
+            }
+          },
+          {
+            "run_id": "7c220596-601d-4a25-8657-113e07c86cad",
+            "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "9ece938d-d972-4684-896c-eaf73e05625b",
+            "start_ms": 16000,
+            "end_ms": 24000,
+            "duration_ms": 8000,
+            "label": "resolve",
+            "speaker": "section-c",
+            "transcript_excerpt": "return to clarity",
+            "transcript_ref": "transcript-resolve",
+            "section_kind": "resolve",
+            "frame_ref": "frame-027",
+            "video_window_start_ms": 16180,
+            "video_window_end_ms": 23480,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-027",
+              "speaker_or_section": "resolve",
+              "transcript_ref": "transcript-resolve",
+              "video_window_end_ms": 23480,
+              "video_window_start_ms": 16180
+            }
+          }
+        ],
+        "embeddings": [
+          {
+            "record_id": "367c59f7-00a5-4a16-85d1-1e7683e9cb2d",
+            "run_id": "7c220596-601d-4a25-8657-113e07c86cad",
+            "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
+            "segment_id": "0dfb0bbb-5ec3-4ece-ae9c-46981449be7b",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.4189,
+              0.024414,
+              0.993895,
+              0.017651,
+              1.0,
+              0.0,
+              0.998427,
+              0.659254
+            ],
+            "metadata": {
+              "end_ms": 8000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "intro",
+              "start_ms": 0,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:02:58.479241+00:00"
+          },
+          {
+            "record_id": "eae19789-9b64-42e5-8a01-5ab9030c292e",
+            "run_id": "7c220596-601d-4a25-8657-113e07c86cad",
+            "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
+            "segment_id": "8e211f73-427f-4bb6-be96-feb27dc7534c",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.5138,
+              0.042969,
+              0.992825,
+              0.0303,
+              0.782103,
+              0.0,
+              0.995729,
+              0.440548
+            ],
+            "metadata": {
+              "end_ms": 16000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "lift",
+              "start_ms": 8000,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:02:58.479258+00:00"
+          },
+          {
+            "record_id": "70663190-3a4e-4bf7-8ad2-4feaa30caebc",
+            "run_id": "7c220596-601d-4a25-8657-113e07c86cad",
+            "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
+            "segment_id": "9ece938d-d972-4684-896c-eaf73e05625b",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.391549,
+              0.029297,
+              0.974457,
+              0.022245,
+              1.0,
+              0.0,
+              0.997757,
+              0.480051
+            ],
+            "metadata": {
+              "end_ms": 24000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "resolve",
+              "start_ms": 16000,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:02:58.479268+00:00"
+          }
+        ],
+        "receipts": [
+          {
+            "receipt_id": "8423ddd4-d999-431f-ae65-8c00f07baa2d",
+            "source_sha256": "reference-cymatic-field-v1",
+            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+            "extractor_version": "0.5.0",
+            "feature_schema_version": "1.0",
+            "embedding_model": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-3f92df55-20260704040258476743.parquet",
+            "output_sha256": "d27cf3a700c1fb145d1b6dc2cf7d8ccd15aab3021760413ab9489242153e4f25",
+            "output_bytes": 13432,
+            "created_at": "2026-07-04T04:02:58.480426+00:00"
+          },
+          {
+            "receipt_id": "c3d738a8-fa35-47eb-8d94-a407a20d2a4b",
+            "source_sha256": "reference-cymatic-field-v1",
+            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+            "extractor_version": "0.5.0",
+            "feature_schema_version": "1.0-embedding-lane",
+            "embedding_model": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-3f92df55-20260704040258479280-embeddings.parquet",
+            "output_sha256": "1f744e40311c0f7b32b8be92095e9621a141fed308b8f471d7a857338bc08229",
+            "output_bytes": 6618,
+            "created_at": "2026-07-04T04:02:58.480481+00:00"
+          }
+        ],
+        "notes": [
+          "Reference workload used to keep the public signal lab tied to a real feature store.",
+          "Only derived features were persisted. Raw waveform material stayed outside the repository ledger."
+        ],
+        "created_at": "2026-07-04T04:02:58.490281+00:00"
+      },
+      {
+        "run_id": "103e7cb1-88f7-4454-bb02-453f5e6330e0",
+        "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
+        "track_name": "Reference Pulse Field",
+        "owner": "reference-benchmark",
+        "source_uri": "reference://cymatic-field",
+        "source_kind": "reference",
+        "genres": [
+          "signal-study",
+          "reference"
+        ],
+        "languages": [
+          "instrumental"
+        ],
+        "partition_label": "reference",
+        "feature_schema_version": "1.0",
+        "feature_table_path": ".runtime/music-feature-lake/reference-pulse-field-750a6815-20260704040226411732.parquet",
+        "embedding_table_path": ".runtime/music-feature-lake/reference-pulse-field-750a6815-20260704040226414246-embeddings.parquet",
+        "dataset_id": "3d584494-f552-446b-bbc8-e92bcbad2d21",
+        "dataset_name": "music_reference_features",
+        "dataset_version": "2026.07.04",
+        "segment_count": 3,
+        "embedding_model": "amai.audio.segment.signature.v1",
+        "embedding_contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+        "embedding_record_count": 3,
+        "benchmark": {
+          "extraction_ms": 1.7809580022003502,
+          "persist_ms": 2.112166999722831,
+          "total_ms": 3.893125001923181,
+          "segment_count": 3,
+          "bytes_written": 13432,
+          "rows_per_second": 1684.4866618379206,
+          "average_entropy_score": 0.9870591890515499,
+          "average_tempo_proxy_bpm": 0.0,
+          "average_key_clarity": 0.5266176462173462
+        },
+        "segments": [
+          {
+            "segment_id": "c5071d09-8309-4e1e-abef-3832158f0a3d",
+            "start_ms": 0,
+            "end_ms": 8000,
+            "label": "intro",
+            "transcript_excerpt": "soft emergence",
+            "speaker": "section-a",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.41889968514442444,
+            "silence_ratio": 0.0244140625,
+            "zero_crossing_rate": 0.016617790811339198,
+            "dynamic_range": 0.6149592995643616,
+            "crest_factor": 1.668516394597843,
+            "entropy_score": 0.9938953483119174,
+            "spectral_centroid_hz": 141.20631408691406,
+            "spectral_bandwidth_hz": 67.0228500366211,
+            "spectral_rolloff_hz": 187.5,
+            "spectral_flux": 0.3351845443248749,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9984267950057983,
+            "key_clarity": 0.6592541933059692,
+            "dominant_pitch_class": "B",
+            "pitch_class_profile": [
+              5.0834467401728034e-05,
+              0.00042738133925013244,
+              3.58999204763677e-05,
+              0.006477270275354385,
+              2.8571916118380614e-05,
+              0.00021852593636140227,
+              0.33210036158561707,
+              1.665292620600667e-05,
+              0.0001220077247126028,
+              0.0011904914863407612,
+              7.782179454807192e-05,
+              0.6592541933059692
+            ],
+            "notes": []
+          },
+          {
+            "segment_id": "23bef936-9ffd-4902-880c-e71f46747505",
+            "start_ms": 8000,
+            "end_ms": 16000,
+            "label": "lift",
+            "transcript_excerpt": "denser movement",
+            "speaker": "section-b",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.5138004422187805,
+            "silence_ratio": 0.04296875,
+            "zero_crossing_rate": 0.02541544477028348,
+            "dynamic_range": 0.7987010478973389,
+            "crest_factor": 1.711615854079417,
+            "entropy_score": 0.9928251047324964,
+            "spectral_centroid_hz": 242.39991760253906,
+            "spectral_bandwidth_hz": 120.77648162841797,
+            "spectral_rolloff_hz": 375.0,
+            "spectral_flux": 0.19552570581436157,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9957289099693298,
+            "key_clarity": 0.4405476748943329,
+            "dominant_pitch_class": "F#",
+            "pitch_class_profile": [
+              6.348071474349126e-05,
+              0.003240081947296858,
+              4.144086778978817e-05,
+              0.02682526409626007,
+              3.08083908748813e-05,
+              0.0005614739493466914,
+              0.4405476748943329,
+              1.6723479348002e-05,
+              0.00020972378842998296,
+              0.10567477345466614,
+              0.00010843632480828092,
+              0.4226800501346588
+            ],
+            "notes": []
+          },
+          {
+            "segment_id": "1685fc85-68e4-4fe6-8acd-fb5f8d5b40e6",
+            "start_ms": 16000,
+            "end_ms": 24000,
+            "label": "resolve",
+            "transcript_excerpt": "return to clarity",
+            "speaker": "section-c",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.39154911041259766,
+            "silence_ratio": 0.029296875,
+            "zero_crossing_rate": 0.01857282502443793,
+            "dynamic_range": 0.6011701822280884,
+            "crest_factor": 1.9355630539568258,
+            "entropy_score": 0.9744571141102361,
+            "spectral_centroid_hz": 177.95791625976562,
+            "spectral_bandwidth_hz": 94.36720275878906,
+            "spectral_rolloff_hz": 312.5,
+            "spectral_flux": 0.29659417271614075,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9977570176124573,
+            "key_clarity": 0.48005107045173645,
+            "dominant_pitch_class": "B",
+            "pitch_class_profile": [
+              4.947719571646303e-05,
+              0.0005223038024269044,
+              3.347782330820337e-05,
+              0.10709965229034424,
+              2.5288081815233454e-05,
+              0.00024513312382623553,
+              0.4101051688194275,
+              1.3774890248896554e-05,
+              0.00012949990923516452,
+              0.0016466622473672032,
+              7.843477214919403e-05,
+              0.48005107045173645
+            ],
+            "notes": []
+          }
+        ],
+        "segment_index": [
+          {
+            "run_id": "103e7cb1-88f7-4454-bb02-453f5e6330e0",
+            "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "c5071d09-8309-4e1e-abef-3832158f0a3d",
+            "start_ms": 0,
+            "end_ms": 8000,
+            "duration_ms": 8000,
+            "label": "intro",
+            "speaker": "section-a",
+            "transcript_excerpt": "soft emergence",
+            "transcript_ref": "transcript-intro",
+            "section_kind": "intro",
+            "frame_ref": "frame-001",
+            "video_window_start_ms": 120,
+            "video_window_end_ms": 7400,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-001",
+              "speaker_or_section": "intro",
+              "transcript_ref": "transcript-intro",
+              "video_window_end_ms": 7400,
+              "video_window_start_ms": 120
+            }
+          },
+          {
+            "run_id": "103e7cb1-88f7-4454-bb02-453f5e6330e0",
+            "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "23bef936-9ffd-4902-880c-e71f46747505",
+            "start_ms": 8000,
+            "end_ms": 16000,
+            "duration_ms": 8000,
+            "label": "lift",
+            "speaker": "section-b",
+            "transcript_excerpt": "denser movement",
+            "transcript_ref": "transcript-lift",
+            "section_kind": "lift",
+            "frame_ref": "frame-014",
+            "video_window_start_ms": 8220,
+            "video_window_end_ms": 15560,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-014",
+              "speaker_or_section": "lift",
+              "transcript_ref": "transcript-lift",
+              "video_window_end_ms": 15560,
+              "video_window_start_ms": 8220
+            }
+          },
+          {
+            "run_id": "103e7cb1-88f7-4454-bb02-453f5e6330e0",
+            "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "1685fc85-68e4-4fe6-8acd-fb5f8d5b40e6",
+            "start_ms": 16000,
+            "end_ms": 24000,
+            "duration_ms": 8000,
+            "label": "resolve",
+            "speaker": "section-c",
+            "transcript_excerpt": "return to clarity",
+            "transcript_ref": "transcript-resolve",
+            "section_kind": "resolve",
+            "frame_ref": "frame-027",
+            "video_window_start_ms": 16180,
+            "video_window_end_ms": 23480,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-027",
+              "speaker_or_section": "resolve",
+              "transcript_ref": "transcript-resolve",
+              "video_window_end_ms": 23480,
+              "video_window_start_ms": 16180
+            }
+          }
+        ],
+        "embeddings": [
+          {
+            "record_id": "984e432d-f358-4af6-a9e4-3f77c9394c0c",
+            "run_id": "103e7cb1-88f7-4454-bb02-453f5e6330e0",
+            "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
+            "segment_id": "c5071d09-8309-4e1e-abef-3832158f0a3d",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.4189,
+              0.024414,
+              0.993895,
+              0.017651,
+              1.0,
+              0.0,
+              0.998427,
+              0.659254
+            ],
+            "metadata": {
+              "end_ms": 8000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "intro",
+              "start_ms": 0,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:02:26.414206+00:00"
+          },
+          {
+            "record_id": "ac00f65f-def0-47a2-8a12-5b8c666cd1f9",
+            "run_id": "103e7cb1-88f7-4454-bb02-453f5e6330e0",
+            "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
+            "segment_id": "23bef936-9ffd-4902-880c-e71f46747505",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.5138,
+              0.042969,
+              0.992825,
+              0.0303,
+              0.782103,
+              0.0,
+              0.995729,
+              0.440548
+            ],
+            "metadata": {
+              "end_ms": 16000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "lift",
+              "start_ms": 8000,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:02:26.414223+00:00"
+          },
+          {
+            "record_id": "e1c8fa86-458b-4e4a-ac0e-d4d54318b3b2",
+            "run_id": "103e7cb1-88f7-4454-bb02-453f5e6330e0",
+            "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
+            "segment_id": "1685fc85-68e4-4fe6-8acd-fb5f8d5b40e6",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.391549,
+              0.029297,
+              0.974457,
+              0.022245,
+              1.0,
+              0.0,
+              0.997757,
+              0.480051
+            ],
+            "metadata": {
+              "end_ms": 24000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "resolve",
+              "start_ms": 16000,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:02:26.414233+00:00"
+          }
+        ],
+        "receipts": [
+          {
+            "receipt_id": "c44c1825-e758-4646-b8fd-ee6d924c81bd",
+            "source_sha256": "reference-cymatic-field-v1",
+            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+            "extractor_version": "0.5.0",
+            "feature_schema_version": "1.0",
+            "embedding_model": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-750a6815-20260704040226411732.parquet",
+            "output_sha256": "d164282335d46356f3bc07670f6ebbfe771ad6b906a9b4e90df4dfa5f2a6c802",
+            "output_bytes": 13432,
+            "created_at": "2026-07-04T04:02:26.415832+00:00"
+          },
+          {
+            "receipt_id": "77634e4d-d967-4a2c-b931-744e1ea873f0",
+            "source_sha256": "reference-cymatic-field-v1",
+            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+            "extractor_version": "0.5.0",
+            "feature_schema_version": "1.0-embedding-lane",
+            "embedding_model": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-750a6815-20260704040226414246-embeddings.parquet",
+            "output_sha256": "7076662d2a03e7158cf21f91d282245525567205545baeaf85ee05624dad9c6b",
+            "output_bytes": 6618,
+            "created_at": "2026-07-04T04:02:26.415893+00:00"
+          }
+        ],
+        "notes": [
+          "Reference workload used to keep the public signal lab tied to a real feature store.",
+          "Only derived features were persisted. Raw waveform material stayed outside the repository ledger."
+        ],
+        "created_at": "2026-07-04T04:02:26.425509+00:00"
+      },
+      {
+        "run_id": "0e2314d4-48a0-4e31-86d4-965bc7f2d049",
+        "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
+        "track_name": "Reference Pulse Field",
+        "owner": "reference-benchmark",
+        "source_uri": "reference://cymatic-field",
+        "source_kind": "reference",
+        "genres": [
+          "signal-study",
+          "reference"
+        ],
+        "languages": [
+          "instrumental"
+        ],
+        "partition_label": "reference",
+        "feature_schema_version": "1.0",
+        "feature_table_path": ".runtime/music-feature-lake/reference-pulse-field-4edcf5cb-20260704040108710222.parquet",
+        "embedding_table_path": ".runtime/music-feature-lake/reference-pulse-field-4edcf5cb-20260704040108712520-embeddings.parquet",
+        "dataset_id": "983726fe-dc83-41de-8f7b-694decd49593",
+        "dataset_name": "music_reference_features",
+        "dataset_version": "2026.07.04",
+        "segment_count": 3,
+        "embedding_model": "amai.audio.segment.signature.v1",
+        "embedding_contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+        "embedding_record_count": 3,
+        "benchmark": {
+          "extraction_ms": 1.7905830027302727,
+          "persist_ms": 1.9362079910933971,
+          "total_ms": 3.72679099382367,
+          "segment_count": 3,
+          "bytes_written": 13432,
+          "rows_per_second": 1675.4319656925222,
+          "average_entropy_score": 0.9870591890515499,
+          "average_tempo_proxy_bpm": 0.0,
+          "average_key_clarity": 0.5266176462173462
+        },
+        "segments": [
+          {
+            "segment_id": "4f1f3621-f2d2-46ec-91db-e33f6363182e",
+            "start_ms": 0,
+            "end_ms": 8000,
+            "label": "intro",
+            "transcript_excerpt": "soft emergence",
+            "speaker": "section-a",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.41889968514442444,
+            "silence_ratio": 0.0244140625,
+            "zero_crossing_rate": 0.016617790811339198,
+            "dynamic_range": 0.6149592995643616,
+            "crest_factor": 1.668516394597843,
+            "entropy_score": 0.9938953483119174,
+            "spectral_centroid_hz": 141.20631408691406,
+            "spectral_bandwidth_hz": 67.0228500366211,
+            "spectral_rolloff_hz": 187.5,
+            "spectral_flux": 0.3351845443248749,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9984267950057983,
+            "key_clarity": 0.6592541933059692,
+            "dominant_pitch_class": "B",
+            "pitch_class_profile": [
+              5.0834467401728034e-05,
+              0.00042738133925013244,
+              3.58999204763677e-05,
+              0.006477270275354385,
+              2.8571916118380614e-05,
+              0.00021852593636140227,
+              0.33210036158561707,
+              1.665292620600667e-05,
+              0.0001220077247126028,
+              0.0011904914863407612,
+              7.782179454807192e-05,
+              0.6592541933059692
+            ],
+            "notes": []
+          },
+          {
+            "segment_id": "2a24a456-18be-4185-a79c-8ef701b931a6",
+            "start_ms": 8000,
+            "end_ms": 16000,
+            "label": "lift",
+            "transcript_excerpt": "denser movement",
+            "speaker": "section-b",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.5138004422187805,
+            "silence_ratio": 0.04296875,
+            "zero_crossing_rate": 0.02541544477028348,
+            "dynamic_range": 0.7987010478973389,
+            "crest_factor": 1.711615854079417,
+            "entropy_score": 0.9928251047324964,
+            "spectral_centroid_hz": 242.39991760253906,
+            "spectral_bandwidth_hz": 120.77648162841797,
+            "spectral_rolloff_hz": 375.0,
+            "spectral_flux": 0.19552570581436157,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9957289099693298,
+            "key_clarity": 0.4405476748943329,
+            "dominant_pitch_class": "F#",
+            "pitch_class_profile": [
+              6.348071474349126e-05,
+              0.003240081947296858,
+              4.144086778978817e-05,
+              0.02682526409626007,
+              3.08083908748813e-05,
+              0.0005614739493466914,
+              0.4405476748943329,
+              1.6723479348002e-05,
+              0.00020972378842998296,
+              0.10567477345466614,
+              0.00010843632480828092,
+              0.4226800501346588
+            ],
+            "notes": []
+          },
+          {
+            "segment_id": "c6420f07-bf00-4583-ae54-8d015f945e20",
+            "start_ms": 16000,
+            "end_ms": 24000,
+            "label": "resolve",
+            "transcript_excerpt": "return to clarity",
+            "speaker": "section-c",
+            "source_signal": "waveform",
+            "sample_count": 1024,
+            "duration_ms": 8000,
+            "rms_energy": 0.39154911041259766,
+            "silence_ratio": 0.029296875,
+            "zero_crossing_rate": 0.01857282502443793,
+            "dynamic_range": 0.6011701822280884,
+            "crest_factor": 1.9355630539568258,
+            "entropy_score": 0.9744571141102361,
+            "spectral_centroid_hz": 177.95791625976562,
+            "spectral_bandwidth_hz": 94.36720275878906,
+            "spectral_rolloff_hz": 312.5,
+            "spectral_flux": 0.29659417271614075,
+            "onset_density": 0.125,
+            "tempo_proxy_bpm": 0.0,
+            "repetition_ratio": 0.9977570176124573,
+            "key_clarity": 0.48005107045173645,
+            "dominant_pitch_class": "B",
+            "pitch_class_profile": [
+              4.947719571646303e-05,
+              0.0005223038024269044,
+              3.347782330820337e-05,
+              0.10709965229034424,
+              2.5288081815233454e-05,
+              0.00024513312382623553,
+              0.4101051688194275,
+              1.3774890248896554e-05,
+              0.00012949990923516452,
+              0.0016466622473672032,
+              7.843477214919403e-05,
+              0.48005107045173645
+            ],
+            "notes": []
+          }
+        ],
+        "segment_index": [
+          {
+            "run_id": "0e2314d4-48a0-4e31-86d4-965bc7f2d049",
+            "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "4f1f3621-f2d2-46ec-91db-e33f6363182e",
+            "start_ms": 0,
+            "end_ms": 8000,
+            "duration_ms": 8000,
+            "label": "intro",
+            "speaker": "section-a",
+            "transcript_excerpt": "soft emergence",
+            "transcript_ref": "transcript-intro",
+            "section_kind": "intro",
+            "frame_ref": "frame-001",
+            "video_window_start_ms": 120,
+            "video_window_end_ms": 7400,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-001",
+              "speaker_or_section": "intro",
+              "transcript_ref": "transcript-intro",
+              "video_window_end_ms": 7400,
+              "video_window_start_ms": 120
+            }
+          },
+          {
+            "run_id": "0e2314d4-48a0-4e31-86d4-965bc7f2d049",
+            "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "2a24a456-18be-4185-a79c-8ef701b931a6",
+            "start_ms": 8000,
+            "end_ms": 16000,
+            "duration_ms": 8000,
+            "label": "lift",
+            "speaker": "section-b",
+            "transcript_excerpt": "denser movement",
+            "transcript_ref": "transcript-lift",
+            "section_kind": "lift",
+            "frame_ref": "frame-014",
+            "video_window_start_ms": 8220,
+            "video_window_end_ms": 15560,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-014",
+              "speaker_or_section": "lift",
+              "transcript_ref": "transcript-lift",
+              "video_window_end_ms": 15560,
+              "video_window_start_ms": 8220
+            }
+          },
+          {
+            "run_id": "0e2314d4-48a0-4e31-86d4-965bc7f2d049",
+            "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
+            "track_name": "Reference Pulse Field",
+            "segment_id": "c6420f07-bf00-4583-ae54-8d015f945e20",
+            "start_ms": 16000,
+            "end_ms": 24000,
+            "duration_ms": 8000,
+            "label": "resolve",
+            "speaker": "section-c",
+            "transcript_excerpt": "return to clarity",
+            "transcript_ref": "transcript-resolve",
+            "section_kind": "resolve",
+            "frame_ref": "frame-027",
+            "video_window_start_ms": 16180,
+            "video_window_end_ms": 23480,
+            "quality_flags": [
+              "repetition-heavy"
+            ],
+            "attributes": {
+              "frame_ref": "frame-027",
+              "speaker_or_section": "resolve",
+              "transcript_ref": "transcript-resolve",
+              "video_window_end_ms": 23480,
+              "video_window_start_ms": 16180
+            }
+          }
+        ],
+        "embeddings": [
+          {
+            "record_id": "7d197ecc-ffd1-413a-ae74-c9bcbf6fd187",
+            "run_id": "0e2314d4-48a0-4e31-86d4-965bc7f2d049",
+            "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
+            "segment_id": "4f1f3621-f2d2-46ec-91db-e33f6363182e",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.4189,
+              0.024414,
+              0.993895,
+              0.017651,
+              1.0,
+              0.0,
+              0.998427,
+              0.659254
+            ],
+            "metadata": {
+              "end_ms": 8000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "intro",
+              "start_ms": 0,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:01:08.712485+00:00"
+          },
+          {
+            "record_id": "3f2675da-069c-4a20-b4ad-6f4950cf7fcc",
+            "run_id": "0e2314d4-48a0-4e31-86d4-965bc7f2d049",
+            "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
+            "segment_id": "2a24a456-18be-4185-a79c-8ef701b931a6",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.5138,
+              0.042969,
+              0.992825,
+              0.0303,
+              0.782103,
+              0.0,
+              0.995729,
+              0.440548
+            ],
+            "metadata": {
+              "end_ms": 16000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "lift",
+              "start_ms": 8000,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:01:08.712500+00:00"
+          },
+          {
+            "record_id": "bd4e6edc-a608-4b0a-a36b-dead312d8a81",
+            "run_id": "0e2314d4-48a0-4e31-86d4-965bc7f2d049",
+            "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
+            "segment_id": "c6420f07-bf00-4583-ae54-8d015f945e20",
+            "model_name": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "vector": [
+              0.391549,
+              0.029297,
+              0.974457,
+              0.022245,
+              1.0,
+              0.0,
+              0.997757,
+              0.480051
+            ],
+            "metadata": {
+              "end_ms": 24000,
+              "genres": [
+                "signal-study",
+                "reference"
+              ],
+              "languages": [
+                "instrumental"
+              ],
+              "owner": "reference-benchmark",
+              "segment_label": "resolve",
+              "start_ms": 16000,
+              "track_name": "Reference Pulse Field"
+            },
+            "created_at": "2026-07-04T04:01:08.712510+00:00"
+          }
+        ],
+        "receipts": [
+          {
+            "receipt_id": "933e88aa-e118-4596-ab87-9b4329d5abdc",
+            "source_sha256": "reference-cymatic-field-v1",
+            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+            "extractor_version": "0.5.0",
+            "feature_schema_version": "1.0",
+            "embedding_model": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-4edcf5cb-20260704040108710222.parquet",
+            "output_sha256": "bd32495897d7306acdc3aedf63d6940259de7431021ea322969b0c51e25bdb9c",
+            "output_bytes": 13432,
+            "created_at": "2026-07-04T04:01:08.713616+00:00"
+          },
+          {
+            "receipt_id": "4007f00b-6966-4969-998a-f6d07a220120",
+            "source_sha256": "reference-cymatic-field-v1",
+            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
+            "extractor_version": "0.5.0",
+            "feature_schema_version": "1.0-embedding-lane",
+            "embedding_model": "amai.audio.segment.signature.v1",
+            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-4edcf5cb-20260704040108712520-embeddings.parquet",
+            "output_sha256": "f8988f415c255c5d06680c4b1f9632ad7de5153b4b7b2f8d92334cfc240a2acd",
+            "output_bytes": 6619,
+            "created_at": "2026-07-04T04:01:08.714170+00:00"
+          }
+        ],
+        "notes": [
+          "Reference workload used to keep the public signal lab tied to a real feature store.",
+          "Only derived features were persisted. Raw waveform material stayed outside the repository ledger."
+        ],
+        "created_at": "2026-07-04T04:01:08.724139+00:00"
+      },
       {
         "run_id": "3d2b51da-8f14-4660-9a5e-bbcddfb8adb2",
         "manifest_id": "006d7792-779a-4293-88ce-35eabcb8c55f",
@@ -3443,1525 +4959,9 @@
           "Only derived features were persisted. Raw waveform material stayed outside the repository ledger."
         ],
         "created_at": "2026-07-04T02:46:20.844945+00:00"
-      },
-      {
-        "run_id": "8b02bb01-845e-4999-ab81-6b88992fb404",
-        "manifest_id": "f5131f7d-b7fc-4b0e-bab6-a921cce8ad3b",
-        "track_name": "Reference Pulse Field",
-        "owner": "reference-benchmark",
-        "source_uri": "reference://cymatic-field",
-        "source_kind": "reference",
-        "genres": [
-          "signal-study",
-          "reference"
-        ],
-        "languages": [
-          "instrumental"
-        ],
-        "partition_label": "reference",
-        "feature_schema_version": "1.0",
-        "feature_table_path": ".runtime/music-feature-lake/reference-pulse-field-f5131f7d-20260704024614304214.parquet",
-        "embedding_table_path": ".runtime/music-feature-lake/reference-pulse-field-f5131f7d-20260704024614307323-embeddings.parquet",
-        "dataset_id": "654fec45-4f47-4fc8-afc5-5b235dd96aca",
-        "dataset_name": "music_reference_features",
-        "dataset_version": "2026.07.04",
-        "segment_count": 3,
-        "embedding_model": "amai.audio.segment.signature.v1",
-        "embedding_contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-        "embedding_record_count": 3,
-        "benchmark": {
-          "extraction_ms": 8.008333999896422,
-          "persist_ms": 2.6858330093091354,
-          "total_ms": 10.694167009205557,
-          "segment_count": 3,
-          "bytes_written": 13432,
-          "rows_per_second": 374.6097502974778,
-          "average_entropy_score": 0.9870591890515499,
-          "average_tempo_proxy_bpm": 0.0,
-          "average_key_clarity": 0.5266176462173462
-        },
-        "segments": [
-          {
-            "segment_id": "69f84246-b65a-47bb-8723-1ff686265238",
-            "start_ms": 0,
-            "end_ms": 8000,
-            "label": "intro",
-            "transcript_excerpt": "soft emergence",
-            "speaker": "section-a",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.41889968514442444,
-            "silence_ratio": 0.0244140625,
-            "zero_crossing_rate": 0.016617790811339198,
-            "dynamic_range": 0.6149592995643616,
-            "crest_factor": 1.668516394597843,
-            "entropy_score": 0.9938953483119174,
-            "spectral_centroid_hz": 141.20631408691406,
-            "spectral_bandwidth_hz": 67.0228500366211,
-            "spectral_rolloff_hz": 187.5,
-            "spectral_flux": 0.3351845443248749,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9984267950057983,
-            "key_clarity": 0.6592541933059692,
-            "dominant_pitch_class": "B",
-            "pitch_class_profile": [
-              5.0834467401728034e-05,
-              0.00042738133925013244,
-              3.58999204763677e-05,
-              0.006477270275354385,
-              2.8571916118380614e-05,
-              0.00021852593636140227,
-              0.33210036158561707,
-              1.665292620600667e-05,
-              0.0001220077247126028,
-              0.0011904914863407612,
-              7.782179454807192e-05,
-              0.6592541933059692
-            ],
-            "notes": []
-          },
-          {
-            "segment_id": "df959513-a336-43e5-acc3-3d4514d6e0c5",
-            "start_ms": 8000,
-            "end_ms": 16000,
-            "label": "lift",
-            "transcript_excerpt": "denser movement",
-            "speaker": "section-b",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.5138004422187805,
-            "silence_ratio": 0.04296875,
-            "zero_crossing_rate": 0.02541544477028348,
-            "dynamic_range": 0.7987010478973389,
-            "crest_factor": 1.711615854079417,
-            "entropy_score": 0.9928251047324964,
-            "spectral_centroid_hz": 242.39991760253906,
-            "spectral_bandwidth_hz": 120.77648162841797,
-            "spectral_rolloff_hz": 375.0,
-            "spectral_flux": 0.19552570581436157,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9957289099693298,
-            "key_clarity": 0.4405476748943329,
-            "dominant_pitch_class": "F#",
-            "pitch_class_profile": [
-              6.348071474349126e-05,
-              0.003240081947296858,
-              4.144086778978817e-05,
-              0.02682526409626007,
-              3.08083908748813e-05,
-              0.0005614739493466914,
-              0.4405476748943329,
-              1.6723479348002e-05,
-              0.00020972378842998296,
-              0.10567477345466614,
-              0.00010843632480828092,
-              0.4226800501346588
-            ],
-            "notes": []
-          },
-          {
-            "segment_id": "bee061f7-fba8-44de-a461-9a964bbed657",
-            "start_ms": 16000,
-            "end_ms": 24000,
-            "label": "resolve",
-            "transcript_excerpt": "return to clarity",
-            "speaker": "section-c",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.39154911041259766,
-            "silence_ratio": 0.029296875,
-            "zero_crossing_rate": 0.01857282502443793,
-            "dynamic_range": 0.6011701822280884,
-            "crest_factor": 1.9355630539568258,
-            "entropy_score": 0.9744571141102361,
-            "spectral_centroid_hz": 177.95791625976562,
-            "spectral_bandwidth_hz": 94.36720275878906,
-            "spectral_rolloff_hz": 312.5,
-            "spectral_flux": 0.29659417271614075,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9977570176124573,
-            "key_clarity": 0.48005107045173645,
-            "dominant_pitch_class": "B",
-            "pitch_class_profile": [
-              4.947719571646303e-05,
-              0.0005223038024269044,
-              3.347782330820337e-05,
-              0.10709965229034424,
-              2.5288081815233454e-05,
-              0.00024513312382623553,
-              0.4101051688194275,
-              1.3774890248896554e-05,
-              0.00012949990923516452,
-              0.0016466622473672032,
-              7.843477214919403e-05,
-              0.48005107045173645
-            ],
-            "notes": []
-          }
-        ],
-        "segment_index": [
-          {
-            "run_id": "8b02bb01-845e-4999-ab81-6b88992fb404",
-            "manifest_id": "f5131f7d-b7fc-4b0e-bab6-a921cce8ad3b",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "69f84246-b65a-47bb-8723-1ff686265238",
-            "start_ms": 0,
-            "end_ms": 8000,
-            "duration_ms": 8000,
-            "label": "intro",
-            "speaker": "section-a",
-            "transcript_excerpt": "soft emergence",
-            "transcript_ref": "transcript-intro",
-            "section_kind": "intro",
-            "frame_ref": "frame-001",
-            "video_window_start_ms": 120,
-            "video_window_end_ms": 7400,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-001",
-              "speaker_or_section": "intro",
-              "transcript_ref": "transcript-intro",
-              "video_window_end_ms": 7400,
-              "video_window_start_ms": 120
-            }
-          },
-          {
-            "run_id": "8b02bb01-845e-4999-ab81-6b88992fb404",
-            "manifest_id": "f5131f7d-b7fc-4b0e-bab6-a921cce8ad3b",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "df959513-a336-43e5-acc3-3d4514d6e0c5",
-            "start_ms": 8000,
-            "end_ms": 16000,
-            "duration_ms": 8000,
-            "label": "lift",
-            "speaker": "section-b",
-            "transcript_excerpt": "denser movement",
-            "transcript_ref": "transcript-lift",
-            "section_kind": "lift",
-            "frame_ref": "frame-014",
-            "video_window_start_ms": 8220,
-            "video_window_end_ms": 15560,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-014",
-              "speaker_or_section": "lift",
-              "transcript_ref": "transcript-lift",
-              "video_window_end_ms": 15560,
-              "video_window_start_ms": 8220
-            }
-          },
-          {
-            "run_id": "8b02bb01-845e-4999-ab81-6b88992fb404",
-            "manifest_id": "f5131f7d-b7fc-4b0e-bab6-a921cce8ad3b",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "bee061f7-fba8-44de-a461-9a964bbed657",
-            "start_ms": 16000,
-            "end_ms": 24000,
-            "duration_ms": 8000,
-            "label": "resolve",
-            "speaker": "section-c",
-            "transcript_excerpt": "return to clarity",
-            "transcript_ref": "transcript-resolve",
-            "section_kind": "resolve",
-            "frame_ref": "frame-027",
-            "video_window_start_ms": 16180,
-            "video_window_end_ms": 23480,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-027",
-              "speaker_or_section": "resolve",
-              "transcript_ref": "transcript-resolve",
-              "video_window_end_ms": 23480,
-              "video_window_start_ms": 16180
-            }
-          }
-        ],
-        "embeddings": [
-          {
-            "record_id": "92ec1d17-e19b-48f0-ad65-6fa81f76a2b3",
-            "run_id": "8b02bb01-845e-4999-ab81-6b88992fb404",
-            "manifest_id": "f5131f7d-b7fc-4b0e-bab6-a921cce8ad3b",
-            "segment_id": "69f84246-b65a-47bb-8723-1ff686265238",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.4189,
-              0.024414,
-              0.993895,
-              0.017651,
-              1.0,
-              0.0,
-              0.998427,
-              0.659254
-            ],
-            "metadata": {
-              "end_ms": 8000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "intro",
-              "start_ms": 0,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:46:14.307283+00:00"
-          },
-          {
-            "record_id": "662682f6-1a5b-4e95-a5c0-ac66e07b9bab",
-            "run_id": "8b02bb01-845e-4999-ab81-6b88992fb404",
-            "manifest_id": "f5131f7d-b7fc-4b0e-bab6-a921cce8ad3b",
-            "segment_id": "df959513-a336-43e5-acc3-3d4514d6e0c5",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.5138,
-              0.042969,
-              0.992825,
-              0.0303,
-              0.782103,
-              0.0,
-              0.995729,
-              0.440548
-            ],
-            "metadata": {
-              "end_ms": 16000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "lift",
-              "start_ms": 8000,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:46:14.307303+00:00"
-          },
-          {
-            "record_id": "c04bdb2a-399e-4161-be80-7e00be931af5",
-            "run_id": "8b02bb01-845e-4999-ab81-6b88992fb404",
-            "manifest_id": "f5131f7d-b7fc-4b0e-bab6-a921cce8ad3b",
-            "segment_id": "bee061f7-fba8-44de-a461-9a964bbed657",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.391549,
-              0.029297,
-              0.974457,
-              0.022245,
-              1.0,
-              0.0,
-              0.997757,
-              0.480051
-            ],
-            "metadata": {
-              "end_ms": 24000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "resolve",
-              "start_ms": 16000,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:46:14.307313+00:00"
-          }
-        ],
-        "receipts": [
-          {
-            "receipt_id": "d2fbdb9b-afec-43b2-9c29-6eec5fa9ee4f",
-            "source_sha256": "reference-cymatic-field-v1",
-            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-            "extractor_version": "0.5.0",
-            "feature_schema_version": "1.0",
-            "embedding_model": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-f5131f7d-20260704024614304214.parquet",
-            "output_sha256": "6970c4dc550d4ee1a79e54c25a105cb21daeecf0e12281f7a34ab8e9c413323c",
-            "output_bytes": 13432,
-            "created_at": "2026-07-04T02:46:14.308404+00:00"
-          },
-          {
-            "receipt_id": "3947218e-0c7d-4291-bda4-f04d07349d16",
-            "source_sha256": "reference-cymatic-field-v1",
-            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-            "extractor_version": "0.5.0",
-            "feature_schema_version": "1.0-embedding-lane",
-            "embedding_model": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-f5131f7d-20260704024614307323-embeddings.parquet",
-            "output_sha256": "28eb68a7a196a62630ba7ee161a4c5dcd9f2d0a73191dac5a1f6c00b1dcc4f9e",
-            "output_bytes": 6619,
-            "created_at": "2026-07-04T02:46:14.308457+00:00"
-          }
-        ],
-        "notes": [
-          "Reference workload used to keep the public signal lab tied to a real feature store.",
-          "Only derived features were persisted. Raw waveform material stayed outside the repository ledger."
-        ],
-        "created_at": "2026-07-04T02:46:14.318029+00:00"
-      },
-      {
-        "run_id": "24c37172-e9d7-4d9e-8bd9-5a5ac572873f",
-        "manifest_id": "87706b41-4533-4ee3-9b95-f4ef76c92dbd",
-        "track_name": "Reference Pulse Field",
-        "owner": "reference-benchmark",
-        "source_uri": "reference://cymatic-field",
-        "source_kind": "reference",
-        "genres": [
-          "signal-study",
-          "reference"
-        ],
-        "languages": [
-          "instrumental"
-        ],
-        "partition_label": "reference",
-        "feature_schema_version": "1.0",
-        "feature_table_path": ".runtime/music-feature-lake/reference-pulse-field-87706b41-20260704023851351421.parquet",
-        "embedding_table_path": ".runtime/music-feature-lake/reference-pulse-field-87706b41-20260704023851353769-embeddings.parquet",
-        "dataset_id": "5e78d697-db86-4806-8b94-6bd67ed0e35a",
-        "dataset_name": "music_reference_features",
-        "dataset_version": "2026.07.04",
-        "segment_count": 3,
-        "embedding_model": "amai.audio.segment.signature.v1",
-        "embedding_contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-        "embedding_record_count": 3,
-        "benchmark": {
-          "extraction_ms": 1.7315829900326207,
-          "persist_ms": 1.9930410053348169,
-          "total_ms": 3.7246239953674376,
-          "segment_count": 3,
-          "bytes_written": 13431,
-          "rows_per_second": 1732.5187514942522,
-          "average_entropy_score": 0.9870591890515499,
-          "average_tempo_proxy_bpm": 0.0,
-          "average_key_clarity": 0.5266176462173462
-        },
-        "segments": [
-          {
-            "segment_id": "0384a24b-846f-496f-8aa8-f8ccd2171dbd",
-            "start_ms": 0,
-            "end_ms": 8000,
-            "label": "intro",
-            "transcript_excerpt": "soft emergence",
-            "speaker": "section-a",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.41889968514442444,
-            "silence_ratio": 0.0244140625,
-            "zero_crossing_rate": 0.016617790811339198,
-            "dynamic_range": 0.6149592995643616,
-            "crest_factor": 1.668516394597843,
-            "entropy_score": 0.9938953483119174,
-            "spectral_centroid_hz": 141.20631408691406,
-            "spectral_bandwidth_hz": 67.0228500366211,
-            "spectral_rolloff_hz": 187.5,
-            "spectral_flux": 0.3351845443248749,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9984267950057983,
-            "key_clarity": 0.6592541933059692,
-            "dominant_pitch_class": "B",
-            "pitch_class_profile": [
-              5.0834467401728034e-05,
-              0.00042738133925013244,
-              3.58999204763677e-05,
-              0.006477270275354385,
-              2.8571916118380614e-05,
-              0.00021852593636140227,
-              0.33210036158561707,
-              1.665292620600667e-05,
-              0.0001220077247126028,
-              0.0011904914863407612,
-              7.782179454807192e-05,
-              0.6592541933059692
-            ],
-            "notes": []
-          },
-          {
-            "segment_id": "466f835e-eab1-487c-ab82-39dd64dadaa7",
-            "start_ms": 8000,
-            "end_ms": 16000,
-            "label": "lift",
-            "transcript_excerpt": "denser movement",
-            "speaker": "section-b",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.5138004422187805,
-            "silence_ratio": 0.04296875,
-            "zero_crossing_rate": 0.02541544477028348,
-            "dynamic_range": 0.7987010478973389,
-            "crest_factor": 1.711615854079417,
-            "entropy_score": 0.9928251047324964,
-            "spectral_centroid_hz": 242.39991760253906,
-            "spectral_bandwidth_hz": 120.77648162841797,
-            "spectral_rolloff_hz": 375.0,
-            "spectral_flux": 0.19552570581436157,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9957289099693298,
-            "key_clarity": 0.4405476748943329,
-            "dominant_pitch_class": "F#",
-            "pitch_class_profile": [
-              6.348071474349126e-05,
-              0.003240081947296858,
-              4.144086778978817e-05,
-              0.02682526409626007,
-              3.08083908748813e-05,
-              0.0005614739493466914,
-              0.4405476748943329,
-              1.6723479348002e-05,
-              0.00020972378842998296,
-              0.10567477345466614,
-              0.00010843632480828092,
-              0.4226800501346588
-            ],
-            "notes": []
-          },
-          {
-            "segment_id": "01716d0f-ee16-4332-bc8e-0fdc23f5154e",
-            "start_ms": 16000,
-            "end_ms": 24000,
-            "label": "resolve",
-            "transcript_excerpt": "return to clarity",
-            "speaker": "section-c",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.39154911041259766,
-            "silence_ratio": 0.029296875,
-            "zero_crossing_rate": 0.01857282502443793,
-            "dynamic_range": 0.6011701822280884,
-            "crest_factor": 1.9355630539568258,
-            "entropy_score": 0.9744571141102361,
-            "spectral_centroid_hz": 177.95791625976562,
-            "spectral_bandwidth_hz": 94.36720275878906,
-            "spectral_rolloff_hz": 312.5,
-            "spectral_flux": 0.29659417271614075,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9977570176124573,
-            "key_clarity": 0.48005107045173645,
-            "dominant_pitch_class": "B",
-            "pitch_class_profile": [
-              4.947719571646303e-05,
-              0.0005223038024269044,
-              3.347782330820337e-05,
-              0.10709965229034424,
-              2.5288081815233454e-05,
-              0.00024513312382623553,
-              0.4101051688194275,
-              1.3774890248896554e-05,
-              0.00012949990923516452,
-              0.0016466622473672032,
-              7.843477214919403e-05,
-              0.48005107045173645
-            ],
-            "notes": []
-          }
-        ],
-        "segment_index": [
-          {
-            "run_id": "24c37172-e9d7-4d9e-8bd9-5a5ac572873f",
-            "manifest_id": "87706b41-4533-4ee3-9b95-f4ef76c92dbd",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "0384a24b-846f-496f-8aa8-f8ccd2171dbd",
-            "start_ms": 0,
-            "end_ms": 8000,
-            "duration_ms": 8000,
-            "label": "intro",
-            "speaker": "section-a",
-            "transcript_excerpt": "soft emergence",
-            "transcript_ref": "transcript-intro",
-            "section_kind": "intro",
-            "frame_ref": "frame-001",
-            "video_window_start_ms": 120,
-            "video_window_end_ms": 7400,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-001",
-              "speaker_or_section": "intro",
-              "transcript_ref": "transcript-intro",
-              "video_window_end_ms": 7400,
-              "video_window_start_ms": 120
-            }
-          },
-          {
-            "run_id": "24c37172-e9d7-4d9e-8bd9-5a5ac572873f",
-            "manifest_id": "87706b41-4533-4ee3-9b95-f4ef76c92dbd",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "466f835e-eab1-487c-ab82-39dd64dadaa7",
-            "start_ms": 8000,
-            "end_ms": 16000,
-            "duration_ms": 8000,
-            "label": "lift",
-            "speaker": "section-b",
-            "transcript_excerpt": "denser movement",
-            "transcript_ref": "transcript-lift",
-            "section_kind": "lift",
-            "frame_ref": "frame-014",
-            "video_window_start_ms": 8220,
-            "video_window_end_ms": 15560,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-014",
-              "speaker_or_section": "lift",
-              "transcript_ref": "transcript-lift",
-              "video_window_end_ms": 15560,
-              "video_window_start_ms": 8220
-            }
-          },
-          {
-            "run_id": "24c37172-e9d7-4d9e-8bd9-5a5ac572873f",
-            "manifest_id": "87706b41-4533-4ee3-9b95-f4ef76c92dbd",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "01716d0f-ee16-4332-bc8e-0fdc23f5154e",
-            "start_ms": 16000,
-            "end_ms": 24000,
-            "duration_ms": 8000,
-            "label": "resolve",
-            "speaker": "section-c",
-            "transcript_excerpt": "return to clarity",
-            "transcript_ref": "transcript-resolve",
-            "section_kind": "resolve",
-            "frame_ref": "frame-027",
-            "video_window_start_ms": 16180,
-            "video_window_end_ms": 23480,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-027",
-              "speaker_or_section": "resolve",
-              "transcript_ref": "transcript-resolve",
-              "video_window_end_ms": 23480,
-              "video_window_start_ms": 16180
-            }
-          }
-        ],
-        "embeddings": [
-          {
-            "record_id": "ea522ae9-88cd-4f91-8539-edc38a499a0d",
-            "run_id": "24c37172-e9d7-4d9e-8bd9-5a5ac572873f",
-            "manifest_id": "87706b41-4533-4ee3-9b95-f4ef76c92dbd",
-            "segment_id": "0384a24b-846f-496f-8aa8-f8ccd2171dbd",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.4189,
-              0.024414,
-              0.993895,
-              0.017651,
-              1.0,
-              0.0,
-              0.998427,
-              0.659254
-            ],
-            "metadata": {
-              "end_ms": 8000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "intro",
-              "start_ms": 0,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:38:51.353713+00:00"
-          },
-          {
-            "record_id": "2c8a586d-a785-40ec-a8d1-510093f8f7c4",
-            "run_id": "24c37172-e9d7-4d9e-8bd9-5a5ac572873f",
-            "manifest_id": "87706b41-4533-4ee3-9b95-f4ef76c92dbd",
-            "segment_id": "466f835e-eab1-487c-ab82-39dd64dadaa7",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.5138,
-              0.042969,
-              0.992825,
-              0.0303,
-              0.782103,
-              0.0,
-              0.995729,
-              0.440548
-            ],
-            "metadata": {
-              "end_ms": 16000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "lift",
-              "start_ms": 8000,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:38:51.353729+00:00"
-          },
-          {
-            "record_id": "92d29be2-7e5e-4130-a405-cf42840d4e23",
-            "run_id": "24c37172-e9d7-4d9e-8bd9-5a5ac572873f",
-            "manifest_id": "87706b41-4533-4ee3-9b95-f4ef76c92dbd",
-            "segment_id": "01716d0f-ee16-4332-bc8e-0fdc23f5154e",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.391549,
-              0.029297,
-              0.974457,
-              0.022245,
-              1.0,
-              0.0,
-              0.997757,
-              0.480051
-            ],
-            "metadata": {
-              "end_ms": 24000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "resolve",
-              "start_ms": 16000,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:38:51.353758+00:00"
-          }
-        ],
-        "receipts": [
-          {
-            "receipt_id": "44953aa8-ed7d-440a-b5f1-6bc5a61b0910",
-            "source_sha256": "reference-cymatic-field-v1",
-            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-            "extractor_version": "0.5.0",
-            "feature_schema_version": "1.0",
-            "embedding_model": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-87706b41-20260704023851351421.parquet",
-            "output_sha256": "c62ad1564c02b27ef9b0110c0e486ce1823ffab41433c6e07d152aab627f6800",
-            "output_bytes": 13431,
-            "created_at": "2026-07-04T02:38:51.355456+00:00"
-          },
-          {
-            "receipt_id": "bd2b6611-d08a-4a77-878a-23d980595ff2",
-            "source_sha256": "reference-cymatic-field-v1",
-            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-            "extractor_version": "0.5.0",
-            "feature_schema_version": "1.0-embedding-lane",
-            "embedding_model": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-87706b41-20260704023851353769-embeddings.parquet",
-            "output_sha256": "17833d8a6f00703e70dcb101058a86d84bde7276367b5ca2fb66fed6ffbde170",
-            "output_bytes": 6617,
-            "created_at": "2026-07-04T02:38:51.355549+00:00"
-          }
-        ],
-        "notes": [
-          "Reference workload used to keep the public signal lab tied to a real feature store.",
-          "Only derived features were persisted. Raw waveform material stayed outside the repository ledger."
-        ],
-        "created_at": "2026-07-04T02:38:51.365429+00:00"
-      },
-      {
-        "run_id": "b953b7a3-f4b6-47f3-b707-3a3b6edb7020",
-        "manifest_id": "41829d3d-3b6a-4889-b227-64d380f300e1",
-        "track_name": "Reference Pulse Field",
-        "owner": "reference-benchmark",
-        "source_uri": "reference://cymatic-field",
-        "source_kind": "reference",
-        "genres": [
-          "signal-study",
-          "reference"
-        ],
-        "languages": [
-          "instrumental"
-        ],
-        "partition_label": "reference",
-        "feature_schema_version": "1.0",
-        "feature_table_path": ".runtime/music-feature-lake/reference-pulse-field-41829d3d-20260704022520436285.parquet",
-        "embedding_table_path": ".runtime/music-feature-lake/reference-pulse-field-41829d3d-20260704022520441537-embeddings.parquet",
-        "dataset_id": "ea2ad44f-bf06-44f6-9825-98ee020675d8",
-        "dataset_name": "music_reference_features",
-        "dataset_version": "2026.07.04",
-        "segment_count": 3,
-        "embedding_model": "amai.audio.segment.signature.v1",
-        "embedding_contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-        "embedding_record_count": 3,
-        "benchmark": {
-          "extraction_ms": 2.8840419981861487,
-          "persist_ms": 4.648874994018115,
-          "total_ms": 7.532916992204264,
-          "segment_count": 3,
-          "bytes_written": 13432,
-          "rows_per_second": 1040.2067660203215,
-          "average_entropy_score": 0.9870591890515499,
-          "average_tempo_proxy_bpm": 0.0,
-          "average_key_clarity": 0.5266176462173462
-        },
-        "segments": [
-          {
-            "segment_id": "7f2ca3e7-0957-433e-b9c1-e84b1d6b0248",
-            "start_ms": 0,
-            "end_ms": 8000,
-            "label": "intro",
-            "transcript_excerpt": "soft emergence",
-            "speaker": "section-a",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.41889968514442444,
-            "silence_ratio": 0.0244140625,
-            "zero_crossing_rate": 0.016617790811339198,
-            "dynamic_range": 0.6149592995643616,
-            "crest_factor": 1.668516394597843,
-            "entropy_score": 0.9938953483119174,
-            "spectral_centroid_hz": 141.20631408691406,
-            "spectral_bandwidth_hz": 67.0228500366211,
-            "spectral_rolloff_hz": 187.5,
-            "spectral_flux": 0.3351845443248749,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9984267950057983,
-            "key_clarity": 0.6592541933059692,
-            "dominant_pitch_class": "B",
-            "pitch_class_profile": [
-              5.0834467401728034e-05,
-              0.00042738133925013244,
-              3.58999204763677e-05,
-              0.006477270275354385,
-              2.8571916118380614e-05,
-              0.00021852593636140227,
-              0.33210036158561707,
-              1.665292620600667e-05,
-              0.0001220077247126028,
-              0.0011904914863407612,
-              7.782179454807192e-05,
-              0.6592541933059692
-            ],
-            "notes": []
-          },
-          {
-            "segment_id": "2f8cdd61-eda4-42d4-bfef-06a63b9b0ede",
-            "start_ms": 8000,
-            "end_ms": 16000,
-            "label": "lift",
-            "transcript_excerpt": "denser movement",
-            "speaker": "section-b",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.5138004422187805,
-            "silence_ratio": 0.04296875,
-            "zero_crossing_rate": 0.02541544477028348,
-            "dynamic_range": 0.7987010478973389,
-            "crest_factor": 1.711615854079417,
-            "entropy_score": 0.9928251047324964,
-            "spectral_centroid_hz": 242.39991760253906,
-            "spectral_bandwidth_hz": 120.77648162841797,
-            "spectral_rolloff_hz": 375.0,
-            "spectral_flux": 0.19552570581436157,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9957289099693298,
-            "key_clarity": 0.4405476748943329,
-            "dominant_pitch_class": "F#",
-            "pitch_class_profile": [
-              6.348071474349126e-05,
-              0.003240081947296858,
-              4.144086778978817e-05,
-              0.02682526409626007,
-              3.08083908748813e-05,
-              0.0005614739493466914,
-              0.4405476748943329,
-              1.6723479348002e-05,
-              0.00020972378842998296,
-              0.10567477345466614,
-              0.00010843632480828092,
-              0.4226800501346588
-            ],
-            "notes": []
-          },
-          {
-            "segment_id": "9e9c9994-190a-417c-b0a6-751a15d5994c",
-            "start_ms": 16000,
-            "end_ms": 24000,
-            "label": "resolve",
-            "transcript_excerpt": "return to clarity",
-            "speaker": "section-c",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.39154911041259766,
-            "silence_ratio": 0.029296875,
-            "zero_crossing_rate": 0.01857282502443793,
-            "dynamic_range": 0.6011701822280884,
-            "crest_factor": 1.9355630539568258,
-            "entropy_score": 0.9744571141102361,
-            "spectral_centroid_hz": 177.95791625976562,
-            "spectral_bandwidth_hz": 94.36720275878906,
-            "spectral_rolloff_hz": 312.5,
-            "spectral_flux": 0.29659417271614075,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9977570176124573,
-            "key_clarity": 0.48005107045173645,
-            "dominant_pitch_class": "B",
-            "pitch_class_profile": [
-              4.947719571646303e-05,
-              0.0005223038024269044,
-              3.347782330820337e-05,
-              0.10709965229034424,
-              2.5288081815233454e-05,
-              0.00024513312382623553,
-              0.4101051688194275,
-              1.3774890248896554e-05,
-              0.00012949990923516452,
-              0.0016466622473672032,
-              7.843477214919403e-05,
-              0.48005107045173645
-            ],
-            "notes": []
-          }
-        ],
-        "segment_index": [
-          {
-            "run_id": "b953b7a3-f4b6-47f3-b707-3a3b6edb7020",
-            "manifest_id": "41829d3d-3b6a-4889-b227-64d380f300e1",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "7f2ca3e7-0957-433e-b9c1-e84b1d6b0248",
-            "start_ms": 0,
-            "end_ms": 8000,
-            "duration_ms": 8000,
-            "label": "intro",
-            "speaker": "section-a",
-            "transcript_excerpt": "soft emergence",
-            "transcript_ref": "transcript-intro",
-            "section_kind": "intro",
-            "frame_ref": "frame-001",
-            "video_window_start_ms": 120,
-            "video_window_end_ms": 7400,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-001",
-              "speaker_or_section": "intro",
-              "transcript_ref": "transcript-intro",
-              "video_window_end_ms": 7400,
-              "video_window_start_ms": 120
-            }
-          },
-          {
-            "run_id": "b953b7a3-f4b6-47f3-b707-3a3b6edb7020",
-            "manifest_id": "41829d3d-3b6a-4889-b227-64d380f300e1",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "2f8cdd61-eda4-42d4-bfef-06a63b9b0ede",
-            "start_ms": 8000,
-            "end_ms": 16000,
-            "duration_ms": 8000,
-            "label": "lift",
-            "speaker": "section-b",
-            "transcript_excerpt": "denser movement",
-            "transcript_ref": "transcript-lift",
-            "section_kind": "lift",
-            "frame_ref": "frame-014",
-            "video_window_start_ms": 8220,
-            "video_window_end_ms": 15560,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-014",
-              "speaker_or_section": "lift",
-              "transcript_ref": "transcript-lift",
-              "video_window_end_ms": 15560,
-              "video_window_start_ms": 8220
-            }
-          },
-          {
-            "run_id": "b953b7a3-f4b6-47f3-b707-3a3b6edb7020",
-            "manifest_id": "41829d3d-3b6a-4889-b227-64d380f300e1",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "9e9c9994-190a-417c-b0a6-751a15d5994c",
-            "start_ms": 16000,
-            "end_ms": 24000,
-            "duration_ms": 8000,
-            "label": "resolve",
-            "speaker": "section-c",
-            "transcript_excerpt": "return to clarity",
-            "transcript_ref": "transcript-resolve",
-            "section_kind": "resolve",
-            "frame_ref": "frame-027",
-            "video_window_start_ms": 16180,
-            "video_window_end_ms": 23480,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-027",
-              "speaker_or_section": "resolve",
-              "transcript_ref": "transcript-resolve",
-              "video_window_end_ms": 23480,
-              "video_window_start_ms": 16180
-            }
-          }
-        ],
-        "embeddings": [
-          {
-            "record_id": "9b99d719-9887-4a58-a572-f8f406b8afbd",
-            "run_id": "b953b7a3-f4b6-47f3-b707-3a3b6edb7020",
-            "manifest_id": "41829d3d-3b6a-4889-b227-64d380f300e1",
-            "segment_id": "7f2ca3e7-0957-433e-b9c1-e84b1d6b0248",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.4189,
-              0.024414,
-              0.993895,
-              0.017651,
-              1.0,
-              0.0,
-              0.998427,
-              0.659254
-            ],
-            "metadata": {
-              "end_ms": 8000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "intro",
-              "start_ms": 0,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:25:20.441487+00:00"
-          },
-          {
-            "record_id": "009dc363-da0d-4e59-b0b2-28c62e945e0f",
-            "run_id": "b953b7a3-f4b6-47f3-b707-3a3b6edb7020",
-            "manifest_id": "41829d3d-3b6a-4889-b227-64d380f300e1",
-            "segment_id": "2f8cdd61-eda4-42d4-bfef-06a63b9b0ede",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.5138,
-              0.042969,
-              0.992825,
-              0.0303,
-              0.782103,
-              0.0,
-              0.995729,
-              0.440548
-            ],
-            "metadata": {
-              "end_ms": 16000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "lift",
-              "start_ms": 8000,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:25:20.441509+00:00"
-          },
-          {
-            "record_id": "1143da86-852b-432b-9b69-8aac00792950",
-            "run_id": "b953b7a3-f4b6-47f3-b707-3a3b6edb7020",
-            "manifest_id": "41829d3d-3b6a-4889-b227-64d380f300e1",
-            "segment_id": "9e9c9994-190a-417c-b0a6-751a15d5994c",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.391549,
-              0.029297,
-              0.974457,
-              0.022245,
-              1.0,
-              0.0,
-              0.997757,
-              0.480051
-            ],
-            "metadata": {
-              "end_ms": 24000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "resolve",
-              "start_ms": 16000,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:25:20.441519+00:00"
-          }
-        ],
-        "receipts": [
-          {
-            "receipt_id": "4b8ec774-818e-4473-a591-b5776ef430f5",
-            "source_sha256": "reference-cymatic-field-v1",
-            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-            "extractor_version": "0.5.0",
-            "feature_schema_version": "1.0",
-            "embedding_model": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-41829d3d-20260704022520436285.parquet",
-            "output_sha256": "a7813a8faf04c1d937fe7b1492c9b375b3a89881b7563fefc3d27b4de273e426",
-            "output_bytes": 13432,
-            "created_at": "2026-07-04T02:25:20.443181+00:00"
-          },
-          {
-            "receipt_id": "c8a3fab6-6b4a-4cfe-b6d9-e50b29616bea",
-            "source_sha256": "reference-cymatic-field-v1",
-            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-            "extractor_version": "0.5.0",
-            "feature_schema_version": "1.0-embedding-lane",
-            "embedding_model": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-41829d3d-20260704022520441537-embeddings.parquet",
-            "output_sha256": "6cdd62100f8816e957394ff334c6e2b19b6806117e33b392ffb487132c2d430c",
-            "output_bytes": 6618,
-            "created_at": "2026-07-04T02:25:20.443245+00:00"
-          }
-        ],
-        "notes": [
-          "Reference workload used to keep the public signal lab tied to a real feature store.",
-          "Only derived features were persisted. Raw waveform material stayed outside the repository ledger."
-        ],
-        "created_at": "2026-07-04T02:25:20.451785+00:00"
-      },
-      {
-        "run_id": "58844150-c076-40b6-96ad-f1ca8cd8c7ae",
-        "manifest_id": "61c4124f-621e-4f89-b48e-0c9e2a86435f",
-        "track_name": "Reference Pulse Field",
-        "owner": "reference-benchmark",
-        "source_uri": "reference://cymatic-field",
-        "source_kind": "reference",
-        "genres": [
-          "signal-study",
-          "reference"
-        ],
-        "languages": [
-          "instrumental"
-        ],
-        "partition_label": "reference",
-        "feature_schema_version": "1.0",
-        "feature_table_path": ".runtime/music-feature-lake/reference-pulse-field-61c4124f-20260704022148952468.parquet",
-        "embedding_table_path": ".runtime/music-feature-lake/reference-pulse-field-61c4124f-20260704022148955142-embeddings.parquet",
-        "dataset_id": "48d4aaa6-dd1a-481d-bb5c-39f1952b8c33",
-        "dataset_name": "music_reference_features",
-        "dataset_version": "2026.07.04",
-        "segment_count": 3,
-        "embedding_model": "amai.audio.segment.signature.v1",
-        "embedding_contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-        "embedding_record_count": 3,
-        "benchmark": {
-          "extraction_ms": 6.008416006807238,
-          "persist_ms": 2.1674580057151616,
-          "total_ms": 8.1758740125224,
-          "segment_count": 3,
-          "bytes_written": 13432,
-          "rows_per_second": 499.29964845995164,
-          "average_entropy_score": 0.9870591890515499,
-          "average_tempo_proxy_bpm": 0.0,
-          "average_key_clarity": 0.5266176462173462
-        },
-        "segments": [
-          {
-            "segment_id": "619fb2f5-d641-44d4-bd1b-5108bdc4f23e",
-            "start_ms": 0,
-            "end_ms": 8000,
-            "label": "intro",
-            "transcript_excerpt": "soft emergence",
-            "speaker": "section-a",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.41889968514442444,
-            "silence_ratio": 0.0244140625,
-            "zero_crossing_rate": 0.016617790811339198,
-            "dynamic_range": 0.6149592995643616,
-            "crest_factor": 1.668516394597843,
-            "entropy_score": 0.9938953483119174,
-            "spectral_centroid_hz": 141.20631408691406,
-            "spectral_bandwidth_hz": 67.0228500366211,
-            "spectral_rolloff_hz": 187.5,
-            "spectral_flux": 0.3351845443248749,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9984267950057983,
-            "key_clarity": 0.6592541933059692,
-            "dominant_pitch_class": "B",
-            "pitch_class_profile": [
-              5.0834467401728034e-05,
-              0.00042738133925013244,
-              3.58999204763677e-05,
-              0.006477270275354385,
-              2.8571916118380614e-05,
-              0.00021852593636140227,
-              0.33210036158561707,
-              1.665292620600667e-05,
-              0.0001220077247126028,
-              0.0011904914863407612,
-              7.782179454807192e-05,
-              0.6592541933059692
-            ],
-            "notes": []
-          },
-          {
-            "segment_id": "7a92c090-a016-403d-9fd8-b388d9d9cfac",
-            "start_ms": 8000,
-            "end_ms": 16000,
-            "label": "lift",
-            "transcript_excerpt": "denser movement",
-            "speaker": "section-b",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.5138004422187805,
-            "silence_ratio": 0.04296875,
-            "zero_crossing_rate": 0.02541544477028348,
-            "dynamic_range": 0.7987010478973389,
-            "crest_factor": 1.711615854079417,
-            "entropy_score": 0.9928251047324964,
-            "spectral_centroid_hz": 242.39991760253906,
-            "spectral_bandwidth_hz": 120.77648162841797,
-            "spectral_rolloff_hz": 375.0,
-            "spectral_flux": 0.19552570581436157,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9957289099693298,
-            "key_clarity": 0.4405476748943329,
-            "dominant_pitch_class": "F#",
-            "pitch_class_profile": [
-              6.348071474349126e-05,
-              0.003240081947296858,
-              4.144086778978817e-05,
-              0.02682526409626007,
-              3.08083908748813e-05,
-              0.0005614739493466914,
-              0.4405476748943329,
-              1.6723479348002e-05,
-              0.00020972378842998296,
-              0.10567477345466614,
-              0.00010843632480828092,
-              0.4226800501346588
-            ],
-            "notes": []
-          },
-          {
-            "segment_id": "01c31f63-24bc-4b6f-950e-25820ec6413d",
-            "start_ms": 16000,
-            "end_ms": 24000,
-            "label": "resolve",
-            "transcript_excerpt": "return to clarity",
-            "speaker": "section-c",
-            "source_signal": "waveform",
-            "sample_count": 1024,
-            "duration_ms": 8000,
-            "rms_energy": 0.39154911041259766,
-            "silence_ratio": 0.029296875,
-            "zero_crossing_rate": 0.01857282502443793,
-            "dynamic_range": 0.6011701822280884,
-            "crest_factor": 1.9355630539568258,
-            "entropy_score": 0.9744571141102361,
-            "spectral_centroid_hz": 177.95791625976562,
-            "spectral_bandwidth_hz": 94.36720275878906,
-            "spectral_rolloff_hz": 312.5,
-            "spectral_flux": 0.29659417271614075,
-            "onset_density": 0.125,
-            "tempo_proxy_bpm": 0.0,
-            "repetition_ratio": 0.9977570176124573,
-            "key_clarity": 0.48005107045173645,
-            "dominant_pitch_class": "B",
-            "pitch_class_profile": [
-              4.947719571646303e-05,
-              0.0005223038024269044,
-              3.347782330820337e-05,
-              0.10709965229034424,
-              2.5288081815233454e-05,
-              0.00024513312382623553,
-              0.4101051688194275,
-              1.3774890248896554e-05,
-              0.00012949990923516452,
-              0.0016466622473672032,
-              7.843477214919403e-05,
-              0.48005107045173645
-            ],
-            "notes": []
-          }
-        ],
-        "segment_index": [
-          {
-            "run_id": "58844150-c076-40b6-96ad-f1ca8cd8c7ae",
-            "manifest_id": "61c4124f-621e-4f89-b48e-0c9e2a86435f",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "619fb2f5-d641-44d4-bd1b-5108bdc4f23e",
-            "start_ms": 0,
-            "end_ms": 8000,
-            "duration_ms": 8000,
-            "label": "intro",
-            "speaker": "section-a",
-            "transcript_excerpt": "soft emergence",
-            "transcript_ref": "transcript-intro",
-            "section_kind": "intro",
-            "frame_ref": "frame-001",
-            "video_window_start_ms": 120,
-            "video_window_end_ms": 7400,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-001",
-              "speaker_or_section": "intro",
-              "transcript_ref": "transcript-intro",
-              "video_window_end_ms": 7400,
-              "video_window_start_ms": 120
-            }
-          },
-          {
-            "run_id": "58844150-c076-40b6-96ad-f1ca8cd8c7ae",
-            "manifest_id": "61c4124f-621e-4f89-b48e-0c9e2a86435f",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "7a92c090-a016-403d-9fd8-b388d9d9cfac",
-            "start_ms": 8000,
-            "end_ms": 16000,
-            "duration_ms": 8000,
-            "label": "lift",
-            "speaker": "section-b",
-            "transcript_excerpt": "denser movement",
-            "transcript_ref": "transcript-lift",
-            "section_kind": "lift",
-            "frame_ref": "frame-014",
-            "video_window_start_ms": 8220,
-            "video_window_end_ms": 15560,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-014",
-              "speaker_or_section": "lift",
-              "transcript_ref": "transcript-lift",
-              "video_window_end_ms": 15560,
-              "video_window_start_ms": 8220
-            }
-          },
-          {
-            "run_id": "58844150-c076-40b6-96ad-f1ca8cd8c7ae",
-            "manifest_id": "61c4124f-621e-4f89-b48e-0c9e2a86435f",
-            "track_name": "Reference Pulse Field",
-            "segment_id": "01c31f63-24bc-4b6f-950e-25820ec6413d",
-            "start_ms": 16000,
-            "end_ms": 24000,
-            "duration_ms": 8000,
-            "label": "resolve",
-            "speaker": "section-c",
-            "transcript_excerpt": "return to clarity",
-            "transcript_ref": "transcript-resolve",
-            "section_kind": "resolve",
-            "frame_ref": "frame-027",
-            "video_window_start_ms": 16180,
-            "video_window_end_ms": 23480,
-            "quality_flags": [
-              "repetition-heavy"
-            ],
-            "attributes": {
-              "frame_ref": "frame-027",
-              "speaker_or_section": "resolve",
-              "transcript_ref": "transcript-resolve",
-              "video_window_end_ms": 23480,
-              "video_window_start_ms": 16180
-            }
-          }
-        ],
-        "embeddings": [
-          {
-            "record_id": "357009ae-faed-4489-a9e4-5b323d2779b3",
-            "run_id": "58844150-c076-40b6-96ad-f1ca8cd8c7ae",
-            "manifest_id": "61c4124f-621e-4f89-b48e-0c9e2a86435f",
-            "segment_id": "619fb2f5-d641-44d4-bd1b-5108bdc4f23e",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.4189,
-              0.024414,
-              0.993895,
-              0.017651,
-              1.0,
-              0.0,
-              0.998427,
-              0.659254
-            ],
-            "metadata": {
-              "end_ms": 8000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "intro",
-              "start_ms": 0,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:21:48.955096+00:00"
-          },
-          {
-            "record_id": "a4bc6b76-ddea-457d-98be-fc2b9dc59305",
-            "run_id": "58844150-c076-40b6-96ad-f1ca8cd8c7ae",
-            "manifest_id": "61c4124f-621e-4f89-b48e-0c9e2a86435f",
-            "segment_id": "7a92c090-a016-403d-9fd8-b388d9d9cfac",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.5138,
-              0.042969,
-              0.992825,
-              0.0303,
-              0.782103,
-              0.0,
-              0.995729,
-              0.440548
-            ],
-            "metadata": {
-              "end_ms": 16000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "lift",
-              "start_ms": 8000,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:21:48.955117+00:00"
-          },
-          {
-            "record_id": "83bb6ec3-393a-4af0-b00a-65f3fbaf1296",
-            "run_id": "58844150-c076-40b6-96ad-f1ca8cd8c7ae",
-            "manifest_id": "61c4124f-621e-4f89-b48e-0c9e2a86435f",
-            "segment_id": "01c31f63-24bc-4b6f-950e-25820ec6413d",
-            "model_name": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "vector": [
-              0.391549,
-              0.029297,
-              0.974457,
-              0.022245,
-              1.0,
-              0.0,
-              0.997757,
-              0.480051
-            ],
-            "metadata": {
-              "end_ms": 24000,
-              "genres": [
-                "signal-study",
-                "reference"
-              ],
-              "languages": [
-                "instrumental"
-              ],
-              "owner": "reference-benchmark",
-              "segment_label": "resolve",
-              "start_ms": 16000,
-              "track_name": "Reference Pulse Field"
-            },
-            "created_at": "2026-07-04T02:21:48.955127+00:00"
-          }
-        ],
-        "receipts": [
-          {
-            "receipt_id": "0d286147-0a43-42e9-b9a4-4b43f82317a0",
-            "source_sha256": "reference-cymatic-field-v1",
-            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-            "extractor_version": "0.5.0",
-            "feature_schema_version": "1.0",
-            "embedding_model": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-61c4124f-20260704022148952468.parquet",
-            "output_sha256": "85eb7bd778acd2e645aefc156b80841a7d6552dd0747e2ee3b30b5567f538121",
-            "output_bytes": 13432,
-            "created_at": "2026-07-04T02:21:48.956387+00:00"
-          },
-          {
-            "receipt_id": "b6679df6-9640-41e0-9452-9fa6cd6c63d2",
-            "source_sha256": "reference-cymatic-field-v1",
-            "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
-            "extractor_version": "0.5.0",
-            "feature_schema_version": "1.0-embedding-lane",
-            "embedding_model": "amai.audio.segment.signature.v1",
-            "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-61c4124f-20260704022148955142-embeddings.parquet",
-            "output_sha256": "5bd0867aa6598dedf77dc65247fa6ec6b3015f871a1e0341532b21543d01b436",
-            "output_bytes": 6618,
-            "created_at": "2026-07-04T02:21:48.956443+00:00"
-          }
-        ],
-        "notes": [
-          "Reference workload used to keep the public signal lab tied to a real feature store.",
-          "Only derived features were persisted. Raw waveform material stayed outside the repository ledger."
-        ],
-        "created_at": "2026-07-04T02:21:48.964417+00:00"
       }
     ],
-    "created_at": "2026-07-04T03:01:32.700558+00:00"
+    "created_at": "2026-07-04T04:03:08.464967+00:00"
   },
   "drift": {
     "manifest_count": 24,
@@ -5040,13 +5040,13 @@
         "suggested_action": "Add more regional manifests before treating the warehouse as culturally representative."
       }
     ],
-    "created_at": "2026-07-04T03:01:32.703813+00:00"
+    "created_at": "2026-07-04T04:03:08.468405+00:00"
   },
   "change_proof": {
     "manifest_count": 24,
     "feature_run_count": 24,
-    "earliest_run_id": "3f8369a0-eae4-4519-923e-7c5b7bdcced3",
-    "latest_run_id": "3d2b51da-8f14-4660-9a5e-bbcddfb8adb2",
+    "earliest_run_id": "7f5705d8-8d90-485e-a005-638e24d25fea",
+    "latest_run_id": "e91f378e-a350-4d1d-a364-0db26557a0cc",
     "changes": [
       {
         "change_id": "steady-state",
@@ -5054,44 +5054,48 @@
         "entered_through": "music_feature_extract",
         "summary": "The latest run did not materially diverge from the earliest recorded comparison lane.",
         "evidence": [
-          "Earliest run: 3f8369a0-eae4-4519-923e-7c5b7bdcced3",
-          "Latest run: 3d2b51da-8f14-4660-9a5e-bbcddfb8adb2"
+          "Earliest run: 7f5705d8-8d90-485e-a005-638e24d25fea",
+          "Latest run: e91f378e-a350-4d1d-a364-0db26557a0cc"
         ],
         "receipts": [
           {
-            "receipt_id": "b8c5aa8a-179c-4b8c-b8e5-8982de3d2ade",
+            "receipt_id": "e94c2597-cc7e-4fed-bdbb-5516c2beb2f6",
             "source_sha256": "reference-cymatic-field-v1",
             "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
             "extractor_version": "0.5.0",
             "feature_schema_version": "1.0",
             "embedding_model": "amai.audio.segment.signature.v1",
             "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-1e683b16-20260704002627598629.parquet",
-            "output_sha256": "621063adc50bca995d989f47830991ca059a682f3782bcb58aeaf9f45cb11bfe",
-            "output_bytes": 13432,
-            "created_at": "2026-07-04T00:26:27.603024+00:00"
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-b51e60d2-20260704011907648133.parquet",
+            "output_sha256": "ed9f2aa8be0ba7664478366f934842cc67858f99ee22a16f251c2c9d2836e4ce",
+            "output_bytes": 13429,
+            "created_at": "2026-07-04T01:19:07.653067+00:00"
           },
           {
-            "receipt_id": "926fa94e-e996-49a8-a0e1-01145484261e",
+            "receipt_id": "df130e0f-8815-4622-937e-8c5c39efed94",
             "source_sha256": "reference-cymatic-field-v1",
             "source_fingerprint": "7c55dda41fa09e9e5312972b4262f1ce738a5e73c053fb3afe005e0b53763802",
             "extractor_version": "0.5.0",
             "feature_schema_version": "1.0",
             "embedding_model": "amai.audio.segment.signature.v1",
             "contract_hash": "341023929e82e9259257b854adc185db5f5d21b567aa047ec815a76aaa37cf84",
-            "output_path": ".runtime/music-feature-lake/reference-pulse-field-006d7792-20260704030130336971.parquet",
-            "output_sha256": "8c99304a571b9fe0f451792d82d66cb708cade6fbb4f4e9bbc276202937031e5",
-            "output_bytes": 13430,
-            "created_at": "2026-07-04T03:01:30.341199+00:00"
+            "output_path": ".runtime/music-feature-lake/reference-pulse-field-dc7fd746-20260704040305995032.parquet",
+            "output_sha256": "8607bdf6d157180cb7dd215d7f06a02fdb2256681fa0269b1fdf69dede892732",
+            "output_bytes": 13432,
+            "created_at": "2026-07-04T04:03:05.998585+00:00"
           }
         ]
       }
     ],
-    "created_at": "2026-07-04T03:01:32.708332+00:00"
+    "created_at": "2026-07-04T04:03:08.472218+00:00"
   },
   "segment_slice": {
-    "row_count": 210,
+    "row_count": 222,
     "source_paths": [
+      ".runtime/music-feature-lake/reference-pulse-field-dc7fd746-20260704040305995032.parquet",
+      ".runtime/music-feature-lake/reference-pulse-field-3f92df55-20260704040258476743.parquet",
+      ".runtime/music-feature-lake/reference-pulse-field-750a6815-20260704040226411732.parquet",
+      ".runtime/music-feature-lake/reference-pulse-field-4edcf5cb-20260704040108710222.parquet",
       ".runtime/music-feature-lake/reference-pulse-field-006d7792-20260704030130336971.parquet",
       ".runtime/music-feature-lake/reference-pulse-field-ef22192f-20260704030123273933.parquet",
       ".runtime/music-feature-lake/reference-pulse-field-0d8a35c4-20260704030122034128.parquet",
@@ -5165,13 +5169,13 @@
     ],
     "rows": [
       {
-        "manifest_id": "006d7792-779a-4293-88ce-35eabcb8c55f",
+        "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "be84aaf8-f90c-47d0-b057-4c34e5b1370e",
+        "segment_id": "76b09675-de82-4515-b364-b466aec3bcbf",
         "start_ms": 0,
         "end_ms": 8000,
         "label": "intro",
@@ -5208,13 +5212,13 @@
         "pitch_class_b": 0.6592541933059692
       },
       {
-        "manifest_id": "006d7792-779a-4293-88ce-35eabcb8c55f",
+        "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "bb4015f8-f79f-4ed2-aae7-870bfa694e64",
+        "segment_id": "aac06a1b-c67f-4741-bcd8-a9429fa78ff9",
         "start_ms": 8000,
         "end_ms": 16000,
         "label": "lift",
@@ -5251,13 +5255,13 @@
         "pitch_class_b": 0.4226800501346588
       },
       {
-        "manifest_id": "006d7792-779a-4293-88ce-35eabcb8c55f",
+        "manifest_id": "dc7fd746-ad1b-47ad-bd4c-dca402126da4",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "eb0fd256-8770-47fc-9246-c2565d3a18e0",
+        "segment_id": "4abfd45c-99f6-406b-b274-e85c22d2c757",
         "start_ms": 16000,
         "end_ms": 24000,
         "label": "resolve",
@@ -5294,13 +5298,13 @@
         "pitch_class_b": 0.48005107045173645
       },
       {
-        "manifest_id": "ef22192f-72a1-41d1-9130-20a5ae7ee80e",
+        "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "32cc99b1-381b-4574-b87c-41b7e783843b",
+        "segment_id": "0dfb0bbb-5ec3-4ece-ae9c-46981449be7b",
         "start_ms": 0,
         "end_ms": 8000,
         "label": "intro",
@@ -5337,13 +5341,13 @@
         "pitch_class_b": 0.6592541933059692
       },
       {
-        "manifest_id": "ef22192f-72a1-41d1-9130-20a5ae7ee80e",
+        "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "542250ca-a94b-410e-8203-a1ba4c3a72c2",
+        "segment_id": "8e211f73-427f-4bb6-be96-feb27dc7534c",
         "start_ms": 8000,
         "end_ms": 16000,
         "label": "lift",
@@ -5380,13 +5384,13 @@
         "pitch_class_b": 0.4226800501346588
       },
       {
-        "manifest_id": "ef22192f-72a1-41d1-9130-20a5ae7ee80e",
+        "manifest_id": "3f92df55-4449-4dcf-af9d-16bb3d5b5685",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "61921eb5-623d-4b05-82b4-7cfabb093c40",
+        "segment_id": "9ece938d-d972-4684-896c-eaf73e05625b",
         "start_ms": 16000,
         "end_ms": 24000,
         "label": "resolve",
@@ -5423,13 +5427,13 @@
         "pitch_class_b": 0.48005107045173645
       },
       {
-        "manifest_id": "0d8a35c4-2da6-498c-b8db-d7ecb41ccc04",
+        "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "a1df258c-6f15-4d63-8d33-62fe0c1c347d",
+        "segment_id": "c5071d09-8309-4e1e-abef-3832158f0a3d",
         "start_ms": 0,
         "end_ms": 8000,
         "label": "intro",
@@ -5466,13 +5470,13 @@
         "pitch_class_b": 0.6592541933059692
       },
       {
-        "manifest_id": "0d8a35c4-2da6-498c-b8db-d7ecb41ccc04",
+        "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "f29bd4fa-0f88-4bd3-b909-9a5dafdf4879",
+        "segment_id": "23bef936-9ffd-4902-880c-e71f46747505",
         "start_ms": 8000,
         "end_ms": 16000,
         "label": "lift",
@@ -5509,13 +5513,13 @@
         "pitch_class_b": 0.4226800501346588
       },
       {
-        "manifest_id": "0d8a35c4-2da6-498c-b8db-d7ecb41ccc04",
+        "manifest_id": "750a6815-2f2b-43ce-b567-a6faca8660d1",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "f5b02ad6-482b-4938-9543-31776349218d",
+        "segment_id": "1685fc85-68e4-4fe6-8acd-fb5f8d5b40e6",
         "start_ms": 16000,
         "end_ms": 24000,
         "label": "resolve",
@@ -5552,13 +5556,13 @@
         "pitch_class_b": 0.48005107045173645
       },
       {
-        "manifest_id": "88e5a497-ab5e-4a36-a0bd-522507888500",
+        "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "800789e3-cf46-4a9a-ab72-fbd584c0f7bb",
+        "segment_id": "4f1f3621-f2d2-46ec-91db-e33f6363182e",
         "start_ms": 0,
         "end_ms": 8000,
         "label": "intro",
@@ -5595,13 +5599,13 @@
         "pitch_class_b": 0.6592541933059692
       },
       {
-        "manifest_id": "88e5a497-ab5e-4a36-a0bd-522507888500",
+        "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "2fe812b3-7f60-46e1-8ee1-e292c3429ad4",
+        "segment_id": "2a24a456-18be-4185-a79c-8ef701b931a6",
         "start_ms": 8000,
         "end_ms": 16000,
         "label": "lift",
@@ -5638,13 +5642,13 @@
         "pitch_class_b": 0.4226800501346588
       },
       {
-        "manifest_id": "88e5a497-ab5e-4a36-a0bd-522507888500",
+        "manifest_id": "4edcf5cb-e261-488f-9121-8ba31affa28e",
         "track_name": "Reference Pulse Field",
         "owner": "reference-benchmark",
         "source_uri": "reference://cymatic-field",
         "source_kind": "reference",
         "partition_label": "reference",
-        "segment_id": "35cc735a-4fc2-47d4-bd95-b14145c18abc",
+        "segment_id": "c6420f07-bf00-4583-ae54-8d015f945e20",
         "start_ms": 16000,
         "end_ms": 24000,
         "label": "resolve",
@@ -5681,7 +5685,7 @@
         "pitch_class_b": 0.48005107045173645
       }
     ],
-    "created_at": "2026-07-04T03:01:32.777771+00:00"
+    "created_at": "2026-07-04T04:03:08.535903+00:00"
   },
   "alignment_preview": {
     "windows": [
@@ -5698,9 +5702,9 @@
         "observation_count": 9,
         "average_confidence": 0.79,
         "source_ids": [
-          "bb4015f8-f79f-4ed2-aae7-870bfa694e64",
-          "be84aaf8-f90c-47d0-b057-4c34e5b1370e",
-          "eb0fd256-8770-47fc-9246-c2565d3a18e0",
+          "4abfd45c-99f6-406b-b274-e85c22d2c757",
+          "76b09675-de82-4515-b364-b466aec3bcbf",
+          "aac06a1b-c67f-4741-bcd8-a9429fa78ff9",
           "frame-001",
           "frame-014",
           "frame-027",
@@ -5717,7 +5721,7 @@
       "video": 21920
     },
     "uncovered_modalities": [],
-    "created_at": "2026-07-04T03:01:32.783896+00:00"
+    "created_at": "2026-07-04T04:03:08.542443+00:00"
   },
-  "created_at": "2026-07-04T03:01:32.785448+00:00"
+  "created_at": "2026-07-04T04:03:08.544018+00:00"
 }

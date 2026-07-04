@@ -69,6 +69,36 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("GET", path);
   }
 
+  /** Research Influence */
+  async researchInfluenceV1ResearchInfluenceGet(): Promise<unknown> {
+    let path = `/v1/research/influence`;
+    return this.request<unknown>("GET", path);
+  }
+
+  /** Research Harness Improvement */
+  async researchHarnessImprovementV1ResearchHarnessImprovementPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/research/harness-improvement`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Research Deliberation Assessment */
+  async researchDeliberationAssessmentV1ResearchDeliberationAssessPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/research/deliberation/assess`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Research Trust Calibration */
+  async researchTrustCalibrationV1ResearchTrustCalibratePost(payload: unknown): Promise<unknown> {
+    let path = `/v1/research/trust/calibrate`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
+  /** Research Epistemic Risk */
+  async researchEpistemicRiskV1ResearchEpistemicRiskAssessPost(payload: unknown): Promise<unknown> {
+    let path = `/v1/research/epistemic-risk/assess`;
+    return this.request<unknown>("POST", path, payload);
+  }
+
   /** Operator Surfaces */
   async operatorSurfacesV1OperatorsSurfacesGet(): Promise<unknown> {
     let path = `/v1/operators/surfaces`;

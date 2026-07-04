@@ -152,6 +152,176 @@
         }
       }
     },
+    "/v1/research/influence": {
+      "get": {
+        "summary": "Research Influence",
+        "operationId": "research_influence_v1_research_influence_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResearchInfluenceBundle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/research/harness-improvement": {
+      "post": {
+        "summary": "Research Harness Improvement",
+        "operationId": "research_harness_improvement_v1_research_harness_improvement_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HarnessImprovementRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HarnessImprovementResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/research/deliberation/assess": {
+      "post": {
+        "summary": "Research Deliberation Assessment",
+        "operationId": "research_deliberation_assessment_v1_research_deliberation_assess_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeliberationAssessmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeliberationAssessmentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/research/trust/calibrate": {
+      "post": {
+        "summary": "Research Trust Calibration",
+        "operationId": "research_trust_calibration_v1_research_trust_calibrate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrustCalibrationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrustCalibrationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/research/epistemic-risk/assess": {
+      "post": {
+        "summary": "Research Epistemic Risk",
+        "operationId": "research_epistemic_risk_v1_research_epistemic_risk_assess_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EpistemicRiskRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EpistemicRiskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/operators/surfaces": {
       "get": {
         "summary": "Operator Surfaces",
@@ -4285,6 +4455,161 @@
         ],
         "title": "DatasetRegistrationRequest"
       },
+      "DeliberationAssessmentRequest": {
+        "properties": {
+          "decision_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Decision Id"
+          },
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Domain"
+          },
+          "claims": {
+            "items": {
+              "$ref": "#/components/schemas/DeliberationRoleClaim"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "minItems": 2,
+            "title": "Claims"
+          },
+          "required_roles": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Required Roles"
+          }
+        },
+        "type": "object",
+        "required": [
+          "decision_id",
+          "domain",
+          "claims"
+        ],
+        "title": "DeliberationAssessmentRequest"
+      },
+      "DeliberationAssessmentResponse": {
+        "properties": {
+          "decision_id": {
+            "type": "string",
+            "title": "Decision Id"
+          },
+          "domain": {
+            "type": "string",
+            "title": "Domain"
+          },
+          "role_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Role Count"
+          },
+          "stance_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Stance Distribution"
+          },
+          "disagreement_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Disagreement Score"
+          },
+          "evidence_ref_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Evidence Ref Count"
+          },
+          "missing_roles": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Roles"
+          },
+          "recommendation": {
+            "type": "string",
+            "enum": [
+              "decide",
+              "review",
+              "escalate",
+              "block"
+            ],
+            "title": "Recommendation"
+          },
+          "next_questions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Next Questions"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "decision_id",
+          "domain",
+          "role_count",
+          "disagreement_score",
+          "evidence_ref_count",
+          "recommendation"
+        ],
+        "title": "DeliberationAssessmentResponse"
+      },
+      "DeliberationRoleClaim": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Role"
+          },
+          "stance": {
+            "type": "string",
+            "enum": [
+              "approve",
+              "reject",
+              "defer",
+              "investigate"
+            ],
+            "title": "Stance"
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Claim"
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence Refs"
+          },
+          "uncertainty": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Uncertainty",
+            "default": 0.5
+          }
+        },
+        "type": "object",
+        "required": [
+          "role",
+          "stance",
+          "claim"
+        ],
+        "title": "DeliberationRoleClaim"
+      },
       "DomainArtifact": {
         "properties": {
           "artifact_id": {
@@ -4841,6 +5166,264 @@
         "type": "object",
         "title": "EdgeTrackingLedgerSummary"
       },
+      "EpistemicEvidenceItem": {
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Source Id"
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "measurement",
+              "paper",
+              "human_review",
+              "system_log",
+              "benchmark",
+              "claim"
+            ],
+            "title": "Source Type"
+          },
+          "perspective": {
+            "type": "string",
+            "title": "Perspective",
+            "default": "unspecified"
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Claim"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "default": 0.5
+          },
+          "uncertainty_visible": {
+            "type": "boolean",
+            "title": "Uncertainty Visible",
+            "default": true
+          },
+          "human_generated": {
+            "type": "boolean",
+            "title": "Human Generated",
+            "default": false
+          },
+          "age_days": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Age Days",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_id",
+          "source_type",
+          "claim"
+        ],
+        "title": "EpistemicEvidenceItem"
+      },
+      "EpistemicRiskIndicator": {
+        "properties": {
+          "indicator_id": {
+            "type": "string",
+            "title": "Indicator Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score"
+          },
+          "evidence": {
+            "type": "string",
+            "title": "Evidence"
+          },
+          "correction": {
+            "type": "string",
+            "title": "Correction"
+          }
+        },
+        "type": "object",
+        "required": [
+          "indicator_id",
+          "label",
+          "score",
+          "evidence",
+          "correction"
+        ],
+        "title": "EpistemicRiskIndicator"
+      },
+      "EpistemicRiskRequest": {
+        "properties": {
+          "assessment_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Assessment Id"
+          },
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Domain"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EpistemicEvidenceItem"
+            },
+            "type": "array",
+            "maxItems": 256,
+            "minItems": 1,
+            "title": "Evidence"
+          },
+          "intended_use": {
+            "type": "string",
+            "title": "Intended Use",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "assessment_id",
+          "domain",
+          "evidence"
+        ],
+        "title": "EpistemicRiskRequest"
+      },
+      "EpistemicRiskResponse": {
+        "properties": {
+          "assessment_id": {
+            "type": "string",
+            "title": "Assessment Id"
+          },
+          "domain": {
+            "type": "string",
+            "title": "Domain"
+          },
+          "band": {
+            "type": "string",
+            "enum": [
+              "low",
+              "watch",
+              "elevated",
+              "critical"
+            ],
+            "title": "Band"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score"
+          },
+          "evidence_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Evidence Count"
+          },
+          "perspective_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Perspective Count"
+          },
+          "indicators": {
+            "items": {
+              "$ref": "#/components/schemas/EpistemicRiskIndicator"
+            },
+            "type": "array",
+            "title": "Indicators"
+          },
+          "non_delegable_checks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Non Delegable Checks"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "assessment_id",
+          "domain",
+          "band",
+          "score",
+          "evidence_count",
+          "perspective_count"
+        ],
+        "title": "EpistemicRiskResponse"
+      },
+      "FeatureRepresentationCell": {
+        "properties": {
+          "feature_id": {
+            "type": "string",
+            "title": "Feature Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "source_mechanisms": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Mechanisms"
+          },
+          "evidence_files": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence Files"
+          },
+          "runtime_routes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Runtime Routes"
+          },
+          "representation_score": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Representation Score"
+          },
+          "representation_gap": {
+            "type": "string",
+            "title": "Representation Gap"
+          },
+          "next_six_month_problem": {
+            "type": "string",
+            "title": "Next Six Month Problem"
+          },
+          "visual_treatment": {
+            "type": "string",
+            "title": "Visual Treatment"
+          }
+        },
+        "type": "object",
+        "required": [
+          "feature_id",
+          "label",
+          "representation_score",
+          "representation_gap",
+          "next_six_month_problem",
+          "visual_treatment"
+        ],
+        "title": "FeatureRepresentationCell"
+      },
       "FrameSignal": {
         "properties": {
           "index": {
@@ -4888,6 +5471,264 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "HarnessImprovementRequest": {
+        "properties": {
+          "base_harness_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Base Harness Id"
+          },
+          "traces": {
+            "items": {
+              "$ref": "#/components/schemas/HarnessTraceRecord"
+            },
+            "type": "array",
+            "maxItems": 256,
+            "minItems": 1,
+            "title": "Traces"
+          },
+          "minimum_support": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "Minimum Support",
+            "default": 2
+          },
+          "protected_invariants": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Protected Invariants"
+          }
+        },
+        "type": "object",
+        "required": [
+          "base_harness_id",
+          "traces"
+        ],
+        "title": "HarnessImprovementRequest"
+      },
+      "HarnessImprovementResponse": {
+        "properties": {
+          "base_harness_id": {
+            "type": "string",
+            "title": "Base Harness Id"
+          },
+          "trace_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Trace Count"
+          },
+          "failed_trace_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Failed Trace Count"
+          },
+          "promoted_proposal_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Promoted Proposal Count"
+          },
+          "clusters": {
+            "items": {
+              "$ref": "#/components/schemas/HarnessWeaknessCluster"
+            },
+            "type": "array",
+            "title": "Clusters"
+          },
+          "proposals": {
+            "items": {
+              "$ref": "#/components/schemas/HarnessProposal"
+            },
+            "type": "array",
+            "title": "Proposals"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "base_harness_id",
+          "trace_count",
+          "failed_trace_count",
+          "promoted_proposal_count"
+        ],
+        "title": "HarnessImprovementResponse"
+      },
+      "HarnessProposal": {
+        "properties": {
+          "proposal_id": {
+            "type": "string",
+            "title": "Proposal Id"
+          },
+          "cluster_id": {
+            "type": "string",
+            "title": "Cluster Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "promote",
+              "hold",
+              "reject"
+            ],
+            "title": "Status"
+          },
+          "change_shape": {
+            "type": "string",
+            "title": "Change Shape"
+          },
+          "acceptance_gate": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Acceptance Gate"
+          },
+          "regression_tests": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Regression Tests"
+          },
+          "expected_behavior": {
+            "type": "string",
+            "title": "Expected Behavior"
+          },
+          "rejection_reason": {
+            "type": "string",
+            "title": "Rejection Reason",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "proposal_id",
+          "cluster_id",
+          "status",
+          "change_shape",
+          "expected_behavior"
+        ],
+        "title": "HarnessProposal"
+      },
+      "HarnessTraceRecord": {
+        "properties": {
+          "trace_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Trace Id"
+          },
+          "task_family": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Task Family"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "blocked",
+              "skipped"
+            ],
+            "title": "Outcome"
+          },
+          "failure_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Failure Tags"
+          },
+          "files_touched": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Files Touched"
+          },
+          "verification_commands": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Verification Commands"
+          },
+          "notes": {
+            "type": "string",
+            "title": "Notes",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "trace_id",
+          "task_family",
+          "outcome"
+        ],
+        "title": "HarnessTraceRecord"
+      },
+      "HarnessWeaknessCluster": {
+        "properties": {
+          "cluster_id": {
+            "type": "string",
+            "title": "Cluster Id"
+          },
+          "failure_tag": {
+            "type": "string",
+            "title": "Failure Tag"
+          },
+          "task_families": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Task Families"
+          },
+          "trace_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Trace Ids"
+          },
+          "files_touched": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Files Touched"
+          },
+          "support": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Support"
+          },
+          "severity_score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Severity Score"
+          },
+          "why_it_matters": {
+            "type": "string",
+            "title": "Why It Matters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cluster_id",
+          "failure_tag",
+          "support",
+          "severity_score",
+          "why_it_matters"
+        ],
+        "title": "HarnessWeaknessCluster"
       },
       "IndustrialAuditEntry": {
         "properties": {
@@ -7388,6 +8229,245 @@
         ],
         "title": "RepositoryGrowthSnapshot"
       },
+      "ResearchInfluenceBundle": {
+        "properties": {
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "route_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Route Count"
+          },
+          "test_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Test Count"
+          },
+          "source_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Source Count"
+          },
+          "mechanism_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Mechanism Count"
+          },
+          "feature_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Feature Count"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/ResearchInfluenceSource"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "mechanisms": {
+            "items": {
+              "$ref": "#/components/schemas/ResearchInfluenceMechanism"
+            },
+            "type": "array",
+            "title": "Mechanisms"
+          },
+          "feature_matrix": {
+            "items": {
+              "$ref": "#/components/schemas/FeatureRepresentationCell"
+            },
+            "type": "array",
+            "title": "Feature Matrix"
+          },
+          "roadmap": {
+            "items": {
+              "$ref": "#/components/schemas/ResearchRoadmapItem"
+            },
+            "type": "array",
+            "title": "Roadmap"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "service",
+          "version",
+          "route_count",
+          "test_count",
+          "source_count",
+          "mechanism_count",
+          "feature_count"
+        ],
+        "title": "ResearchInfluenceBundle"
+      },
+      "ResearchInfluenceMechanism": {
+        "properties": {
+          "mechanism_id": {
+            "type": "string",
+            "title": "Mechanism Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Ids"
+          },
+          "repo_files": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Repo Files"
+          },
+          "runtime_routes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Runtime Routes"
+          },
+          "implementation_status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "partial",
+              "planned"
+            ],
+            "title": "Implementation Status"
+          },
+          "score": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Score"
+          },
+          "why_it_matters": {
+            "type": "string",
+            "title": "Why It Matters"
+          },
+          "next_test": {
+            "type": "string",
+            "title": "Next Test"
+          },
+          "visual_surface": {
+            "type": "string",
+            "title": "Visual Surface"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mechanism_id",
+          "label",
+          "implementation_status",
+          "score",
+          "why_it_matters",
+          "next_test",
+          "visual_surface"
+        ],
+        "title": "ResearchInfluenceMechanism"
+      },
+      "ResearchInfluenceSource": {
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "authors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Authors"
+          },
+          "year": {
+            "type": "integer",
+            "maximum": 2100.0,
+            "minimum": 1900.0,
+            "title": "Year"
+          },
+          "page_count": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page Count"
+          },
+          "field": {
+            "type": "string",
+            "title": "Field"
+          },
+          "mechanisms": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Mechanisms"
+          },
+          "repository_translation": {
+            "type": "string",
+            "title": "Repository Translation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_id",
+          "title",
+          "year",
+          "page_count",
+          "field",
+          "repository_translation"
+        ],
+        "title": "ResearchInfluenceSource"
+      },
+      "ResearchRoadmapItem": {
+        "properties": {
+          "horizon": {
+            "type": "string",
+            "title": "Horizon"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "problem": {
+            "type": "string",
+            "title": "Problem"
+          },
+          "engineering_response": {
+            "type": "string",
+            "title": "Engineering Response"
+          },
+          "proof_to_add": {
+            "type": "string",
+            "title": "Proof To Add"
+          }
+        },
+        "type": "object",
+        "required": [
+          "horizon",
+          "label",
+          "problem",
+          "engineering_response",
+          "proof_to_add"
+        ],
+        "title": "ResearchRoadmapItem"
+      },
       "RetrievalQueryRequest": {
         "properties": {
           "modality": {
@@ -7887,6 +8967,169 @@
           "end_ms"
         ],
         "title": "TranscriptToken"
+      },
+      "TrustCalibrationFactor": {
+        "properties": {
+          "factor": {
+            "type": "string",
+            "title": "Factor"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score"
+          },
+          "weight": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Weight"
+          },
+          "contribution": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Contribution"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "factor",
+          "score",
+          "weight",
+          "contribution",
+          "note"
+        ],
+        "title": "TrustCalibrationFactor"
+      },
+      "TrustCalibrationRequest": {
+        "properties": {
+          "route": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Route"
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Purpose"
+          },
+          "precision": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Precision",
+            "default": 0.5
+          },
+          "human_control": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Human Control",
+            "default": 0.5
+          },
+          "oversight": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Oversight",
+            "default": 0.5
+          },
+          "validation_evidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Validation Evidence",
+            "default": 0.5
+          },
+          "reversibility": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Reversibility",
+            "default": 0.5
+          },
+          "harm_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "title": "Harm Level",
+            "default": "medium"
+          }
+        },
+        "type": "object",
+        "required": [
+          "route",
+          "purpose"
+        ],
+        "title": "TrustCalibrationRequest"
+      },
+      "TrustCalibrationResponse": {
+        "properties": {
+          "route": {
+            "type": "string",
+            "title": "Route"
+          },
+          "purpose": {
+            "type": "string",
+            "title": "Purpose"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score"
+          },
+          "band": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Band"
+          },
+          "review_required": {
+            "type": "boolean",
+            "title": "Review Required"
+          },
+          "factors": {
+            "items": {
+              "$ref": "#/components/schemas/TrustCalibrationFactor"
+            },
+            "type": "array",
+            "title": "Factors"
+          },
+          "missing_controls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Controls"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "route",
+          "purpose",
+          "score",
+          "band",
+          "review_required"
+        ],
+        "title": "TrustCalibrationResponse"
       },
       "ValidationError": {
         "properties": {

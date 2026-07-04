@@ -3,14 +3,14 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `95`
-- Tests: `55`
+- Route count: `100`
+- Tests: `60`
 - Connector kinds: `7`
 - Replay verified: `True`
 - Baseline harmony: `0.94`
 - Tension index: `0.37`
 - Active files counted: `93`
-- Total recorded runs: `178`
+- Total recorded runs: `195`
 
 ## Harmonic bands
 
@@ -30,8 +30,8 @@
 ### Ingest and shape
 
 - Stage id: `connector_ingest`
-- Harmony: `0.82`
-- Friction: `0.17`
+- Harmony: `0.83`
+- Friction: `0.16`
 
 Human read:
 Different file shapes are named and typed before they turn into a convincing multimodal story.
@@ -56,7 +56,7 @@ Files:
 - `src/advanced_multimodal_ai/pipelines.py`
 
 Metrics:
-- **duration**: `108.53` ms
+- **duration**: `95.8` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **connector kinds**: `7.0` lanes
@@ -90,7 +90,7 @@ Files:
 - `src/advanced_multimodal_ai/alignment.py`
 
 Metrics:
-- **duration**: `15.15` ms
+- **duration**: `16.0` ms
 - **records**: `2.0` records
 - **artifacts**: `1.0` items
 
@@ -98,8 +98,8 @@ Metrics:
 ### Replay and prove
 
 - Stage id: `pipeline_replay`
-- Harmony: `0.87`
-- Friction: `0.12`
+- Harmony: `0.88`
+- Friction: `0.11`
 
 Human read:
 If a run can be replayed cleanly, the repository is giving you memory rather than theatre.
@@ -123,7 +123,7 @@ Files:
 - `src/advanced_multimodal_ai/pipeline_store.py`
 
 Metrics:
-- **duration**: `91.41` ms
+- **duration**: `74.14` ms
 - **records**: `6.0` records
 - **artifacts**: `2.0` items
 
@@ -156,7 +156,7 @@ Files:
 - `src/advanced_multimodal_ai/api.py`
 
 Metrics:
-- **duration**: `57.83` ms
+- **duration**: `63.49` ms
 - **records**: `3.0` records
 - **artifacts**: `1.0` items
 
@@ -190,7 +190,7 @@ Files:
 - `src/advanced_multimodal_ai/service.py`
 
 Metrics:
-- **duration**: `23.78` ms
+- **duration**: `22.83` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **manifests**: `0.0` records
@@ -228,7 +228,7 @@ Files:
 - `src/advanced_multimodal_ai/governance_ledger.py`
 
 Metrics:
-- **duration**: `4.48` ms
+- **duration**: `3.97` ms
 - **records**: `16.0` records
 - **artifacts**: `1.0` items
 - **open questions**: `5.0` questions
@@ -246,7 +246,7 @@ Consequence:
 The cost is not only technical. Repetition flattens taste, reduces surprise, and makes a catalogue feel smaller than it is.
 
 Continuation:
-495 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+501 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 
 ### For operators and review teams

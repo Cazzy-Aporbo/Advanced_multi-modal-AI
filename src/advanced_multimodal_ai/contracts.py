@@ -380,6 +380,218 @@ class ResearchSurfaceSummary(BaseModel):
     generated_at: str = Field(default_factory=utc_now)
 
 
+class ResearchInfluenceSource(BaseModel):
+    source_id: str
+    title: str
+    authors: List[str] = Field(default_factory=list)
+    year: int = Field(ge=1900, le=2100)
+    page_count: int = Field(ge=1)
+    field: str
+    mechanisms: List[str] = Field(default_factory=list)
+    repository_translation: str
+
+
+class ResearchInfluenceMechanism(BaseModel):
+    mechanism_id: str
+    label: str
+    source_ids: List[str] = Field(default_factory=list)
+    repo_files: List[str] = Field(default_factory=list)
+    runtime_routes: List[str] = Field(default_factory=list)
+    implementation_status: Literal["active", "partial", "planned"]
+    score: int = Field(ge=0, le=100)
+    why_it_matters: str
+    next_test: str
+    visual_surface: str
+
+
+class FeatureRepresentationCell(BaseModel):
+    feature_id: str
+    label: str
+    source_mechanisms: List[str] = Field(default_factory=list)
+    evidence_files: List[str] = Field(default_factory=list)
+    runtime_routes: List[str] = Field(default_factory=list)
+    representation_score: int = Field(ge=0, le=100)
+    representation_gap: str
+    next_six_month_problem: str
+    visual_treatment: str
+
+
+class ResearchRoadmapItem(BaseModel):
+    horizon: str
+    label: str
+    problem: str
+    engineering_response: str
+    proof_to_add: str
+
+
+class ResearchInfluenceBundle(BaseModel):
+    service: str
+    version: str
+    route_count: int = Field(ge=0)
+    test_count: int = Field(ge=0)
+    source_count: int = Field(ge=0)
+    mechanism_count: int = Field(ge=0)
+    feature_count: int = Field(ge=0)
+    sources: List[ResearchInfluenceSource] = Field(default_factory=list)
+    mechanisms: List[ResearchInfluenceMechanism] = Field(default_factory=list)
+    feature_matrix: List[FeatureRepresentationCell] = Field(default_factory=list)
+    roadmap: List[ResearchRoadmapItem] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
+HarnessTraceOutcome = Literal["pass", "fail", "blocked", "skipped"]
+HarnessProposalStatus = Literal["promote", "hold", "reject"]
+DeliberationStance = Literal["approve", "reject", "defer", "investigate"]
+ReviewRecommendation = Literal["decide", "review", "escalate", "block"]
+TrustBand = Literal["low", "medium", "high"]
+EpistemicRiskBand = Literal["low", "watch", "elevated", "critical"]
+
+
+class HarnessTraceRecord(BaseModel):
+    trace_id: str = Field(min_length=1)
+    task_family: str = Field(min_length=1)
+    outcome: HarnessTraceOutcome
+    failure_tags: List[str] = Field(default_factory=list)
+    files_touched: List[str] = Field(default_factory=list)
+    verification_commands: List[str] = Field(default_factory=list)
+    notes: str = ""
+
+
+class HarnessImprovementRequest(BaseModel):
+    base_harness_id: str = Field(min_length=1)
+    traces: List[HarnessTraceRecord] = Field(min_length=1, max_length=256)
+    minimum_support: int = Field(default=2, ge=1, le=20)
+    protected_invariants: List[str] = Field(default_factory=list)
+
+
+class HarnessWeaknessCluster(BaseModel):
+    cluster_id: str
+    failure_tag: str
+    task_families: List[str] = Field(default_factory=list)
+    trace_ids: List[str] = Field(default_factory=list)
+    files_touched: List[str] = Field(default_factory=list)
+    support: int = Field(ge=0)
+    severity_score: float = Field(ge=0.0, le=1.0)
+    why_it_matters: str
+
+
+class HarnessProposal(BaseModel):
+    proposal_id: str
+    cluster_id: str
+    status: HarnessProposalStatus
+    change_shape: str
+    acceptance_gate: List[str] = Field(default_factory=list)
+    regression_tests: List[str] = Field(default_factory=list)
+    expected_behavior: str
+    rejection_reason: str = ""
+
+
+class HarnessImprovementResponse(BaseModel):
+    base_harness_id: str
+    trace_count: int = Field(ge=0)
+    failed_trace_count: int = Field(ge=0)
+    promoted_proposal_count: int = Field(ge=0)
+    clusters: List[HarnessWeaknessCluster] = Field(default_factory=list)
+    proposals: List[HarnessProposal] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
+class DeliberationRoleClaim(BaseModel):
+    role: str = Field(min_length=1)
+    stance: DeliberationStance
+    claim: str = Field(min_length=1)
+    evidence_refs: List[str] = Field(default_factory=list)
+    uncertainty: float = Field(default=0.5, ge=0.0, le=1.0)
+
+
+class DeliberationAssessmentRequest(BaseModel):
+    decision_id: str = Field(min_length=1)
+    domain: str = Field(min_length=1)
+    claims: List[DeliberationRoleClaim] = Field(min_length=2, max_length=32)
+    required_roles: List[str] = Field(default_factory=list)
+
+
+class DeliberationAssessmentResponse(BaseModel):
+    decision_id: str
+    domain: str
+    role_count: int = Field(ge=0)
+    stance_distribution: Dict[str, int] = Field(default_factory=dict)
+    disagreement_score: float = Field(ge=0.0, le=1.0)
+    evidence_ref_count: int = Field(ge=0)
+    missing_roles: List[str] = Field(default_factory=list)
+    recommendation: ReviewRecommendation
+    next_questions: List[str] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
+class TrustCalibrationRequest(BaseModel):
+    route: str = Field(min_length=1)
+    purpose: str = Field(min_length=1)
+    precision: float = Field(default=0.5, ge=0.0, le=1.0)
+    human_control: float = Field(default=0.5, ge=0.0, le=1.0)
+    oversight: float = Field(default=0.5, ge=0.0, le=1.0)
+    validation_evidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    reversibility: float = Field(default=0.5, ge=0.0, le=1.0)
+    harm_level: Literal["low", "medium", "high", "critical"] = "medium"
+
+
+class TrustCalibrationFactor(BaseModel):
+    factor: str
+    score: float = Field(ge=0.0, le=1.0)
+    weight: float = Field(ge=0.0, le=1.0)
+    contribution: float = Field(ge=0.0, le=1.0)
+    note: str
+
+
+class TrustCalibrationResponse(BaseModel):
+    route: str
+    purpose: str
+    score: float = Field(ge=0.0, le=1.0)
+    band: TrustBand
+    review_required: bool
+    factors: List[TrustCalibrationFactor] = Field(default_factory=list)
+    missing_controls: List[str] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
+class EpistemicEvidenceItem(BaseModel):
+    source_id: str = Field(min_length=1)
+    source_type: Literal["measurement", "paper", "human_review", "system_log", "benchmark", "claim"]
+    perspective: str = Field(default="unspecified")
+    claim: str = Field(min_length=1)
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    uncertainty_visible: bool = True
+    human_generated: bool = False
+    age_days: int = Field(default=0, ge=0)
+
+
+class EpistemicRiskRequest(BaseModel):
+    assessment_id: str = Field(min_length=1)
+    domain: str = Field(min_length=1)
+    evidence: List[EpistemicEvidenceItem] = Field(min_length=1, max_length=256)
+    intended_use: str = Field(default="")
+
+
+class EpistemicRiskIndicator(BaseModel):
+    indicator_id: str
+    label: str
+    score: float = Field(ge=0.0, le=1.0)
+    evidence: str
+    correction: str
+
+
+class EpistemicRiskResponse(BaseModel):
+    assessment_id: str
+    domain: str
+    band: EpistemicRiskBand
+    score: float = Field(ge=0.0, le=1.0)
+    evidence_count: int = Field(ge=0)
+    perspective_count: int = Field(ge=0)
+    indicators: List[EpistemicRiskIndicator] = Field(default_factory=list)
+    non_delegable_checks: List[str] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
 class PulseArtifact(BaseModel):
     label: str
     path: str

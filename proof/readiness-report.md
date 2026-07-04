@@ -1,23 +1,23 @@
 # Runtime Readiness Report
 
 - Posture: `review_ready`
-- Route count: `95`
-- Test count: `55`
+- Route count: `100`
+- Test count: `60`
 - Connector kinds: `local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html`
-- Compiled recipes: `159`
-- Fully resolved recipes: `159`
+- Compiled recipes: `164`
+- Fully resolved recipes: `164`
 
 ## Checks
 
-- `pass` contract_surface: 95 public runtime surfaces are exported.
-- `pass` verification_depth: 55 tests are currently counted in the proof bundle.
+- `pass` contract_surface: 100 public runtime surfaces are exported.
+- `pass` verification_depth: 60 tests are currently counted in the proof bundle.
 - `pass` artifact_evidence: 16 of 16 declared verification artifacts are present.
 - `pass` connector_coverage: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html
-- `pass` connector_evidence: 497 persisted connector runs are recorded.
-- `pass` recipe_resolution: 159 of 159 compiled recipes have fully resolved source evidence.
-- `pass` governance_evidence: drift baselines=8, ontology snapshots=130, pipeline runs=382
+- `pass` connector_evidence: 503 persisted connector runs are recorded.
+- `pass` recipe_resolution: 164 of 164 compiled recipes have fully resolved source evidence.
+- `pass` governance_evidence: drift baselines=8, ontology snapshots=130, pipeline runs=387
 - `pass` stewardship_surface: lifecycle policies=33, change controls=33, supply snapshots=33
-- `pass` execution_history: 188 persisted export or verification runs are recorded.
+- `pass` execution_history: 205 persisted export or verification runs are recorded.
 
 ## Blockers
 

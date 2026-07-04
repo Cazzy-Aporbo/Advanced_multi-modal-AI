@@ -3,8 +3,8 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `95`
-- Test count: `55`
+- Route count: `100`
+- Test count: `60`
 - Model count: `4`
 
 ## Lane status
@@ -39,7 +39,7 @@ Files:
 - `site-controls.js`
 
 Artifacts:
-- `index.html` · pass · 117862 bytes · updated 2026-07-04T02:59:35.233785+00:00
+- `index.html` · pass · 118509 bytes · updated 2026-07-04T03:55:38.652346+00:00
 - `advanced-technical-portfolio.html` · pass · 26733 bytes · updated 2026-07-04T01:45:16.592458+00:00
 - `technical-portfolio.html` · pass · 25125 bytes · updated 2026-07-04T01:45:16.748435+00:00
 - `model-observatory.html` · pass · 45082 bytes · updated 2026-07-04T01:45:16.899496+00:00
@@ -70,7 +70,7 @@ Suggested actions:
 - Active count: `9`
 - Warning count: `0`
 
-0 stars, 0 contributors, and 14 JSON proof exports are being watched through one quieter repository signal lane.
+0 stars, 0 contributors, and 15 JSON proof exports are being watched through one quieter repository signal lane.
 
 Files:
 - `CONTRIBUTING.md`
@@ -91,8 +91,8 @@ Artifacts:
 - `.github/ISSUE_TEMPLATE/use_case.yml` · pass · 1155 bytes · updated 2026-07-04T01:59:34.096263+00:00
 - `.github/pull_request_template.md` · pass · 377 bytes · updated 2026-07-04T01:59:34.253970+00:00
 - `scripts/export_repository_growth.py` · pass · 8427 bytes · updated 2026-07-04T02:12:56.939641+00:00
-- `proof/repository-growth.json` · pass · 1173 bytes · updated 2026-07-04T02:49:27.657233+00:00
-- `proof/repository-growth.md` · pass · 1008 bytes · updated 2026-07-04T02:49:27.657367+00:00
+- `proof/repository-growth.json` · pass · 1173 bytes · updated 2026-07-04T03:01:27.677383+00:00
+- `proof/repository-growth.md` · pass · 1008 bytes · updated 2026-07-04T03:01:27.677545+00:00
 
 Suggested actions:
 - Keep contribution and security files as concrete as the runtime contracts.
@@ -104,10 +104,10 @@ Suggested actions:
 - Lane id: `runtime_backend`
 - Emphasis: `backend`
 - Live score: `100`
-- Active count: `972`
+- Active count: `988`
 - Warning count: `0`
 
-95 routes, 55 tests, and persisted governance stores keep the API lane active.
+100 routes, 60 tests, and persisted governance stores keep the API lane active.
 
 Files:
 - `src/advanced_multimodal_ai/api.py`
@@ -119,8 +119,8 @@ Files:
 - `src/advanced_multimodal_ai/repository_pulse.py`
 
 Artifacts:
-- `src/advanced_multimodal_ai/api.py` · pass · 22967 bytes · updated 2026-07-04T02:36:28.850727+00:00
-- `src/advanced_multimodal_ai/service.py` · pass · 96885 bytes · updated 2026-07-04T02:36:28.852004+00:00
+- `src/advanced_multimodal_ai/api.py` · pass · 24335 bytes · updated 2026-07-04T03:45:54.601130+00:00
+- `src/advanced_multimodal_ai/service.py` · pass · 98826 bytes · updated 2026-07-04T04:01:58.899361+00:00
 - `src/advanced_multimodal_ai/connectors.py` · pass · 25974 bytes · updated 2026-07-03T16:15:59.726491+00:00
 - `src/advanced_multimodal_ai/pipelines.py` · pass · 2102 bytes · updated 2026-07-03T04:37:14.847767+00:00
 - `src/advanced_multimodal_ai/quality.py` · pass · 5294 bytes · updated 2026-07-03T04:05:08.862320+00:00
@@ -136,11 +136,11 @@ Suggested actions:
 
 - Lane id: `edge_gateway`
 - Emphasis: `backend`
-- Live score: `76`
-- Active count: `3`
+- Live score: `88`
+- Active count: `4`
 - Warning count: `0`
 
-3 persisted edge packet events now show how packet geometry, cross-border posture, and routing decisions are carried into an append-only ledger.
+4 persisted edge packet events now show how packet geometry, cross-border posture, and routing decisions are carried into an append-only ledger.
 
 Files:
 - `src/advanced_multimodal_ai/edge_gateway.py`
@@ -155,8 +155,8 @@ Artifacts:
 - `src/advanced_multimodal_ai/tracking_ledger.py` · pass · 5602 bytes · updated 2026-07-04T00:39:16.967055+00:00
 - `src/advanced_multimodal_ai/vector_mesh.py` · pass · 1906 bytes · updated 2026-07-04T01:07:21.770813+00:00
 - `scripts/export_edge_topology.py` · pass · 4577 bytes · updated 2026-07-04T01:07:21.476921+00:00
-- `proof/edge-topology.json` · pass · 5353 bytes · updated 2026-07-04T02:49:40.127193+00:00
-- `proof/edge-topology.md` · pass · 833 bytes · updated 2026-07-04T02:49:40.127377+00:00
+- `proof/edge-topology.json` · pass · 6404 bytes · updated 2026-07-04T03:01:41.696540+00:00
+- `proof/edge-topology.md` · pass · 916 bytes · updated 2026-07-04T03:01:41.696720+00:00
 
 Suggested actions:
 - Keep gateway evaluations tied to typed packet contracts rather than loose JSON blobs.
@@ -168,10 +168,10 @@ Suggested actions:
 - Lane id: `music_warehouse`
 - Emphasis: `backend`
 - Live score: `100`
-- Active count: `138`
+- Active count: `146`
 - Warning count: `0`
 
-69 manifests and 69 persisted feature runs now keep the sound lane downstream from contracts, provenance, and Parquet output.
+73 manifests and 73 persisted feature runs now keep the sound lane downstream from contracts, provenance, and Parquet output.
 
 Files:
 - `src/advanced_multimodal_ai/music_features.py`
@@ -190,10 +190,10 @@ Artifacts:
 - `src/advanced_multimodal_ai/music_queries.py` · pass · 1250 bytes · updated 2026-07-03T19:52:49.184924+00:00
 - `src/advanced_multimodal_ai/music_store.py` · pass · 5718 bytes · updated 2026-07-03T19:21:11.017798+00:00
 - `src/advanced_multimodal_ai/music_truth.py` · pass · 18905 bytes · updated 2026-07-03T20:07:28.377404+00:00
-- `src/advanced_multimodal_ai/service.py` · pass · 96885 bytes · updated 2026-07-04T02:36:28.852004+00:00
+- `src/advanced_multimodal_ai/service.py` · pass · 98826 bytes · updated 2026-07-04T04:01:58.899361+00:00
 - `scripts/export_music_observatory.py` · pass · 4965 bytes · updated 2026-07-03T20:12:58.767772+00:00
-- `proof/music-observatory.json` · pass · 228463 bytes · updated 2026-07-04T02:49:32.177074+00:00
-- `proof/music-observatory.md` · pass · 4032 bytes · updated 2026-07-04T02:49:32.177324+00:00
+- `proof/music-observatory.json` · pass · 228856 bytes · updated 2026-07-04T03:01:32.801430+00:00
+- `proof/music-observatory.md` · pass · 4032 bytes · updated 2026-07-04T03:01:32.801650+00:00
 
 Suggested actions:
 - Keep raw media outside the repository and derived features inside the proof path.
@@ -219,10 +219,10 @@ Files:
 
 Artifacts:
 - `src/advanced_multimodal_ai/benchmarks.py` · pass · 819 bytes · updated 2026-07-03T16:21:06.066556+00:00
-- `src/advanced_multimodal_ai/service.py` · pass · 96885 bytes · updated 2026-07-04T02:36:28.852004+00:00
+- `src/advanced_multimodal_ai/service.py` · pass · 98826 bytes · updated 2026-07-04T04:01:58.899361+00:00
 - `scripts/export_benchmark_surfaces.py` · pass · 4085 bytes · updated 2026-07-03T18:46:54.702734+00:00
-- `proof/benchmark-surfaces.json` · pass · 4566 bytes · updated 2026-07-04T02:49:30.042305+00:00
-- `proof/benchmark-surfaces.md` · pass · 3292 bytes · updated 2026-07-04T02:49:30.042549+00:00
+- `proof/benchmark-surfaces.json` · pass · 4568 bytes · updated 2026-07-04T03:01:30.446929+00:00
+- `proof/benchmark-surfaces.md` · pass · 3292 bytes · updated 2026-07-04T03:01:30.447145+00:00
 
 Suggested actions:
 - Keep the benchmark tied to real persisted lanes, not stand-alone timers.
@@ -271,9 +271,9 @@ Files:
 - `sdk/typescript/package.json`
 
 Artifacts:
-- `openapi/openapi.json` · pass · 208427 bytes · updated 2026-07-04T03:01:15.911195+00:00
-- `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py` · pass · 22198 bytes · updated 2026-07-04T03:01:18.148941+00:00
-- `sdk/typescript/src/generated-openapi.ts` · pass · 27956 bytes · updated 2026-07-04T03:01:18.148295+00:00
+- `openapi/openapi.json` · pass · 240648 bytes · updated 2026-07-04T04:02:50.285939+00:00
+- `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py` · pass · 23366 bytes · updated 2026-07-04T04:02:52.238220+00:00
+- `sdk/typescript/src/generated-openapi.ts` · pass · 29160 bytes · updated 2026-07-04T04:02:52.237636+00:00
 - `sdk/typescript/package.json` · pass · 613 bytes · updated 2026-07-03T07:03:48.596897+00:00
 
 Suggested actions:
@@ -300,10 +300,10 @@ Files:
 
 Artifacts:
 - `src/advanced_multimodal_ai/operator_surfaces.py` · pass · 29853 bytes · updated 2026-07-04T00:45:41.648589+00:00
-- `src/advanced_multimodal_ai/api.py` · pass · 22967 bytes · updated 2026-07-04T02:36:28.850727+00:00
+- `src/advanced_multimodal_ai/api.py` · pass · 24335 bytes · updated 2026-07-04T03:45:54.601130+00:00
 - `scripts/export_operator_surfaces.py` · pass · 4117 bytes · updated 2026-07-04T00:09:49.415768+00:00
-- `proof/operator-surfaces.json` · pass · 25061 bytes · updated 2026-07-04T02:49:34.204660+00:00
-- `proof/operator-surfaces.md` · pass · 5101 bytes · updated 2026-07-04T02:49:34.204821+00:00
+- `proof/operator-surfaces.json` · pass · 25061 bytes · updated 2026-07-04T03:01:35.074096+00:00
+- `proof/operator-surfaces.md` · pass · 5101 bytes · updated 2026-07-04T03:01:35.074318+00:00
 
 Suggested actions:
 - Keep operator cards tied to real routes, files, and proof artifacts.
@@ -328,7 +328,7 @@ Files:
 
 Artifacts:
 - `Dockerfile` · pass · 405 bytes · updated 2026-07-03T03:22:59.516372+00:00
-- `Makefile` · pass · 1575 bytes · updated 2026-07-04T02:41:07.998740+00:00
+- `Makefile` · pass · 1623 bytes · updated 2026-07-04T03:48:27.755878+00:00
 - `containers/compose.yaml` · pass · 1137 bytes · updated 2026-07-04T00:52:01.594762+00:00
 - `containers/clickhouse-init.sql` · pass · 608 bytes · updated 2026-07-04T00:52:24.070280+00:00
 
@@ -366,14 +366,14 @@ Files:
 - `scripts/export_research_surfaces.py`
 
 Artifacts:
-- `proof/runtime-proof.json` · pass · 5878 bytes · updated 2026-07-04T02:49:48.656075+00:00
-- `proof/readiness-report.json` · pass · 2793 bytes · updated 2026-07-04T02:49:44.362883+00:00
-- `proof/example-bundle.json` · pass · 2600 bytes · updated 2026-07-04T02:49:46.678991+00:00
-- `proof/benchmark-surfaces.json` · pass · 4566 bytes · updated 2026-07-04T02:49:30.042305+00:00
-- `proof/cymatic-surface.json` · pass · 15432 bytes · updated 2026-07-04T03:01:23.398326+00:00
-- `proof/music-observatory.json` · pass · 228463 bytes · updated 2026-07-04T02:49:32.177074+00:00
-- `proof/research-surfaces.json` · pass · 35384 bytes · updated 2026-07-04T03:01:20.607713+00:00
-- `proof/execution-journal.json` · pass · 22549 bytes · updated 2026-07-04T02:49:42.225077+00:00
+- `proof/runtime-proof.json` · pass · 5878 bytes · updated 2026-07-04T03:01:50.805716+00:00
+- `proof/readiness-report.json` · pass · 2793 bytes · updated 2026-07-04T03:01:46.277845+00:00
+- `proof/example-bundle.json` · pass · 2602 bytes · updated 2026-07-04T03:01:48.665026+00:00
+- `proof/benchmark-surfaces.json` · pass · 4568 bytes · updated 2026-07-04T03:01:30.446929+00:00
+- `proof/cymatic-surface.json` · pass · 15423 bytes · updated 2026-07-04T04:02:58.592098+00:00
+- `proof/music-observatory.json` · pass · 228856 bytes · updated 2026-07-04T03:01:32.801430+00:00
+- `proof/research-surfaces.json` · pass · 35387 bytes · updated 2026-07-04T04:02:54.211327+00:00
+- `proof/execution-journal.json` · pass · 22510 bytes · updated 2026-07-04T03:01:43.993652+00:00
 - `scripts/build_runtime_proof_bundle.py` · pass · 3260 bytes · updated 2026-07-03T18:46:55.612228+00:00
 - `scripts/export_benchmark_surfaces.py` · pass · 4085 bytes · updated 2026-07-03T18:46:54.702734+00:00
 - `scripts/export_cymatic_surface.py` · pass · 5169 bytes · updated 2026-07-03T18:46:54.415961+00:00
@@ -393,10 +393,10 @@ Suggested actions:
 - Lane id: `execution_history`
 - Emphasis: `evidence`
 - Live score: `100`
-- Active count: `177`
+- Active count: `194`
 - Warning count: `2`
 
-179 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.
+196 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.
 
 Files:
 - `src/advanced_multimodal_ai/execution_journal.py`
@@ -407,8 +407,8 @@ Files:
 Artifacts:
 - `src/advanced_multimodal_ai/execution_journal.py` · pass · 3047 bytes · updated 2026-07-04T00:17:27.400881+00:00
 - `src/advanced_multimodal_ai/execution_journal_store.py` · pass · 5238 bytes · updated 2026-07-03T08:04:38.170459+00:00
-- `proof/execution-journal.json` · pass · 22549 bytes · updated 2026-07-04T02:49:42.225077+00:00
-- `proof/execution-journal.md` · pass · 8977 bytes · updated 2026-07-04T02:49:42.225276+00:00
+- `proof/execution-journal.json` · pass · 22510 bytes · updated 2026-07-04T03:01:43.993652+00:00
+- `proof/execution-journal.md` · pass · 8963 bytes · updated 2026-07-04T03:01:43.993862+00:00
 
 Suggested actions:
 - Let export and verification lanes keep writing their own receipts.

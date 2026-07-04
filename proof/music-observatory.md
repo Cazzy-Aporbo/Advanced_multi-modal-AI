@@ -1,7 +1,7 @@
 # Music Observatory
 
-- Manifest count: `70`
-- Feature runs: `70`
+- Manifest count: `74`
+- Feature runs: `74`
 - Total segments: `72`
 
 ## Top findings

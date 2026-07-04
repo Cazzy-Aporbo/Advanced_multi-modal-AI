@@ -2,932 +2,124 @@
 
 <p align="left">
   <a href="https://www.python.org/">
-    <img alt="Python runtime edge" src="https://img.shields.io/badge/Python-runtime%20edge-8fb8ff?style=for-the-badge&labelColor=1b1f2a">
+    <img alt="Python runtime edge" src="https://img.shields.io/badge/Python-runtime%20edge-8fb8ff?style=for-the-badge&labelColor=171923">
   </a>
   <a href="https://www.rust-lang.org/">
-    <img alt="Rust compiled lane" src="https://img.shields.io/badge/Rust-compiled%20lane-f2ad7a?style=for-the-badge&labelColor=1b1f2a">
+    <img alt="Rust compiled core" src="https://img.shields.io/badge/Rust-compiled%20core-f2ad7a?style=for-the-badge&labelColor=171923">
   </a>
   <a href="https://www.typescriptlang.org/">
-    <img alt="TypeScript client surface" src="https://img.shields.io/badge/TypeScript-client%20surface-92d6cf?style=for-the-badge&labelColor=1b1f2a">
+    <img alt="TypeScript SDK" src="https://img.shields.io/badge/TypeScript-SDK-92d6cf?style=for-the-badge&labelColor=171923">
   </a>
   <a href="./openapi/openapi.json">
-    <img alt="OpenAPI export" src="https://img.shields.io/badge/OpenAPI-generated%20contract-f0b7d3?style=for-the-badge&labelColor=1b1f2a">
+    <img alt="OpenAPI generated contract" src="https://img.shields.io/badge/OpenAPI-generated-f0b7d3?style=for-the-badge&labelColor=171923">
   </a>
   <a href="./LICENSE">
-    <img alt="Apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-f3d27c?style=for-the-badge&labelColor=1b1f2a">
+    <img alt="Apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-f3d27c?style=for-the-badge&labelColor=171923">
   </a>
 </p>
 
-A multimodal systems repository for people who need to see how signals are
-gathered, cleaned, aligned, and carried forward without losing the evidence
-along the way.
+<p>
+  A multimodal systems repository for cleaning, aligning, profiling, testing,
+  and explaining signals before they become model output. It keeps the work
+  visible: contracts, proof exports, generated clients, replay records, derived
+  audio features, industry transfer profiles, and deterministic industrial
+  diagnostics all sit beside the code that creates them.
+</p>
 
-The project keeps two lanes in view at the same time: a research archive with
-larger model experiments, and a narrower runtime edge with typed contracts,
-connector intake, replay, provenance, and transcript-first video review.
-
-> Research remains visible. Runtime claims remain bounded. Public pages read
-> generated evidence instead of inventing their own.
+<p>
+  The public pages are not separate marketing pages. They read generated files
+  from <a href="./proof">proof/</a>, so the visible story remains tied to the
+  runtime.
+</p>
 
 <table>
   <tr>
-    <td valign="top" width="25%">
+    <td width="20%" valign="top"><strong>Runtime</strong><br/>FastAPI contracts, persistence, replay, inference, retrieval, jobs.</td>
+    <td width="20%" valign="top"><strong>Signals</strong><br/>Audio features, tensor profiles, temporal windows, cross-modal alignment.</td>
+    <td width="20%" valign="top"><strong>Proof</strong><br/>OpenAPI, readiness, benchmark, execution journal, generated bundles.</td>
+    <td width="20%" valign="top"><strong>Safety</strong><br/>Drift checks, provenance, supply chain, bias taxonomy, edge review.</td>
+    <td width="20%" valign="top"><strong>Field Work</strong><br/>Industrial fault reasoning, compliance checks, formal restart logic.</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <strong>Start visually</strong><br/>
+      <sub>Architecture, models, music, industry lanes, and diagnostics.</sub><br/><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html">Open the Signal Atlas</a>
+    </td>
+    <td width="33%" valign="top">
+      <strong>Start from code</strong><br/>
+      <sub>Run the API, tests, proof exports, and generated clients.</sub><br/><br/>
+      <a href="#quick-start">Quick start</a>
+    </td>
+    <td width="33%" valign="top">
+      <strong>Start from evidence</strong><br/>
+      <sub>Read the generated proof bundle before reading the claims.</sub><br/><br/>
+      <a href="./proof/runtime-proof.md">Runtime proof</a> ·
+      <a href="./proof/readiness-report.md">Readiness</a>
+    </td>
+  </tr>
+</table>
+
+## Surfaces
+
+<table>
+  <tr>
+    <td width="25%" valign="top">
       <strong>Signal Atlas</strong><br/>
-      The front door for architecture, evidence, and execution flow.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html">Open atlas</a>
+      <sub>Front door for the repo.</sub><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html">open</a>
     </td>
-    <td valign="top" width="25%">
-      <strong>Architecture Surface</strong><br/>
-      A closer read of the runtime lanes, contracts, and proof chain.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html">Read the architecture</a>
+    <td width="25%" valign="top">
+      <strong>Architecture</strong><br/>
+      <sub>Runtime lanes and contracts.</sub><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html">open</a>
     </td>
-    <td valign="top" width="25%">
-      <strong>Component Catalog</strong><br/>
-      A guided map of Python, Rust, TypeScript, and generated surfaces.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html">Browse the catalog</a>
+    <td width="25%" valign="top">
+      <strong>Catalog</strong><br/>
+      <sub>Files, models, generated clients.</sub><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html">open</a>
     </td>
-  </tr>
-  <tr>
-    <td valign="top" width="25%">
-      <strong>Model Observatory</strong><br/>
-      Model cards, open questions, and research lanes tied back to code.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/model-observatory.html">Open observatory</a>
-    </td>
-    <td valign="top" width="33%">
-      <strong>Benchmark Observatory</strong><br/>
-      Reference benchmark, replay ledger, and generated runtime evidence.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/benchmark-observatory.html">Open benchmark lane</a>
-    </td>
-    <td valign="top" width="33%">
-      <strong>Field Notes</strong><br/>
-      Working questions, findings, and next proofs worth earning.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/field-notes.html">Read field notes</a>
+    <td width="25%" valign="top">
+      <strong>Models</strong><br/>
+      <sub>Model cards and open questions.</sub><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/model-observatory.html">open</a>
     </td>
   </tr>
   <tr>
-    <td valign="top" width="33%">
-      <strong>Cymatic Media Engine</strong><br/>
-      An audio-reactive study surface that reads generated benchmark, pulse, and research evidence.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/cymatic-media-engine.html">Open signal lab</a>
+    <td width="25%" valign="top">
+      <strong>Benchmarks</strong><br/>
+      <sub>Reference runs and replay ledger.</sub><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/benchmark-observatory.html">open</a>
     </td>
-    <td valign="top" width="33%">
+    <td width="25%" valign="top">
       <strong>Music Warehouse</strong><br/>
-      Segment windows, derived features, drift checks, and change proof for declared audio catalogs.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/music-observatory.html">Open music warehouse</a>
+      <sub>Manifest-only audio lane and drift proof.</sub><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/music-observatory.html">open</a>
     </td>
-    <td valign="top" width="33%">
-      <strong>Generated Proof</strong><br/>
-      Cymatic and benchmark exports stay inspectable as plain files beside the moving surface.<br/>
-      <a href="https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/tree/main/proof">Browse proof bundle</a>
-    </td>
-  </tr>
-  <tr>
-    <td valign="top" width="33%">
+    <td width="25%" valign="top">
       <strong>Industry Profiles</strong><br/>
-      Domain-by-domain runtime routes for healthcare, education, media, biology, and supply chain work.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/industry-profiles.html">Open industry surface</a>
+      <sub>Domain routes tied to live endpoints.</sub><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/industry-profiles.html">open</a>
     </td>
-    <td valign="top" width="33%">
-      <strong>Industry Proof</strong><br/>
-      The same transfer profiles exported as files for review, diffing, and static publication.<br/>
-      <a href="./proof/industry-profiles.md">Read industry proof</a>
-    </td>
-    <td valign="top" width="33%">
-      <strong>Archive Experiment</strong><br/>
-      A plain Python micro-signal study that replaces notebook state with executable code.<br/>
-      <a href="./Advanced_/microscopic_signal_pathways.py">Open archive experiment</a>
-    </td>
-  </tr>
-  <tr>
-    <td valign="top" width="33%">
+    <td width="25%" valign="top">
       <strong>Industrial Diagnostics</strong><br/>
-      Deterministic field diagnosis, safety-law checks, and restart-state validation in one bounded runtime lane.<br/>
-      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/industrial-diagnostics.html">Open diagnostics surface</a>
-    </td>
-    <td valign="top" width="33%">
-      <strong>Industrial Proof</strong><br/>
-      Sample scenarios, proof tree, audit chain, and compliance findings exported as inspectable files.<br/>
-      <a href="./proof/industrial-diagnostics.md">Read industrial proof</a>
-    </td>
-    <td valign="top" width="33%">
-      <strong>Formal Notes</strong><br/>
-      Architecture, formal methods, and regulatory posture for the field-diagnostics lane.<br/>
-      <a href="./docs/formal_methods.md">Read formal notes</a>
+      <sub>Fault graph, compliance, restart checks.</sub><br/>
+      <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/industrial-diagnostics.html">open</a>
     </td>
   </tr>
 </table>
 
-<table>
-  <tr>
-    <td valign="top" width="25%">
-      <strong>Runtime Edge</strong><br/>
-      FastAPI contracts, ingestion, retrieval, provenance, drift, jobs, and replay.
-    </td>
-    <td valign="top" width="25%">
-      <strong>Compiled Lane</strong><br/>
-      Rust tensor signatures, transcript-led cut logic, and replay frame sealing.
-    </td>
-    <td valign="top" width="25%">
-      <strong>Generated Surfaces</strong><br/>
-      OpenAPI export plus Python and TypeScript clients regenerated from the live app.
-    </td>
-    <td valign="top" width="25%">
-      <strong>Proof Memory</strong><br/>
-      Acceptance spine, readiness report, benchmark artifacts, and execution journal.
-    </td>
-  </tr>
-</table>
-
-<table>
-  <tr>
-    <td valign="top" width="33%">
-      <strong>Grounding</strong><br/>
-      What the repository claims, what it does not, and where human review still matters.<br/>
-      <a href="./docs/GROUNDING_AND_BOUNDARIES.md">Read boundaries</a>
-    </td>
-    <td valign="top" width="33%">
-      <strong>Lane map</strong><br/>
-      A concise read of which files belong to the public surface, runtime backend, compiled core, clients, and proof exports.<br/>
-      <a href="./docs/REPOSITORY_LANES.md">Read lane map</a>
-    </td>
-    <td valign="top" width="33%">
-      <strong>Worked Example</strong><br/>
-      A generated bundle showing proof, benchmark, and route output together.<br/>
-      <a href="./proof/example-bundle.md">Open example bundle</a>
-    </td>
-    <td valign="top" width="33%">
-      <strong>Contract Surface</strong><br/>
-      Live API schema and generated clients for downstream integration work.<br/>
-      <a href="./openapi/openapi.json">Open API contract</a>
-    </td>
-  </tr>
-</table>
-
-<details>
-  <summary><strong>Open the shortest path through the repository</strong></summary>
-
-1. Read the [Signal Atlas](https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html).
-2. Run `python3 scripts/run_acceptance_spine.py`.
-3. Open [`proof/runtime-proof.md`](./proof/runtime-proof.md) and [`proof/benchmark-surfaces.md`](./proof/benchmark-surfaces.md).
-4. Inspect the API contract at [`openapi/openapi.json`](./openapi/openapi.json).
-5. Use the generated clients under [`sdk/python`](./sdk/python) and [`sdk/typescript`](./sdk/typescript).
-
-</details>
-
-## Table of contents
-
-- [What this repository is](#what-this-repository-is)
-- [System boundaries](#system-boundaries)
-- [Grounding and boundaries](#grounding-and-boundaries)
-- [What runs today](#what-runs-today)
-- [The multimodal data plane](#the-multimodal-data-plane)
-- [Dataset contracts and evolution](#dataset-contracts-and-evolution)
-- [Connector-fed ingestion](#connector-fed-ingestion)
-- [Reference benchmark and replay ledger](#reference-benchmark-and-replay-ledger)
-- [Stewardship, change control, and supply chain](#stewardship-change-control-and-supply-chain)
-- [Research surfaces and model cards](#research-surfaces-and-model-cards)
-- [Industry profiles](#industry-profiles)
-- [Runtime surfaces](#runtime-surfaces)
-- [Repository layout](#repository-layout)
-- [How the Python files connect](#how-the-python-files-connect)
-- [Quick start](#quick-start)
-- [Rust core and TypeScript SDK](#rust-core-and-typescript-sdk)
-- [Research registry](#research-registry)
-- [Verification](#verification)
-- [License and authorship](#license-and-authorship)
-- [Acknowledgment](#acknowledgment)
-
-## What this repository is
-
-It is a polyglot repository with a practical runtime spine:
-
-- Python for the service edge, contract validation, orchestration, and
-  integration logic
-- Rust for deterministic signal primitives that benefit from a compiled lane
-- TypeScript for a small client SDK that downstream applications can use
-
-The larger aim is straightforward. Keep the research visible, keep the runtime
-clear, and make the interfaces small enough to verify.
-
-## System boundaries
-
-This repository is layered on purpose. It should not read like one blurred
-application where every file does a little of everything.
-
-| lane | primary location | what belongs there | what does not |
-| --- | --- | --- | --- |
-| public surfaces | `index.html`, `advanced-technical-portfolio.html`, `technical-portfolio.html`, `model-observatory.html`, `music-observatory.html`, `field-notes.html`, `benchmark-observatory.html`, `cymatic-media-engine.html`, `industry-profiles.html` | reading generated proof, rendering explanations, linking to artifacts, reacting to local audio without becoming a hidden inference fork | inference, connector logic, policy evaluation |
-| runtime backend | `src/advanced_multimodal_ai/` | contracts, API routes, ingestion, inference, replay, stewardship, jobs, retrieval | presentation styling, static storytelling |
-| compiled core | `crates/multimodal-core/` | deterministic primitives that benefit from a compiled lane | API orchestration, persistence concerns |
-| generated clients | `sdk/python`, `sdk/typescript`, `openapi/openapi.json` | reusable client contracts regenerated from the running app | handwritten drift from the live API |
-| proof exports | `proof/`, export scripts under `scripts/` | evidence bundles, readiness exports, research surface exports, worked examples | ad hoc claims that cannot be regenerated |
-| execution memory | `.runtime/amai_execution_journal.sqlite3`, `proof/execution-journal.*` | persisted records of export and verification runs, touched artifacts, and lane counts | vague recollections of what was run last week |
-
-The flow is equally deliberate:
-
-1. data enters through typed connectors or direct contracts
-2. catalog and pipeline surfaces shape that data into reviewed runtime input
-3. quality, provenance, alignment, drift, and stewardship lanes measure it
-4. inference, replay, retrieval, and async work operate on the measured input
-5. proof, readiness, research surfaces, and generated clients export the state
-6. execution memory records which export and verification lanes actually ran
-7. the browser pages read those exports rather than improvising their own truth
-
-## Grounding and boundaries
-
-The repository is more useful when its boundaries are plain.
-
-- public pages summarize generated artifacts; they do not quietly replace them
-- deterministic reference fixtures are allowed for replay and regression work;
-  decorative fake traffic is not
-- connector intake is typed, rate-aware, and bounded by explicit source rules
-- research assets can remain exploratory without being misrepresented as the
-  default production path
-- stewardship, half-life, supply-chain, and residency concerns are treated as
-  runtime constraints, not ornamental language
-
-The longer version is in
-[`docs/GROUNDING_AND_BOUNDARIES.md`](./docs/GROUNDING_AND_BOUNDARIES.md).
-
-## What runs today
-
-The runtime under [`src/advanced_multimodal_ai`](./src/advanced_multimodal_ai)
-is operational today.
-
-- FastAPI application with health, readiness, registry, planning, inference,
-  retrieval, video, data quality, provenance, alignment, and metrics surfaces
-- deterministic contract-mode inference for multimodal tensor payloads
-- optional research-mode bridge to existing PyTorch assets already in the repo
-- in-memory vector retrieval with stricter dimensional validation
-- optional Qdrant retrieval backend
-- transcript-first video packeting and cleanup planning
-- data quality profiling for modality sparsity, entropy, finite-value coverage,
-  and fusion readiness
-- dataset contract registration, deterministic schema fingerprinting, and
-  schema evolution checks
-- persisted lifecycle policies covering review cadence, half-life, retention,
-  and removal intent for named datasets
-- change-control records that bind affected datasets, routes, validation
-  commands, and rollback notes into one reviewable surface
-- supply-chain snapshots that show how data moves between sources, datasets,
-  consumers, and deletion lanes
-- typed dataset connectors for local CSV, local Parquet, S3-hosted Parquet,
-  local NDJSON, HTTP JSON, HTTP NDJSON, and public HTML pages with robots-aware
-  intake rules
-- industry transfer profiles that tie healthcare, employment, education,
-  business operations, sports, media, journalism, dentistry, biology,
-  construction, and supply-chain work back to the same tested routes
-- benchmarked connector runs with persisted records
-- compiled recipe manifests with persisted launch topology and export checks
-- runtime attestation and readiness reporting tied to the generated artifacts
-- deterministic compliance ledger tokens emitted on every `/v1` response and
-  previewable through the runtime ledger route
-- persisted execution journal entries for proof, packaging, and export runs
-- deterministic provenance receipts for repeated payload verification
-- temporal alignment windows for cross-modal evidence stitching
-- persisted drift baselines and population-entry checks before reuse
-- pipeline ingestion with persisted run records and modality pairing discipline
-- domain ontology ingestion for contracts, schemas, and workflow artifacts
-- liability surfacing against saved governance snapshots and live trace records
-- a sixty-category bias taxonomy with stage-aware assessment
-- persisted async job records for long-running video cleanup and batch inference
-- a reference benchmark lane that exercises connector ingest, replay sealing,
-  batch execution, recipe compilation, and proof refresh together
-- property-based fuzz coverage for tensor contracts, intercept behavior, and
-  connector-to-pipeline mapping under malformed or sparse inputs
-- Prometheus metrics
-- a Rust algorithm core for tensor signatures and transcript-led cut logic
-- OpenAPI export and generated Python and TypeScript client surfaces
-- a TypeScript SDK for browser and application integration
-- Docker, Compose, CI, and GitHub Pages assets that match the actual project
-
-## The multimodal data plane
-
-The real value of a multimodal system is not only inference. It is the care
-that happens before and around inference.
-
-## Dataset contracts and evolution
-
-`POST /v1/catalog/register`  
-`GET /v1/catalog/datasets`  
-`GET /v1/catalog/datasets/{dataset_id}`  
-`POST /v1/catalog/evolution`
-
-The runtime now has a persisted catalog lane for datasets as well.
-
-- each dataset contract stores owner, version, modality, primary keys,
-  partition keys, and field-level schema
-- schema fingerprints are deterministic and can use the Rust core when it is
-  available
-- candidate revisions can be compared against the latest saved contract to
-  separate additive changes from breaking ones
-
-This is a real backend surface and a better starting point for ingestion
-governance than a spreadsheet of column names.
-
-## Connector-fed ingestion
-
-`POST /v1/connectors/register`  
-`POST /v1/connectors/pipeline-ingest`  
-`GET /v1/connectors/runs`  
-`GET /v1/connectors/runs/{run_id}`
-
-The runtime can now materialize rows from typed connectors instead of asking
-every caller to prepare tensors by hand first.
-
-Supported connector kinds today:
-
-- `local_csv`
-- `local_jsonl`
-- `local_parquet`
-- `s3_parquet`
-- `http_json`
-- `http_ndjson`
-- `web_html`
-
-Each connector run records:
-
-- fetch time
-- parse time
-- total time
-- bytes read
-- rows per second
-
-The registration lane infers a dataset contract from real rows and persists
-that contract into the catalog. The pipeline-ingest lane goes further: it maps
-selected numeric fields into modality tensors, builds pipeline events, and
-writes a persisted pipeline run that can later be exported or replayed.
-
-Parquet is now part of the same proof path, including an S3-shaped object-store
-lane, so a columnar batch extract can be registered and ingested without first
-being flattened into CSV.
-
-The web lane adds a more careful intake path for public pages:
-
-- domain allowlists can be declared before a fetch begins
-- `robots.txt` can be checked before any page body is read
-- minimum request intervals are enforced per domain when a recent fetch receipt
-  is already on record
-- byte caps prevent oversized page pulls from becoming the default path
-- extracted rows keep text blocks, counts, and page-level receipts together
-
-That keeps web intake useful for research and review work without turning the
-repository into an indiscriminate crawler.
-
-## Reference benchmark and replay ledger
-
-`GET /v1/benchmarks/reference`  
-`POST /v1/benchmarks/reference`  
-`GET /v1/pipelines/runs/{run_id}`  
-`GET /v1/pipelines/runs/{run_id}/export`  
-`POST /v1/pipelines/runs/{run_id}/replay`
-
-The benchmark lane now proves more than timing.
-
-- a generated reference workload can begin with connector-backed Parquet ingest
-- that ingest produces a persisted pipeline run with sealed replay frames
-- the replay route rebuilds the same request path and checks frame parity back
-  against the recorded execution memory
-- the benchmark then continues through concurrent batch execution, recipe
-  compilation, and proof export without switching to a separate demo harness
-
-The result is a smaller but more useful kind of evidence. You can inspect one
-workload, reopen its exported lineage, and see whether the system returned to
-the same state when replayed.
-
-## Stewardship, change control, and supply chain
-
-`POST /v1/stewardship/lifecycle`<br>
-`GET /v1/stewardship/lifecycle`<br>
-`GET /v1/stewardship/lifecycle/{policy_id}`<br>
-`POST /v1/stewardship/change-controls`<br>
-`GET /v1/stewardship/change-controls`<br>
-`GET /v1/stewardship/change-controls/{change_id}`<br>
-`POST /v1/stewardship/supply-chain`<br>
-`GET /v1/stewardship/supply-chain`<br>
-`GET /v1/stewardship/supply-chain/{snapshot_id}`<br>
-`GET /v1/stewardship/posture`
-
-This lane documents how data is allowed to enter, how long it should remain
-useful, when it should be reviewed again, and what should happen when it
-becomes too old to carry forward safely.
-
-- lifecycle policies attach half-life, retention, review cadence, residency,
-  and removal mode to a persisted dataset contract
-- change-control records tie one operational change to the datasets, routes,
-  validations, and rollback notes it depends on
-- supply-chain snapshots describe the path from connector to dataset to
-  consumer, including cross-border hops and unguided edges
-- the posture surface shows which datasets are covered, which ones are still
-  uncovered, and where the supply path still lacks explicit control
-
-This is the part of the runtime that helps a team answer practical questions:
-what can move, what should pause for review, what has started to age out, and
-what still lacks a clean retirement path.
-
-## Research surfaces and model cards
-
-`GET /v1/research/models`
-`GET /v1/research/findings`
-`GET /v1/research/connections`
-`GET /v1/research/surfaces`
-`GET /v1/execution/journal`
-
-The repository now exports a typed research bundle as well.
-
-- architecture lanes explain how the public pages, runtime backend, compiled
-  core, generated clients, and proof exports stay distinct while still flowing
-  through one reproducible system
-- model cards explain why each model is present, what it is good at, what is
-  still weak, and what evidence would improve it
-- findings are generated from runtime proof, readiness, persisted store counts,
-  and the model cards instead of being written as a disconnected essay
-- connection notes explain how files, API surfaces, and review lanes fit
-  together so the backend can be studied as a system rather than as an index
-- execution-journal exports keep a persisted record of which proof and packaging
-  lanes ran, what they touched, and when they last changed
-
-This makes the public site less static and gives the repository a better way
-to explain itself without flattening everything into one long README section.
-
-## Industry profiles
-
-`GET /v1/industries/profiles`
-
-The repository now exports domain-specific transfer profiles instead of leaving
-range as a vague promise.
-
-- healthcare and dentistry emphasize provenance, cohort drift, and chart or
-  imaging review paths
-- education and journalism emphasize transcript cleanup, temporal alignment,
-  correction pressure, and attribution
-- media and sports emphasize segment windows, replay evidence, and sound or
-  language drift
-- construction, business operations, and supply chain emphasize ontology,
-  routing, and governed movement before orchestration expands
-- biology emphasizes microscopic detail, field meaning, and paired evidence
-  across image, table, and note surfaces
-
-The public view is [`industry-profiles.html`](./industry-profiles.html). The
-paired export lives in [`proof/industry-profiles.md`](./proof/industry-profiles.md).
-
-## Recipe registry
-
-`POST /v1/recipes/compile`  
-`GET /v1/recipes`  
-`GET /v1/recipes/{recipe_id}`
-
-The runtime can now compile a typed recipe manifest that:
-
-- resolves dataset references against the persisted catalog
-- estimates batch topology from node, device, and accumulation settings
-- records verified export and manifest-validation commands
-- leaves a persisted handoff record instead of a loose training note
-
-This lane is deliberately careful. It proves the handoff surface, the evidence
-resolution, and the manifest discipline before an external runner takes over.
-
-### 1. Quality profiling
-
-`POST /v1/data/profile`
-
-This surface inspects each modality before fusion:
-
-- batch size and feature width
-- finite-value coverage
-- zero-density and sparsity pressure
-- normalized entropy
-- signal energy
-- dynamic range
-- temporal change across the current window
-- pairwise signature alignment between modalities
-
-The response includes a fusion-readiness score and explicit warnings when a lane
-is too flat, too sparse, or too unstable to carry much weight.
-
-### 2. Provenance receipts
-
-`POST /v1/data/provenance`
-
-This surface produces deterministic SHA-256 receipts for:
-
-- each modality payload
-- request metadata
-- the full request body
-
-Identical payloads produce identical receipts. Small upstream changes remain
-visible because the metadata and modality tensors are hashed separately.
-
-### 3. Temporal alignment
-
-`POST /v1/alignment/windows`
-
-This surface groups timed observations into aligned windows so text, audio,
-image, video, or sensor events can be read together instead of as isolated
-moments. It is meant for corroboration, not spectacle.
-
-### 4. Retrieval with cleaner boundaries
-
-`POST /v1/retrieval/upsert`  
-`POST /v1/retrieval/query`
-
-The retrieval lane now enforces vector width consistency per modality in the
-in-memory index. The Qdrant path uses a deterministic point identifier instead
-of ephemeral numeric inserts, which makes repeated writes less fragile.
-
-### 5. Video as a temporal modality
-
-`POST /v1/video/packet`  
-`POST /v1/video/clean`
-
-The video lane reads transcript timing first, then folds frame and audio
-signals into the places where they are actually useful:
-
-- evidence windows
-- filler detection
-- silence-gap detection
-- retained spans
-- cut-script preparation
-
-That keeps the surface modest and still useful for review, retrieval, and edit
-handoff.
-
-### 6. Long-running work without a theatrical queue
-
-`POST /v1/jobs/video-clean`  
-`POST /v1/jobs/batch-infer`  
-`GET /v1/jobs`  
-`GET /v1/jobs/{job_id}`
-
-The job lane is backed by a persisted SQLite record under `.runtime/`.
-
-- video cleanup can run as an asynchronous job
-- multimodal batch inference can run as an asynchronous job
-- queued, running, completed, and failed states are stored
-- request payloads and result payloads remain inspectable after completion
-
-### 7. Population-entry drift control
-
-`POST /v1/drift/baselines`  
-`GET /v1/drift/baselines`  
-`POST /v1/drift/check`
-
-The runtime can now save a reviewed population baseline and compare new traffic
-against it before that traffic is folded into a familiar lane.
-
-- modality-level entropy, sparsity, finite coverage, range, and temporal motion
-  are compared against the saved baseline
-- cross-modal alignment drop is measured explicitly
-- the runtime can warn or block when a new population drifts outside the
-  prepared lane
-
-### 8. Pipeline ingestion with persisted run records
-
-`POST /v1/pipelines/ingest`  
-`GET /v1/pipelines/runs`  
-`GET /v1/pipelines/runs/{run_id}`  
-`GET /v1/pipelines/runs/{run_id}/export`  
-`POST /v1/pipelines/runs/{run_id}/replay`
-
-This lane turns raw multimodal events into a paired inference batch, records
-what was dropped to preserve alignment, and saves the full run with provenance,
-quality, optional drift findings, and inference output.
-
-The export and replay surfaces add a practical audit path:
-
-- rerun the stored request snapshot through the current runtime
-- compare provenance and summary shape stability
-- export event lineage as NDJSON with deterministic artifact digests
-
-### 9. Domain ontology and liability surfacing
-
-`POST /v1/ontology/ingest`  
-`GET /v1/ontology/snapshots`  
-`GET /v1/ontology/snapshots/{snapshot_id}`  
-`POST /v1/ontology/liability`
-
-This lane ingests API schemas, workflow notes, and governance artifacts into a
-persisted ontology snapshot. The liability surface then compares live route
-traces against compiled constraints such as encryption requirements,
-cross-border transfer boundaries, and reviewed handling lanes.
-
-### 10. Bias as a staged system problem
-
-`GET /v1/bias/taxonomy`  
-`POST /v1/bias/assess`
-
-The repository now carries a sixty-category bias taxonomy across collection,
-consent, sampling, measurement, labeling, feature shaping, retrieval,
-evaluation, interface, and governance. The assessment lane reports where risk
-is entering the system rather than compressing bias into one generic score.
-
-### 11. Runtime attestation
-
-`GET /v1/runtime/attestation`
-`GET /v1/runtime/compliance-ledger`
-`GET /v1/readiness/report`
-
-This surface returns an evidence bundle about what the repo can verify today:
-OpenAPI digest, generated client artifacts, runtime schema, Rust core
-presence, and persisted record counts across the local stores.
-
-Every `/v1` HTTP response now also carries a compact compliance ledger token in
-headers:
-
-- `X-AMAI-Ledger-Token`
-- `X-AMAI-Ledger-Scope`
-- `X-AMAI-Ledger-Lanes`
-- `X-AMAI-Ledger-OpenAPI`
-- `X-AMAI-Ledger-Stores`
-- `X-AMAI-Ledger-Payload`
-
-The companion runtime route exposes the same token shape as a typed response so
-the ledger surface is inspectable in Swagger and in generated clients.
-
-The readiness report stays adjacent to that attestation. It assembles route
-count, test count, connector coverage, resolved recipe evidence, and operating
-boundaries into one typed response so the repo can state what is review-ready,
-what still needs evidence, and where the runtime is intentionally restrained.
-
-## Runtime surfaces
-
-| Surface | Method | Purpose |
-| --- | --- | --- |
-| `/v1/health` | `GET` | service health, environment, and metrics posture |
-| `/v1/ready` | `GET` | runtime readiness, model count, and retrieval backend |
-| `/v1/catalog/register` | `POST` | save a versioned dataset contract |
-| `/v1/catalog/datasets` | `GET` | list persisted dataset contracts |
-| `/v1/catalog/datasets/{dataset_id}` | `GET` | read one persisted dataset contract |
-| `/v1/catalog/evolution` | `POST` | compare a candidate schema against the latest saved version |
-| `/v1/stewardship/lifecycle` | `POST` | save review cadence, half-life, retention, and removal intent for one dataset |
-| `/v1/stewardship/lifecycle` | `GET` | list persisted lifecycle policies |
-| `/v1/stewardship/lifecycle/{policy_id}` | `GET` | read one lifecycle policy |
-| `/v1/stewardship/change-controls` | `POST` | register one operational change with validations and rollback notes |
-| `/v1/stewardship/change-controls` | `GET` | list persisted change-control records |
-| `/v1/stewardship/change-controls/{change_id}` | `GET` | read one change-control record |
-| `/v1/stewardship/supply-chain` | `POST` | persist a source-to-consumer data movement snapshot |
-| `/v1/stewardship/supply-chain` | `GET` | list persisted supply-chain snapshots |
-| `/v1/stewardship/supply-chain/{snapshot_id}` | `GET` | read one supply-chain snapshot |
-| `/v1/stewardship/posture` | `GET` | summarize coverage gaps, open changes, and cross-border movement counts |
-| `/v1/connectors/register` | `POST` | infer and persist a dataset contract from file, object-store, HTTP, or public-web rows |
-| `/v1/connectors/pipeline-ingest` | `POST` | fetch rows, map features into modalities, and persist a pipeline run |
-| `/v1/connectors/runs` | `GET` | list benchmarked connector runs |
-| `/v1/connectors/runs/{run_id}` | `GET` | read one persisted connector run |
-| `/v1/recipes/compile` | `POST` | compile a typed recipe manifest with launch topology and proof obligations |
-| `/v1/recipes` | `GET` | list persisted recipe manifests |
-| `/v1/recipes/{recipe_id}` | `GET` | read one persisted recipe manifest |
-| `/v1/runtime/attestation` | `GET` | present-tense evidence of generated artifacts and persisted stores |
-| `/v1/runtime/compliance-ledger` | `GET` | preview the typed compliance token emitted on `/v1` responses |
-| `/v1/proof/bundle` | `GET` | summarize routes, tests, verification commands, connectors, artifacts, and store counts |
-| `/v1/readiness/report` | `GET` | assemble evidence checks, connector coverage, recipe resolution, and operating boundaries |
-| `/v1/execution/journal` | `GET` | read recent export and verification runs with touched artifacts and lane counts |
-| `/v1/research/models` | `GET` | list model cards tied to runtime and research lanes |
-| `/v1/research/findings` | `GET` | list generated findings grounded in live proof and store state |
-| `/v1/research/connections` | `GET` | list file-to-surface connections for the active runtime spine |
-| `/v1/research/surfaces` | `GET` | export the combined research bundle used by the public pages |
-| `/v1/research/cymatic-surface` | `GET` | expose the audio-reactive research and benchmark study surface |
-| `/v1/operators/surfaces` | `GET` | expose operator-facing commands, skills, plugins, and speech tasks |
-| `/v1/operators/commands` | `GET` | list operator command lanes drawn from the same operator surface |
-| `/v1/operators/skills` | `GET` | list skill surfaces tied to execution and review work |
-| `/v1/operators/plugins` | `GET` | list plugin surfaces tied to the current runtime posture |
-| `/v1/operators/speech-tasks` | `GET` | list speech and interaction tasks attached to operator work |
-| `/v1/models` | `GET` | registered runtime and research model inventory |
-| `/v1/music/overview` | `GET` | summarize declared music manifests, feature runs, and drift posture |
-| `/v1/music/snapshot` | `GET` | combine warehouse, drift, and change proof into one music surface |
-| `/v1/music/manifests` | `POST` | register a manifest-only audio declaration without storing raw media |
-| `/v1/music/manifests` | `GET` | list registered music manifests |
-| `/v1/music/manifests/{manifest_id}` | `GET` | read one registered music manifest |
-| `/v1/music/features/extract` | `POST` | derive segment-level audio features into a typed warehouse lane |
-| `/v1/music/features/runs` | `GET` | list persisted music feature extraction runs |
-| `/v1/music/features/runs/{run_id}` | `GET` | read one music feature extraction run |
-| `/v1/music/features/query` | `GET` | query derived feature rows without reopening raw media |
-| `/v1/music/segments` | `GET` | inspect the stable segment index used by the feature lane |
-| `/v1/music/alignment` | `GET` | preview cross-modal alignment between segment, transcript, and window timing |
-| `/v1/music/drift` | `GET` | report audio-specific drift across loudness, language, repetition, and coverage |
-| `/v1/music/proof/change-report` | `GET` | answer what changed in the catalog, where it entered, and what proves it |
-| `/v1/industries/profiles` | `GET` | export domain transfer profiles tied to live routes and proof surfaces |
-| `/v1/repository/pulse` | `GET` | summarize lane health, generated artifacts, and current proof coverage |
-| `/v1/edge/evaluate` | `POST` | evaluate route-boundary risk for one packet before expansion |
-| `/v1/edge/ledger` | `GET` | inspect recent edge packet evaluations and tracked findings |
-| `/v1/edge/topology` | `GET` | inspect the current edge topology, risk bands, and boundary map |
-| `/v1/bias/taxonomy` | `GET` | sixty-category bias register across the system lifecycle |
-| `/v1/bias/assess` | `POST` | stage-aware bias findings for an active system |
-| `/v1/plan` | `POST` | orchestration steps before execution |
-| `/v1/data/profile` | `POST` | modality quality, pairwise alignment, and fusion readiness |
-| `/v1/data/provenance` | `POST` | deterministic request receipts |
-| `/v1/drift/baselines` | `POST` | save a reviewed population baseline |
-| `/v1/drift/baselines` | `GET` | list saved drift baselines |
-| `/v1/drift/check` | `POST` | compare a new population to a reviewed baseline |
-| `/v1/pipelines/ingest` | `POST` | ingest multimodal events into a persisted pipeline run |
-| `/v1/pipelines/runs` | `GET` | list persisted pipeline runs |
-| `/v1/pipelines/runs/{run_id}` | `GET` | read one persisted pipeline run |
-| `/v1/pipelines/runs/{run_id}/export` | `GET` | export event lineage and artifact digests for one run |
-| `/v1/pipelines/runs/{run_id}/replay` | `POST` | rerun a saved request snapshot through the current runtime |
-| `/v1/ontology/ingest` | `POST` | compile enterprise artifacts into an ontology snapshot |
-| `/v1/ontology/snapshots` | `GET` | list persisted ontology snapshots |
-| `/v1/ontology/snapshots/{snapshot_id}` | `GET` | read one ontology snapshot |
-| `/v1/ontology/liability` | `POST` | compare live traces against compiled governance constraints |
-| `/v1/infer` | `POST` | contract-mode or research-mode multimodal inference |
-| `/v1/stream` | `WebSocket` | accepted → plan → progress → result stream |
-| `/v1/alignment/windows` | `POST` | temporal grouping across modalities |
-| `/v1/jobs/video-clean` | `POST` | enqueue a persisted video cleanup job |
-| `/v1/jobs/batch-infer` | `POST` | enqueue a persisted batch inference job |
-| `/v1/jobs` | `GET` | list persisted run records |
-| `/v1/jobs/{job_id}` | `GET` | read one persisted run record |
-| `/v1/retrieval/upsert` | `POST` | vector write into the active retrieval backend |
-| `/v1/retrieval/query` | `POST` | nearest-neighbor multimodal context read |
-| `/v1/video/packet` | `POST` | transcript-led evidence window assembly |
-| `/v1/video/clean` | `POST` | cleanup suggestions for filler and silence |
-| `/v1/benchmarks/smoke` | `GET` | deterministic smoke benchmark |
-| `/metrics` | `GET` | Prometheus scrape target |
-
-## Repository layout
-
-```text
-Advanced_multi-modal-AI/
-├── advanced-technical-portfolio.html
-├── benchmark-observatory.html
-├── cymatic-media-engine.html
-├── field-notes.html
-├── growth-surface.js            # repository reach and proof-freshness surface
-├── industrial-diagnostics.html
-├── industry-profiles.html
-├── index.html
-├── model-observatory.html
-├── music-observatory.html
-├── technical-portfolio.html
-├── cymatic-surface.css         # shared signal-lab styling
-├── cymatic-surface.js          # audio-reactive proof window
-├── industrial-diagnostics.js   # deterministic field diagnostics surface
-├── industry-profiles.js        # domain-transfer surface and profile rail
-├── music-observatory.js        # feature warehouse and drift surface
-├── research-surfaces.js          # shared loader for proof-backed browser surfaces
-├── site-controls.css             # shared theme, contrast, and motion styling
-├── site-controls.js              # shared theme, contrast, and language controls
-├── containers/compose.yaml       # fuller local service stack
-├── containers/clickhouse-init.sql
-├── crates/multimodal-core/       # Rust signal core for signatures and temporal cuts
-├── sdk/typescript/               # TypeScript client SDK
-├── src/advanced_multimodal_ai/
-│   ├── alignment.py              # timed observation grouping across modalities
-│   ├── api.py                    # FastAPI entrypoint
-│   ├── attestation.py            # runtime evidence and artifact verification
-│   ├── bias_taxonomy.py          # sixty-category bias register and assessment
-│   ├── cymatic_surface.py        # proof-backed visual lane summary for public surfaces
-│   ├── catalog.py                # dataset contract registration and evolution logic
-│   ├── catalog_store.py          # persisted dataset catalog records
-│   ├── benchmarks.py             # deterministic smoke benchmark
-│   ├── cli.py                    # local serve and benchmark commands
-│   ├── config.py                 # environment-backed settings
-│   ├── connector_store.py        # persisted connector benchmark records
-│   ├── connectors.py             # typed connector pulls, web intake policy checks, and row mapping
-│   ├── contracts.py              # API, runtime, quality, and provenance schemas
-│   ├── domain_ontology.py        # artifact ingestion and contract compilation
-│   ├── drift.py                  # population-entry drift scoring
-│   ├── drift_store.py            # persisted baseline registry
-│   ├── edge_gateway.py           # packet review and edge-boundary scoring
-│   ├── execution_journal.py      # typed execution history exports
-│   ├── execution_journal_store.py
-│   ├── governance_ledger.py      # deterministic compliance ledger tokens
-│   ├── industry_profiles.py      # domain transfer profiles tied to live routes
-│   ├── industrial_diagnostics/   # symbolic diagnostics, compliance gates, and proof tree generation
-│   ├── job_store.py              # SQLite-backed persisted async run records
-│   ├── legacy.py                 # bridge to existing research models
-│   ├── liability_surface.py      # route trace comparison against constraints
-│   ├── music_embeddings.py       # versioned audio embedding receipts
-│   ├── music_features.py         # derived audio feature extraction and drift math
-│   ├── music_queries.py          # feature and segment warehouse read surfaces
-│   ├── music_store.py            # manifest, segment, and feature persistence
-│   ├── music_truth.py            # music change proof and catalog-level interpretation
-│   ├── observability.py          # Prometheus counters and histograms
-│   ├── ontology_store.py         # persisted ontology snapshots
-│   ├── operator_surfaces.py      # operator-facing command and skill registry
-│   ├── orchestration.py          # runtime planning steps
-│   ├── pipeline_store.py         # persisted multimodal pipeline runs
-│   ├── pipelines.py              # raw event pairing into inference batches
-│   ├── provenance.py             # deterministic receipt generation
-│   ├── quality.py                # modality quality and fusion readiness
-│   ├── recipe_store.py           # persisted recipe manifests
-│   ├── recipes.py                # recipe compilation and launch shaping
-│   ├── replay.py                 # pipeline export and replay comparison
-│   ├── registry.py               # model inventory surface
-│   ├── repository_growth.py      # GitHub-facing repository signal composition
-│   ├── retrieval.py              # vector index implementations
-│   ├── repository_pulse.py       # lane-health summary exported to public surfaces
-│   ├── research_surfaces.py      # generated findings, lanes, and connections
-│   ├── rust_bridge.py            # optional bridge into the Rust core
-│   ├── service.py                # inference and coordination logic
-│   ├── signal_math.py            # shared tensor summaries and signature math
-│   ├── stewardship_store.py      # persisted lifecycle, change-control, and supply snapshots
-│   ├── tracking_ledger.py        # packet and runtime tracking ledger summaries
-│   ├── vector_mesh.py            # topology and mesh summaries for edge surfaces
-│   └── video.py                  # transcript-first video packet and cleanup lane
-├── tests/                        # API, retrieval, and video verification
-├── monitoring/prometheus.yml     # scrape configuration
-├── docs/architecture.md          # industrial diagnostics architecture notes
-├── docs/formal_methods.md        # symbolic and state-transition methods
-├── docs/getting_started.md       # executable quick-start commands
-├── docs/regulatory_compliance.md # OSHA, ISO, and IEC posture notes
-├── docs/REPOSITORY_LANES.md      # file-by-file lane boundaries
-├── examples/README.md            # direct runbook for executable examples
-├── examples/diesel_engine.py
-├── examples/hydraulic_system.py
-├── examples/electrical_system.py
-├── CITATION.cff
-├── CONTRIBUTING.md
-├── CODE_OF_CONDUCT.md
-├── SECURITY.md
-├── sql/runtime_schema.sql        # persisted runtime tables
-├── prompts/elite_engineer_transformation_v3.md
-├── proof/benchmark-surfaces.json
-├── proof/benchmark-surfaces.md
-├── proof/cymatic-surface.json
-├── proof/cymatic-surface.md
-├── proof/example-bundle.json
-├── proof/example-bundle.md
-├── proof/industrial-diagnostics.json
-├── proof/industrial-diagnostics.md
-├── proof/industry-profiles.json
-├── proof/industry-profiles.md
-├── proof/music-observatory.json
-├── proof/music-observatory.md
-├── proof/operator-surfaces.json
-├── proof/operator-surfaces.md
-├── proof/repository-growth.json
-├── proof/repository-growth.md
-├── proof/repository-growth-history.jsonl
-├── proof/repository-pulse.json
-├── proof/repository-pulse.md
-├── proof/runtime-proof.json
-├── proof/runtime-proof.md
-├── Dockerfile
-├── docker-compose.yml
-├── openapi/openapi.json
-├── scripts/export_benchmark_surfaces.py
-├── scripts/export_cymatic_surface.py
-├── scripts/export_edge_topology.py
-├── scripts/build_runtime_proof_bundle.py
-├── scripts/export_execution_journal.py
-├── scripts/export_example_bundle.py
-├── scripts/export_industrial_diagnostics.py
-├── scripts/export_industry_profiles.py
-├── scripts/export_music_observatory.py
-├── scripts/export_openapi.py
-├── scripts/export_operator_surfaces.py
-├── scripts/export_repository_growth.py
-├── scripts/export_repository_pulse.py
-├── scripts/export_research_surfaces.py
-├── scripts/generate_sdk_surfaces.py
-├── scripts/run_acceptance_spine.py
-├── Advanced_/microscopic_signal_pathways.py
-├── complete_model.py
-├── dynamic_transformer.py
-├── fusion_strategies.py
-└── core/attention_mechanisms.py
-```
-
-## How the Python files connect
-
-The package under `src/advanced_multimodal_ai` is easier to read when the
-files are treated as lanes instead of as isolated utilities.
-
-- `connectors.py` and `catalog.py` begin the intake path.
-  They pull rows, infer contracts, and leave persisted evidence in
-  `connector_store.py` and `catalog_store.py`.
-- `pipelines.py`, `quality.py`, `signal_math.py`, and `alignment.py`
-  turn those rows into timed multimodal work.
-  This is the lane that measures entropy, sparsity, coverage, and temporal
-  agreement before a fused answer carries too much confidence.
-- `contracts.py` and `service.py` hold the center of the runtime.
-  `contracts.py` keeps shapes explicit.
-  `service.py` composes inference, retrieval, video cleanup, replay, and
-  async jobs without collapsing all of that behavior into the API layer.
-- `drift.py`, `domain_ontology.py`, `liability_surface.py`, and
-  `stewardship_store.py` form the review path.
-  They answer questions about population change, operational movement,
-  lifecycle coverage, and route-level handling rather than model output alone.
-- `attestation.py`, `proof.py`, and `readiness.py` sit at the final edge.
-  Their job is to describe what exists, what passed, and what still lacks
-  coverage without pretending to be the runtime itself.
-
-That separation is intentional. It keeps the repository testable, makes the
-math reusable across surfaces, and gives the generated OpenAPI and SDK lanes a
-clear contract to follow.
-
-## Quick start
-
-### 1. Install
+## Quick Start
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -e .[dev]
-```
 
-### 2. Run the API
-
-```bash
 uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 8000
 ```
 
@@ -937,97 +129,231 @@ Open:
 - `http://127.0.0.1:8000/v1/health`
 - `http://127.0.0.1:8000/metrics`
 
-### 3. Run tests
+Run the local gate:
 
 ```bash
-pytest
-ruff check src tests
+python3 -m pytest -q
+python3 -m ruff check src tests scripts
 cargo test -p multimodal-core
-python3 scripts/run_acceptance_spine.py
+npm run --prefix sdk/typescript check
+make proof
+make acceptance
 ```
 
-### 4. Run the benchmark
+<details>
+  <summary><strong>What runs today</strong></summary>
+
+| Lane | Runtime surface | Evidence |
+| --- | --- | --- |
+| API and contracts | `src/advanced_multimodal_ai/api.py`, `contracts.py`, `service.py` | `openapi/openapi.json`, generated Python and TypeScript clients |
+| Ingestion | typed local, HTTP, public-web, CSV, NDJSON, Parquet, and S3-shaped connectors | connector run records, catalog fingerprints, pipeline replay |
+| Music features | manifest-only audio intake, segment index, feature warehouse, embeddings, drift | `proof/music-observatory.*`, `/v1/music/*` |
+| Industrial diagnostics | symbolic fault rules, safety checks, formal transition review, fault graph | `proof/industrial-diagnostics.*`, `/v1/industrial/*` |
+| Edge review | packet scoring, policy profile, ledger entries, topology export | `proof/edge-topology.*`, `/v1/edge/*` |
+| Research surfaces | model cards, findings, connection map, operator surfaces | `proof/research-surfaces.*`, `proof/operator-surfaces.*` |
+| Growth and adoption hygiene | issue templates, contribution path, proof freshness, repository snapshot | `proof/repository-growth.*`, `growth-surface.js` |
+
+</details>
+
+<details>
+  <summary><strong>Runtime map</strong></summary>
+
+The repository is split by responsibility.
+
+| Lane | Primary files | Job |
+| --- | --- | --- |
+| Public pages | `index.html`, `model-observatory.html`, `music-observatory.html`, `industrial-diagnostics.html` | render generated proof and guide reading |
+| Backend | `src/advanced_multimodal_ai/` | validate contracts, run analysis, persist records, expose API |
+| Compiled core | `crates/multimodal-core/` | deterministic tensor signatures and transcript-led cut logic |
+| SDKs | `sdk/python`, `sdk/typescript` | generated client surfaces from the live OpenAPI app |
+| Proof exports | `proof/`, `scripts/export_*.py` | static evidence for pages, docs, and review |
+| Runtime memory | `.runtime/` | local SQLite stores for jobs, catalogs, recipes, ledgers, and journals |
+
+The flow is:
+
+```text
+connector or request
+  -> dataset contract
+  -> quality and provenance
+  -> alignment, drift, replay, or inference
+  -> proof export
+  -> public surface
+```
+
+</details>
+
+<details>
+  <summary><strong>API groups</strong></summary>
+
+| Group | Routes |
+| --- | --- |
+| Runtime | `/v1/health`, `/v1/ready`, `/v1/runtime/attestation`, `/v1/runtime/compliance-ledger`, `/v1/readiness/report` |
+| Catalog and connectors | `/v1/catalog/*`, `/v1/connectors/*`, `/v1/pipelines/*` |
+| Models and inference | `/v1/models`, `/v1/plan`, `/v1/infer`, `/v1/stream`, `/v1/retrieval/*` |
+| Data review | `/v1/data/profile`, `/v1/data/provenance`, `/v1/alignment/windows`, `/v1/drift/*` |
+| Music | `/v1/music/manifests`, `/v1/music/features/*`, `/v1/music/drift`, `/v1/music/proof/change-report` |
+| Video | `/v1/video/packet`, `/v1/video/clean`, `/v1/jobs/video-clean` |
+| Governance and stewardship | `/v1/stewardship/*`, `/v1/ontology/*`, `/v1/bias/*`, `/v1/edge/*` |
+| Industrial diagnostics | `/v1/industrial/scenarios`, `/v1/industrial/diagnose`, `/v1/industrial/model-check` |
+| Proof and public research | `/v1/proof/bundle`, `/v1/research/*`, `/v1/operators/*`, `/v1/industries/profiles`, `/v1/repository/pulse`, `/v1/growth/snapshot` |
+
+</details>
+
+<details>
+  <summary><strong>Music warehouse</strong></summary>
+
+The music lane stores manifests and derived features, not raw tracks.
+
+| Layer | What is kept |
+| --- | --- |
+| Manifest | `track_id`, `source_uri`, `sha256`, license, duration, region, language, split, provenance |
+| Segment index | `start_ms`, `end_ms`, speaker or section, transcript reference, quality flags |
+| Feature rows | RMS, silence ratio, onset density, tempo proxy, beat stability, spectral features, MFCC-like summaries, chroma summaries, key confidence, repetition density, dynamic crest |
+| Embedding rows | vector, model name, extraction date, contract hash |
+| Drift | loudness, language share, genre imbalance, repetition, silence padding, production polish, regional undercoverage |
+
+Useful surfaces:
+
+- `POST /v1/music/features/extract`
+- `GET /v1/music/snapshot`
+- `GET /v1/music/drift`
+- `GET /v1/music/proof/change-report`
+- [`proof/music-observatory.md`](./proof/music-observatory.md)
+
+</details>
+
+<details>
+  <summary><strong>Industrial diagnostics</strong></summary>
+
+The industrial lane is a bounded diagnostic engine for field troubleshooting.
+It keeps technician reports, sensor thresholds, safety checks, state
+transitions, and final verdicts in one inspectable response.
+
+| Layer | Files |
+| --- | --- |
+| Symbolic rules | `industrial_diagnostics/deterministic_engine/symbolic_reasoner.py` |
+| Formal trace | `industrial_diagnostics/deterministic_engine/formal_spec.py` |
+| Model checking | `industrial_diagnostics/deterministic_engine/model_checking.py` |
+| Compliance checks | `industrial_diagnostics/compliance/osha_1910.py`, `iso_13849.py`, `iec_61508.py` |
+| Explainability | `industrial_diagnostics/explainability/proof_tree.py`, `audit_trail.py`, `fault_graph.py` |
+| Examples | `examples/diesel_engine.py`, `examples/hydraulic_system.py`, `examples/electrical_system.py` |
+
+Useful surfaces:
+
+- `GET /v1/industrial/scenarios`
+- `POST /v1/industrial/diagnose`
+- `POST /v1/industrial/model-check`
+- [`proof/industrial-diagnostics.md`](./proof/industrial-diagnostics.md)
+- [`industrial-diagnostics.html`](./industrial-diagnostics.html)
+
+</details>
+
+<details>
+  <summary><strong>Repository layout</strong></summary>
+
+```text
+Advanced_multi-modal-AI/
+├── index.html
+├── advanced-technical-portfolio.html
+├── technical-portfolio.html
+├── model-observatory.html
+├── benchmark-observatory.html
+├── music-observatory.html
+├── industry-profiles.html
+├── industrial-diagnostics.html
+├── field-notes.html
+├── src/advanced_multimodal_ai/
+│   ├── api.py
+│   ├── contracts.py
+│   ├── service.py
+│   ├── connectors.py
+│   ├── catalog.py
+│   ├── quality.py
+│   ├── provenance.py
+│   ├── alignment.py
+│   ├── drift.py
+│   ├── music_features.py
+│   ├── music_truth.py
+│   ├── edge_gateway.py
+│   ├── industrial_diagnostics/
+│   └── repository_growth.py
+├── crates/multimodal-core/
+├── sdk/python/
+├── sdk/typescript/
+├── examples/
+├── docs/
+├── proof/
+├── scripts/
+├── containers/
+├── Dockerfile
+├── docker-compose.yml
+├── CITATION.cff
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── LICENSE
+└── NOTICE
+```
+
+</details>
+
+<details>
+  <summary><strong>How the Python files connect</strong></summary>
+
+| Files | Connection |
+| --- | --- |
+| `connectors.py`, `catalog.py`, `connector_store.py`, `catalog_store.py` | bring data in, infer contracts, persist source evidence |
+| `pipelines.py`, `quality.py`, `signal_math.py`, `alignment.py` | shape raw events into measured multimodal work |
+| `contracts.py`, `service.py`, `api.py` | hold typed requests, coordinate runtime behavior, expose routes |
+| `drift.py`, `domain_ontology.py`, `liability_surface.py`, `stewardship_store.py` | review population shifts, operational movement, lifecycle coverage, and route constraints |
+| `music_features.py`, `music_embeddings.py`, `music_truth.py`, `music_store.py` | create derived audio feature lanes and catalog-level change proof |
+| `industrial_diagnostics/` | diagnose machine faults, evaluate compliance posture, produce graph and audit proof |
+| `attestation.py`, `proof.py`, `readiness.py`, `execution_journal.py` | export what exists, what ran, and what still needs coverage |
+
+</details>
+
+<details>
+  <summary><strong>Generated proof files</strong></summary>
+
+| File | Purpose |
+| --- | --- |
+| `proof/runtime-proof.md` | route, connector, verification, artifact, and store summary |
+| `proof/readiness-report.md` | present-tense checks and boundaries |
+| `proof/benchmark-surfaces.md` | benchmark and replay evidence |
+| `proof/music-observatory.md` | music feature warehouse and drift evidence |
+| `proof/industrial-diagnostics.md` | industrial scenario, proof tree, audit chain, compliance findings |
+| `proof/industry-profiles.md` | domain transfer routes and proof surfaces |
+| `proof/repository-growth.md` | repo health, contribution, proof freshness, and publishing signals |
+| `proof/execution-journal.md` | export and verification history |
+
+Regenerate the full set with:
 
 ```bash
-python -m advanced_multimodal_ai.cli benchmark --iterations 10
+make proof
 ```
 
-### 5. Export the example bundle
+</details>
 
-```bash
-python3 scripts/export_example_bundle.py
-```
+<details>
+  <summary><strong>OpenAPI, Rust, and SDKs</strong></summary>
 
-That writes:
-
-- `proof/example-bundle.json`
-- `proof/example-bundle.md`
-
-### 6. Run the acceptance spine
-
-```bash
-python3 scripts/run_acceptance_spine.py
-```
-
-### 7. Start the full local stack
-
-```bash
-docker compose up --build
-```
-
-This brings up:
-
-- the FastAPI service
-- Qdrant
-- Prometheus
-
-## Rust core and TypeScript SDK
-
-### Rust core
-
-```bash
-cargo test -p multimodal-core
-```
-
-The Rust crate handles two deterministic surfaces today:
-
-- tensor signature extraction for contract-mode inference
-- transcript-led cleanup cut detection for the video lane
-
-### TypeScript SDK
-
-The client under [`sdk/typescript`](./sdk/typescript) covers:
-
-- health checks
-- model registry reads
-- data quality profiling
-- provenance receipts
-- alignment windows
-- connector-backed dataset registration
-- connector-fed pipeline ingestion
-- persisted job submission and job inspection
-- inference requests
-- orchestration planning
-- WebSocket inference streaming
-
-Build check:
-
-```bash
-cd sdk/typescript
-npx tsc --noEmit -p tsconfig.json
-```
-
-### OpenAPI export and generated clients
+Generate contracts:
 
 ```bash
 python3 scripts/export_openapi.py
 python3 scripts/generate_sdk_surfaces.py
-python3 scripts/export_research_surfaces.py
-python3 scripts/export_repository_growth.py
-python3 scripts/export_industrial_diagnostics.py
-python3 scripts/export_readiness_report.py
-python3 scripts/export_example_bundle.py
-python3 scripts/build_runtime_proof_bundle.py
+```
+
+Check the compiled core:
+
+```bash
+cargo test -p multimodal-core
+```
+
+Check the TypeScript SDK:
+
+```bash
+npm run --prefix sdk/typescript check
 ```
 
 Generated outputs:
@@ -1035,49 +361,57 @@ Generated outputs:
 - `openapi/openapi.json`
 - `sdk/typescript/src/generated-openapi.ts`
 - `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py`
-- `proof/readiness-report.json`
-- `proof/example-bundle.json`
-- `proof/execution-journal.json`
-- `proof/industrial-diagnostics.json`
-- `proof/industry-profiles.json`
-- `proof/music-observatory.json`
-- `proof/operator-surfaces.json`
-- `proof/repository-growth.json`
-- `proof/repository-pulse.json`
 
-## Research registry
+</details>
 
-Some parts of the repository remain research assets rather than finished runtime
-components.
+<details>
+  <summary><strong>Boundaries</strong></summary>
+
+- Public pages summarize generated artifacts; they do not replace the backend.
+- Raw media should stay in object storage, public references, or local test fixtures.
+- The music lane persists manifests, derived features, embeddings, receipts, and drift reports.
+- Research files stay visible but are not described as production infrastructure by default.
+- Connector intake is typed and bounded by explicit source rules.
+- Stewardship, half-life, supply chain, and residency are treated as runtime review surfaces.
+
+The longer version lives in
+[`docs/GROUNDING_AND_BOUNDARIES.md`](./docs/GROUNDING_AND_BOUNDARIES.md).
+
+</details>
+
+<details>
+  <summary><strong>Verification commands</strong></summary>
+
+```bash
+python3 -m pytest -q
+python3 -m ruff check src tests scripts
+cargo test -p multimodal-core
+npm run --prefix sdk/typescript check
+make proof
+make acceptance
+```
+
+</details>
+
+<details>
+  <summary><strong>Research registry</strong></summary>
+
+Some files remain research assets rather than the default runtime path:
 
 - `complete_model.py`
 - `dynamic_transformer.py`
 - `fusion_strategies.py`
 - `core/attention_mechanisms.py`
 - `Advanced_/microscopic_signal_pathways.py`
-- other executable `Advanced_/` Python experiments
 
-Those files are still useful. They are simply no longer described as though
-they were already a distributed production engine on their own.
+They remain useful as archive and experimentation lanes. The runtime claims in
+this README are tied to `src/advanced_multimodal_ai`, generated contracts,
+proof exports, tests, and examples.
 
-## Verification
+</details>
 
-This pass was validated locally with:
-
-- `python3 -m pytest -q`
-- `python3 -m pytest -q tests/test_property_fuzz.py`
-- `python3 -m ruff check src tests scripts`
-- `cargo test -p multimodal-core`
-- `python3 scripts/export_openapi.py`
-- `python3 scripts/generate_sdk_surfaces.py`
-- `python3 scripts/export_readiness_report.py`
-- `python3 scripts/export_example_bundle.py`
-- `python3 scripts/export_execution_journal.py`
-- `python3 scripts/build_runtime_proof_bundle.py`
-- `python3 scripts/run_acceptance_spine.py`
-- `npx tsc --noEmit -p sdk/typescript/tsconfig.json`
-
-## License and authorship
+<details>
+  <summary><strong>License, authorship, and acknowledgment</strong></summary>
 
 This repository is licensed under the Apache License 2.0. See
 [`LICENSE`](./LICENSE) and [`NOTICE`](./NOTICE).
@@ -1085,10 +419,11 @@ This repository is licensed under the Apache License 2.0. See
 The runtime spine, public documentation, and multimodal data-plane contracts in
 this refactor are attributed to Cazandra Aporbo.
 
-## Acknowledgment
-
 The transcript-first video lane was informed in part by the structured editing
-posture demonstrated in [browser-use/video-use](https://github.com/browser-use/video-use),
-especially its preference for readable timeline packets over indiscriminate
-frame dumping. This repository adapts that idea into a narrower multimodal
-evidence and cleanup surface rather than copying its editing workflow.
+posture demonstrated in
+[browser-use/video-use](https://github.com/browser-use/video-use), especially
+its preference for readable timeline packets over indiscriminate frame dumping.
+This repository adapts that idea into a narrower multimodal evidence and
+cleanup surface rather than copying its editing workflow.
+
+</details>

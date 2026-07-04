@@ -16,11 +16,17 @@ from .contracts import (
     DataLifecyclePolicyRequest,
     DatasetEvolutionRequest,
     DatasetRegistrationRequest,
+    DeliberationAssessmentRequest,
+    DeliberationAssessmentResponse,
     DriftBaselineRequest,
     EdgeGatewayTopology,
     EdgePacketEvaluationResponse,
     EdgePacketRequest,
     EdgeTrackingLedgerSummary,
+    EpistemicRiskRequest,
+    EpistemicRiskResponse,
+    HarnessImprovementRequest,
+    HarnessImprovementResponse,
     IndustrialDiagnosticRequest,
     IndustrialDiagnosticResponse,
     IndustrialModelCheckRequest,
@@ -38,10 +44,13 @@ from .contracts import (
     RecipeCompileRequest,
     ReferenceBenchmarkRequest,
     RepositoryGrowthSnapshot,
+    ResearchInfluenceBundle,
     RetrievalQueryRequest,
     RetrievalUpsertRequest,
     SupplyChainSnapshotRequest,
     TemporalAlignmentRequest,
+    TrustCalibrationRequest,
+    TrustCalibrationResponse,
     VideoCleaningRequest,
     VideoPacketRequest,
 )
@@ -128,6 +137,34 @@ def create_app() -> FastAPI:
     @app.get("/v1/research/cymatic-surface")
     def research_cymatic_surface() -> CymaticSurfaceBundle:
         return service.cymatic_surface_bundle(route_count=_runtime_route_count(app))
+
+    @app.get("/v1/research/influence")
+    def research_influence() -> ResearchInfluenceBundle:
+        return service.research_influence_bundle(route_count=_runtime_route_count(app))
+
+    @app.post("/v1/research/harness-improvement")
+    def research_harness_improvement(
+        request: HarnessImprovementRequest,
+    ) -> HarnessImprovementResponse:
+        return service.mine_harness_improvements(request)
+
+    @app.post("/v1/research/deliberation/assess")
+    def research_deliberation_assessment(
+        request: DeliberationAssessmentRequest,
+    ) -> DeliberationAssessmentResponse:
+        return service.assess_research_deliberation(request)
+
+    @app.post("/v1/research/trust/calibrate")
+    def research_trust_calibration(
+        request: TrustCalibrationRequest,
+    ) -> TrustCalibrationResponse:
+        return service.calibrate_research_trust(request)
+
+    @app.post("/v1/research/epistemic-risk/assess")
+    def research_epistemic_risk(
+        request: EpistemicRiskRequest,
+    ) -> EpistemicRiskResponse:
+        return service.assess_research_epistemic_risk(request)
 
     @app.get("/v1/operators/surfaces")
     def operator_surfaces() -> OperatorSurfaceBundle:

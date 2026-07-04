@@ -1,8 +1,8 @@
 {
   "service": "advanced-multimodal-ai",
   "version": "0.5.0",
-  "route_count": 95,
-  "test_count": 55,
+  "route_count": 100,
+  "test_count": 60,
   "model_count": 4,
   "readiness_posture": "review_ready",
   "lanes": [
@@ -38,8 +38,8 @@
           "label": "index.html",
           "path": "index.html",
           "exists": true,
-          "bytes": 117862,
-          "modified_at": "2026-07-04T02:59:35.233785+00:00",
+          "bytes": 118509,
+          "modified_at": "2026-07-04T03:55:38.652346+00:00",
           "status": "pass",
           "note": "Browser-facing surface file."
         },
@@ -198,7 +198,7 @@
       "label": "Community signals",
       "emphasis": "evidence",
       "live_score": 70,
-      "summary": "0 stars, 0 contributors, and 14 JSON proof exports are being watched through one quieter repository signal lane.",
+      "summary": "0 stars, 0 contributors, and 15 JSON proof exports are being watched through one quieter repository signal lane.",
       "active_count": 9,
       "warning_count": 0,
       "files": [
@@ -281,7 +281,7 @@
           "path": "proof/repository-growth.json",
           "exists": true,
           "bytes": 1173,
-          "modified_at": "2026-07-04T02:49:27.657233+00:00",
+          "modified_at": "2026-07-04T03:01:27.677383+00:00",
           "status": "pass",
           "note": "Community or repository signal surface."
         },
@@ -290,7 +290,7 @@
           "path": "proof/repository-growth.md",
           "exists": true,
           "bytes": 1008,
-          "modified_at": "2026-07-04T02:49:27.657367+00:00",
+          "modified_at": "2026-07-04T03:01:27.677545+00:00",
           "status": "pass",
           "note": "Community or repository signal surface."
         }
@@ -305,8 +305,8 @@
       "label": "Runtime backend",
       "emphasis": "backend",
       "live_score": 100,
-      "summary": "95 routes, 55 tests, and persisted governance stores keep the API lane active.",
-      "active_count": 972,
+      "summary": "100 routes, 60 tests, and persisted governance stores keep the API lane active.",
+      "active_count": 988,
       "warning_count": 0,
       "files": [
         "src/advanced_multimodal_ai/api.py",
@@ -322,8 +322,8 @@
           "label": "api.py",
           "path": "src/advanced_multimodal_ai/api.py",
           "exists": true,
-          "bytes": 22967,
-          "modified_at": "2026-07-04T02:36:28.850727+00:00",
+          "bytes": 24335,
+          "modified_at": "2026-07-04T03:45:54.601130+00:00",
           "status": "pass",
           "note": "Backend runtime source file."
         },
@@ -331,8 +331,8 @@
           "label": "service.py",
           "path": "src/advanced_multimodal_ai/service.py",
           "exists": true,
-          "bytes": 96885,
-          "modified_at": "2026-07-04T02:36:28.852004+00:00",
+          "bytes": 98826,
+          "modified_at": "2026-07-04T04:01:58.899361+00:00",
           "status": "pass",
           "note": "Backend runtime source file."
         },
@@ -391,9 +391,9 @@
       "lane_id": "edge_gateway",
       "label": "Edge gateway",
       "emphasis": "backend",
-      "live_score": 76,
-      "summary": "3 persisted edge packet events now show how packet geometry, cross-border posture, and routing decisions are carried into an append-only ledger.",
-      "active_count": 3,
+      "live_score": 88,
+      "summary": "4 persisted edge packet events now show how packet geometry, cross-border posture, and routing decisions are carried into an append-only ledger.",
+      "active_count": 4,
       "warning_count": 0,
       "files": [
         "src/advanced_multimodal_ai/edge_gateway.py",
@@ -444,8 +444,8 @@
           "label": "edge-topology.json",
           "path": "proof/edge-topology.json",
           "exists": true,
-          "bytes": 5353,
-          "modified_at": "2026-07-04T02:49:40.127193+00:00",
+          "bytes": 6404,
+          "modified_at": "2026-07-04T03:01:41.696540+00:00",
           "status": "pass",
           "note": "Edge gateway, ledger, or exported topology artifact."
         },
@@ -453,8 +453,8 @@
           "label": "edge-topology.md",
           "path": "proof/edge-topology.md",
           "exists": true,
-          "bytes": 833,
-          "modified_at": "2026-07-04T02:49:40.127377+00:00",
+          "bytes": 916,
+          "modified_at": "2026-07-04T03:01:41.696720+00:00",
           "status": "pass",
           "note": "Edge gateway, ledger, or exported topology artifact."
         }
@@ -469,8 +469,8 @@
       "label": "Music warehouse",
       "emphasis": "backend",
       "live_score": 100,
-      "summary": "69 manifests and 69 persisted feature runs now keep the sound lane downstream from contracts, provenance, and Parquet output.",
-      "active_count": 138,
+      "summary": "73 manifests and 73 persisted feature runs now keep the sound lane downstream from contracts, provenance, and Parquet output.",
+      "active_count": 146,
       "warning_count": 0,
       "files": [
         "src/advanced_multimodal_ai/music_features.py",
@@ -533,8 +533,8 @@
           "label": "service.py",
           "path": "src/advanced_multimodal_ai/service.py",
           "exists": true,
-          "bytes": 96885,
-          "modified_at": "2026-07-04T02:36:28.852004+00:00",
+          "bytes": 98826,
+          "modified_at": "2026-07-04T04:01:58.899361+00:00",
           "status": "pass",
           "note": "Music manifest, warehouse, or observatory artifact."
         },
@@ -551,8 +551,8 @@
           "label": "music-observatory.json",
           "path": "proof/music-observatory.json",
           "exists": true,
-          "bytes": 228463,
-          "modified_at": "2026-07-04T02:49:32.177074+00:00",
+          "bytes": 228856,
+          "modified_at": "2026-07-04T03:01:32.801430+00:00",
           "status": "pass",
           "note": "Music manifest, warehouse, or observatory artifact."
         },
@@ -561,7 +561,7 @@
           "path": "proof/music-observatory.md",
           "exists": true,
           "bytes": 4032,
-          "modified_at": "2026-07-04T02:49:32.177324+00:00",
+          "modified_at": "2026-07-04T03:01:32.801650+00:00",
           "status": "pass",
           "note": "Music manifest, warehouse, or observatory artifact."
         }
@@ -600,8 +600,8 @@
           "label": "service.py",
           "path": "src/advanced_multimodal_ai/service.py",
           "exists": true,
-          "bytes": 96885,
-          "modified_at": "2026-07-04T02:36:28.852004+00:00",
+          "bytes": 98826,
+          "modified_at": "2026-07-04T04:01:58.899361+00:00",
           "status": "pass",
           "note": "Benchmark lane source or generated artifact."
         },
@@ -618,8 +618,8 @@
           "label": "benchmark-surfaces.json",
           "path": "proof/benchmark-surfaces.json",
           "exists": true,
-          "bytes": 4566,
-          "modified_at": "2026-07-04T02:49:30.042305+00:00",
+          "bytes": 4568,
+          "modified_at": "2026-07-04T03:01:30.446929+00:00",
           "status": "pass",
           "note": "Benchmark lane source or generated artifact."
         },
@@ -628,7 +628,7 @@
           "path": "proof/benchmark-surfaces.md",
           "exists": true,
           "bytes": 3292,
-          "modified_at": "2026-07-04T02:49:30.042549+00:00",
+          "modified_at": "2026-07-04T03:01:30.447145+00:00",
           "status": "pass",
           "note": "Benchmark lane source or generated artifact."
         }
@@ -704,8 +704,8 @@
           "label": "openapi.json",
           "path": "openapi/openapi.json",
           "exists": true,
-          "bytes": 208427,
-          "modified_at": "2026-07-04T03:01:15.911195+00:00",
+          "bytes": 240648,
+          "modified_at": "2026-07-04T04:02:50.285939+00:00",
           "status": "pass",
           "note": "Client or contract artifact."
         },
@@ -713,8 +713,8 @@
           "label": "generated_openapi.py",
           "path": "sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py",
           "exists": true,
-          "bytes": 22198,
-          "modified_at": "2026-07-04T03:01:18.148941+00:00",
+          "bytes": 23366,
+          "modified_at": "2026-07-04T04:02:52.238220+00:00",
           "status": "pass",
           "note": "Client or contract artifact."
         },
@@ -722,8 +722,8 @@
           "label": "generated-openapi.ts",
           "path": "sdk/typescript/src/generated-openapi.ts",
           "exists": true,
-          "bytes": 27956,
-          "modified_at": "2026-07-04T03:01:18.148295+00:00",
+          "bytes": 29160,
+          "modified_at": "2026-07-04T04:02:52.237636+00:00",
           "status": "pass",
           "note": "Client or contract artifact."
         },
@@ -771,8 +771,8 @@
           "label": "api.py",
           "path": "src/advanced_multimodal_ai/api.py",
           "exists": true,
-          "bytes": 22967,
-          "modified_at": "2026-07-04T02:36:28.850727+00:00",
+          "bytes": 24335,
+          "modified_at": "2026-07-04T03:45:54.601130+00:00",
           "status": "pass",
           "note": "Operator surface source or generated artifact."
         },
@@ -790,7 +790,7 @@
           "path": "proof/operator-surfaces.json",
           "exists": true,
           "bytes": 25061,
-          "modified_at": "2026-07-04T02:49:34.204660+00:00",
+          "modified_at": "2026-07-04T03:01:35.074096+00:00",
           "status": "pass",
           "note": "Operator surface source or generated artifact."
         },
@@ -799,7 +799,7 @@
           "path": "proof/operator-surfaces.md",
           "exists": true,
           "bytes": 5101,
-          "modified_at": "2026-07-04T02:49:34.204821+00:00",
+          "modified_at": "2026-07-04T03:01:35.074318+00:00",
           "status": "pass",
           "note": "Operator surface source or generated artifact."
         }
@@ -837,8 +837,8 @@
           "label": "Makefile",
           "path": "Makefile",
           "exists": true,
-          "bytes": 1575,
-          "modified_at": "2026-07-04T02:41:07.998740+00:00",
+          "bytes": 1623,
+          "modified_at": "2026-07-04T03:48:27.755878+00:00",
           "status": "pass",
           "note": "Deployment or local stack artifact."
         },
@@ -898,7 +898,7 @@
           "path": "proof/runtime-proof.json",
           "exists": true,
           "bytes": 5878,
-          "modified_at": "2026-07-04T02:49:48.656075+00:00",
+          "modified_at": "2026-07-04T03:01:50.805716+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -907,7 +907,7 @@
           "path": "proof/readiness-report.json",
           "exists": true,
           "bytes": 2793,
-          "modified_at": "2026-07-04T02:49:44.362883+00:00",
+          "modified_at": "2026-07-04T03:01:46.277845+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -915,8 +915,8 @@
           "label": "example-bundle.json",
           "path": "proof/example-bundle.json",
           "exists": true,
-          "bytes": 2600,
-          "modified_at": "2026-07-04T02:49:46.678991+00:00",
+          "bytes": 2602,
+          "modified_at": "2026-07-04T03:01:48.665026+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -924,8 +924,8 @@
           "label": "benchmark-surfaces.json",
           "path": "proof/benchmark-surfaces.json",
           "exists": true,
-          "bytes": 4566,
-          "modified_at": "2026-07-04T02:49:30.042305+00:00",
+          "bytes": 4568,
+          "modified_at": "2026-07-04T03:01:30.446929+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -933,8 +933,8 @@
           "label": "cymatic-surface.json",
           "path": "proof/cymatic-surface.json",
           "exists": true,
-          "bytes": 15432,
-          "modified_at": "2026-07-04T03:01:23.398326+00:00",
+          "bytes": 15423,
+          "modified_at": "2026-07-04T04:02:58.592098+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -942,8 +942,8 @@
           "label": "music-observatory.json",
           "path": "proof/music-observatory.json",
           "exists": true,
-          "bytes": 228463,
-          "modified_at": "2026-07-04T02:49:32.177074+00:00",
+          "bytes": 228856,
+          "modified_at": "2026-07-04T03:01:32.801430+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -951,8 +951,8 @@
           "label": "research-surfaces.json",
           "path": "proof/research-surfaces.json",
           "exists": true,
-          "bytes": 35384,
-          "modified_at": "2026-07-04T03:01:20.607713+00:00",
+          "bytes": 35387,
+          "modified_at": "2026-07-04T04:02:54.211327+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -960,8 +960,8 @@
           "label": "execution-journal.json",
           "path": "proof/execution-journal.json",
           "exists": true,
-          "bytes": 22549,
-          "modified_at": "2026-07-04T02:49:42.225077+00:00",
+          "bytes": 22510,
+          "modified_at": "2026-07-04T03:01:43.993652+00:00",
           "status": "pass",
           "note": "Exported proof or export script."
         },
@@ -1048,8 +1048,8 @@
       "label": "Execution history",
       "emphasis": "evidence",
       "live_score": 100,
-      "summary": "179 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.",
-      "active_count": 177,
+      "summary": "196 persisted script runs now leave a reusable memory of what exported, what passed, and what files changed.",
+      "active_count": 194,
       "warning_count": 2,
       "files": [
         "src/advanced_multimodal_ai/execution_journal.py",
@@ -1080,8 +1080,8 @@
           "label": "execution-journal.json",
           "path": "proof/execution-journal.json",
           "exists": true,
-          "bytes": 22549,
-          "modified_at": "2026-07-04T02:49:42.225077+00:00",
+          "bytes": 22510,
+          "modified_at": "2026-07-04T03:01:43.993652+00:00",
           "status": "pass",
           "note": "Execution-memory file or export."
         },
@@ -1089,8 +1089,8 @@
           "label": "execution-journal.md",
           "path": "proof/execution-journal.md",
           "exists": true,
-          "bytes": 8977,
-          "modified_at": "2026-07-04T02:49:42.225276+00:00",
+          "bytes": 8963,
+          "modified_at": "2026-07-04T03:01:43.993862+00:00",
           "status": "pass",
           "note": "Execution-memory file or export."
         }
@@ -1158,5 +1158,5 @@
       ]
     }
   ],
-  "generated_at": "2026-07-04T03:01:25.478690+00:00"
+  "generated_at": "2026-07-04T04:03:00.913977+00:00"
 }

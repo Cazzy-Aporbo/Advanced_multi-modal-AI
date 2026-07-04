@@ -46,6 +46,9 @@ jobs:
       - name: Export research surfaces
         run: python scripts/export_research_surfaces.py
 
+      - name: Export research influence
+        run: python scripts/export_research_influence.py
+
       - name: Export readiness report
         run: python scripts/export_readiness_report.py
 

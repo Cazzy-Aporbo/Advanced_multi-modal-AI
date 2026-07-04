@@ -17,10 +17,10 @@
   "clones_14d": 0,
   "unique_cloners_14d": 0,
   "community_health_percent": 0,
-  "route_count": 95,
-  "test_count": 55,
+  "route_count": 100,
+  "test_count": 60,
   "public_surface_count": 10,
-  "proof_export_count": 28,
+  "proof_export_count": 30,
   "docs_count": 7,
   "example_count": 4,
   "community_file_count": 7,
@@ -38,5 +38,5 @@
   "notes": [
     "GitHub repository metadata was unavailable during this export; local proof counts remain visible."
   ],
-  "captured_at": "2026-07-04T03:01:27.677110+00:00"
+  "captured_at": "2026-07-04T04:03:03.306191+00:00"
 }

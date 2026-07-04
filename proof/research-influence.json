@@ -1,0 +1,614 @@
+{
+  "bundle": {
+    "service": "advanced-multimodal-ai",
+    "version": "0.5.0",
+    "route_count": 100,
+    "test_count": 60,
+    "source_count": 4,
+    "mechanism_count": 6,
+    "feature_count": 6,
+    "sources": [
+      {
+        "source_id": "self_harness_2026",
+        "title": "Self-Harness: Harnesses That Improve Themselves",
+        "authors": [
+          "Hangfan Zhang",
+          "Shao Zhang",
+          "Kangcong Li",
+          "Chen Zhang",
+          "Yang Chen",
+          "Yiqun Zhang",
+          "Lei Bai",
+          "Shuyue Hu"
+        ],
+        "year": 2026,
+        "page_count": 19,
+        "field": "agent harness improvement",
+        "mechanisms": [
+          "weakness mining from execution traces",
+          "minimal harness proposal",
+          "regression-gated promotion"
+        ],
+        "repository_translation": "Turn failed or sparse proof lanes into explicit improvement candidates, then accept only changes that survive tests and exported evidence."
+      },
+      {
+        "source_id": "legal_deliberation_2026",
+        "title": "Investigating Multi-Agent Deliberation in Law",
+        "authors": [
+          "Cor Steging",
+          "Ludi van Leeuwen",
+          "Tadeusz Zbiegien"
+        ],
+        "year": 2026,
+        "page_count": 11,
+        "field": "legal reasoning and multi-agent deliberation",
+        "mechanisms": [
+          "multi-agent deliberation",
+          "3-ply adversarial argument",
+          "role-diverse critique"
+        ],
+        "repository_translation": "Represent high-stakes interpretations as competing viewpoints before collapsing them into one route, verdict, or recommendation."
+      },
+      {
+        "source_id": "trust_warroom_2026",
+        "title": "AI, Trust, and the War Room: Evidence from a Conjoint Experiment",
+        "authors": [
+          "Paul Lushenko"
+        ],
+        "year": 2026,
+        "page_count": 24,
+        "field": "human-machine trust and oversight",
+        "mechanisms": [
+          "trust calibration",
+          "human control",
+          "oversight sensitivity",
+          "mission and harm tradeoff"
+        ],
+        "repository_translation": "Expose evidence strength, human review posture, intended use, and oversight signals directly beside model or diagnostic output."
+      },
+      {
+        "source_id": "epistemic_risks_2026",
+        "title": "AI Epistemic Risks: Emerging Mechanisms and Evidence",
+        "authors": [
+          "Mick Yang",
+          "Stephen Casper",
+          "Jonathan Stray",
+          "Jasmine Li",
+          "Cameron Jones",
+          "Anna Gausen",
+          "Natasha Jaques",
+          "Brian Christian",
+          "Balint Gyevnar",
+          "Hannah Rose Kirk",
+          "Zhonghao He",
+          "Dan Zhao",
+          "Siao Si Looi",
+          "Joshua Levy",
+          "Kobi Hackenburg",
+          "Elizabeth Seger",
+          "Matt Kowal",
+          "Michelle Malonza",
+          "Luke Hewitt",
+          "Hause Lin",
+          "Maarten Sap",
+          "Dylan Hadfield-Menell",
+          "Thomas H. Costello",
+          "Reihaneh Rabbany",
+          "Jean-Francois Godbout",
+          "David G. Rand",
+          "Atoosa Kasirzadeh",
+          "Gordon Pennycook",
+          "Yoshua Bengio",
+          "Kellin Pelrine"
+        ],
+        "year": 2026,
+        "page_count": 97,
+        "field": "epistemic risk and cognitive resilience",
+        "mechanisms": [
+          "persuasion and manipulation",
+          "cognitive offloading",
+          "feedback loops and lock-in",
+          "epistemic diversity"
+        ],
+        "repository_translation": "Measure when a system narrows evidence, repeats itself, reduces human checking, or makes uncertainty harder to see."
+      }
+    ],
+    "mechanisms": [
+      {
+        "mechanism_id": "weakness_mining",
+        "label": "Weakness mining from traces",
+        "source_ids": [
+          "self_harness_2026"
+        ],
+        "repo_files": [
+          "src/advanced_multimodal_ai/execution_journal.py",
+          "src/advanced_multimodal_ai/repository_growth.py",
+          "src/advanced_multimodal_ai/research_influence.py",
+          "proof/execution-journal.md"
+        ],
+        "runtime_routes": [
+          "/v1/execution/journal",
+          "/v1/growth/snapshot",
+          "/v1/research/harness-improvement"
+        ],
+        "implementation_status": "active",
+        "score": 86,
+        "why_it_matters": "The repo can inspect traces and cluster repeated failures into concrete improvement proposals with acceptance gates.",
+        "next_test": "Keep the harness-improvement endpoint tied to repeated failed traces.",
+        "visual_surface": "research-influence.html#mechanisms"
+      },
+      {
+        "mechanism_id": "regression_gated_change",
+        "label": "Regression-gated change promotion",
+        "source_ids": [
+          "self_harness_2026"
+        ],
+        "repo_files": [
+          "Makefile",
+          ".github/workflows/ci.yml",
+          "scripts/run_acceptance_spine.py"
+        ],
+        "runtime_routes": [
+          "/v1/proof/bundle",
+          "/v1/readiness/report"
+        ],
+        "implementation_status": "active",
+        "score": 84,
+        "why_it_matters": "Improvements become credible when they are promoted through tests, proof exports, and generated clients together.",
+        "next_test": "Add an acceptance assertion that every public proof page has a matching export script.",
+        "visual_surface": "research-influence.html#roadmap"
+      },
+      {
+        "mechanism_id": "deliberative_disagreement",
+        "label": "Deliberative disagreement matrix",
+        "source_ids": [
+          "legal_deliberation_2026"
+        ],
+        "repo_files": [
+          "src/advanced_multimodal_ai/industry_profiles.py",
+          "src/advanced_multimodal_ai/bias_taxonomy.py",
+          "src/advanced_multimodal_ai/research_influence.py"
+        ],
+        "runtime_routes": [
+          "/v1/industries/profiles",
+          "/v1/bias/assess",
+          "/v1/research/deliberation/assess"
+        ],
+        "implementation_status": "active",
+        "score": 77,
+        "why_it_matters": "Some tasks need structured disagreement before a single answer is safe to present, especially legal, healthcare, employment, and safety domains.",
+        "next_test": "Expand fixtures with more role mixes and evidence sparsity patterns.",
+        "visual_surface": "research-influence.html#features"
+      },
+      {
+        "mechanism_id": "trust_calibration",
+        "label": "Trust calibration with oversight",
+        "source_ids": [
+          "trust_warroom_2026"
+        ],
+        "repo_files": [
+          "src/advanced_multimodal_ai/readiness.py",
+          "src/advanced_multimodal_ai/edge_gateway.py",
+          "src/advanced_multimodal_ai/industrial_diagnostics/engine.py",
+          "src/advanced_multimodal_ai/research_influence.py"
+        ],
+        "runtime_routes": [
+          "/v1/readiness/report",
+          "/v1/edge/evaluate",
+          "/v1/industrial/diagnose",
+          "/v1/research/trust/calibrate"
+        ],
+        "implementation_status": "active",
+        "score": 87,
+        "why_it_matters": "Users trust systems differently depending on purpose, precision, oversight, and human control. Those factors need visible state, not hidden prose.",
+        "next_test": "Score every high-impact response for oversight, human review, and evidence freshness.",
+        "visual_surface": "research-influence.html#mechanisms"
+      },
+      {
+        "mechanism_id": "epistemic_friction",
+        "label": "Epistemic friction against over-delegation",
+        "source_ids": [
+          "epistemic_risks_2026"
+        ],
+        "repo_files": [
+          "src/advanced_multimodal_ai/music_truth.py",
+          "src/advanced_multimodal_ai/research_surfaces.py",
+          "src/advanced_multimodal_ai/operator_surfaces.py",
+          "src/advanced_multimodal_ai/research_influence.py"
+        ],
+        "runtime_routes": [
+          "/v1/music/drift",
+          "/v1/research/surfaces",
+          "/v1/operators/surfaces",
+          "/v1/research/epistemic-risk/assess"
+        ],
+        "implementation_status": "active",
+        "score": 82,
+        "why_it_matters": "Interfaces should help people keep checking, comparing, and asking better questions instead of quietly delegating judgment.",
+        "next_test": "Add more domain fixtures for stale evidence, repeated claims, and missing human review.",
+        "visual_surface": "research-influence.html#roadmap"
+      },
+      {
+        "mechanism_id": "feedback_loop_lockin",
+        "label": "Feedback-loop and lock-in monitoring",
+        "source_ids": [
+          "epistemic_risks_2026"
+        ],
+        "repo_files": [
+          "src/advanced_multimodal_ai/music_truth.py",
+          "src/advanced_multimodal_ai/drift.py",
+          "src/advanced_multimodal_ai/repository_pulse.py"
+        ],
+        "runtime_routes": [
+          "/v1/music/drift",
+          "/v1/drift/check",
+          "/v1/repository/pulse"
+        ],
+        "implementation_status": "partial",
+        "score": 69,
+        "why_it_matters": "Homogenization can look like stability until the system has already stopped seeing important variation.",
+        "next_test": "Add longitudinal drift fixtures for repetition, source narrowing, and language collapse.",
+        "visual_surface": "research-influence.html#features"
+      }
+    ],
+    "feature_matrix": [
+      {
+        "feature_id": "music_warehouse",
+        "label": "Music feature warehouse",
+        "source_mechanisms": [
+          "feedback_loop_lockin",
+          "epistemic_friction"
+        ],
+        "evidence_files": [
+          "proof/music-observatory.md",
+          "src/advanced_multimodal_ai/music_truth.py"
+        ],
+        "runtime_routes": [
+          "/v1/music/snapshot",
+          "/v1/music/drift"
+        ],
+        "representation_score": 78,
+        "representation_gap": "Needs more public fixture variety across language, region, instrumentation, and production style.",
+        "next_six_month_problem": "Detect when recommendation data becomes polished, repetitive, or regionally narrow.",
+        "visual_treatment": "Segment clusters with drift bands and source-diversity counters."
+      },
+      {
+        "feature_id": "industrial_diagnostics",
+        "label": "Industrial diagnostics",
+        "source_mechanisms": [
+          "trust_calibration",
+          "regression_gated_change"
+        ],
+        "evidence_files": [
+          "proof/industrial-diagnostics.md",
+          "src/advanced_multimodal_ai/industrial_diagnostics/explainability/fault_graph.py"
+        ],
+        "runtime_routes": [
+          "/v1/industrial/diagnose",
+          "/v1/industrial/model-check"
+        ],
+        "representation_score": 83,
+        "representation_gap": "Needs more machine families and noisy sensor fixtures.",
+        "next_six_month_problem": "Show how safety state, sensor uncertainty, and restart permission change under field noise.",
+        "visual_treatment": "Fault graph from signal to diagnosis to compliance to action."
+      },
+      {
+        "feature_id": "edge_gateway",
+        "label": "Edge review and boundary scoring",
+        "source_mechanisms": [
+          "trust_calibration"
+        ],
+        "evidence_files": [
+          "proof/edge-topology.md",
+          "src/advanced_multimodal_ai/edge_gateway.py"
+        ],
+        "runtime_routes": [
+          "/v1/edge/evaluate",
+          "/v1/edge/topology"
+        ],
+        "representation_score": 74,
+        "representation_gap": "Needs scenario fixtures for different oversight and human-control postures.",
+        "next_six_month_problem": "Represent when a route should pause for review without freezing useful low-risk work.",
+        "visual_treatment": "Boundary map with route action, risk bands, and review state."
+      },
+      {
+        "feature_id": "industry_profiles",
+        "label": "Industry transfer profiles",
+        "source_mechanisms": [
+          "deliberative_disagreement",
+          "trust_calibration"
+        ],
+        "evidence_files": [
+          "proof/industry-profiles.md",
+          "src/advanced_multimodal_ai/industry_profiles.py"
+        ],
+        "runtime_routes": [
+          "/v1/industries/profiles"
+        ],
+        "representation_score": 70,
+        "representation_gap": "Needs role-specific review views for each high-risk domain.",
+        "next_six_month_problem": "Show how the same runtime lane changes when the audience is clinical, legal, educational, or operational.",
+        "visual_treatment": "Domain cards with route anchors, proof files, and disagreement prompts."
+      },
+      {
+        "feature_id": "repository_growth",
+        "label": "Repository growth and contribution health",
+        "source_mechanisms": [
+          "weakness_mining",
+          "regression_gated_change"
+        ],
+        "evidence_files": [
+          "proof/repository-growth.md",
+          "CONTRIBUTING.md"
+        ],
+        "runtime_routes": [
+          "/v1/growth/snapshot"
+        ],
+        "representation_score": 76,
+        "representation_gap": "Needs time-series snapshots after GitHub traffic becomes available.",
+        "next_six_month_problem": "Separate real adoption signals from vanity metrics and stale publication artifacts.",
+        "visual_treatment": "Contribution health, proof freshness, and traffic trend panels."
+      },
+      {
+        "feature_id": "research_surfaces",
+        "label": "Research surfaces and model cards",
+        "source_mechanisms": [
+          "epistemic_friction",
+          "deliberative_disagreement"
+        ],
+        "evidence_files": [
+          "proof/research-surfaces.md",
+          "model-observatory.html"
+        ],
+        "runtime_routes": [
+          "/v1/research/surfaces",
+          "/v1/research/models"
+        ],
+        "representation_score": 72,
+        "representation_gap": "Needs clearer disagreement and uncertainty fields for each model card.",
+        "next_six_month_problem": "Make model comparison increase human understanding rather than compressing judgment into one score.",
+        "visual_treatment": "Model cards with open questions, evidence class, and next proof."
+      }
+    ],
+    "roadmap": [
+      {
+        "horizon": "0-30 days",
+        "label": "Trace-ranked improvement backlog",
+        "problem": "The repo has proof exports but does not yet rank repeated weaknesses automatically.",
+        "engineering_response": "Mine execution journal failures and sparse proof lanes into scored improvement candidates.",
+        "proof_to_add": "proof/research-influence.md plus a regression test for backlog ordering."
+      },
+      {
+        "horizon": "30-60 days",
+        "label": "Role-balanced review fixtures",
+        "problem": "Some domains need structured disagreement before a final route is trusted.",
+        "engineering_response": "Add advocate, skeptic, and reviewer fixtures to bias, industry, and diagnostics lanes.",
+        "proof_to_add": "A fixture bundle showing where roles agree, disagree, and defer."
+      },
+      {
+        "horizon": "60-120 days",
+        "label": "Epistemic drift counters",
+        "problem": "A system can look stable while sources narrow, phrasing repeats, or humans stop checking.",
+        "engineering_response": "Add diversity, repetition, uncertainty, and human-review counters across proof surfaces.",
+        "proof_to_add": "A generated epistemic-risk report tied to music, research, and operator routes."
+      },
+      {
+        "horizon": "120-180 days",
+        "label": "Oversight-sensitive route policy",
+        "problem": "Trust depends on purpose, control, precision, and oversight, not model output alone.",
+        "engineering_response": "Attach oversight posture and human-control state to high-impact route responses.",
+        "proof_to_add": "A readiness export showing which high-impact routes have adequate review state."
+      }
+    ],
+    "generated_at": "2026-07-04T04:02:56.161484+00:00"
+  },
+  "sample_outputs": {
+    "harness_improvement": {
+      "base_harness_id": "acceptance-spine",
+      "trace_count": 3,
+      "failed_trace_count": 3,
+      "promoted_proposal_count": 1,
+      "clusters": [
+        {
+          "cluster_id": "acceptance-spine:stale-proof",
+          "failure_tag": "stale-proof",
+          "task_families": [
+            "proof-export"
+          ],
+          "trace_ids": [
+            "proof-run-001",
+            "proof-run-002"
+          ],
+          "files_touched": [
+            "proof/research-surfaces.json",
+            "scripts/export_research_surfaces.py"
+          ],
+          "support": 2,
+          "severity_score": 0.4967,
+          "why_it_matters": "`stale-proof` appears across 2 failed or blocked traces in proof-export. A repeated trace pattern is stronger than an isolated note because it can be turned into a regression fixture."
+        },
+        {
+          "cluster_id": "acceptance-spine:schema-drift",
+          "failure_tag": "schema-drift",
+          "task_families": [
+            "api-contract"
+          ],
+          "trace_ids": [
+            "contract-run-001"
+          ],
+          "files_touched": [
+            "openapi/openapi.json"
+          ],
+          "support": 1,
+          "severity_score": 0.3683,
+          "why_it_matters": "`schema-drift` appears across 1 failed or blocked traces in api-contract. A repeated trace pattern is stronger than an isolated note because it can be turned into a regression fixture."
+        }
+      ],
+      "proposals": [
+        {
+          "proposal_id": "proposal:acceptance-spine:stale-proof",
+          "cluster_id": "acceptance-spine:stale-proof",
+          "status": "promote",
+          "change_shape": "Add a narrow fixture for `stale-proof`, bind it to proof/research-surfaces.json, scripts/export_research_surfaces.py, and promote the change only when the proof bundle regenerates without losing existing artifacts.",
+          "acceptance_gate": [
+            "python3 scripts/export_research_surfaces.py",
+            "python3 scripts/build_runtime_proof_bundle.py"
+          ],
+          "regression_tests": [
+            "assert cluster `stale-proof` no longer appears across 2 traces",
+            "assert proof export still contains route, test, and artifact counts"
+          ],
+          "expected_behavior": "The next run should keep the successful traces stable while forcing this repeated weakness to appear as a testable failure if it returns.",
+          "rejection_reason": ""
+        },
+        {
+          "proposal_id": "proposal:acceptance-spine:schema-drift",
+          "cluster_id": "acceptance-spine:schema-drift",
+          "status": "hold",
+          "change_shape": "Add a narrow fixture for `schema-drift`, bind it to openapi/openapi.json, and promote the change only when the proof bundle regenerates without losing existing artifacts.",
+          "acceptance_gate": [
+            "python3 scripts/export_openapi.py",
+            "python3 scripts/build_runtime_proof_bundle.py"
+          ],
+          "regression_tests": [
+            "assert cluster `schema-drift` no longer appears across 1 traces",
+            "assert proof export still contains route, test, and artifact counts"
+          ],
+          "expected_behavior": "The next run should keep the successful traces stable while forcing this repeated weakness to appear as a testable failure if it returns.",
+          "rejection_reason": "Support is not high enough to change the harness yet."
+        }
+      ],
+      "generated_at": "2026-07-04T04:02:56.166605+00:00"
+    },
+    "deliberation_assessment": {
+      "decision_id": "domain-transfer-review",
+      "domain": "regulated multimodal data",
+      "role_count": 3,
+      "stance_distribution": {
+        "approve": 1,
+        "defer": 1,
+        "investigate": 1
+      },
+      "disagreement_score": 0.6667,
+      "evidence_ref_count": 5,
+      "missing_roles": [
+        "reviewer"
+      ],
+      "recommendation": "escalate",
+      "next_questions": [
+        "What evidence would change the current regulated multimodal data decision?",
+        "Which claim is still relying on interpretation rather than measurement?",
+        "Which view is missing: reviewer?",
+        "Can the disagreement be reduced to one observable test?"
+      ],
+      "generated_at": "2026-07-04T04:02:56.172385+00:00"
+    },
+    "trust_calibration": {
+      "route": "/v1/industrial/diagnose",
+      "purpose": "field diagnostic support",
+      "score": 0.6178,
+      "band": "medium",
+      "review_required": true,
+      "factors": [
+        {
+          "factor": "precision",
+          "score": 0.72,
+          "weight": 0.18,
+          "contribution": 0.1296,
+          "note": "How tightly the output can be checked against observable state."
+        },
+        {
+          "factor": "human_control",
+          "score": 0.55,
+          "weight": 0.22,
+          "contribution": 0.121,
+          "note": "Whether a person can pause, review, and correct the route."
+        },
+        {
+          "factor": "oversight",
+          "score": 0.5,
+          "weight": 0.18,
+          "contribution": 0.09,
+          "note": "Whether independent review is attached to the route."
+        },
+        {
+          "factor": "validation_evidence",
+          "score": 0.76,
+          "weight": 0.22,
+          "contribution": 0.1672,
+          "note": "Whether the claim has test, receipt, or benchmark support."
+        },
+        {
+          "factor": "reversibility",
+          "score": 0.62,
+          "weight": 0.13,
+          "contribution": 0.0806,
+          "note": "Whether a mistaken action can be unwound without hidden damage."
+        },
+        {
+          "factor": "harm_fit",
+          "score": 0.42,
+          "weight": 0.07,
+          "contribution": 0.0294,
+          "note": "Higher-harm routes need a lower trust prior until reviewed."
+        }
+      ],
+      "missing_controls": [
+        "human_control",
+        "oversight"
+      ],
+      "generated_at": "2026-07-04T04:02:56.177174+00:00"
+    },
+    "epistemic_risk": {
+      "assessment_id": "catalog-epistemic-slice",
+      "domain": "music and media data",
+      "band": "low",
+      "score": 0.205,
+      "evidence_count": 4,
+      "perspective_count": 3,
+      "indicators": [
+        {
+          "indicator_id": "evidence-diversity",
+          "label": "Evidence diversity",
+          "score": 0.0,
+          "evidence": "3 perspectives and 4 source types appear across 4 items.",
+          "correction": "Add a second independent source class or dissenting review before reuse."
+        },
+        {
+          "indicator_id": "unsupported-certainty",
+          "label": "Unsupported certainty",
+          "score": 0.5,
+          "evidence": "2 high-confidence items hide uncertainty.",
+          "correction": "Require uncertainty fields beside every high-confidence claim."
+        },
+        {
+          "indicator_id": "repetition-pressure",
+          "label": "Repetition pressure",
+          "score": 0.25,
+          "evidence": "1 repeated claims were found after normalization.",
+          "correction": "Cluster repeated claims and ask for a new measurement, not another paraphrase."
+        },
+        {
+          "indicator_id": "human-review-gap",
+          "label": "Human review gap",
+          "score": 0.0,
+          "evidence": "1 evidence items were marked as human-generated.",
+          "correction": "Keep one non-delegable human check before decision-grade use."
+        },
+        {
+          "indicator_id": "freshness",
+          "label": "Freshness",
+          "score": 0.25,
+          "evidence": "1 evidence items are older than 180 days.",
+          "correction": "Refresh old sources or mark their domain limits explicitly."
+        }
+      ],
+      "non_delegable_checks": [
+        "Name what the system did not observe.",
+        "Keep uncertainty visible beside any confident answer.",
+        "Require a human reviewer for high-impact or stale evidence."
+      ],
+      "generated_at": "2026-07-04T04:02:56.181379+00:00"
+    }
+  }
+}

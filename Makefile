@@ -40,6 +40,7 @@ proof:
 	$(PYTHON) scripts/export_openapi.py
 	$(PYTHON) scripts/generate_sdk_surfaces.py
 	$(PYTHON) scripts/export_research_surfaces.py
+	$(PYTHON) scripts/export_research_influence.py
 	$(PYTHON) scripts/export_cymatic_surface.py
 	$(PYTHON) scripts/export_repository_pulse.py
 	$(PYTHON) scripts/export_repository_growth.py

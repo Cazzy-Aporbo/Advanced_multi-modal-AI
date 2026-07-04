@@ -57,6 +57,7 @@
       align-items: center;
       gap: 14px;
       flex-wrap: wrap;
+      min-width: 0;
     }
     .nav-brand {
       display: grid;
@@ -79,6 +80,8 @@
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
+      max-width: 100%;
+      min-width: 0;
     }
     #site-dock-host {
       width: min(360px, 100%);
@@ -385,6 +388,130 @@
       height: 100%;
       min-height: 320px;
     }
+    .model-importance-shell {
+      margin-top: 24px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.018)),
+        radial-gradient(circle at 12% 22%, rgba(244, 200, 215, 0.12), transparent 34%),
+        radial-gradient(circle at 90% 12%, rgba(159, 225, 213, 0.14), transparent 32%),
+        rgba(25, 18, 17, 0.9);
+    }
+    .importance-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+      gap: 18px;
+      margin-top: 20px;
+      align-items: stretch;
+      min-width: 0;
+    }
+    .importance-map-card,
+    .importance-detail,
+    .importance-flow-card,
+    .model-spark-card {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      background:
+        linear-gradient(150deg, rgba(255,255,255,0.052), rgba(255,255,255,0.018)),
+        rgba(9, 7, 6, 0.34);
+      overflow: hidden;
+      min-width: 0;
+    }
+    .importance-map-card {
+      padding: 18px;
+      min-height: 380px;
+      overflow-x: auto;
+    }
+    .importance-map-card svg {
+      display: block;
+      width: 100%;
+      min-height: 340px;
+    }
+    .importance-detail {
+      padding: 22px;
+      display: grid;
+      align-content: start;
+      gap: 16px;
+    }
+    .importance-detail h3 {
+      font-size: clamp(1.7rem, 2.5vw, 2.35rem);
+    }
+    .importance-bars {
+      display: grid;
+      gap: 12px;
+    }
+    .importance-bar {
+      display: grid;
+      gap: 6px;
+    }
+    .importance-bar span {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text);
+      font-size: 0.86rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .importance-meter {
+      height: 11px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+    }
+    .importance-meter b {
+      display: block;
+      width: var(--width);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #f0b36f, #f3c7d9, #9fe1d5);
+      box-shadow: 0 0 22px rgba(159, 225, 213, 0.24);
+    }
+    .importance-flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .importance-flow-card {
+      position: relative;
+      padding: 18px;
+      min-height: 220px;
+    }
+    .importance-flow-card.surface-button {
+      padding: 0;
+    }
+    .importance-flow-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(240, 179, 111, 0.92), rgba(243, 199, 217, 0.84), rgba(159, 225, 213, 0.92));
+    }
+    .importance-flow-card h3 {
+      margin-top: 8px;
+      font-size: 1.25rem;
+    }
+    .model-spark-row {
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+      height: 52px;
+      margin-top: 14px;
+    }
+    .model-spark-row span {
+      flex: 1;
+      min-width: 8px;
+      height: var(--height);
+      border-radius: 999px 999px 5px 5px;
+      background: linear-gradient(180deg, #f8dce9, #9fe1d5);
+      opacity: 0.86;
+      animation: sparkBreath 4.4s ease-in-out infinite alternate;
+      animation-delay: var(--delay);
+    }
+    @keyframes sparkBreath {
+      from { transform: scaleY(0.72); opacity: 0.62; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
     .operator-detail-shell,
     .continuation-card {
       position: relative;
@@ -490,12 +617,28 @@
       .speech-grid,
       .operator-subgrid,
       .operator-detail-grid,
+      .importance-layout,
       .continuation-grid {
         grid-template-columns: 1fr;
+      }
+      .importance-flow-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
       .nav-bar {
         flex-direction: column;
         align-items: flex-start;
+        width: 100%;
+      }
+      .nav-links {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scroll-snap-type: x proximity;
+      }
+      .nav-links a {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
       }
       #site-dock-host {
         width: 100%;
@@ -511,6 +654,8 @@
         grid-auto-columns: minmax(220px, 76vw);
         overflow-x: auto;
         grid-template-columns: none;
+        max-width: 100%;
+        min-width: 0;
         padding-bottom: 8px;
         scroll-snap-type: x proximity;
       }
@@ -519,6 +664,8 @@
         grid-auto-columns: minmax(300px, 88vw);
         overflow-x: auto;
         grid-template-columns: none;
+        max-width: 100%;
+        min-width: 0;
         padding-bottom: 8px;
         scroll-snap-type: x proximity;
       }
@@ -531,17 +678,26 @@
       }
       .speech-grid,
       .operator-subgrid,
+      .importance-flow-grid,
       .continuation-grid {
         grid-auto-flow: column;
         grid-auto-columns: minmax(300px, 88vw);
         overflow-x: auto;
         grid-template-columns: none;
+        max-width: 100%;
+        min-width: 0;
         padding-bottom: 8px;
         scroll-snap-type: x proximity;
       }
       h1 {
         font-size: 2.45rem;
-        max-width: 10ch;
+        max-width: none;
+      }
+      .importance-map-card {
+        min-height: 320px;
+      }
+      .importance-map-card svg {
+        min-width: 100%;
       }
     }
   </style>
@@ -580,6 +736,7 @@
         </p>
         <div class="page-section-nav">
           <a href="#model-ribbon">study path</a>
+          <a href="#model-importance">importance map</a>
           <a href="#summary-grid">signals</a>
           <a href="#model-card-grid">model cards</a>
         </div>
@@ -641,6 +798,33 @@
         <div class="page-pulse"><span style="--pulse-width:73%;"></span></div>
         <small>why it helps and what it still lacks</small>
       </article>
+    </section>
+
+    <section class="panel model-importance-shell" id="model-importance">
+      <div class="label">Model importance map</div>
+      <h2 class="feature-heading tone-1">A model becomes useful when its evidence, limits, and consequence can be read together.</h2>
+      <p>
+        The map below is drawn from the generated research surface. It compares proof density,
+        open uncertainty, improvement pressure, and the practical reason each model remains in the repository.
+      </p>
+      <div class="importance-layout">
+        <div class="importance-map-card">
+          <div class="label">Evidence geometry</div>
+          <svg id="model-importance-map" viewBox="0 0 900 360" role="img" aria-label="Model evidence and uncertainty map"></svg>
+        </div>
+        <div class="importance-detail" id="model-importance-detail">
+          <div class="label">Selected model</div>
+          <h3 class="feature-heading tone-2">Waiting for model profiles.</h3>
+          <p>The importance profile will appear once the backend proof bundle loads.</p>
+        </div>
+      </div>
+      <div class="importance-flow-grid" id="model-importance-flow">
+        <article class="importance-flow-card">
+          <div class="label">Loading</div>
+          <h3>Waiting for evidence flow.</h3>
+          <p>Each model will show what it helps a reader notice, what must be watched, and what proof should come next.</p>
+        </article>
+      </div>
     </section>
 
     <section class="panel operator-shell" id="operator-surface">
@@ -737,6 +921,9 @@
     const modelContinuationGrid = document.getElementById("model-continuation-grid");
     const modelCredibilityChart = document.getElementById("model-credibility-chart");
     const modelChartMeta = document.getElementById("model-chart-meta");
+    const modelImportanceMap = document.getElementById("model-importance-map");
+    const modelImportanceDetail = document.getElementById("model-importance-detail");
+    const modelImportanceFlow = document.getElementById("model-importance-flow");
     let operatorSurfaceIndex = new Map();
 
     function formatCompact(value) {
@@ -875,6 +1062,175 @@
         <span>${bundle.summary.open_question_count} open questions</span>
         <span>generated ${new Date(bundle.created_at).toLocaleString()}</span>
       `;
+    }
+
+    function barMarkup(label, value) {
+      const bounded = Math.max(0, Math.min(100, Number(value || 0)));
+      return `
+        <div class="importance-bar">
+          <span><b>${AMAIResearch.escapeHtml(label)}</b><b>${bounded}</b></span>
+          <div class="importance-meter"><b style="--width:${bounded}%"></b></div>
+        </div>
+      `;
+    }
+
+    function sparkMarkup(profile) {
+      const values = [
+        profile.maturity_score,
+        profile.proof_density,
+        100 - profile.uncertainty_pressure,
+        profile.improvement_pressure,
+        (profile.consequence_lanes || []).length * 24,
+      ].map((value) => Math.max(18, Math.min(100, Number(value || 0))));
+      return `
+        <div class="model-spark-row" aria-hidden="true">
+          ${values.map((value, index) => `<span style="--height:${value}%;--delay:${index * 0.18}s"></span>`).join("")}
+        </div>
+      `;
+    }
+
+    function renderImportanceDetail(profile, card) {
+      if (!modelImportanceDetail || !profile) return;
+      modelImportanceDetail.innerHTML = `
+        <div class="label">Selected model</div>
+        <h3 class="feature-heading tone-2">${AMAIResearch.escapeHtml(profile.label)}</h3>
+        <p>${AMAIResearch.escapeHtml(profile.everyday_value)}</p>
+        <div class="importance-bars">
+          ${barMarkup("maturity", profile.maturity_score)}
+          ${barMarkup("proof density", profile.proof_density)}
+          ${barMarkup("uncertainty", profile.uncertainty_pressure)}
+          ${barMarkup("improvement pressure", profile.improvement_pressure)}
+        </div>
+        ${sparkMarkup(profile)}
+        <div class="section-block">
+          <strong>Where it helps</strong>
+          <p>${AMAIResearch.escapeHtml(profile.technical_value)}</p>
+        </div>
+        <div class="section-block">
+          <strong>What to watch</strong>
+          <p>${AMAIResearch.escapeHtml(profile.watch_condition)}</p>
+        </div>
+        <div class="section-block">
+          <strong>Next evidence</strong>
+          <p>${AMAIResearch.escapeHtml(profile.next_evidence)}</p>
+        </div>
+        <div class="chip-row">
+          ${(profile.consequence_lanes || []).map((lane) => `<span class="chip">${AMAIResearch.escapeHtml(lane)}</span>`).join("")}
+          ${(card.evidence_surfaces || []).slice(0, 3).map((surface) => `<span class="chip">${AMAIResearch.escapeHtml(surface)}</span>`).join("")}
+        </div>
+      `;
+    }
+
+    function compactModelLabel(label) {
+      return String(label)
+        .replace("Adaptive Multimodal Transformer", "Adaptive transformer")
+        .replace("Complete Multimodal AI", "Complete model")
+        .replace("Fusion Strategy Lab", "Fusion lab")
+        .replace("Cross-modal Attention Core", "Attention core");
+    }
+
+    function renderModelImportanceMap(bundle) {
+      const profiles = bundle.model_importance_profiles || [];
+      if (!modelImportanceMap || !profiles.length) return;
+
+      const compact = window.innerWidth < 540;
+      const width = compact ? 430 : 900;
+      const height = compact ? 330 : 360;
+      const plot = compact
+        ? { left: 44, right: 374, top: 46, bottom: 260 }
+        : { left: 86, right: 814, top: 44, bottom: 286 };
+      const cardById = new Map((bundle.model_cards || []).map((card) => [card.model_id, card]));
+      const lines = profiles.map((profile, index) => {
+        const x = plot.left + (profile.maturity_score / 100) * (plot.right - plot.left);
+        const y = plot.bottom - (profile.proof_density / 100) * (plot.bottom - plot.top);
+        const radius = (compact ? 11 : 18) + (profile.improvement_pressure / 100) * (compact ? 11 : 18);
+        const hue = index % 4;
+        const ring = (compact ? 19 : 28) + (profile.uncertainty_pressure / 100) * (compact ? 16 : 22);
+        const label = compact ? compactModelLabel(profile.label) : profile.label;
+        const labelX = Math.min(x + radius + (compact ? 8 : 12), width - (compact ? 128 : 220));
+        const labelOffsetY = compact ? [-22, 12, -30, 24][index % 4] : 0;
+        const labelY = y - 4 + labelOffsetY;
+        return `
+          <g class="importance-node" data-importance-target="${AMAIResearch.escapeHtml(profile.model_id)}" style="cursor:pointer">
+            <circle cx="${x}" cy="${y}" r="${ring}" fill="none" stroke="${hue === 0 ? "#f3c7d9" : hue === 1 ? "#9fe1d5" : hue === 2 ? "#f0b36f" : "#b8d7ff"}" stroke-width="1.4" opacity="0.34"></circle>
+            <circle cx="${x}" cy="${y}" r="${radius}" fill="url(#importanceGlow)" opacity="0.86"></circle>
+            <circle cx="${x}" cy="${y}" r="${radius * 0.42}" fill="#f6efe8" opacity="0.72"></circle>
+            <text x="${labelX}" y="${labelY}" fill="#f6efe8" font-size="${compact ? 13 : 14}" font-family="Inter, sans-serif">${AMAIResearch.escapeHtml(label)}</text>
+            <text x="${labelX}" y="${labelY + 16}" fill="#d8c8ba" font-size="${compact ? 10 : 11}" font-family="Inter, sans-serif">maturity ${profile.maturity_score} · proof ${profile.proof_density}</text>
+          </g>
+        `;
+      }).join("");
+      const connector = profiles
+        .map((profile, index) => {
+          if (index === profiles.length - 1) return "";
+          const next = profiles[index + 1];
+          const x1 = plot.left + (profile.maturity_score / 100) * (plot.right - plot.left);
+          const y1 = plot.bottom - (profile.proof_density / 100) * (plot.bottom - plot.top);
+          const x2 = plot.left + (next.maturity_score / 100) * (plot.right - plot.left);
+          const y2 = plot.bottom - (next.proof_density / 100) * (plot.bottom - plot.top);
+          return `<path d="M ${x1} ${y1} C ${(x1 + x2) / 2} ${y1 - 36}, ${(x1 + x2) / 2} ${y2 + 36}, ${x2} ${y2}" fill="none" stroke="rgba(246,239,232,0.16)" stroke-width="1.2"></path>`;
+        })
+        .join("");
+
+      modelImportanceMap.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      modelImportanceMap.innerHTML = `
+        <defs>
+          <linearGradient id="importanceGlow" x1="0%" x2="100%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#f6efe8"></stop>
+            <stop offset="42%" stop-color="#f3c7d9"></stop>
+            <stop offset="100%" stop-color="#9fe1d5"></stop>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
+        <path d="M ${plot.left} ${plot.bottom} H ${plot.right}" stroke="rgba(246,239,232,0.22)" stroke-width="1"></path>
+        <path d="M ${plot.left} ${plot.bottom} V ${plot.top}" stroke="rgba(246,239,232,0.22)" stroke-width="1"></path>
+        <text x="${plot.left}" y="${plot.bottom + 34}" fill="#d8c8ba" font-size="${compact ? 10 : 12}" font-family="Inter, sans-serif">lower maturity</text>
+        <text x="${plot.right - (compact ? 86 : 92)}" y="${plot.bottom + 34}" fill="#d8c8ba" font-size="${compact ? 10 : 12}" font-family="Inter, sans-serif">higher maturity</text>
+        <text x="${compact ? 6 : 14}" y="${plot.top + 8}" fill="#d8c8ba" font-size="${compact ? 10 : 12}" font-family="Inter, sans-serif">proof density</text>
+        <text x="${compact ? 6 : 14}" y="${plot.bottom - 6}" fill="#d8c8ba" font-size="${compact ? 10 : 12}" font-family="Inter, sans-serif">still emerging</text>
+        ${connector}
+        ${lines}
+      `;
+      [...modelImportanceMap.querySelectorAll("[data-importance-target]")].forEach((node) => {
+        node.addEventListener("click", () => {
+          const profile = profiles.find((item) => item.model_id === node.dataset.importanceTarget);
+          renderImportanceDetail(profile, cardById.get(node.dataset.importanceTarget) || {});
+        });
+      });
+      renderImportanceDetail(profiles[0], cardById.get(profiles[0].model_id) || {});
+    }
+
+    function renderModelImportanceFlow(bundle) {
+      if (!modelImportanceFlow) return;
+      const profiles = bundle.model_importance_profiles || [];
+      const cardById = new Map((bundle.model_cards || []).map((card) => [card.model_id, card]));
+      modelImportanceFlow.innerHTML = profiles.map((profile, index) => {
+        const card = cardById.get(profile.model_id) || {};
+        const questionCount = (card.open_questions || []).length;
+        return `
+          <button class="importance-flow-card surface-button" data-importance-button="${AMAIResearch.escapeHtml(profile.model_id)}" type="button">
+            <span class="surface-body">
+              <div class="label">Model ${String(index + 1).padStart(2, "0")}</div>
+              <h3 class="feature-heading tone-${(index % 4) + 1}">${AMAIResearch.escapeHtml(profile.label)}</h3>
+              <p>${AMAIResearch.escapeHtml(profile.everyday_value)}</p>
+              ${sparkMarkup(profile)}
+              <div class="meta-row">
+                <span class="meta-pill">${profile.proof_density} proof</span>
+                <span class="meta-pill">${profile.uncertainty_pressure} uncertainty</span>
+                <span class="meta-pill">${questionCount} questions</span>
+              </div>
+            </span>
+          </button>
+        `;
+      }).join("");
+      [...modelImportanceFlow.querySelectorAll("[data-importance-button]")].forEach((button) => {
+        button.addEventListener("click", () => {
+          const profile = profiles.find((item) => item.model_id === button.dataset.importanceButton);
+          const card = cardById.get(button.dataset.importanceButton) || {};
+          renderImportanceDetail(profile, card);
+          modelImportanceMap?.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      });
     }
 
     function renderOperatorMetric(metric, index) {
@@ -1149,6 +1505,8 @@
         bindOperatorSurfaceButtons();
       }
       renderModelCredibilityChart(bundle);
+      renderModelImportanceMap(bundle);
+      renderModelImportanceFlow(bundle);
       renderContinuationCards(bundle, operatorBundle, journal, pulse, benchmark);
 
       if (modelRibbon) {

@@ -9,7 +9,7 @@
     "model_count": 4,
     "runtime_ready_model_count": 0,
     "open_question_count": 5,
-    "generated_at": "2026-07-04T04:02:54.206136+00:00"
+    "generated_at": "2026-07-04T18:22:16.977401+00:00"
   },
   "lanes": [
     {
@@ -435,14 +435,84 @@
       ]
     }
   ],
+  "model_importance_profiles": [
+    {
+      "model_id": "adaptive_transformer",
+      "label": "Adaptive Multimodal Transformer",
+      "maturity_score": 75,
+      "proof_density": 91,
+      "uncertainty_pressure": 76,
+      "improvement_pressure": 88,
+      "consequence_lanes": [
+        "uneven modality evidence",
+        "fusion readiness",
+        "population-entry drift"
+      ],
+      "everyday_value": "Useful when a person gives the system mixed evidence, such as a short clip, a partial transcript, and a few structured fields, and still needs the answer to say what was thin.",
+      "technical_value": "Keeps profiling, alignment, drift checks, and inference close enough that weak inputs can be measured before fusion turns them into a confident-looking result.",
+      "watch_condition": "Hold the result back when one modality is doing nearly all the work or when drift is visible before the model produces its final answer.",
+      "next_evidence": "A repeated transcript-frame-audio benchmark with calibration error, abstention rate, and population-entry drift reported together."
+    },
+    {
+      "model_id": "complete_multimodal",
+      "label": "Complete Multimodal AI",
+      "maturity_score": 76,
+      "proof_density": 91,
+      "uncertainty_pressure": 60,
+      "improvement_pressure": 76,
+      "consequence_lanes": [
+        "long-range memory",
+        "training archive",
+        "large-batch review"
+      ],
+      "everyday_value": "Helpful as a teaching and design surface for seeing how a larger multimodal system keeps memory, encoders, and routing in relation.",
+      "technical_value": "Preserves the larger model vocabulary while letting smaller runtime lanes earn promotion through explicit proof instead of broad claims.",
+      "watch_condition": "Do not treat the archive as the operational edge until dataset lineage, batch replay, and benchmark coverage are stronger.",
+      "next_evidence": "A promotion gate that names which archive subsystems have replay proof, schema contracts, and measured failure boundaries."
+    },
+    {
+      "model_id": "fusion_lab",
+      "label": "Fusion Strategy Lab",
+      "maturity_score": 54,
+      "proof_density": 57,
+      "uncertainty_pressure": 49,
+      "improvement_pressure": 55,
+      "consequence_lanes": [
+        "fusion choice",
+        "ablation reading",
+        "modality dominance"
+      ],
+      "everyday_value": "Shows why combining signals is not a single decision. The same image, sound, and text can deserve different fusion treatment depending on what is missing.",
+      "technical_value": "Makes fusion strategy a comparative object, so the repository can ask which mechanism helped and which one merely concealed weak evidence.",
+      "watch_condition": "Treat a stronger fused output with care when no ablation explains which modality carried the decision.",
+      "next_evidence": "A shared benchmark matrix comparing fusion modes under missing, noisy, and contradictory modalities."
+    },
+    {
+      "model_id": "attention_core",
+      "label": "Attention Core",
+      "maturity_score": 54,
+      "proof_density": 57,
+      "uncertainty_pressure": 49,
+      "improvement_pressure": 55,
+      "consequence_lanes": [
+        "cross-modal routing",
+        "sparse attention",
+        "mechanism inspection"
+      ],
+      "everyday_value": "Gives readers a way to inspect how one signal is allowed to influence another instead of accepting attention as an invisible black box.",
+      "technical_value": "Keeps attention experiments separate from the larger model so routing changes can be studied, tested, and retired without disturbing every other subsystem.",
+      "watch_condition": "Be careful when attention looks elegant but has not been tied to task deltas on noisy, field-shaped inputs.",
+      "next_evidence": "Ablation reports that show the cost and benefit of sparse and cross-modal attention changes across the same reference workload."
+    }
+  ],
   "findings": [
     {
       "finding_id": "connector-spine-is-real",
       "lens": "data",
       "title": "The repository now begins with measured intake instead of hand-shaped payloads alone",
-      "summary": "501 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
+      "summary": "507 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
       "evidence": [
-        "connector runs recorded: 501",
+        "connector runs recorded: 507",
         "connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html"
       ],
       "why_it_matters": "A multimodal repository becomes more credible when data entry is a first-class engineering problem rather than an invisible notebook precondition.",
@@ -514,7 +584,7 @@
         "route count: 100",
         "test count: 60",
         "verification artifacts: 16",
-        "pipeline runs stored: 385"
+        "pipeline runs stored: 390"
       ],
       "why_it_matters": "Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.",
       "next_step": "Keep the export surfaces close to CI and extend replay comparisons so proof covers behavioral continuity, not only route and artifact presence.",
@@ -533,9 +603,9 @@
       "finding_id": "execution-memory-is-persisted",
       "lens": "evaluation",
       "title": "Export and verification work now leaves its own operational memory",
-      "summary": "193 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
+      "summary": "208 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
       "evidence": [
-        "execution journal runs: 193",
+        "execution journal runs: 208",
         "proof/execution-journal.json is exported from the backend journal surface."
       ],
       "why_it_matters": "A repository feels more trustworthy when its export and verification lanes can be revisited as records instead of being remembered only because someone ran them recently.",
@@ -554,9 +624,9 @@
       "finding_id": "edge-packets-are-measured",
       "lens": "runtime",
       "title": "Packet routing no longer begins as an invisible assumption",
-      "summary": "4 persisted edge packet events now tie packet geometry, cross-border posture, and route decisions into a ledgered runtime seam.",
+      "summary": "5 persisted edge packet events now tie packet geometry, cross-border posture, and route decisions into a ledgered runtime seam.",
       "evidence": [
-        "edge packet events: 4",
+        "edge packet events: 5",
         "proof/edge-topology.json exports both the topology and the latest ledger summary."
       ],
       "why_it_matters": "A multimodal repository reads as more serious when it can say what entered the system, why it was slowed down, and where that decision was recorded.",
@@ -602,9 +672,9 @@
       "summary": "The current readiness posture is 'review_ready'. The repo now has a steadier runtime edge, though the strongest next step remains more repeated evidence under varied real inputs.",
       "evidence": [
         "readiness posture: review_ready",
-        "connector runs: 501",
-        "pipeline runs: 385",
-        "compiled recipes: 162"
+        "connector runs: 507",
+        "pipeline runs: 390",
+        "compiled recipes: 167"
       ],
       "why_it_matters": "The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.",
       "next_step": "Bring in more repeated warehouse, object-store, and mixed-modality examples so the runtime is exercised under broader operational texture.",
@@ -756,5 +826,5 @@
       ]
     }
   ],
-  "created_at": "2026-07-04T04:02:54.206145+00:00"
+  "created_at": "2026-07-04T18:22:16.977409+00:00"
 }

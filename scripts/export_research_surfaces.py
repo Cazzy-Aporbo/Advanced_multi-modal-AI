@@ -46,6 +46,10 @@ def main() -> None:
         model_blocks = "\n\n".join(
             _render_model_markdown(card) for card in payload["model_cards"]
         )
+        importance_blocks = "\n\n".join(
+            _render_importance_markdown(profile)
+            for profile in payload["model_importance_profiles"]
+        )
         finding_blocks = "\n\n".join(
             _render_finding_markdown(finding) for finding in payload["findings"]
         )
@@ -73,6 +77,10 @@ def main() -> None:
 ## Model cards
 
 {model_blocks}
+
+## Model importance profiles
+
+{importance_blocks}
 
 ## Findings
 
@@ -106,6 +114,33 @@ def main() -> None:
             status="pass",
             notes=["Research surface bundle regenerated from the live backend."],
         )
+
+
+def _render_importance_markdown(profile: dict[str, object]) -> str:
+    lanes = "\n".join(f"- {item}" for item in profile["consequence_lanes"]) or "- none"
+    return f"""### {profile['label']}
+
+- Model id: `{profile['model_id']}`
+- Maturity score: `{profile['maturity_score']}`
+- Proof density: `{profile['proof_density']}`
+- Uncertainty pressure: `{profile['uncertainty_pressure']}`
+- Improvement pressure: `{profile['improvement_pressure']}`
+
+Everyday value:
+{profile['everyday_value']}
+
+Technical value:
+{profile['technical_value']}
+
+Watch condition:
+{profile['watch_condition']}
+
+Next evidence:
+{profile['next_evidence']}
+
+Consequence lanes:
+{lanes}
+"""
 
 
 def _render_lane_markdown(lane: dict[str, object]) -> str:

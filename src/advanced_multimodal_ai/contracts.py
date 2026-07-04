@@ -137,6 +137,20 @@ class ModelResearchCard(BaseModel):
     open_questions: List[ModelResearchQuestion] = Field(default_factory=list)
 
 
+class ModelImportanceProfile(BaseModel):
+    model_id: str
+    label: str
+    maturity_score: int = Field(ge=0, le=100)
+    proof_density: int = Field(ge=0, le=100)
+    uncertainty_pressure: int = Field(ge=0, le=100)
+    improvement_pressure: int = Field(ge=0, le=100)
+    consequence_lanes: List[str] = Field(default_factory=list)
+    everyday_value: str
+    technical_value: str
+    watch_condition: str
+    next_evidence: str
+
+
 class RepositoryFinding(BaseModel):
     finding_id: str
     lens: Literal["runtime", "research", "data", "governance", "evaluation"]
@@ -2185,6 +2199,7 @@ class ResearchSurfaceBundle(BaseModel):
     summary: ResearchSurfaceSummary
     lanes: List[ArchitectureLane] = Field(default_factory=list)
     model_cards: List[ModelResearchCard] = Field(default_factory=list)
+    model_importance_profiles: List[ModelImportanceProfile] = Field(default_factory=list)
     findings: List[RepositoryFinding] = Field(default_factory=list)
     connections: List[RepositoryConnection] = Field(default_factory=list)
     created_at: str = Field(default_factory=utc_now)

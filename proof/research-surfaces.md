@@ -438,6 +438,112 @@ Open questions:
   - Current position: The repository names the mechanisms clearly. It still needs more field-shaped comparisons.
 
 
+## Model importance profiles
+
+### Adaptive Multimodal Transformer
+
+- Model id: `adaptive_transformer`
+- Maturity score: `75`
+- Proof density: `91`
+- Uncertainty pressure: `76`
+- Improvement pressure: `88`
+
+Everyday value:
+Useful when a person gives the system mixed evidence, such as a short clip, a partial transcript, and a few structured fields, and still needs the answer to say what was thin.
+
+Technical value:
+Keeps profiling, alignment, drift checks, and inference close enough that weak inputs can be measured before fusion turns them into a confident-looking result.
+
+Watch condition:
+Hold the result back when one modality is doing nearly all the work or when drift is visible before the model produces its final answer.
+
+Next evidence:
+A repeated transcript-frame-audio benchmark with calibration error, abstention rate, and population-entry drift reported together.
+
+Consequence lanes:
+- uneven modality evidence
+- fusion readiness
+- population-entry drift
+
+
+### Complete Multimodal AI
+
+- Model id: `complete_multimodal`
+- Maturity score: `76`
+- Proof density: `91`
+- Uncertainty pressure: `60`
+- Improvement pressure: `76`
+
+Everyday value:
+Helpful as a teaching and design surface for seeing how a larger multimodal system keeps memory, encoders, and routing in relation.
+
+Technical value:
+Preserves the larger model vocabulary while letting smaller runtime lanes earn promotion through explicit proof instead of broad claims.
+
+Watch condition:
+Do not treat the archive as the operational edge until dataset lineage, batch replay, and benchmark coverage are stronger.
+
+Next evidence:
+A promotion gate that names which archive subsystems have replay proof, schema contracts, and measured failure boundaries.
+
+Consequence lanes:
+- long-range memory
+- training archive
+- large-batch review
+
+
+### Fusion Strategy Lab
+
+- Model id: `fusion_lab`
+- Maturity score: `54`
+- Proof density: `57`
+- Uncertainty pressure: `49`
+- Improvement pressure: `55`
+
+Everyday value:
+Shows why combining signals is not a single decision. The same image, sound, and text can deserve different fusion treatment depending on what is missing.
+
+Technical value:
+Makes fusion strategy a comparative object, so the repository can ask which mechanism helped and which one merely concealed weak evidence.
+
+Watch condition:
+Treat a stronger fused output with care when no ablation explains which modality carried the decision.
+
+Next evidence:
+A shared benchmark matrix comparing fusion modes under missing, noisy, and contradictory modalities.
+
+Consequence lanes:
+- fusion choice
+- ablation reading
+- modality dominance
+
+
+### Attention Core
+
+- Model id: `attention_core`
+- Maturity score: `54`
+- Proof density: `57`
+- Uncertainty pressure: `49`
+- Improvement pressure: `55`
+
+Everyday value:
+Gives readers a way to inspect how one signal is allowed to influence another instead of accepting attention as an invisible black box.
+
+Technical value:
+Keeps attention experiments separate from the larger model so routing changes can be studied, tested, and retired without disturbing every other subsystem.
+
+Watch condition:
+Be careful when attention looks elegant but has not been tied to task deltas on noisy, field-shaped inputs.
+
+Next evidence:
+Ablation reports that show the cost and benefit of sparse and cross-modal attention changes across the same reference workload.
+
+Consequence lanes:
+- cross-modal routing
+- sparse attention
+- mechanism inspection
+
+
 ## Findings
 
 ### The repository now begins with measured intake instead of hand-shaped payloads alone
@@ -447,10 +553,10 @@ Open questions:
 - Related surfaces: /v1/connectors/register, /v1/connectors/pipeline-ingest, /v1/catalog/register
 - Related files: src/advanced_multimodal_ai/connectors.py, src/advanced_multimodal_ai/catalog.py, src/advanced_multimodal_ai/pipelines.py
 
-501 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+507 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 Evidence:
-- connector runs recorded: 501
+- connector runs recorded: 507
 - connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html
 
 Why it matters:
@@ -516,7 +622,7 @@ Evidence:
 - route count: 100
 - test count: 60
 - verification artifacts: 16
-- pipeline runs stored: 385
+- pipeline runs stored: 390
 
 Why it matters:
 Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.
@@ -532,10 +638,10 @@ Keep the export surfaces close to CI and extend replay comparisons so proof cove
 - Related surfaces: /v1/execution/journal, /v1/repository/pulse
 - Related files: src/advanced_multimodal_ai/execution_journal.py, src/advanced_multimodal_ai/execution_journal_store.py, scripts/export_execution_journal.py
 
-193 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
+208 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
 
 Evidence:
-- execution journal runs: 193
+- execution journal runs: 208
 - proof/execution-journal.json is exported from the backend journal surface.
 
 Why it matters:
@@ -552,10 +658,10 @@ Keep letting new export and benchmark lanes write their own receipts so operatio
 - Related surfaces: /v1/edge/evaluate, /v1/edge/ledger, /v1/edge/topology
 - Related files: src/advanced_multimodal_ai/edge_gateway.py, src/advanced_multimodal_ai/tracking_ledger.py, src/advanced_multimodal_ai/vector_mesh.py
 
-4 persisted edge packet events now tie packet geometry, cross-border posture, and route decisions into a ledgered runtime seam.
+5 persisted edge packet events now tie packet geometry, cross-border posture, and route decisions into a ledgered runtime seam.
 
 Evidence:
-- edge packet events: 4
+- edge packet events: 5
 - proof/edge-topology.json exports both the topology and the latest ledger summary.
 
 Why it matters:
@@ -597,9 +703,9 @@ The current readiness posture is 'review_ready'. The repo now has a steadier run
 
 Evidence:
 - readiness posture: review_ready
-- connector runs: 501
-- pipeline runs: 385
-- compiled recipes: 162
+- connector runs: 507
+- pipeline runs: 390
+- compiled recipes: 167
 
 Why it matters:
 The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.

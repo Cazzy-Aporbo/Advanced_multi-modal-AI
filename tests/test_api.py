@@ -355,6 +355,14 @@ def test_research_surfaces_explain_models_findings_and_connections():
         item["model_id"] == "adaptive_transformer" and item["improvement_paths"]
         for item in payload["model_cards"]
     )
+    assert len(payload["model_importance_profiles"]) == payload["summary"]["model_count"]
+    assert any(
+        item["model_id"] == "adaptive_transformer"
+        and 0 <= item["maturity_score"] <= 100
+        and item["consequence_lanes"]
+        and item["next_evidence"]
+        for item in payload["model_importance_profiles"]
+    )
     assert any(item["finding_id"] == "connector-spine-is-real" for item in payload["findings"])
     assert any(item["connection_id"] == "rows-to-batches" for item in payload["connections"])
 

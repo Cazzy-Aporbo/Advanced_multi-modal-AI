@@ -4,6 +4,7 @@ from typing import Dict, List
 
 from .contracts import (
     ArchitectureLane,
+    ModelImportanceProfile,
     ModelResearchCard,
     ModelResearchQuestion,
     ReadinessReport,
@@ -265,6 +266,106 @@ MODEL_RESEARCH_NOTES: Dict[str, Dict[str, object]] = {
 }
 
 
+MODEL_IMPORTANCE_NOTES: Dict[str, Dict[str, object]] = {
+    "adaptive_transformer": {
+        "consequence_lanes": [
+            "uneven modality evidence",
+            "fusion readiness",
+            "population-entry drift",
+        ],
+        "everyday_value": (
+            "Useful when a person gives the system mixed evidence, such as a short "
+            "clip, a partial transcript, and a few structured fields, and still "
+            "needs the answer to say what was thin."
+        ),
+        "technical_value": (
+            "Keeps profiling, alignment, drift checks, and inference close enough "
+            "that weak inputs can be measured before fusion turns them into a "
+            "confident-looking result."
+        ),
+        "watch_condition": (
+            "Hold the result back when one modality is doing nearly all the work "
+            "or when drift is visible before the model produces its final answer."
+        ),
+        "next_evidence": (
+            "A repeated transcript-frame-audio benchmark with calibration error, "
+            "abstention rate, and population-entry drift reported together."
+        ),
+    },
+    "complete_multimodal": {
+        "consequence_lanes": [
+            "long-range memory",
+            "training archive",
+            "large-batch review",
+        ],
+        "everyday_value": (
+            "Helpful as a teaching and design surface for seeing how a larger "
+            "multimodal system keeps memory, encoders, and routing in relation."
+        ),
+        "technical_value": (
+            "Preserves the larger model vocabulary while letting smaller runtime "
+            "lanes earn promotion through explicit proof instead of broad claims."
+        ),
+        "watch_condition": (
+            "Do not treat the archive as the operational edge until dataset lineage, "
+            "batch replay, and benchmark coverage are stronger."
+        ),
+        "next_evidence": (
+            "A promotion gate that names which archive subsystems have replay proof, "
+            "schema contracts, and measured failure boundaries."
+        ),
+    },
+    "fusion_lab": {
+        "consequence_lanes": [
+            "fusion choice",
+            "ablation reading",
+            "modality dominance",
+        ],
+        "everyday_value": (
+            "Shows why combining signals is not a single decision. The same image, "
+            "sound, and text can deserve different fusion treatment depending on "
+            "what is missing."
+        ),
+        "technical_value": (
+            "Makes fusion strategy a comparative object, so the repository can "
+            "ask which mechanism helped and which one merely concealed weak evidence."
+        ),
+        "watch_condition": (
+            "Treat a stronger fused output with care when no ablation explains "
+            "which modality carried the decision."
+        ),
+        "next_evidence": (
+            "A shared benchmark matrix comparing fusion modes under missing, noisy, "
+            "and contradictory modalities."
+        ),
+    },
+    "attention_core": {
+        "consequence_lanes": [
+            "cross-modal routing",
+            "sparse attention",
+            "mechanism inspection",
+        ],
+        "everyday_value": (
+            "Gives readers a way to inspect how one signal is allowed to influence "
+            "another instead of accepting attention as an invisible black box."
+        ),
+        "technical_value": (
+            "Keeps attention experiments separate from the larger model so routing "
+            "changes can be studied, tested, and retired without disturbing every "
+            "other subsystem."
+        ),
+        "watch_condition": (
+            "Be careful when attention looks elegant but has not been tied to task "
+            "deltas on noisy, field-shaped inputs."
+        ),
+        "next_evidence": (
+            "Ablation reports that show the cost and benefit of sparse and cross-modal "
+            "attention changes across the same reference workload."
+        ),
+    },
+}
+
+
 def build_model_research_cards(
     *, registered_models: List[RegisteredModelResponse]
 ) -> List[ModelResearchCard]:
@@ -298,6 +399,100 @@ def build_model_research_cards(
             )
         )
     return cards
+
+
+def _score_ratio(numerator: float, denominator: float) -> float:
+    if denominator <= 0:
+        return 0.0
+    return max(0.0, min(1.0, numerator / denominator))
+
+
+def _score_percent(value: float) -> int:
+    return max(0, min(100, round(value * 100)))
+
+
+def build_model_importance_profiles(
+    *, model_cards: List[ModelResearchCard]
+) -> List[ModelImportanceProfile]:
+    profiles: List[ModelImportanceProfile] = []
+    for card in model_cards:
+        notes = MODEL_IMPORTANCE_NOTES.get(card.model_id, {})
+        evidence_score = _score_ratio(len(card.evidence_surfaces), 4)
+        file_score = _score_ratio(len(card.related_files), 4)
+        improvement_visibility = _score_ratio(len(card.improvement_paths), 3)
+        question_visibility = _score_ratio(len(card.open_questions), 3)
+        limit_visibility = _score_ratio(len(card.limits), 3)
+        runtime_weight = (
+            1.0
+            if card.runtime_ready
+            else 0.42
+            if card.supports_contract_mode
+            else 0.18
+        )
+        proof_density = _score_percent(
+            (evidence_score * 0.46)
+            + (file_score * 0.24)
+            + (improvement_visibility * 0.14)
+            + (runtime_weight * 0.16)
+        )
+        uncertainty_pressure = _score_percent(
+            (question_visibility * 0.48)
+            + (limit_visibility * 0.34)
+            + ((1.0 - runtime_weight) * 0.18)
+        )
+        improvement_pressure = _score_percent(
+            (improvement_visibility * 0.64) + (question_visibility * 0.36)
+        )
+        maturity_score = _score_percent(
+            (proof_density / 100 * 0.54)
+            + (runtime_weight * 0.22)
+            + (improvement_visibility * 0.14)
+            + ((1.0 - min(uncertainty_pressure / 100, 1.0)) * 0.10)
+        )
+        if not card.runtime_ready:
+            maturity_score = min(maturity_score, 78)
+        profiles.append(
+            ModelImportanceProfile(
+                model_id=card.model_id,
+                label=card.label,
+                maturity_score=maturity_score,
+                proof_density=proof_density,
+                uncertainty_pressure=uncertainty_pressure,
+                improvement_pressure=improvement_pressure,
+                consequence_lanes=[
+                    str(item) for item in notes.get("consequence_lanes", [])
+                ],
+                everyday_value=str(
+                    notes.get(
+                        "everyday_value",
+                        "Helps translate one part of the multimodal record into a "
+                        "more careful decision surface.",
+                    )
+                ),
+                technical_value=str(
+                    notes.get(
+                        "technical_value",
+                        "Keeps model behavior close to the evidence surfaces that "
+                        "can be tested and repeated.",
+                    )
+                ),
+                watch_condition=str(
+                    notes.get(
+                        "watch_condition",
+                        "Review the model when evidence becomes thinner than the "
+                        "decision it is asked to support.",
+                    )
+                ),
+                next_evidence=str(
+                    notes.get(
+                        "next_evidence",
+                        "Add a repeated benchmark that compares the model against a "
+                        "clear baseline and records where it abstains.",
+                    )
+                ),
+            )
+        )
+    return profiles
 
 
 def build_repository_connections() -> List[RepositoryConnection]:
@@ -1149,6 +1344,9 @@ def build_research_surface_bundle(
     registered_models: List[RegisteredModelResponse],
 ) -> ResearchSurfaceBundle:
     model_cards = build_model_research_cards(registered_models=registered_models)
+    model_importance_profiles = build_model_importance_profiles(
+        model_cards=model_cards
+    )
     findings = build_repository_findings(
         attestation=attestation,
         proof_bundle=proof_bundle,
@@ -1174,6 +1372,7 @@ def build_research_surface_bundle(
         ),
         lanes=lanes,
         model_cards=model_cards,
+        model_importance_profiles=model_importance_profiles,
         findings=findings,
         connections=connections,
     )

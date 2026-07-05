@@ -2,8 +2,8 @@
   "taxonomy": {
     "detector_version": "privacy-membrane-2026.07",
     "category_count": 63,
-    "language_count": 20,
-    "deterministic_category_count": 101,
+    "language_count": 32,
+    "deterministic_category_count": 133,
     "categories": [
       {
         "category_id": "person_name",
@@ -17,6 +17,25 @@
         "language_notes": [
           "multilingual labels"
         ],
+        "where_found": [
+          "intake forms",
+          "patient charts",
+          "support tickets",
+          "account recovery logs"
+        ],
+        "why_it_matters": "Identity traces make separate records joinable. A harmless note can become personal when it is paired with a date, location, or case detail.",
+        "careful_handling": "Mask before transfer, keep only purpose-bound receipts, and review small cohorts with care.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "deletion",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -29,6 +48,23 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "support queues",
+          "appointment reminders",
+          "CRM exports",
+          "emergency contact sheets"
+        ],
+        "why_it_matters": "Contact fields create direct reachability and can expose families or caretaking relationships.",
+        "careful_handling": "Tokenize for joins, avoid public logs, and separate emergency contacts from ordinary account text.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "deletion",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -42,6 +78,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "support queues",
+          "appointment reminders",
+          "CRM exports",
+          "emergency contact sheets"
+        ],
+        "why_it_matters": "Contact fields create direct reachability and can expose families or caretaking relationships.",
+        "careful_handling": "Tokenize for joins, avoid public logs, and separate emergency contacts from ordinary account text.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "deletion",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -54,6 +107,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "delivery notes",
+          "field service logs",
+          "maps",
+          "device telemetry"
+        ],
+        "why_it_matters": "Precise place can reveal home, school, clinic, worksite, or travel patterns.",
+        "careful_handling": "Prefer coarse regions unless a precise coordinate is necessary for the stated purpose.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "minimization",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -67,6 +137,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "delivery notes",
+          "field service logs",
+          "maps",
+          "device telemetry"
+        ],
+        "why_it_matters": "Precise place can reveal home, school, clinic, worksite, or travel patterns.",
+        "careful_handling": "Prefer coarse regions unless a precise coordinate is necessary for the stated purpose.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "minimization",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -79,6 +166,23 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "delivery notes",
+          "field service logs",
+          "maps",
+          "device telemetry"
+        ],
+        "why_it_matters": "Precise place can reveal home, school, clinic, worksite, or travel patterns.",
+        "careful_handling": "Prefer coarse regions unless a precise coordinate is necessary for the stated purpose.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "minimization",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -91,6 +195,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "clinical timelines",
+          "shift reports",
+          "transaction logs",
+          "claims histories"
+        ],
+        "why_it_matters": "Dates become identifying when they describe a rare event, birth record, accident, or narrow cohort.",
+        "careful_handling": "Generalize dates when exact timing is not needed and keep exact timestamps out of public fixtures.",
+        "source_refs": [
+          "gdpr-art-5",
+          "hoepman-privacy-design"
+        ],
+        "related_rights": [
+          "storage limitation",
+          "data minimization"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -103,6 +223,25 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake forms",
+          "patient charts",
+          "support tickets",
+          "account recovery logs"
+        ],
+        "why_it_matters": "Identity traces make separate records joinable. A harmless note can become personal when it is paired with a date, location, or case detail.",
+        "careful_handling": "Mask before transfer, keep only purpose-bound receipts, and review small cohorts with care.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "deletion",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -115,6 +254,25 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake forms",
+          "patient charts",
+          "support tickets",
+          "account recovery logs"
+        ],
+        "why_it_matters": "Identity traces make separate records joinable. A harmless note can become personal when it is paired with a date, location, or case detail.",
+        "careful_handling": "Mask before transfer, keep only purpose-bound receipts, and review small cohorts with care.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "deletion",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -127,6 +285,22 @@
           "checksum"
         ],
         "language_notes": [],
+        "where_found": [
+          "billing exports",
+          "refund requests",
+          "claims packets",
+          "vendor onboarding"
+        ],
+        "why_it_matters": "Financial identifiers can enable fraud, account takeover, or unintended payment linkage.",
+        "careful_handling": "Use checksum-aware detection, mask immediately, and avoid preserving original digit structure in logs.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -139,6 +313,22 @@
           "checksum"
         ],
         "language_notes": [],
+        "where_found": [
+          "billing exports",
+          "refund requests",
+          "claims packets",
+          "vendor onboarding"
+        ],
+        "why_it_matters": "Financial identifiers can enable fraud, account takeover, or unintended payment linkage.",
+        "careful_handling": "Use checksum-aware detection, mask immediately, and avoid preserving original digit structure in logs.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -151,6 +341,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "billing exports",
+          "refund requests",
+          "claims packets",
+          "vendor onboarding"
+        ],
+        "why_it_matters": "Financial identifiers can enable fraud, account takeover, or unintended payment linkage.",
+        "careful_handling": "Use checksum-aware detection, mask immediately, and avoid preserving original digit structure in logs.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -163,6 +369,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "billing exports",
+          "refund requests",
+          "claims packets",
+          "vendor onboarding"
+        ],
+        "why_it_matters": "Financial identifiers can enable fraud, account takeover, or unintended payment linkage.",
+        "careful_handling": "Use checksum-aware detection, mask immediately, and avoid preserving original digit structure in logs.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -175,6 +397,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "billing exports",
+          "refund requests",
+          "claims packets",
+          "vendor onboarding"
+        ],
+        "why_it_matters": "Financial identifiers can enable fraud, account takeover, or unintended payment linkage.",
+        "careful_handling": "Use checksum-aware detection, mask immediately, and avoid preserving original digit structure in logs.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -187,6 +425,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "billing exports",
+          "refund requests",
+          "claims packets",
+          "vendor onboarding"
+        ],
+        "why_it_matters": "Financial identifiers can enable fraud, account takeover, or unintended payment linkage.",
+        "careful_handling": "Use checksum-aware detection, mask immediately, and avoid preserving original digit structure in logs.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -199,6 +453,24 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "employment files",
+          "benefits systems",
+          "travel records",
+          "identity verification forms"
+        ],
+        "why_it_matters": "Government identifiers are durable. Once copied widely, they are difficult for a person to change.",
+        "careful_handling": "Treat as critical, keep in the narrowest lane, and require explicit purpose before processing.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -211,6 +483,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "employment files",
+          "benefits systems",
+          "travel records",
+          "identity verification forms"
+        ],
+        "why_it_matters": "Government identifiers are durable. Once copied widely, they are difficult for a person to change.",
+        "careful_handling": "Treat as critical, keep in the narrowest lane, and require explicit purpose before processing.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -223,6 +513,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "employment files",
+          "benefits systems",
+          "travel records",
+          "identity verification forms"
+        ],
+        "why_it_matters": "Government identifiers are durable. Once copied widely, they are difficult for a person to change.",
+        "careful_handling": "Treat as critical, keep in the narrowest lane, and require explicit purpose before processing.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -235,6 +543,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "employment files",
+          "benefits systems",
+          "travel records",
+          "identity verification forms"
+        ],
+        "why_it_matters": "Government identifiers are durable. Once copied widely, they are difficult for a person to change.",
+        "careful_handling": "Treat as critical, keep in the narrowest lane, and require explicit purpose before processing.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -247,6 +573,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "employment files",
+          "benefits systems",
+          "travel records",
+          "identity verification forms"
+        ],
+        "why_it_matters": "Government identifiers are durable. Once copied widely, they are difficult for a person to change.",
+        "careful_handling": "Treat as critical, keep in the narrowest lane, and require explicit purpose before processing.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -260,6 +604,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "clinical notes",
+          "claims",
+          "prior authorization packets",
+          "lab portals"
+        ],
+        "why_it_matters": "Health context can affect dignity, employment, insurance, and family privacy.",
+        "careful_handling": "Mask before model review, preserve receipts for audit, and avoid synthetic examples that resemble real patients.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -273,6 +635,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "clinical notes",
+          "claims",
+          "prior authorization packets",
+          "lab portals"
+        ],
+        "why_it_matters": "Health context can affect dignity, employment, insurance, and family privacy.",
+        "careful_handling": "Mask before model review, preserve receipts for audit, and avoid synthetic examples that resemble real patients.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -285,6 +665,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "clinical notes",
+          "claims",
+          "prior authorization packets",
+          "lab portals"
+        ],
+        "why_it_matters": "Health context can affect dignity, employment, insurance, and family privacy.",
+        "careful_handling": "Mask before model review, preserve receipts for audit, and avoid synthetic examples that resemble real patients.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -297,6 +695,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "clinical notes",
+          "claims",
+          "prior authorization packets",
+          "lab portals"
+        ],
+        "why_it_matters": "A diagnosis can become identifying when paired with timing, geography, employer, or rare symptoms.",
+        "careful_handling": "Prefer clinical codes or generalized notes when exact phrasing is not required.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -310,6 +726,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "voice enrollment",
+          "face templates",
+          "wearable data",
+          "genomic records"
+        ],
+        "why_it_matters": "Biometric traces are intimate and hard to replace. They can identify a person even when names are absent.",
+        "careful_handling": "Do not treat embeddings as anonymous by default; version extractors and keep derived traces scoped.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "sensitive data limitation",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -322,6 +754,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "voice enrollment",
+          "face templates",
+          "wearable data",
+          "genomic records"
+        ],
+        "why_it_matters": "Biometric traces are intimate and hard to replace. They can identify a person even when names are absent.",
+        "careful_handling": "Do not treat embeddings as anonymous by default; version extractors and keep derived traces scoped.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "sensitive data limitation",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -335,6 +783,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "voice enrollment",
+          "face templates",
+          "wearable data",
+          "genomic records"
+        ],
+        "why_it_matters": "Biometric traces are intimate and hard to replace. They can identify a person even when names are absent.",
+        "careful_handling": "Do not treat embeddings as anonymous by default; version extractors and keep derived traces scoped.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "sensitive data limitation",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -348,6 +812,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "voice enrollment",
+          "face templates",
+          "wearable data",
+          "genomic records"
+        ],
+        "why_it_matters": "Biometric traces are intimate and hard to replace. They can identify a person even when names are absent.",
+        "careful_handling": "Do not treat embeddings as anonymous by default; version extractors and keep derived traces scoped.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "sensitive data limitation",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -361,6 +841,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "HRIS exports",
+          "safety reports",
+          "field logs",
+          "access control systems"
+        ],
+        "why_it_matters": "Work records can expose performance, discipline, location, and economic vulnerability.",
+        "careful_handling": "Separate operational proof from personnel detail and review small-team reports for reidentification risk.",
+        "source_refs": [
+          "gdpr-art-5",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -374,6 +871,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "learning platforms",
+          "admissions files",
+          "advising notes",
+          "attendance exports"
+        ],
+        "why_it_matters": "Education records often concern minors or young adults and can follow people for years.",
+        "careful_handling": "Reduce cohort detail, guard school identity, and avoid examples that point to a real classroom.",
+        "source_refs": [
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -387,6 +901,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "case management systems",
+          "investigations",
+          "contracts",
+          "dispute records"
+        ],
+        "why_it_matters": "A case number can unlock a sensitive story even when the surrounding text is modest.",
+        "careful_handling": "Mask identifiers and keep legal matter traces out of general training or demo fixtures.",
+        "source_refs": [
+          "gdpr-art-5",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "purpose limitation",
+          "security safeguards"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -400,6 +930,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "support tickets",
+          "call transcripts",
+          "incident reports",
+          "service desks"
+        ],
+        "why_it_matters": "Operational tickets often mix identity, account state, secrets, and emotional context in one place.",
+        "careful_handling": "Run corpus audit before escalation and inspect category pressure before sharing excerpts.",
+        "source_refs": [
+          "nist-privacy-framework",
+          "hoepman-privacy-design"
+        ],
+        "related_rights": [
+          "access",
+          "deletion",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -413,6 +960,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "orders",
+          "invoices",
+          "returns",
+          "marketplace messages"
+        ],
+        "why_it_matters": "Commerce IDs can connect a person to purchase habits, household needs, or location.",
+        "careful_handling": "Use stable replacements when joins are needed and avoid sending raw order text to broad tools.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -426,6 +989,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "orders",
+          "invoices",
+          "returns",
+          "marketplace messages"
+        ],
+        "why_it_matters": "Commerce IDs can connect a person to purchase habits, household needs, or location.",
+        "careful_handling": "Use stable replacements when joins are needed and avoid sending raw order text to broad tools.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -438,6 +1017,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "server logs",
+          "fraud systems",
+          "analytics events",
+          "security telemetry"
+        ],
+        "why_it_matters": "Network identifiers can become personal when tied to accounts, locations, or device history.",
+        "careful_handling": "Keep raw logs short-lived, aggregate when possible, and separate security need from product curiosity.",
+        "source_refs": [
+          "gdpr-art-5",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "storage limitation",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -450,6 +1045,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "server logs",
+          "fraud systems",
+          "analytics events",
+          "security telemetry"
+        ],
+        "why_it_matters": "Network identifiers can become personal when tied to accounts, locations, or device history.",
+        "careful_handling": "Keep raw logs short-lived, aggregate when possible, and separate security need from product curiosity.",
+        "source_refs": [
+          "gdpr-art-5",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "storage limitation",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -462,6 +1073,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "mobile telemetry",
+          "MDM exports",
+          "IoT logs",
+          "subscriber records"
+        ],
+        "why_it_matters": "Device identifiers can track a person across apps, homes, networks, and time.",
+        "careful_handling": "Rotate or hash where possible and avoid mixing device traces with demographic labels.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "limit use",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -475,6 +1102,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "mobile telemetry",
+          "MDM exports",
+          "IoT logs",
+          "subscriber records"
+        ],
+        "why_it_matters": "Device identifiers can track a person across apps, homes, networks, and time.",
+        "careful_handling": "Rotate or hash where possible and avoid mixing device traces with demographic labels.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "limit use",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -488,6 +1131,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "mobile telemetry",
+          "MDM exports",
+          "IoT logs",
+          "subscriber records"
+        ],
+        "why_it_matters": "Device identifiers can track a person across apps, homes, networks, and time.",
+        "careful_handling": "Rotate or hash where possible and avoid mixing device traces with demographic labels.",
+        "source_refs": [
+          "gdpr-art-25",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "limit use",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -501,6 +1160,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "fleet diagnostics",
+          "repair tickets",
+          "asset registries",
+          "field service images"
+        ],
+        "why_it_matters": "Machine IDs can reveal owner, site, operator, and business activity.",
+        "careful_handling": "Treat asset identity as commercially sensitive and mask it before public examples.",
+        "source_refs": [
+          "nist-privacy-framework",
+          "hoepman-privacy-design"
+        ],
+        "related_rights": [
+          "confidentiality",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -513,6 +1188,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "fleet diagnostics",
+          "repair tickets",
+          "asset registries",
+          "field service images"
+        ],
+        "why_it_matters": "Machine IDs can reveal owner, site, operator, and business activity.",
+        "careful_handling": "Treat asset identity as commercially sensitive and mask it before public examples.",
+        "source_refs": [
+          "nist-privacy-framework",
+          "hoepman-privacy-design"
+        ],
+        "related_rights": [
+          "confidentiality",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -525,6 +1216,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "fleet diagnostics",
+          "repair tickets",
+          "asset registries",
+          "field service images"
+        ],
+        "why_it_matters": "Machine IDs can reveal owner, site, operator, and business activity.",
+        "careful_handling": "Treat asset identity as commercially sensitive and mask it before public examples.",
+        "source_refs": [
+          "nist-privacy-framework",
+          "hoepman-privacy-design"
+        ],
+        "related_rights": [
+          "confidentiality",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -537,6 +1244,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "logs",
+          "screenshots",
+          "stack traces",
+          "CI output",
+          "chat transcripts"
+        ],
+        "why_it_matters": "A secret is not only private; it may still be live authority.",
+        "careful_handling": "Block transmission, rotate the credential, and preserve only leak-safe forensic hashes.",
+        "source_refs": [
+          "owasp-secrets-management",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -549,6 +1272,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "logs",
+          "screenshots",
+          "stack traces",
+          "CI output",
+          "chat transcripts"
+        ],
+        "why_it_matters": "A secret is not only private; it may still be live authority.",
+        "careful_handling": "Block transmission, rotate the credential, and preserve only leak-safe forensic hashes.",
+        "source_refs": [
+          "owasp-secrets-management",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -561,6 +1300,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "logs",
+          "screenshots",
+          "stack traces",
+          "CI output",
+          "chat transcripts"
+        ],
+        "why_it_matters": "A secret is not only private; it may still be live authority.",
+        "careful_handling": "Block transmission, rotate the credential, and preserve only leak-safe forensic hashes.",
+        "source_refs": [
+          "owasp-secrets-management",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -574,6 +1329,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "logs",
+          "screenshots",
+          "stack traces",
+          "CI output",
+          "chat transcripts"
+        ],
+        "why_it_matters": "A secret is not only private; it may still be live authority.",
+        "careful_handling": "Block transmission, rotate the credential, and preserve only leak-safe forensic hashes.",
+        "source_refs": [
+          "owasp-secrets-management",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -586,6 +1357,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "logs",
+          "screenshots",
+          "stack traces",
+          "CI output",
+          "chat transcripts"
+        ],
+        "why_it_matters": "A secret is not only private; it may still be live authority.",
+        "careful_handling": "Block transmission, rotate the credential, and preserve only leak-safe forensic hashes.",
+        "source_refs": [
+          "owasp-secrets-management",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -598,6 +1385,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "logs",
+          "screenshots",
+          "stack traces",
+          "CI output",
+          "chat transcripts"
+        ],
+        "why_it_matters": "A secret is not only private; it may still be live authority.",
+        "careful_handling": "Block transmission, rotate the credential, and preserve only leak-safe forensic hashes.",
+        "source_refs": [
+          "owasp-secrets-management",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -610,6 +1413,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "logs",
+          "screenshots",
+          "stack traces",
+          "CI output",
+          "chat transcripts"
+        ],
+        "why_it_matters": "A link can carry authority inside the query string, even when the visible page looks ordinary.",
+        "careful_handling": "Strip the secret parameter, rotate the backing credential when live, and never log the full URL.",
+        "source_refs": [
+          "owasp-secrets-management",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "security safeguards"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -623,6 +1442,22 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "profiles",
+          "social links",
+          "creator metadata",
+          "community moderation queues"
+        ],
+        "why_it_matters": "Online handles can reconnect a private workstream to a public life.",
+        "careful_handling": "Mask when a handle is not needed and avoid stitching profile URLs into unrelated datasets.",
+        "source_refs": [
+          "ccpa-cpra-rights",
+          "gdpr-art-5"
+        ],
+        "related_rights": [
+          "deletion",
+          "opt-out"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -635,6 +1470,22 @@
           "pattern"
         ],
         "language_notes": [],
+        "where_found": [
+          "profiles",
+          "social links",
+          "creator metadata",
+          "community moderation queues"
+        ],
+        "why_it_matters": "Online handles can reconnect a private workstream to a public life.",
+        "careful_handling": "Mask when a handle is not needed and avoid stitching profile URLs into unrelated datasets.",
+        "source_refs": [
+          "ccpa-cpra-rights",
+          "gdpr-art-5"
+        ],
+        "related_rights": [
+          "deletion",
+          "opt-out"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -647,6 +1498,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake surveys",
+          "benefits forms",
+          "case notes",
+          "eligibility reviews"
+        ],
+        "why_it_matters": "Sensitive attributes can create unfair treatment even when no name is present.",
+        "careful_handling": "Use only for the stated protective purpose and inspect small groups for exposure.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "limit use",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -659,6 +1528,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake surveys",
+          "benefits forms",
+          "case notes",
+          "eligibility reviews"
+        ],
+        "why_it_matters": "Sensitive attributes can create unfair treatment even when no name is present.",
+        "careful_handling": "Use only for the stated protective purpose and inspect small groups for exposure.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "limit use",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -671,6 +1558,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake surveys",
+          "benefits forms",
+          "case notes",
+          "eligibility reviews"
+        ],
+        "why_it_matters": "Sensitive attributes can create unfair treatment even when no name is present.",
+        "careful_handling": "Use only for the stated protective purpose and inspect small groups for exposure.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "limit use",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -683,6 +1588,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake surveys",
+          "benefits forms",
+          "case notes",
+          "eligibility reviews"
+        ],
+        "why_it_matters": "Sensitive attributes can create unfair treatment even when no name is present.",
+        "careful_handling": "Use only for the stated protective purpose and inspect small groups for exposure.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "limit use",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -695,6 +1618,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake surveys",
+          "benefits forms",
+          "case notes",
+          "eligibility reviews"
+        ],
+        "why_it_matters": "Sensitive attributes can create unfair treatment even when no name is present.",
+        "careful_handling": "Use only for the stated protective purpose and inspect small groups for exposure.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "limit use",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -707,6 +1648,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake surveys",
+          "benefits forms",
+          "case notes",
+          "eligibility reviews"
+        ],
+        "why_it_matters": "Sensitive attributes can create unfair treatment even when no name is present.",
+        "careful_handling": "Use only for the stated protective purpose and inspect small groups for exposure.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "limit use",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -719,6 +1678,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake surveys",
+          "benefits forms",
+          "case notes",
+          "eligibility reviews"
+        ],
+        "why_it_matters": "A child indicator changes the duty of care. It should make review slower, not more theatrical.",
+        "careful_handling": "Keep examples synthetic, minimize all companion fields, and require an explicit safety purpose.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "limit use",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -731,6 +1708,24 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "intake surveys",
+          "benefits forms",
+          "case notes",
+          "eligibility reviews"
+        ],
+        "why_it_matters": "Sensitive attributes can create unfair treatment even when no name is present.",
+        "careful_handling": "Use only for the stated protective purpose and inspect small groups for exposure.",
+        "source_refs": [
+          "gdpr-art-5",
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "limit use",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -743,6 +1738,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "learning platforms",
+          "admissions files",
+          "advising notes",
+          "attendance exports"
+        ],
+        "why_it_matters": "Education records often concern minors or young adults and can follow people for years.",
+        "careful_handling": "Reduce cohort detail, guard school identity, and avoid examples that point to a real classroom.",
+        "source_refs": [
+          "gdpr-art-25",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "deletion"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -755,6 +1767,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "HRIS exports",
+          "safety reports",
+          "field logs",
+          "access control systems"
+        ],
+        "why_it_matters": "Work records can expose performance, discipline, location, and economic vulnerability.",
+        "careful_handling": "Separate operational proof from personnel detail and review small-team reports for reidentification risk.",
+        "source_refs": [
+          "gdpr-art-5",
+          "nist-privacy-framework"
+        ],
+        "related_rights": [
+          "access",
+          "correction",
+          "purpose limitation"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -767,6 +1796,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "support queues",
+          "appointment reminders",
+          "CRM exports",
+          "emergency contact sheets"
+        ],
+        "why_it_matters": "This field describes another person who may not be the primary user and may not know the record exists.",
+        "careful_handling": "Separate from ordinary account data and avoid using it for model training or broad analytics.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "deletion",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       },
       {
@@ -779,6 +1825,23 @@
           "context_label"
         ],
         "language_notes": [],
+        "where_found": [
+          "support queues",
+          "appointment reminders",
+          "CRM exports",
+          "emergency contact sheets"
+        ],
+        "why_it_matters": "Kinship data can expose family structure, dependency, and grief context.",
+        "careful_handling": "Mask before review and keep only the narrow evidence required for the service purpose.",
+        "source_refs": [
+          "gdpr-art-5",
+          "ccpa-cpra-rights"
+        ],
+        "related_rights": [
+          "access",
+          "deletion",
+          "limit use"
+        ],
         "examples_are_synthetic": true
       }
     ],
@@ -802,7 +1865,135 @@
       "vietnamese",
       "thai",
       "indonesian",
-      "turkish"
+      "turkish",
+      "swedish",
+      "norwegian",
+      "danish",
+      "finnish",
+      "greek",
+      "hebrew",
+      "swahili",
+      "urdu",
+      "bengali",
+      "tamil",
+      "telugu",
+      "malay"
+    ],
+    "family_counts": {
+      "biometric": 4,
+      "commerce": 2,
+      "contact": 4,
+      "credential": 7,
+      "device": 3,
+      "education": 2,
+      "financial": 6,
+      "government": 5,
+      "healthcare": 4,
+      "identity": 3,
+      "industrial": 3,
+      "legal": 1,
+      "location": 3,
+      "network": 2,
+      "online": 2,
+      "operations": 1,
+      "sensitive_attribute": 8,
+      "temporal": 1,
+      "workforce": 2
+    },
+    "severity_counts": {
+      "critical": 28,
+      "high": 20,
+      "medium": 15
+    },
+    "source_references": [
+      {
+        "reference_id": "gdpr-art-5",
+        "title": "GDPR Article 5: principles relating to processing of personal data",
+        "url": "https://gdpr-info.eu/art-5-gdpr/",
+        "publisher": "Intersoft Consulting GDPR reference",
+        "use_note": "Used for minimization, purpose limitation, accuracy, storage limitation, and integrity language."
+      },
+      {
+        "reference_id": "gdpr-art-25",
+        "title": "GDPR Article 25: data protection by design and by default",
+        "url": "https://gdpr-info.eu/art-25-gdpr/",
+        "publisher": "Intersoft Consulting GDPR reference",
+        "use_note": "Used for privacy-by-design and default narrowing posture."
+      },
+      {
+        "reference_id": "ccpa-cpra-rights",
+        "title": "California Consumer Privacy Act guidance",
+        "url": "https://oag.ca.gov/privacy/ccpa",
+        "publisher": "California Department of Justice",
+        "use_note": "Used for access, deletion, correction, opt-out, and sensitive personal information awareness."
+      },
+      {
+        "reference_id": "nist-privacy-framework",
+        "title": "NIST Privacy Framework",
+        "url": "https://www.nist.gov/privacy-framework",
+        "publisher": "National Institute of Standards and Technology",
+        "use_note": "Used for privacy risk, governance, communication, and control mapping language."
+      },
+      {
+        "reference_id": "hoepman-privacy-design",
+        "title": "Privacy Design Strategies",
+        "url": "https://www.cs.ru.nl/~jhh/publications/pdp.pdf",
+        "publisher": "Jaap-Henk Hoepman",
+        "use_note": "Used for minimize, hide, separate, aggregate, inform, control, enforce, and demonstrate strategies."
+      },
+      {
+        "reference_id": "owasp-secrets-management",
+        "title": "Secrets Management Cheat Sheet",
+        "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+        "publisher": "OWASP Cheat Sheet Series",
+        "use_note": "Used for credential rotation and secret-handling notes."
+      }
+    ],
+    "design_principles": [
+      {
+        "principle_id": "minimize-first",
+        "label": "Keep the working set small",
+        "source_refs": [
+          "gdpr-art-5",
+          "hoepman-privacy-design"
+        ],
+        "implementation_note": "The detector returns redacted text to the caller and persists receipts, counts, and hashes rather than raw documents."
+      },
+      {
+        "principle_id": "purpose-bound",
+        "label": "Carry a stated purpose",
+        "source_refs": [
+          "gdpr-art-5",
+          "nist-privacy-framework"
+        ],
+        "implementation_note": "Every privacy run carries a purpose and tenant lane so review can ask why the text was processed, not only whether a pattern matched."
+      },
+      {
+        "principle_id": "local-before-network",
+        "label": "Inspect locally before transfer",
+        "source_refs": [
+          "gdpr-art-25",
+          "hoepman-privacy-design"
+        ],
+        "implementation_note": "The membrane is deterministic Python code that can run before support, clinical, or claims text leaves a controlled process."
+      },
+      {
+        "principle_id": "receipt-without-replay",
+        "label": "Prove without repeating",
+        "source_refs": [
+          "nist-privacy-framework",
+          "hoepman-privacy-design"
+        ],
+        "implementation_note": "Receipts hash the source, redacted output, and finding set so a run can be checked later without storing the sensitive words."
+      },
+      {
+        "principle_id": "rotate-live-secrets",
+        "label": "Treat exposed credentials as active incidents",
+        "source_refs": [
+          "owasp-secrets-management"
+        ],
+        "implementation_note": "Credential-shaped findings produce response notes that recommend rotation when the sample came from a real system."
+      }
     ],
     "boundary_notes": [
       "This lane performs local deterministic detection and masking. It does not claim trained-token classification.",
@@ -812,7 +2003,7 @@
     ]
   },
   "sample_receipt": {
-    "receipt_id": "f4ca14bd-5608-4916-a1cc-ef13102e72a7",
+    "receipt_id": "5bc89b9a-6ce5-482c-a0e1-d42692671e7c",
     "source_sha256": "9bd10dbad21a44770ff9d3c19edfcf9c6b98e7752d130595547b02808595fa25",
     "redacted_sha256": "2a19669fc54fd0ee35c684f74972c91bbab7462dcb70440b51e99211f44a7d6a",
     "finding_set_sha256": "e9252e999b089fcd24b3e42692de8725d45ac3351e26d142e63655b4262d9b3a",
@@ -826,7 +2017,7 @@
       "english",
       "fil"
     ],
-    "created_at": "2026-07-04T21:38:16.445377+00:00"
+    "created_at": "2026-07-05T15:40:32.492892+00:00"
   },
   "sample_category_summaries": [
     {
@@ -866,6 +2057,53 @@
     }
   ],
   "run_records": [
+    {
+      "run_id": "3db52ca0-4ce1-438f-8a6a-a6f667e4ff70",
+      "route": "/v1/privacy/deidentify",
+      "purpose": "proof_export_fixture",
+      "tenant_id": "",
+      "document_count": 1,
+      "finding_count": 5,
+      "risk_score": 0.8156,
+      "highest_severity": "critical",
+      "category_counts": {
+        "credit_card": 1,
+        "date_of_birth": 1,
+        "email_address": 1,
+        "medical_record_number": 1,
+        "person_name": 1
+      },
+      "language_counts": {
+        "en": 1,
+        "english": 1,
+        "fil": 1
+      },
+      "receipts": [
+        {
+          "receipt_id": "5bc89b9a-6ce5-482c-a0e1-d42692671e7c",
+          "source_sha256": "9bd10dbad21a44770ff9d3c19edfcf9c6b98e7752d130595547b02808595fa25",
+          "redacted_sha256": "2a19669fc54fd0ee35c684f74972c91bbab7462dcb70440b51e99211f44a7d6a",
+          "finding_set_sha256": "e9252e999b089fcd24b3e42692de8725d45ac3351e26d142e63655b4262d9b3a",
+          "detector_version": "privacy-membrane-2026.07",
+          "masking_mode": "stable_token",
+          "text_length": 103,
+          "finding_count": 5,
+          "category_count": 5,
+          "language_hints": [
+            "en",
+            "english",
+            "fil"
+          ],
+          "created_at": "2026-07-05T15:40:32.492892+00:00"
+        }
+      ],
+      "persisted_raw_text": false,
+      "persisted_redacted_text": false,
+      "notes": [
+        "Only receipts and aggregate privacy counts were persisted."
+      ],
+      "created_at": "2026-07-05T15:40:32.492953+00:00"
+    },
     {
       "run_id": "d554fa3f-dfae-4654-81fa-2bdd9c18e0d3",
       "route": "/v1/privacy/deidentify",

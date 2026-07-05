@@ -12,6 +12,8 @@ domain transfer question that can be verified.
 4. If a route changes shape, regenerate the OpenAPI and SDK surfaces.
 5. If a public page changes, make sure it still reads generated proof instead of
    inventing its own story.
+6. If a test or export fails before it passes, keep the failure useful: command,
+   error shape, correction, and what still needs review.
 
 ## Local verification
 
@@ -31,6 +33,7 @@ If you changed public proof or observatory pages, also refresh the export files:
 ```bash
 python3 scripts/export_research_surfaces.py
 python3 scripts/export_repository_pulse.py
+python3 scripts/export_repository_file_map.py
 python3 scripts/export_repository_growth.py
 python3 scripts/export_music_observatory.py
 python3 scripts/export_industry_profiles.py
@@ -43,6 +46,8 @@ python3 scripts/export_industry_profiles.py
 - Keep frontend language calm and precise.
 - Avoid synthetic traffic, decorative benchmark claims, or placeholder telemetry.
 - Keep raw media out of the repository; prefer manifests, receipts, and derived features.
+- Keep pass/fail notes concrete. Use [`docs/engineering-journal.md`](./docs/engineering-journal.md)
+  when the change teaches the repository something worth preserving.
 
 ## Good contributions
 
@@ -59,4 +64,5 @@ The strongest pull requests usually include:
 - one short reason for the change
 - the files or lanes affected
 - the exact commands run locally
+- any failed command that changed the final design
 - one note on what still remains outside the current scope

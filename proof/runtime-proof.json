@@ -8,25 +8,25 @@
     "http_ndjson",
     "web_html"
   ],
-  "created_at": "2026-07-04T21:39:30.705704+00:00",
+  "created_at": "2026-07-05T15:44:58.574554+00:00",
   "environment": "development",
-  "route_count": 105,
+  "route_count": 106,
   "service": "advanced-multimodal-ai",
   "store_counts": {
-    "async_jobs": 213,
+    "async_jobs": 218,
     "change_controls": 33,
-    "connector_runs": 514,
-    "dataset_catalog": 797,
+    "connector_runs": 519,
+    "dataset_catalog": 807,
     "drift_baselines": 8,
     "edge_packets": 5,
-    "execution_journal_runs": 212,
+    "execution_journal_runs": 235,
     "lifecycle_policies": 33,
-    "music_feature_runs": 83,
-    "music_manifests": 83,
+    "music_feature_runs": 88,
+    "music_manifests": 88,
     "ontology_snapshots": 130,
-    "pipeline_runs": 397,
-    "privacy_runs": 1,
-    "recipe_registry": 174,
+    "pipeline_runs": 402,
+    "privacy_runs": 2,
+    "recipe_registry": 179,
     "supply_chain_snapshots": 33
   },
   "supported_lanes": [
@@ -51,6 +51,7 @@
     "readiness_report",
     "research_surfaces",
     "repository_pulse",
+    "repository_file_map",
     "repository_growth",
     "execution_journal",
     "retrieval",
@@ -63,8 +64,8 @@
     "liability_surface",
     "bias_taxonomy"
   ],
-  "test_count": 63,
-  "verification_artifact_count": 17,
+  "test_count": 64,
+  "verification_artifact_count": 18,
   "verification_artifacts": [
     {
       "detail": "openapi/openapi.json",
@@ -99,6 +100,11 @@
     {
       "detail": "proof/repository-pulse.json",
       "name": "Repository pulse export",
+      "status": "present"
+    },
+    {
+      "detail": "proof/repository-file-map.json",
+      "name": "Repository file map export",
       "status": "present"
     },
     {
@@ -184,6 +190,10 @@
     {
       "command": "python3 scripts/export_repository_pulse.py",
       "label": "repository-pulse"
+    },
+    {
+      "command": "python3 scripts/export_repository_file_map.py",
+      "label": "repository-file-map"
     },
     {
       "command": "python3 scripts/export_repository_growth.py",

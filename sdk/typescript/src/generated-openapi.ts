@@ -327,6 +327,12 @@ export class GeneratedOpenAPIClient {
     return this.request<unknown>("GET", path);
   }
 
+  /** Repository File Map */
+  async repositoryFileMapV1RepositoryFileMapGet(): Promise<unknown> {
+    let path = `/v1/repository/file-map`;
+    return this.request<unknown>("GET", path);
+  }
+
   /** Repository Growth Snapshot */
   async repositoryGrowthSnapshotV1GrowthSnapshotGet(): Promise<unknown> {
     let path = `/v1/growth/snapshot`;

@@ -39,6 +39,10 @@ def build_runtime_attestation(
             REPO_ROOT / "proof" / "repository-pulse.json",
         ),
         _artifact(
+            "Repository file map export",
+            REPO_ROOT / "proof" / "repository-file-map.json",
+        ),
+        _artifact(
             "Repository growth export",
             REPO_ROOT / "proof" / "repository-growth.json",
         ),
@@ -108,6 +112,7 @@ def build_runtime_attestation(
             "readiness_report",
             "research_surfaces",
             "repository_pulse",
+            "repository_file_map",
             "repository_growth",
             "execution_journal",
             "retrieval",

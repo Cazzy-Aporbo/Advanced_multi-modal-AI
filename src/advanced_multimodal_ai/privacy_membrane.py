@@ -11,12 +11,14 @@ from .contracts import (
     PrivacyCategorySummary,
     PrivacyCorpusAuditRequest,
     PrivacyCorpusAuditResponse,
+    PrivacyDesignPrinciple,
     PrivacyDetectorKind,
     PrivacyDocumentAudit,
     PrivacyFinding,
     PrivacyReceipt,
     PrivacyRunRecord,
     PrivacySeverity,
+    PrivacySourceReference,
     PrivacyTaxonomyResponse,
     PrivacyTextRequest,
     PrivacyTextResponse,
@@ -45,6 +47,18 @@ LANGUAGE_HINTS: tuple[str, ...] = (
     "thai",
     "indonesian",
     "turkish",
+    "swedish",
+    "norwegian",
+    "danish",
+    "finnish",
+    "greek",
+    "hebrew",
+    "swahili",
+    "urdu",
+    "bengali",
+    "tamil",
+    "telugu",
+    "malay",
 )
 
 SEVERITY_WEIGHT: dict[PrivacySeverity, float] = {
@@ -86,6 +100,11 @@ def privacy_taxonomy() -> PrivacyTaxonomyResponse:
             description=item.description,
             detector_kinds=list(item.detector_kinds),
             language_notes=list(item.language_notes),
+            where_found=_where_found_for(item),
+            why_it_matters=_why_it_matters_for(item),
+            careful_handling=_careful_handling_for(item),
+            source_refs=_source_refs_for(item),
+            related_rights=_related_rights_for(item),
         )
         for item in CATEGORY_SPECS
     ]
@@ -97,6 +116,10 @@ def privacy_taxonomy() -> PrivacyTaxonomyResponse:
         + len(CONTEXT_LABELS),
         categories=categories,
         language_hints=list(LANGUAGE_HINTS),
+        family_counts=_family_counts(CATEGORY_SPECS),
+        severity_counts=_severity_counts(CATEGORY_SPECS),
+        source_references=list(PRIVACY_SOURCE_REFERENCES),
+        design_principles=list(PRIVACY_DESIGN_PRINCIPLES),
         boundary_notes=[
             (
                 "This lane performs local deterministic detection and masking. "
@@ -550,6 +573,18 @@ def _language_hints(
         hints.add("arabic")
     if re.search(r"[\u0900-\u097f]", text):
         hints.add("devanagari")
+    if re.search(r"[\u0370-\u03ff]", text):
+        hints.add("greek")
+    if re.search(r"[\u0590-\u05ff]", text):
+        hints.add("hebrew")
+    if re.search(r"[\u0980-\u09ff]", text):
+        hints.add("bengali")
+    if re.search(r"[\u0b80-\u0bff]", text):
+        hints.add("tamil")
+    if re.search(r"[\u0c00-\u0c7f]", text):
+        hints.add("telugu")
+    if re.search(r"[\u0e00-\u0e7f]", text):
+        hints.add("thai")
     return sorted(hints)
 
 
@@ -563,6 +598,20 @@ def _language_hints_for_span(value: str) -> list[str]:
         hints.append("chinese")
     if re.search(r"[\uac00-\ud7af]", value):
         hints.append("korean")
+    if re.search(r"[\u0600-\u06ff]", value):
+        hints.append("arabic")
+    if re.search(r"[\u0370-\u03ff]", value):
+        hints.append("greek")
+    if re.search(r"[\u0590-\u05ff]", value):
+        hints.append("hebrew")
+    if re.search(r"[\u0980-\u09ff]", value):
+        hints.append("bengali")
+    if re.search(r"[\u0b80-\u0bff]", value):
+        hints.append("tamil")
+    if re.search(r"[\u0c00-\u0c7f]", value):
+        hints.append("telugu")
+    if re.search(r"[\u0e00-\u0e7f]", value):
+        hints.append("thai")
     return hints
 
 
@@ -620,6 +669,448 @@ def _iban_valid(value: str) -> bool:
 def _vin_valid(value: str) -> bool:
     normalized = re.sub(r"[^A-HJ-NPR-Z0-9]", "", value.upper())
     return len(normalized) == 17
+
+
+PRIVACY_SOURCE_REFERENCES: tuple[PrivacySourceReference, ...] = (
+    PrivacySourceReference(
+        reference_id="gdpr-art-5",
+        title="GDPR Article 5: principles relating to processing of personal data",
+        url="https://gdpr-info.eu/art-5-gdpr/",
+        publisher="Intersoft Consulting GDPR reference",
+        use_note=(
+            "Used for minimization, purpose limitation, accuracy, storage limitation, "
+            "and integrity language."
+        ),
+    ),
+    PrivacySourceReference(
+        reference_id="gdpr-art-25",
+        title="GDPR Article 25: data protection by design and by default",
+        url="https://gdpr-info.eu/art-25-gdpr/",
+        publisher="Intersoft Consulting GDPR reference",
+        use_note="Used for privacy-by-design and default narrowing posture.",
+    ),
+    PrivacySourceReference(
+        reference_id="ccpa-cpra-rights",
+        title="California Consumer Privacy Act guidance",
+        url="https://oag.ca.gov/privacy/ccpa",
+        publisher="California Department of Justice",
+        use_note=(
+            "Used for access, deletion, correction, opt-out, and sensitive personal "
+            "information awareness."
+        ),
+    ),
+    PrivacySourceReference(
+        reference_id="nist-privacy-framework",
+        title="NIST Privacy Framework",
+        url="https://www.nist.gov/privacy-framework",
+        publisher="National Institute of Standards and Technology",
+        use_note="Used for privacy risk, governance, communication, and control mapping language.",
+    ),
+    PrivacySourceReference(
+        reference_id="hoepman-privacy-design",
+        title="Privacy Design Strategies",
+        url="https://www.cs.ru.nl/~jhh/publications/pdp.pdf",
+        publisher="Jaap-Henk Hoepman",
+        use_note=(
+            "Used for minimize, hide, separate, aggregate, inform, control, enforce, "
+            "and demonstrate strategies."
+        ),
+    ),
+    PrivacySourceReference(
+        reference_id="owasp-secrets-management",
+        title="Secrets Management Cheat Sheet",
+        url="https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+        publisher="OWASP Cheat Sheet Series",
+        use_note="Used for credential rotation and secret-handling notes.",
+    ),
+)
+
+PRIVACY_DESIGN_PRINCIPLES: tuple[PrivacyDesignPrinciple, ...] = (
+    PrivacyDesignPrinciple(
+        principle_id="minimize-first",
+        label="Keep the working set small",
+        source_refs=["gdpr-art-5", "hoepman-privacy-design"],
+        implementation_note=(
+            "The detector returns redacted text to the caller and persists receipts, "
+            "counts, and hashes rather than raw documents."
+        ),
+    ),
+    PrivacyDesignPrinciple(
+        principle_id="purpose-bound",
+        label="Carry a stated purpose",
+        source_refs=["gdpr-art-5", "nist-privacy-framework"],
+        implementation_note=(
+            "Every privacy run carries a purpose and tenant lane so review can ask "
+            "why the text was processed, not only whether a pattern matched."
+        ),
+    ),
+    PrivacyDesignPrinciple(
+        principle_id="local-before-network",
+        label="Inspect locally before transfer",
+        source_refs=["gdpr-art-25", "hoepman-privacy-design"],
+        implementation_note=(
+            "The membrane is deterministic Python code that can run before support, "
+            "clinical, or claims text leaves a controlled process."
+        ),
+    ),
+    PrivacyDesignPrinciple(
+        principle_id="receipt-without-replay",
+        label="Prove without repeating",
+        source_refs=["nist-privacy-framework", "hoepman-privacy-design"],
+        implementation_note=(
+            "Receipts hash the source, redacted output, and finding set so a run can "
+            "be checked later without storing the sensitive words."
+        ),
+    ),
+    PrivacyDesignPrinciple(
+        principle_id="rotate-live-secrets",
+        label="Treat exposed credentials as active incidents",
+        source_refs=["owasp-secrets-management"],
+        implementation_note=(
+            "Credential-shaped findings produce response notes that recommend rotation "
+            "when the sample came from a real system."
+        ),
+    ),
+)
+
+FAMILY_CONTEXT: dict[str, dict[str, object]] = {
+    "identity": {
+        "where": ["intake forms", "patient charts", "support tickets", "account recovery logs"],
+        "why": (
+            "Identity traces make separate records joinable. A harmless note can become "
+            "personal when it is paired with a date, location, or case detail."
+        ),
+        "handling": (
+            "Mask before transfer, keep only purpose-bound receipts, and review "
+            "small cohorts with care."
+        ),
+        "sources": ["gdpr-art-5", "gdpr-art-25", "ccpa-cpra-rights"],
+        "rights": ["access", "correction", "deletion", "purpose limitation"],
+    },
+    "contact": {
+        "where": [
+            "support queues",
+            "appointment reminders",
+            "CRM exports",
+            "emergency contact sheets",
+        ],
+        "why": (
+            "Contact fields create direct reachability and can expose families or "
+            "caretaking relationships."
+        ),
+        "handling": (
+            "Tokenize for joins, avoid public logs, and separate emergency contacts "
+            "from ordinary account text."
+        ),
+        "sources": ["gdpr-art-5", "ccpa-cpra-rights"],
+        "rights": ["access", "deletion", "limit use"],
+    },
+    "location": {
+        "where": ["delivery notes", "field service logs", "maps", "device telemetry"],
+        "why": "Precise place can reveal home, school, clinic, worksite, or travel patterns.",
+        "handling": (
+            "Prefer coarse regions unless a precise coordinate is necessary for the "
+            "stated purpose."
+        ),
+        "sources": ["gdpr-art-5", "gdpr-art-25", "nist-privacy-framework"],
+        "rights": ["minimization", "purpose limitation"],
+    },
+    "temporal": {
+        "where": ["clinical timelines", "shift reports", "transaction logs", "claims histories"],
+        "why": (
+            "Dates become identifying when they describe a rare event, birth record, "
+            "accident, or narrow cohort."
+        ),
+        "handling": (
+            "Generalize dates when exact timing is not needed and keep exact "
+            "timestamps out of public fixtures."
+        ),
+        "sources": ["gdpr-art-5", "hoepman-privacy-design"],
+        "rights": ["storage limitation", "data minimization"],
+    },
+    "financial": {
+        "where": ["billing exports", "refund requests", "claims packets", "vendor onboarding"],
+        "why": (
+            "Financial identifiers can enable fraud, account takeover, or unintended "
+            "payment linkage."
+        ),
+        "handling": (
+            "Use checksum-aware detection, mask immediately, and avoid preserving "
+            "original digit structure in logs."
+        ),
+        "sources": ["gdpr-art-25", "nist-privacy-framework"],
+        "rights": ["security safeguards", "deletion"],
+    },
+    "government": {
+        "where": [
+            "employment files",
+            "benefits systems",
+            "travel records",
+            "identity verification forms",
+        ],
+        "why": (
+            "Government identifiers are durable. Once copied widely, they are "
+            "difficult for a person to change."
+        ),
+        "handling": (
+            "Treat as critical, keep in the narrowest lane, and require explicit "
+            "purpose before processing."
+        ),
+        "sources": ["gdpr-art-5", "ccpa-cpra-rights", "nist-privacy-framework"],
+        "rights": ["access", "correction", "limit use"],
+    },
+    "healthcare": {
+        "where": ["clinical notes", "claims", "prior authorization packets", "lab portals"],
+        "why": "Health context can affect dignity, employment, insurance, and family privacy.",
+        "handling": (
+            "Mask before model review, preserve receipts for audit, and avoid "
+            "synthetic examples that resemble real patients."
+        ),
+        "sources": ["gdpr-art-5", "gdpr-art-25", "nist-privacy-framework"],
+        "rights": ["access", "correction", "purpose limitation"],
+    },
+    "biometric": {
+        "where": ["voice enrollment", "face templates", "wearable data", "genomic records"],
+        "why": (
+            "Biometric traces are intimate and hard to replace. They can identify "
+            "a person even when names are absent."
+        ),
+        "handling": (
+            "Do not treat embeddings as anonymous by default; version extractors "
+            "and keep derived traces scoped."
+        ),
+        "sources": ["gdpr-art-25", "nist-privacy-framework"],
+        "rights": ["sensitive data limitation", "deletion"],
+    },
+    "workforce": {
+        "where": ["HRIS exports", "safety reports", "field logs", "access control systems"],
+        "why": (
+            "Work records can expose performance, discipline, location, and "
+            "economic vulnerability."
+        ),
+        "handling": (
+            "Separate operational proof from personnel detail and review small-team "
+            "reports for reidentification risk."
+        ),
+        "sources": ["gdpr-art-5", "nist-privacy-framework"],
+        "rights": ["access", "correction", "purpose limitation"],
+    },
+    "education": {
+        "where": ["learning platforms", "admissions files", "advising notes", "attendance exports"],
+        "why": (
+            "Education records often concern minors or young adults and can follow "
+            "people for years."
+        ),
+        "handling": (
+            "Reduce cohort detail, guard school identity, and avoid examples that "
+            "point to a real classroom."
+        ),
+        "sources": ["gdpr-art-25", "ccpa-cpra-rights"],
+        "rights": ["access", "correction", "deletion"],
+    },
+    "legal": {
+        "where": ["case management systems", "investigations", "contracts", "dispute records"],
+        "why": (
+            "A case number can unlock a sensitive story even when the surrounding "
+            "text is modest."
+        ),
+        "handling": (
+            "Mask identifiers and keep legal matter traces out of general training "
+            "or demo fixtures."
+        ),
+        "sources": ["gdpr-art-5", "nist-privacy-framework"],
+        "rights": ["purpose limitation", "security safeguards"],
+    },
+    "operations": {
+        "where": ["support tickets", "call transcripts", "incident reports", "service desks"],
+        "why": (
+            "Operational tickets often mix identity, account state, secrets, and "
+            "emotional context in one place."
+        ),
+        "handling": (
+            "Run corpus audit before escalation and inspect category pressure "
+            "before sharing excerpts."
+        ),
+        "sources": ["nist-privacy-framework", "hoepman-privacy-design"],
+        "rights": ["access", "deletion", "limit use"],
+    },
+    "commerce": {
+        "where": ["orders", "invoices", "returns", "marketplace messages"],
+        "why": (
+            "Commerce IDs can connect a person to purchase habits, household needs, "
+            "or location."
+        ),
+        "handling": (
+            "Use stable replacements when joins are needed and avoid sending raw "
+            "order text to broad tools."
+        ),
+        "sources": ["gdpr-art-5", "ccpa-cpra-rights"],
+        "rights": ["access", "deletion"],
+    },
+    "network": {
+        "where": ["server logs", "fraud systems", "analytics events", "security telemetry"],
+        "why": (
+            "Network identifiers can become personal when tied to accounts, "
+            "locations, or device history."
+        ),
+        "handling": (
+            "Keep raw logs short-lived, aggregate when possible, and separate "
+            "security need from product curiosity."
+        ),
+        "sources": ["gdpr-art-5", "nist-privacy-framework"],
+        "rights": ["storage limitation", "purpose limitation"],
+    },
+    "device": {
+        "where": ["mobile telemetry", "MDM exports", "IoT logs", "subscriber records"],
+        "why": "Device identifiers can track a person across apps, homes, networks, and time.",
+        "handling": (
+            "Rotate or hash where possible and avoid mixing device traces with "
+            "demographic labels."
+        ),
+        "sources": ["gdpr-art-25", "nist-privacy-framework"],
+        "rights": ["limit use", "deletion"],
+    },
+    "industrial": {
+        "where": [
+            "fleet diagnostics",
+            "repair tickets",
+            "asset registries",
+            "field service images",
+        ],
+        "why": "Machine IDs can reveal owner, site, operator, and business activity.",
+        "handling": (
+            "Treat asset identity as commercially sensitive and mask it before "
+            "public examples."
+        ),
+        "sources": ["nist-privacy-framework", "hoepman-privacy-design"],
+        "rights": ["confidentiality", "purpose limitation"],
+    },
+    "credential": {
+        "where": ["logs", "screenshots", "stack traces", "CI output", "chat transcripts"],
+        "why": "A secret is not only private; it may still be live authority.",
+        "handling": (
+            "Block transmission, rotate the credential, and preserve only leak-safe "
+            "forensic hashes."
+        ),
+        "sources": ["owasp-secrets-management", "nist-privacy-framework"],
+        "rights": ["security safeguards"],
+    },
+    "online": {
+        "where": ["profiles", "social links", "creator metadata", "community moderation queues"],
+        "why": "Online handles can reconnect a private workstream to a public life.",
+        "handling": (
+            "Mask when a handle is not needed and avoid stitching profile URLs into "
+            "unrelated datasets."
+        ),
+        "sources": ["ccpa-cpra-rights", "gdpr-art-5"],
+        "rights": ["deletion", "opt-out"],
+    },
+    "sensitive_attribute": {
+        "where": ["intake surveys", "benefits forms", "case notes", "eligibility reviews"],
+        "why": "Sensitive attributes can create unfair treatment even when no name is present.",
+        "handling": (
+            "Use only for the stated protective purpose and inspect small groups "
+            "for exposure."
+        ),
+        "sources": ["gdpr-art-5", "gdpr-art-25", "ccpa-cpra-rights"],
+        "rights": ["limit use", "correction", "purpose limitation"],
+    },
+}
+
+CATEGORY_CONTEXT_OVERRIDES: dict[str, dict[str, object]] = {
+    "minor_status": {
+        "why": (
+            "A child indicator changes the duty of care. It should make review "
+            "slower, not more theatrical."
+        ),
+        "handling": (
+            "Keep examples synthetic, minimize all companion fields, and require "
+            "an explicit safety purpose."
+        ),
+    },
+    "emergency_contact": {
+        "why": (
+            "This field describes another person who may not be the primary user "
+            "and may not know the record exists."
+        ),
+        "handling": (
+            "Separate from ordinary account data and avoid using it for model "
+            "training or broad analytics."
+        ),
+    },
+    "next_of_kin": {
+        "why": "Kinship data can expose family structure, dependency, and grief context.",
+        "handling": (
+            "Mask before review and keep only the narrow evidence required for the "
+            "service purpose."
+        ),
+    },
+    "diagnosis_context": {
+        "why": (
+            "A diagnosis can become identifying when paired with timing, geography, "
+            "employer, or rare symptoms."
+        ),
+        "handling": (
+            "Prefer clinical codes or generalized notes when exact phrasing is not "
+            "required."
+        ),
+    },
+    "url_secret": {
+        "why": (
+            "A link can carry authority inside the query string, even when the "
+            "visible page looks ordinary."
+        ),
+        "handling": (
+            "Strip the secret parameter, rotate the backing credential when live, "
+            "and never log the full URL."
+        ),
+    },
+}
+
+
+def _family_counts(items: tuple[CategorySpec, ...]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for item in items:
+        counts[item.family] = counts.get(item.family, 0) + 1
+    return dict(sorted(counts.items()))
+
+
+def _severity_counts(items: tuple[CategorySpec, ...]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for item in items:
+        counts[item.severity] = counts.get(item.severity, 0) + 1
+    return dict(sorted(counts.items()))
+
+
+def _category_context(spec: CategorySpec) -> dict[str, object]:
+    family_context = dict(FAMILY_CONTEXT.get(spec.family, {}))
+    family_context.update(CATEGORY_CONTEXT_OVERRIDES.get(spec.category_id, {}))
+    return family_context
+
+
+def _where_found_for(spec: CategorySpec) -> list[str]:
+    return list(_category_context(spec).get("where", []))
+
+
+def _why_it_matters_for(spec: CategorySpec) -> str:
+    return str(_category_context(spec).get("why", spec.description))
+
+
+def _careful_handling_for(spec: CategorySpec) -> str:
+    return str(
+        _category_context(spec).get(
+            "handling",
+            "Mask before transfer, retain only the evidence needed, and review the stated purpose.",
+        )
+    )
+
+
+def _source_refs_for(spec: CategorySpec) -> list[str]:
+    return list(_category_context(spec).get("sources", ["nist-privacy-framework"]))
+
+
+def _related_rights_for(spec: CategorySpec) -> list[str]:
+    return list(_category_context(spec).get("rights", ["access", "deletion"]))
 
 
 CATEGORY_SPECS: tuple[CategorySpec, ...] = (
@@ -1357,33 +1848,65 @@ DETECTOR_RULES: tuple[DetectorRule, ...] = (
 CONTEXT_LABELS: tuple[tuple[str, str, tuple[str, ...]], ...] = (
     ("name", "person_name", ("english",)),
     ("full name", "person_name", ("english",)),
+    ("complete name", "person_name", ("english",)),
     ("pangalan", "person_name", ("filipino",)),
     ("nombre", "person_name", ("spanish",)),
+    ("nombre completo", "person_name", ("spanish",)),
     ("nom", "person_name", ("french",)),
+    ("nom complet", "person_name", ("french",)),
     ("nome", "person_name", ("italian", "portuguese")),
     ("naam", "person_name", ("dutch",)),
+    ("name", "person_name", ("german", "english")),
+    ("vollstaendiger name", "person_name", ("german",)),
+    ("navn", "person_name", ("danish", "norwegian")),
+    ("namn", "person_name", ("swedish",)),
+    ("nimi", "person_name", ("finnish",)),
     ("imya", "person_name", ("russian",)),
     ("namae", "person_name", ("japanese",)),
     ("ireum", "person_name", ("korean",)),
     ("address", "street_address", ("english",)),
     ("direccion", "street_address", ("spanish",)),
     ("adresse", "street_address", ("french", "german")),
+    ("endereco", "street_address", ("portuguese",)),
+    ("indirizzo", "street_address", ("italian",)),
+    ("adres", "street_address", ("dutch", "polish")),
+    ("osoite", "street_address", ("finnish",)),
     ("tirahan", "street_address", ("filipino",)),
+    ("email", "email_address", ("english",)),
+    ("e-mail", "email_address", ("english", "german", "dutch")),
+    ("correo", "email_address", ("spanish",)),
+    ("correo electronico", "email_address", ("spanish",)),
+    ("courriel", "email_address", ("french",)),
     ("dob", "date_of_birth", ("english",)),
     ("date of birth", "date_of_birth", ("english",)),
     ("birthdate", "date_of_birth", ("english",)),
+    ("fecha de nacimiento", "date_of_birth", ("spanish",)),
+    ("date de naissance", "date_of_birth", ("french",)),
+    ("geburtsdatum", "date_of_birth", ("german",)),
     ("edad", "age", ("spanish",)),
+    ("idade", "age", ("portuguese",)),
+    ("eta", "age", ("italian",)),
     ("age", "age", ("english",)),
     ("phone", "phone_number", ("english",)),
     ("telefono", "phone_number", ("spanish", "italian")),
+    ("telefone", "phone_number", ("portuguese", "german")),
+    ("telefon", "phone_number", ("german", "polish", "turkish")),
+    ("telephone", "phone_number", ("english", "french")),
     ("mobile", "phone_number", ("english",)),
     ("postal code", "postal_code", ("english",)),
     ("zip", "postal_code", ("english",)),
+    ("postcode", "postal_code", ("english", "dutch")),
+    ("codigo postal", "postal_code", ("spanish", "portuguese")),
     ("account", "bank_account", ("english",)),
     ("bank account", "bank_account", ("english",)),
+    ("iban", "iban", ("english", "german", "french", "spanish", "italian")),
     ("national id", "national_id", ("english",)),
+    ("documento nacional", "national_id", ("spanish",)),
     ("passport", "passport_number", ("english",)),
+    ("pasaporte", "passport_number", ("spanish",)),
+    ("passeport", "passport_number", ("french",)),
     ("driver license", "drivers_license", ("english",)),
+    ("licencia", "drivers_license", ("spanish",)),
     ("tax id", "tax_id", ("english",)),
     ("mrn", "medical_record_number", ("english",)),
     ("patient id", "medical_record_number", ("english",)),

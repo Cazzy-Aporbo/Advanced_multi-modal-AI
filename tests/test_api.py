@@ -808,6 +808,37 @@ def test_repository_pulse_tracks_lane_health_and_artifacts():
     assert any(item["lane_id"] == "benchmark_lane" for item in payload["lanes"])
 
 
+def test_repository_file_map_explains_file_connections_and_io():
+    response = client.get("/v1/repository/file-map")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["file_count"] >= 40
+    assert payload["edge_count"] >= 20
+    assert payload["active_python_files"] >= 20
+    assert payload["language_counts"]["Python"] >= 20
+    assert "runtime composition" in payload["lane_counts"]
+    assert payload["top_connected"]
+
+    nodes = {item["path"]: item for item in payload["nodes"]}
+    assert "src/advanced_multimodal_ai/api.py" in nodes
+    assert "src/advanced_multimodal_ai/service.py" in nodes
+    assert "scripts/export_repository_file_map.py" in nodes
+
+    api_node = nodes["src/advanced_multimodal_ai/api.py"]
+    service_node = nodes["src/advanced_multimodal_ai/service.py"]
+    export_node = nodes["scripts/export_repository_file_map.py"]
+    assert api_node["route_count"] >= 40
+    assert service_node["connects_to"]
+    assert "validated HTTP request bodies" in api_node["inputs"]
+    assert "typed API responses" in api_node["outputs"]
+    assert any("proof artifacts" in output for output in export_node["outputs"])
+    assert any(
+        edge["source"] == "src/advanced_multimodal_ai/service.py"
+        and edge["target"] == "src/advanced_multimodal_ai/repository_file_map.py"
+        for edge in payload["edges"]
+    )
+
+
 def test_repository_growth_snapshot_stays_grounded_in_live_repo_signals():
     response = client.get("/v1/growth/snapshot")
     assert response.status_code == 200
@@ -1559,11 +1590,24 @@ def test_privacy_taxonomy_surfaces_multilingual_deterministic_membrane():
     response = client.get("/v1/privacy/taxonomy")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["category_count"] >= 54
-    assert payload["language_count"] >= 16
+    assert payload["category_count"] == 63
+    assert payload["language_count"] >= 32
     assert payload["deterministic_category_count"] >= 30
     category_ids = {item["category_id"] for item in payload["categories"]}
     assert {"email_address", "credit_card", "medical_record_number", "private_key"} <= category_ids
+    families = payload["family_counts"]
+    assert families["credential"] >= 7
+    assert families["healthcare"] >= 4
+    assert payload["severity_counts"]["critical"] >= 20
+    assert len(payload["source_references"]) >= 5
+    assert len(payload["design_principles"]) >= 5
+    assert all(item["where_found"] for item in payload["categories"])
+    assert all(item["why_it_matters"] for item in payload["categories"])
+    assert all(item["careful_handling"] for item in payload["categories"])
+    assert any(
+        item["principle_id"] == "receipt-without-replay"
+        for item in payload["design_principles"]
+    )
     assert any(
         "does not claim trained-token classification" in note for note in payload["boundary_notes"]
     )

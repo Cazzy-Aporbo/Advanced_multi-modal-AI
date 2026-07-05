@@ -49,6 +49,7 @@ from .contracts import (
     PrivacyTextResponse,
     RecipeCompileRequest,
     ReferenceBenchmarkRequest,
+    RepositoryFileMap,
     RepositoryGrowthSnapshot,
     ResearchInfluenceBundle,
     RetrievalQueryRequest,
@@ -276,6 +277,10 @@ def create_app() -> FastAPI:
     @app.get("/v1/repository/pulse")
     def repository_pulse():
         return service.repository_pulse(route_count=_runtime_route_count(app))
+
+    @app.get("/v1/repository/file-map")
+    def repository_file_map() -> RepositoryFileMap:
+        return service.repository_file_map()
 
     @app.get("/v1/growth/snapshot")
     def repository_growth_snapshot() -> RepositoryGrowthSnapshot:

@@ -640,6 +640,49 @@ class RepositoryPulse(BaseModel):
     generated_at: str = Field(default_factory=utc_now)
 
 
+class RepositoryFileNode(BaseModel):
+    path: str
+    label: str
+    language: str
+    lane: str
+    status: Literal["active", "frontend", "proof", "test", "supporting"]
+    purpose: str
+    inputs: List[str] = Field(default_factory=list)
+    outputs: List[str] = Field(default_factory=list)
+    connects_to: List[str] = Field(default_factory=list)
+    imported_by: List[str] = Field(default_factory=list)
+    evidence: List[str] = Field(default_factory=list)
+    line_count: int = Field(default=0, ge=0)
+    byte_count: int = Field(default=0, ge=0)
+    route_count: int = Field(default=0, ge=0)
+    test_count: int = Field(default=0, ge=0)
+    complexity_score: int = Field(default=0, ge=0, le=100)
+    modified_at: Optional[str] = None
+
+
+class RepositoryFileEdge(BaseModel):
+    source: str
+    target: str
+    relation: Literal["imports", "renders", "exports", "tests", "reads", "documents"]
+    weight: float = Field(default=1.0, ge=0.0)
+
+
+class RepositoryFileMap(BaseModel):
+    service: str
+    version: str
+    file_count: int = Field(default=0, ge=0)
+    edge_count: int = Field(default=0, ge=0)
+    active_python_files: int = Field(default=0, ge=0)
+    frontend_files: int = Field(default=0, ge=0)
+    proof_files: int = Field(default=0, ge=0)
+    lane_counts: Dict[str, int] = Field(default_factory=dict)
+    language_counts: Dict[str, int] = Field(default_factory=dict)
+    nodes: List[RepositoryFileNode] = Field(default_factory=list)
+    edges: List[RepositoryFileEdge] = Field(default_factory=list)
+    top_connected: List[RepositoryFileNode] = Field(default_factory=list)
+    generated_at: str = Field(default_factory=utc_now)
+
+
 class RepositoryGrowthSnapshot(BaseModel):
     repository: str
     repository_url: str
@@ -832,6 +875,21 @@ PrivacyDetectorKind = Literal["pattern", "checksum", "context_label", "script_si
 PrivacySeverity = Literal["low", "medium", "high", "critical"]
 
 
+class PrivacySourceReference(BaseModel):
+    reference_id: str
+    title: str
+    url: str
+    publisher: str
+    use_note: str = ""
+
+
+class PrivacyDesignPrinciple(BaseModel):
+    principle_id: str
+    label: str
+    source_refs: List[str] = Field(default_factory=list)
+    implementation_note: str
+
+
 class PrivacyCategory(BaseModel):
     category_id: str
     label: str
@@ -840,6 +898,11 @@ class PrivacyCategory(BaseModel):
     description: str
     detector_kinds: List[PrivacyDetectorKind] = Field(default_factory=list)
     language_notes: List[str] = Field(default_factory=list)
+    where_found: List[str] = Field(default_factory=list)
+    why_it_matters: str = ""
+    careful_handling: str = ""
+    source_refs: List[str] = Field(default_factory=list)
+    related_rights: List[str] = Field(default_factory=list)
     examples_are_synthetic: bool = True
 
 
@@ -972,6 +1035,10 @@ class PrivacyTaxonomyResponse(BaseModel):
     deterministic_category_count: int = Field(ge=0)
     categories: List[PrivacyCategory] = Field(default_factory=list)
     language_hints: List[str] = Field(default_factory=list)
+    family_counts: Dict[str, int] = Field(default_factory=dict)
+    severity_counts: Dict[str, int] = Field(default_factory=dict)
+    source_references: List[PrivacySourceReference] = Field(default_factory=list)
+    design_principles: List[PrivacyDesignPrinciple] = Field(default_factory=list)
     boundary_notes: List[str] = Field(default_factory=list)
 
 

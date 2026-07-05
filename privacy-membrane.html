@@ -232,6 +232,151 @@
     .chip.critical { border-color: rgba(230,173,191,0.38); background: rgba(230,173,191,0.12); }
     .chip.high { border-color: rgba(227,162,100,0.38); background: rgba(227,162,100,0.1); }
     .chip.medium { border-color: rgba(143,211,198,0.34); background: rgba(143,211,198,0.1); }
+    .soft-note {
+      color: var(--muted);
+      max-width: 72ch;
+    }
+    .tab-rail, .pager, .language-rail {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 6px 2px 12px;
+      scroll-snap-type: x proximity;
+    }
+    .tab-button, .pager button {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255,255,255,0.045);
+      padding: 10px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+    .tab-button:hover, .pager button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(143,211,198,0.42);
+      background: rgba(143,211,198,0.1);
+    }
+    .tab-button.active {
+      border-color: rgba(230,173,191,0.56);
+      background: linear-gradient(135deg, rgba(230,173,191,0.2), rgba(143,211,198,0.14));
+      box-shadow: 0 0 24px rgba(230,173,191,0.12);
+    }
+    .category-card {
+      min-height: 320px;
+    }
+    .category-card h3 {
+      background: linear-gradient(120deg, #f5d8e2, #a8ece0 54%, #f1b875);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .micro-list {
+      display: grid;
+      gap: 7px;
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .micro-list li::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--jade), var(--rose));
+      box-shadow: 0 0 14px rgba(143,211,198,0.38);
+    }
+    .pager {
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+    .pager span {
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+    .privacy-map {
+      min-height: 360px;
+      border-radius: 34px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(143,211,198,0.14), transparent 24%),
+        radial-gradient(circle at 82% 72%, rgba(230,173,191,0.14), transparent 28%),
+        linear-gradient(140deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+      position: relative;
+      overflow: hidden;
+      margin-top: 18px;
+    }
+    .privacy-map::before {
+      content: "";
+      position: absolute;
+      inset: 30px;
+      border: 1px dashed rgba(255,255,255,0.1);
+      border-radius: 999px;
+      animation: mapTurn 24s linear infinite;
+    }
+    .privacy-orb {
+      position: absolute;
+      width: var(--size, 76px);
+      height: var(--size, 76px);
+      left: var(--x, 50%);
+      top: var(--y, 50%);
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border-radius: 999px;
+      padding: 12px;
+      color: var(--text);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.26), transparent 30%),
+        linear-gradient(145deg, rgba(143,211,198,0.26), rgba(230,173,191,0.18), rgba(227,162,100,0.18));
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.32), 0 0 34px rgba(143,211,198,0.14);
+      animation: orbFloat var(--speed, 8s) ease-in-out infinite alternate;
+    }
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .source-card a {
+      color: var(--jade);
+      text-decoration: none;
+    }
+    .principle-card {
+      min-height: 190px;
+    }
+    .language-chip {
+      min-width: max-content;
+      border-radius: 999px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: linear-gradient(135deg, rgba(149,191,240,0.11), rgba(230,173,191,0.08));
+      color: var(--text);
+    }
+    @keyframes mapTurn {
+      from { transform: rotate(0deg) scale(1); }
+      to { transform: rotate(360deg) scale(1.02); }
+    }
+    @keyframes orbFloat {
+      from { margin-top: -8px; filter: saturate(0.95); }
+      to { margin-top: 8px; filter: saturate(1.3); }
+    }
     .flow {
       display: grid;
       grid-template-columns: repeat(5, minmax(150px, 1fr));
@@ -293,9 +438,12 @@
       .nav a { white-space: nowrap; }
       .hero { grid-template-columns: 1fr; }
       h1 { font-size: clamp(3rem, 18vw, 5.1rem); max-width: 8ch; }
-      .stat-grid, .cards { grid-template-columns: 1fr; }
+      .stat-grid, .cards, .source-grid { grid-template-columns: 1fr; }
       .panel { border-radius: 28px; padding: 22px; }
       .receipt-row { grid-template-columns: 1fr; }
+      .category-card { min-height: auto; }
+      .privacy-map { min-height: 520px; }
+      .privacy-orb { width: calc(var(--size, 76px) * 0.86); height: calc(var(--size, 76px) * 0.86); }
     }
   </style>
 </head>
@@ -344,6 +492,10 @@
     <section class="section panel">
       <div class="label">How the lane moves</div>
       <h2>Read, decide, mask, prove, forget.</h2>
+      <p class="soft-note">
+        The point is not to make people afraid of data. It is to notice which
+        traces ask for gentler handling before they are copied into another room.
+      </p>
       <div class="flow" aria-label="Privacy membrane flow">
         <div class="flow-node"><div class="label">01</div><h3>Read locally</h3><p>Text enters the detector in process. No raw document is written to the run store.</p><div class="bar" style="--w: 28%"><span></span></div></div>
         <div class="flow-node"><div class="label">02</div><h3>Find structure</h3><p>Checksums, patterns, and explicit labels catch high-signal personal data.</p><div class="bar" style="--w: 46%"><span></span></div></div>
@@ -351,6 +503,17 @@
         <div class="flow-node"><div class="label">04</div><h3>Receipt the change</h3><p>Hashes describe source, output, and finding set without repeating the private content.</p><div class="bar" style="--w: 82%"><span></span></div></div>
         <div class="flow-node"><div class="label">05</div><h3>Keep less</h3><p>The persisted run keeps counts and receipts. The sensitive words leave with the caller.</p><div class="bar" style="--w: 94%"><span></span></div></div>
       </div>
+    </section>
+
+    <section class="section panel">
+      <div class="label">Language and place</div>
+      <h2>Privacy starts before translation feels easy.</h2>
+      <p class="soft-note">
+        The detector names language and script hints so review does not quietly
+        treat English forms as the only serious case.
+      </p>
+      <div class="language-rail" id="language-rail" aria-label="Language hints"></div>
+      <div class="privacy-map" id="category-map" aria-label="Privacy category family map"></div>
     </section>
 
     <section class="section">
@@ -367,8 +530,34 @@
 
     <section class="section">
       <div class="label">Taxonomy excerpt</div>
-      <h2>Not everything is the same kind of private.</h2>
+      <h2>Sixty-three traces, arranged for careful reading.</h2>
+      <p class="soft-note">
+        Choose a family, move page by page, and look for the ordinary places
+        where private details tend to slip into workflows.
+      </p>
+      <div class="tab-rail" id="category-tabs" aria-label="Privacy category family tabs"></div>
       <div class="cards" id="taxonomy-cards"></div>
+      <div class="pager" aria-label="Privacy category pagination">
+        <button type="button" id="prev-category-page">previous</button>
+        <span id="category-page-status">page --</span>
+        <button type="button" id="next-category-page">next</button>
+      </div>
+    </section>
+
+    <section class="section panel">
+      <div class="label">Design standard</div>
+      <h2>The rule is simple: keep less, explain enough.</h2>
+      <div class="cards" id="principle-cards"></div>
+    </section>
+
+    <section class="section">
+      <div class="label">Sources</div>
+      <h2>References used for the privacy posture</h2>
+      <p class="soft-note">
+        These are source anchors for the design posture. The code still has to
+        prove its own behavior through tests, receipts, and generated contracts.
+      </p>
+      <div class="source-grid" id="source-cards"></div>
     </section>
 
     <footer class="footer">

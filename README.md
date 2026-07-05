@@ -34,6 +34,26 @@
 
 <table>
   <tr>
+    <td width="33%" valign="top" bgcolor="#211825">
+      <font color="#f8edf5"><strong>Read the anatomy</strong><br/>
+      <sub>File purpose, inputs, outputs, evidence, and connection edges.</sub></font><br/><br/>
+      <a href="./proof/repository-file-map.md">repository file map</a>
+    </td>
+    <td width="33%" valign="top" bgcolor="#172327">
+      <font color="#eef9f7"><strong>Repeat the proof</strong><br/>
+      <sub>Routes, tests, stores, commands, artifacts, SDKs, and generated reports.</sub></font><br/><br/>
+      <a href="./proof/runtime-proof.md">runtime proof</a>
+    </td>
+    <td width="33%" valign="top" bgcolor="#281f16">
+      <font color="#fff3e7"><strong>Keep the learning visible</strong><br/>
+      <sub>Pass/fail notes, reference criteria, and review discipline.</sub></font><br/><br/>
+      <a href="./docs/engineering-journal.md">engineering journal</a>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
     <td width="20%" valign="top"><strong>Runtime</strong><br/>FastAPI contracts, persistence, replay, inference, retrieval, jobs.</td>
     <td width="20%" valign="top"><strong>Signals</strong><br/>Audio features, tensor profiles, temporal windows, cross-modal alignment.</td>
     <td width="20%" valign="top"><strong>Proof</strong><br/>OpenAPI, readiness, benchmark, execution journal, generated bundles.</td>
@@ -58,10 +78,13 @@
       <strong>Start from evidence</strong><br/>
       <sub>Read the generated proof bundle before reading the claims.</sub><br/><br/>
       <a href="./proof/runtime-proof.md">Runtime proof</a> ·
-      <a href="./proof/readiness-report.md">Readiness</a>
+      <a href="./proof/readiness-report.md">Readiness</a> ·
+      <a href="./proof/repository-file-map.md">File map</a>
     </td>
   </tr>
 </table>
+
+---
 
 ## Surfaces
 
@@ -69,7 +92,7 @@
   <tr>
     <td width="25%" valign="top">
       <strong>Signal Atlas</strong><br/>
-      <sub>Front door for the repo.</sub><br/>
+      <sub>Runtime pulse, proof atoms, file atlas, and public route map.</sub><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html">open</a>
     </td>
     <td width="25%" valign="top">
@@ -79,7 +102,7 @@
     </td>
     <td width="25%" valign="top">
       <strong>Catalog</strong><br/>
-      <sub>Files, models, generated clients.</sub><br/>
+      <sub>Files, models, generated clients, and file-map evidence.</sub><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html">open</a>
     </td>
     <td width="25%" valign="top">
@@ -103,6 +126,11 @@
       <strong>Privacy Membrane</strong><br/>
       <sub>Local de-identification and receipt proof.</sub><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/privacy-membrane.html">open</a>
+    </td>
+    <td width="25%" valign="top">
+      <strong>File Map</strong><br/>
+      <sub>Purpose, inputs, outputs, imports, tests, and generated proof links.</sub><br/>
+      <a href="./proof/repository-file-map.md">open</a>
     </td>
   </tr>
   <tr>
@@ -203,7 +231,7 @@ connector or request
 | Video | `/v1/video/packet`, `/v1/video/clean`, `/v1/jobs/video-clean` |
 | Governance and stewardship | `/v1/stewardship/*`, `/v1/ontology/*`, `/v1/bias/*`, `/v1/privacy/*`, `/v1/edge/*` |
 | Industrial diagnostics | `/v1/industrial/scenarios`, `/v1/industrial/diagnose`, `/v1/industrial/model-check` |
-| Proof and public research | `/v1/proof/bundle`, `/v1/research/*`, `/v1/operators/*`, `/v1/industries/profiles`, `/v1/repository/pulse`, `/v1/growth/snapshot` |
+| Proof and public research | `/v1/proof/bundle`, `/v1/research/*`, `/v1/operators/*`, `/v1/industries/profiles`, `/v1/repository/pulse`, `/v1/repository/file-map`, `/v1/growth/snapshot` |
 
 </details>
 
@@ -346,6 +374,7 @@ Advanced_multi-modal-AI/
 | `privacy_membrane.py`, `privacy_store.py` | detect high-signal PII locally, mask it, and persist receipt-only audit records |
 | `industrial_diagnostics/` | diagnose machine faults, evaluate compliance posture, produce graph and audit proof |
 | `attestation.py`, `proof.py`, `readiness.py`, `execution_journal.py` | export what exists, what ran, and what still needs coverage |
+| `repository_file_map.py`, `repository_pulse.py` | explain how files connect, what each file receives, and what evidence reads it |
 
 </details>
 
@@ -361,6 +390,7 @@ Advanced_multi-modal-AI/
 | `proof/privacy-membrane.md` | privacy taxonomy, sample receipt, and non-persistence proof |
 | `proof/industrial-diagnostics.md` | industrial scenario, proof tree, audit chain, compliance findings |
 | `proof/industry-profiles.md` | domain transfer routes and proof surfaces |
+| `proof/repository-file-map.md` | file purpose, input/output, import, route, test, and evidence map |
 | `proof/repository-growth.md` | repo health, contribution, proof freshness, and publishing signals |
 | `proof/execution-journal.md` | export and verification history |
 

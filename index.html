@@ -1214,6 +1214,131 @@
       font-size: 0.9rem;
     }
 
+    .proof-orbit {
+      position: relative;
+      min-height: 292px;
+      margin-top: 18px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(159, 224, 212, 0.16), transparent 18%),
+        radial-gradient(circle at 20% 28%, rgba(215, 169, 184, 0.14), transparent 26%),
+        radial-gradient(circle at 80% 72%, rgba(223, 156, 95, 0.12), transparent 30%),
+        rgba(255,255,255,0.025);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .proof-orbit::before,
+    .proof-orbit::after {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      animation: proofOrbitSpin 22s linear infinite;
+      pointer-events: none;
+    }
+
+    .proof-orbit::after {
+      inset: 66px;
+      border-color: rgba(159, 224, 212, 0.13);
+      animation-duration: 16s;
+      animation-direction: reverse;
+    }
+
+    .proof-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 96px;
+      height: 96px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px;
+      color: #171018;
+      font-weight: 900;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #fff3df, #ffc4d9, #9fe0d4);
+      box-shadow:
+        0 0 0 12px rgba(255,255,255,0.035),
+        0 0 46px rgba(159, 224, 212, 0.26);
+      z-index: 2;
+    }
+
+    .proof-atom {
+      --atom-x: 50%;
+      --atom-y: 50%;
+      --atom-size: 74px;
+      position: absolute;
+      left: var(--atom-x);
+      top: var(--atom-y);
+      width: var(--atom-size);
+      height: var(--atom-size);
+      transform: translate(-50%, -50%);
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background:
+        radial-gradient(circle at 34% 24%, rgba(255,255,255,0.28), transparent 34%),
+        var(--heading-ombre-active);
+      color: #171018;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      text-align: center;
+      font: inherit;
+      font-size: 0.68rem;
+      font-weight: 900;
+      line-height: 1.02;
+      box-shadow:
+        0 14px 42px rgba(0,0,0,0.24),
+        0 0 28px rgba(255, 196, 217, 0.2);
+      animation: proofAtomFloat 6.5s ease-in-out infinite;
+      z-index: 3;
+    }
+
+    .proof-atom:nth-child(2n) {
+      --heading-ombre-active: var(--ombre-cool);
+      animation-delay: 0.8s;
+    }
+
+    .proof-atom:nth-child(3n) {
+      --heading-ombre-active: var(--ombre-vivid);
+      animation-delay: 1.6s;
+    }
+
+    .proof-atom.active,
+    .proof-atom:hover,
+    .proof-atom:focus-visible {
+      outline: none;
+      border-color: rgba(255,255,255,0.48);
+      box-shadow:
+        0 16px 46px rgba(0,0,0,0.28),
+        0 0 42px rgba(159, 224, 212, 0.34);
+    }
+
+    .proof-atom small {
+      display: block;
+      color: rgba(23, 16, 24, 0.72);
+      font-size: 0.58rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    @keyframes proofOrbitSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes proofAtomFloat {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0) scale(1); }
+      50% { transform: translate(-50%, -50%) translateY(-7px) scale(1.025); }
+    }
+
     .proof-stage h3 {
       font-size: 1.8rem;
       margin-bottom: 10px;
@@ -1285,8 +1410,11 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
+      border: 0;
+      padding: 0;
       background: rgba(255,255,255,0.16);
       transition: transform 160ms ease, background 160ms ease;
+      cursor: pointer;
     }
 
     .proof-dot.active {
@@ -2012,6 +2140,46 @@
       </div>
     </section>
 
+    <section class="section" id="file-atlas">
+      <div class="section-panel file-atlas-shell">
+        <div class="section-label">File atlas</div>
+        <h2>Each file has a role, an input surface, and a traceable place in the system</h2>
+        <p class="map-note">
+          This view is generated from imports, rendered assets, proof exports, route definitions,
+          and tests. Select a file to see what it receives, what it produces, and where it is read next.
+        </p>
+        <div class="file-atlas-summary" id="file-atlas-summary">
+          <article class="runtime-pulse-card">
+            <div class="section-label">Loading</div>
+            <h3>Mapping files</h3>
+            <p>The atlas is reading the generated file map.</p>
+          </article>
+        </div>
+        <div class="file-atlas-stage">
+          <div class="file-constellation" id="file-atlas-graph" aria-label="Repository file graph">
+            <div class="file-orbit-placeholder">Preparing the connected file field.</div>
+          </div>
+          <article class="file-atlas-detail" id="file-atlas-detail">
+            <div class="section-label">Select a file</div>
+            <h3>Inputs, outputs, and evidence will appear here</h3>
+            <p>Choose a node or card to inspect why the file exists and what it touches.</p>
+          </article>
+        </div>
+        <div class="file-atlas-rail" id="file-atlas-rail">
+          <article class="file-atlas-card">
+            <div class="section-label">Loading</div>
+            <h3>Waiting for file cards</h3>
+            <p>The generated file map will populate this rail.</p>
+          </article>
+        </div>
+        <div class="hero-actions" style="margin-top:18px;">
+          <a class="pill" href="proof/repository-file-map.md">Open the file map report</a>
+          <a class="pill" href="proof/repository-file-map.json">Open the file map JSON</a>
+          <a class="pill" href="technical-portfolio.html">Browse the component catalog</a>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="repository-growth">
       <div class="section-panel">
         <div class="section-label">Repository signals</div>
@@ -2214,6 +2382,9 @@
             <div class="section-label">Proof monitor</div>
             <div class="proof-clock" id="live-clock-panel">--:--:--</div>
             <p class="map-note">A working runtime is easier to trust when its routes, tests, artifacts, and stores stay in view.</p>
+            <div class="proof-orbit" id="proof-atom-field" aria-label="Interactive proof atoms">
+              <div class="proof-core">proof field</div>
+            </div>
             <div class="proof-monitor-grid">
               <div class="proof-mini">
                 <strong id="proof-mini-routes">58 routes</strong>
@@ -2611,10 +2782,15 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     const proofDots = document.getElementById("proof-dots");
     const proofPrev = document.getElementById("proof-prev");
     const proofNext = document.getElementById("proof-next");
+    const proofAtomField = document.getElementById("proof-atom-field");
     const counterNodes = [...document.querySelectorAll("[data-counter-target]")];
     const navDisclosure = document.querySelector(".nav-disclosure");
     const researchPulseGrid = document.getElementById("research-pulse-grid");
     const runtimePulseGrid = document.getElementById("runtime-pulse-grid");
+    const fileAtlasSummary = document.getElementById("file-atlas-summary");
+    const fileAtlasGraph = document.getElementById("file-atlas-graph");
+    const fileAtlasRail = document.getElementById("file-atlas-rail");
+    const fileAtlasDetail = document.getElementById("file-atlas-detail");
     const benchmarkSurfaceGrid = document.getElementById("benchmark-surface-grid");
     const executionJournalGrid = document.getElementById("execution-journal-grid");
 
@@ -2802,6 +2978,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         ],
       },
     ];
+    const baseProofSlideCount = proofSlides.length;
 
     function renderMiniTable(rows) {
       return `
@@ -2840,14 +3017,170 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
 
     function renderProofSlide(index) {
       const item = proofSlides[index];
+      const links = (item.links || [])
+        .map((link) => `<a class="pill" href="${AMAIResearch.escapeHtml(link.href)}">${AMAIResearch.escapeHtml(link.label)}</a>`)
+        .join("");
       proofSlide.innerHTML = `
         <h3>${item.title}</h3>
         <p>${item.body}</p>
         ${renderMiniTable(item.table)}
+        ${links ? `<div class="hero-actions" style="margin-top:16px;">${links}</div>` : ""}
       `;
       proofDots.innerHTML = proofSlides
-        .map((_, dotIndex) => `<span class="proof-dot ${dotIndex === index ? "active" : ""}"></span>`)
+        .map((_, dotIndex) => `<button type="button" class="proof-dot ${dotIndex === index ? "active" : ""}" data-proof-dot="${dotIndex}" aria-label="Open proof surface ${dotIndex + 1}"></button>`)
         .join("");
+      proofDots.querySelectorAll("[data-proof-dot]").forEach((dot) => {
+        dot.addEventListener("click", () => {
+          proofIndex = Number(dot.dataset.proofDot);
+          renderProofSlide(proofIndex);
+        });
+      });
+      document.querySelectorAll("[data-proof-atom-index]").forEach((atom) => {
+        atom.classList.toggle("active", Number(atom.dataset.proofAtomIndex) === index);
+      });
+    }
+
+    function buildProofAtomSlides(payload) {
+      const storeCounts = payload.store_counts || {};
+      const commandLabels = (payload.verification_commands || []).map((item) => item.label || item.command);
+      const artifactLabels = (payload.verification_artifacts || []).map((item) => item.label || item.path);
+      const storeNames = Object.keys(storeCounts);
+      const storeTotal = Object.values(storeCounts).reduce((sum, value) => sum + Number(value || 0), 0);
+      return [
+        {
+          atom: "routes",
+          metric: payload.route_count,
+          caption: "routes",
+          title: "Routes are counted from the live FastAPI surface",
+          body: "A route count is only useful when it is tied to typed contracts and testable handlers. This atom reads the proof bundle’s route inventory and points back to the runtime contract.",
+          table: [
+            ["count", `${payload.route_count} routes`],
+            ["surface", "/v1/proof/bundle"],
+            ["why it matters", "Every public capability needs a handler, schema, and failure shape."],
+          ],
+          links: [
+            { label: "Open API contract", href: "openapi/openapi.json" },
+            { label: "Read architecture", href: "advanced-technical-portfolio.html" },
+          ],
+        },
+        {
+          atom: "tests",
+          metric: payload.test_count,
+          caption: "tests",
+          title: "Tests are the quiet pressure behind the public surface",
+          body: "The monitor treats tests as evidence, not decoration. A passing surface should be able to show which behavior is checked and which lane still needs a narrower proof.",
+          table: [
+            ["count", `${payload.test_count} tests`],
+            ["included lanes", "API, property fuzzing, retrieval, video, connectors, proof, music, and industrial scenarios"],
+            ["why it matters", "The repository should invite review without asking anyone to trust the prose."],
+          ],
+          links: [
+            { label: "Open runtime proof", href: "proof/runtime-proof.md" },
+            { label: "Open benchmark", href: "benchmark-observatory.html" },
+          ],
+        },
+        {
+          atom: "connectors",
+          metric: (payload.connector_kinds || []).length,
+          caption: "connectors",
+          title: "Connector kinds show where data can enter without a private ritual",
+          body: "The connector lane is meant to make intake inspectable: local files, object-style Parquet, HTTP rows, and public web receipts should all become contracts before they become tensors.",
+          table: [
+            ["count", `${(payload.connector_kinds || []).length} connector kinds`],
+            ["kinds", (payload.connector_kinds || []).join(", ")],
+            ["why it matters", "Useful multimodal systems begin by explaining what arrived."],
+          ],
+          links: [
+            { label: "Inspect connectors", href: "advanced-technical-portfolio.html#catalog-plane" },
+            { label: "Open file atlas", href: "#file-atlas" },
+          ],
+        },
+        {
+          atom: "commands",
+          metric: commandLabels.length,
+          caption: "commands",
+          title: "Verification commands keep the repository repeatable",
+          body: "The command list is the pathway a reviewer can run again: lint, tests, Rust, OpenAPI, SDK generation, research exports, readiness, examples, and the acceptance spine.",
+          table: [
+            ["count", `${commandLabels.length} commands`],
+            ["sample", commandLabels.slice(0, 6).join(", ")],
+            ["why it matters", "A proof that cannot be rerun becomes decoration."],
+          ],
+          links: [
+            { label: "Open example proof", href: "proof/example-bundle.md" },
+            { label: "Open readiness", href: "proof/readiness-report.md" },
+          ],
+        },
+        {
+          atom: "stores",
+          metric: storeNames.length,
+          caption: "stores",
+          title: "Persisted stores show what the runtime remembers",
+          body: "A multimodal engine needs memory that can be queried later: jobs, pipeline runs, drift baselines, recipes, privacy runs, music manifests, ontology snapshots, and execution journals.",
+          table: [
+            ["stores", `${storeNames.length} stores`],
+            ["records", `${storeTotal} persisted records counted in the current proof`],
+            ["sample", storeNames.slice(0, 7).join(", ")],
+          ],
+          links: [
+            { label: "Open execution journal", href: "proof/execution-journal.md" },
+            { label: "Open music warehouse", href: "music-observatory.html" },
+          ],
+        },
+        {
+          atom: "artifacts",
+          metric: payload.verification_artifact_count,
+          caption: "artifacts",
+          title: "Artifacts make the proof visible after the process ends",
+          body: "Generated JSON, Markdown reports, OpenAPI contracts, and SDK surfaces let the repository be inspected without relying on a running local session.",
+          table: [
+            ["count", `${payload.verification_artifact_count} verification artifacts`],
+            ["sample", artifactLabels.slice(0, 5).join(", ") || "runtime proof, readiness, examples, OpenAPI"],
+            ["why it matters", "The public atlas should read files that can be regenerated."],
+          ],
+          links: [
+            { label: "Open proof report", href: "proof/runtime-proof.md" },
+            { label: "Open research surfaces", href: "field-notes.html" },
+          ],
+        },
+      ];
+    }
+
+    function renderProofAtoms(atomSlides, startIndex) {
+      if (!proofAtomField) return;
+      const positions = [
+        [50, 15],
+        [78, 31],
+        [78, 69],
+        [50, 85],
+        [22, 69],
+        [22, 31],
+      ];
+      const atomMarkup = atomSlides
+        .map((item, atomIndex) => {
+          const [x, y] = positions[atomIndex % positions.length];
+          const slideIndex = startIndex + atomIndex;
+          return `
+            <button
+              type="button"
+              class="proof-atom"
+              data-proof-atom-index="${slideIndex}"
+              style="--atom-x:${x}%; --atom-y:${y}%; --atom-size:${Math.max(66, Math.min(92, 62 + String(item.metric || "").length * 4))}px;"
+              aria-label="Open proof atom ${AMAIResearch.escapeHtml(item.atom)}"
+            >
+              <span>${AMAIResearch.escapeHtml(String(item.metric ?? "0"))}</span>
+              <small>${AMAIResearch.escapeHtml(item.caption)}</small>
+            </button>
+          `;
+        })
+        .join("");
+      proofAtomField.innerHTML = `<div class="proof-core">proof field</div>${atomMarkup}`;
+      proofAtomField.querySelectorAll("[data-proof-atom-index]").forEach((atom) => {
+        atom.addEventListener("click", () => {
+          proofIndex = Number(atom.dataset.proofAtomIndex);
+          renderProofSlide(proofIndex);
+        });
+      });
     }
 
     function updateClocks() {
@@ -2972,6 +3305,172 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         .join("");
     }
 
+    function compactPath(path) {
+      const parts = String(path || "").split("/");
+      if (parts.length <= 2) return String(path || "");
+      return `${parts[0]}/…/${parts.at(-1)}`;
+    }
+
+    function listToMarkup(items, limit = 5) {
+      const values = (Array.isArray(items) ? items : []).slice(0, limit);
+      if (!values.length) return "<li>Not recorded in the current map.</li>";
+      return values.map((item) => `<li>${AMAIResearch.escapeHtml(item)}</li>`).join("");
+    }
+
+    function fileNodePool(payload) {
+      const connected = Array.isArray(payload?.top_connected) ? payload.top_connected : [];
+      const nodes = Array.isArray(payload?.nodes) ? payload.nodes : [];
+      const byPath = new Map();
+      [...connected, ...nodes]
+        .filter((node) => node && node.path)
+        .forEach((node) => {
+          if (!byPath.has(node.path)) byPath.set(node.path, node);
+        });
+      return [...byPath.values()].slice(0, 16);
+    }
+
+    function renderFileAtlasDetail(node) {
+      if (!fileAtlasDetail || !node) return;
+      const inbound = (node.imported_by || []).slice(0, 4);
+      const outbound = (node.connects_to || []).slice(0, 4);
+      fileAtlasDetail.innerHTML = `
+        <div class="section-label">${AMAIResearch.escapeHtml(node.lane || "file")}</div>
+        <h3>${AMAIResearch.escapeHtml(node.label || compactPath(node.path))}</h3>
+        <p>${AMAIResearch.escapeHtml(node.purpose || "This file has not published a purpose line yet.")}</p>
+        <div class="file-atlas-stats">
+          <span class="file-atlas-stat"><strong>${Number(node.complexity_score || 0)}</strong>signal</span>
+          <span class="file-atlas-stat"><strong>${Number(node.line_count || 0)}</strong>lines</span>
+          <span class="file-atlas-stat"><strong>${Number(node.route_count || 0)}</strong>routes</span>
+          <span class="file-atlas-stat"><strong>${Number(node.test_count || 0)}</strong>tests</span>
+        </div>
+        <div class="file-atlas-io">
+          <div>
+            <div class="section-label">Inputs</div>
+            <ul>${listToMarkup(node.inputs)}</ul>
+          </div>
+          <div>
+            <div class="section-label">Outputs</div>
+            <ul>${listToMarkup(node.outputs)}</ul>
+          </div>
+        </div>
+        <div class="file-link-field">
+          ${[...outbound, ...inbound]
+            .slice(0, 8)
+            .map((path) => `<span class="file-link-pill">${AMAIResearch.escapeHtml(compactPath(path))}</span>`)
+            .join("")}
+        </div>
+        <div class="pulse-chip-row">
+          ${(node.evidence || []).slice(0, 5).map((item) => `<span class="pulse-chip">${AMAIResearch.escapeHtml(item)}</span>`).join("")}
+        </div>
+      `;
+    }
+
+    function renderFileAtlas(payload) {
+      if (!payload || !fileAtlasSummary || !fileAtlasGraph || !fileAtlasRail) return;
+      const nodes = fileNodePool(payload);
+      const laneEntries = Object.entries(payload.lane_counts || {}).sort((a, b) => b[1] - a[1]);
+      const languageEntries = Object.entries(payload.language_counts || {}).sort((a, b) => b[1] - a[1]);
+      const leadingLane = laneEntries[0] || ["mapped lanes", 0];
+      const leadingLanguage = languageEntries[0] || ["files", 0];
+      fileAtlasSummary.innerHTML = `
+        <article class="runtime-pulse-card">
+          <div class="section-label">Files</div>
+          <h3>${payload.file_count} mapped files</h3>
+          <p>Every node is read from repository files, generated proof, tests, or public surfaces.</p>
+          <div class="runtime-meter"><div class="runtime-fill" style="--target-width:92%"></div></div>
+        </article>
+        <article class="runtime-pulse-card">
+          <div class="section-label">Edges</div>
+          <h3>${payload.edge_count} connections</h3>
+          <p>Imports, renders, reads, exports, tests, and documentation links become one visible field.</p>
+          <div class="runtime-meter"><div class="runtime-fill" style="--target-width:${Math.min(100, Math.max(24, payload.edge_count))}%"></div></div>
+        </article>
+        <article class="runtime-pulse-card">
+          <div class="section-label">Python</div>
+          <h3>${payload.active_python_files} active files</h3>
+          <p>The backend surface is no longer hidden behind a static HTML page.</p>
+          <div class="runtime-meter"><div class="runtime-fill" style="--target-width:${Math.min(100, payload.active_python_files * 3)}%"></div></div>
+        </article>
+        <article class="runtime-pulse-card">
+          <div class="section-label">${AMAIResearch.escapeHtml(leadingLanguage[0])}</div>
+          <h3>${leadingLanguage[1]} visible files</h3>
+          <p>Leading lane: ${AMAIResearch.escapeHtml(leadingLane[0])} with ${leadingLane[1]} mapped files.</p>
+          <div class="runtime-meter"><div class="runtime-fill" style="--target-width:${Math.min(100, leadingLanguage[1] * 4)}%"></div></div>
+        </article>
+      `;
+
+      const nodePositions = [
+        [50, 14],
+        [70, 23],
+        [84, 43],
+        [78, 68],
+        [60, 82],
+        [38, 82],
+        [20, 68],
+        [16, 43],
+        [30, 23],
+        [50, 50],
+        [64, 50],
+        [36, 50],
+      ];
+      fileAtlasGraph.innerHTML = nodes
+        .slice(0, 12)
+        .map((node, index) => {
+          const [x, y] = nodePositions[index % nodePositions.length];
+          return `
+            <button
+              type="button"
+              class="file-node"
+              data-file-node="${AMAIResearch.escapeHtml(node.path)}"
+              style="--node-x:${x}%; --node-y:${y}%; --node-size:${Math.max(66, Math.min(96, 58 + Number(node.complexity_score || 0) / 3))}px;"
+              aria-label="Inspect ${AMAIResearch.escapeHtml(node.path)}"
+            >
+              <span>${AMAIResearch.escapeHtml(node.label || compactPath(node.path))}</span>
+              <small>${AMAIResearch.escapeHtml(node.language || "file")}</small>
+            </button>
+          `;
+        })
+        .join("");
+
+      fileAtlasRail.innerHTML = nodes
+        .map((node) => `
+          <article class="file-atlas-card" data-file-card="${AMAIResearch.escapeHtml(node.path)}">
+            <div class="section-label">${AMAIResearch.escapeHtml(node.status)} · ${AMAIResearch.escapeHtml(node.language)}</div>
+            <h3>${AMAIResearch.escapeHtml(node.label || compactPath(node.path))}</h3>
+            <p>${AMAIResearch.escapeHtml(node.purpose || "No purpose line was found for this file yet.")}</p>
+            <div class="runtime-badge">
+              <span>${Number(node.line_count || 0)} lines</span>
+              <span>${Number(node.connects_to?.length || 0)} out</span>
+              <span>${Number(node.imported_by?.length || 0)} in</span>
+            </div>
+            <div class="runtime-meter">
+              <div class="runtime-fill" style="--target-width:${Math.max(10, Math.min(100, Number(node.complexity_score || 0)))}%"></div>
+            </div>
+            <div class="pulse-chip-row">
+              ${(node.evidence || []).slice(0, 3).map((item) => `<span class="pulse-chip">${AMAIResearch.escapeHtml(item)}</span>`).join("")}
+            </div>
+          </article>
+        `)
+        .join("");
+
+      function activate(path) {
+        const node = nodes.find((item) => item.path === path) || nodes[0];
+        if (!node) return;
+        document.querySelectorAll("[data-file-node], [data-file-card]").forEach((item) => {
+          item.classList.toggle("active", item.dataset.fileNode === node.path || item.dataset.fileCard === node.path);
+        });
+        renderFileAtlasDetail(node);
+      }
+
+      document.querySelectorAll("[data-file-node]").forEach((button) => {
+        button.addEventListener("click", () => activate(button.dataset.fileNode));
+      });
+      document.querySelectorAll("[data-file-card]").forEach((card) => {
+        card.addEventListener("click", () => activate(card.dataset.fileCard));
+      });
+      activate(nodes[0]?.path);
+    }
+
     function renderExecutionJournal(payload) {
       if (!payload || !executionJournalGrid) return;
       executionJournalGrid.innerHTML = (payload.recent_runs || [])
@@ -3069,6 +3568,10 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
 
         proofSlides[0].table[0][1] = payload.connector_kinds.join(", ");
         proofSlides[3].table[2][1] = Object.keys(payload.store_counts).join(", ");
+        proofSlides.splice(baseProofSlideCount);
+        const atomSlides = buildProofAtomSlides(payload);
+        proofSlides.push(...atomSlides);
+        renderProofAtoms(atomSlides, baseProofSlideCount);
         animateAllCounters();
         renderProofSlide(proofIndex);
       } catch (error) {
@@ -3093,6 +3596,16 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
         renderRepositoryPulse(pulse);
       } catch (error) {
         console.warn("repository pulse could not be loaded", error);
+      }
+    }
+
+    async function hydrateRepositoryFileMap() {
+      try {
+        const payload = await AMAIResearch.loadRepositoryFileMap();
+        if (!payload) return;
+        renderFileAtlas(payload);
+      } catch (error) {
+        console.warn("repository file map could not be loaded", error);
       }
     }
 
@@ -3166,6 +3679,7 @@ uvicorn advanced_multimodal_ai.api:create_app --factory --host 0.0.0.0 --port 80
     hydrateProofBundle();
     hydrateResearchBundle();
     hydrateRepositoryPulse();
+    hydrateRepositoryFileMap();
     hydrateBenchmarkSurface();
     hydrateExecutionJournal();
     setInterval(updateClocks, 1000);

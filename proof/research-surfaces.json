@@ -3,13 +3,13 @@
   "version": "0.5.0",
   "readiness_posture": "review_ready",
   "summary": {
-    "route_count": 100,
-    "test_count": 60,
+    "route_count": 106,
+    "test_count": 64,
     "connector_kind_count": 7,
     "model_count": 4,
     "runtime_ready_model_count": 0,
     "open_question_count": 5,
-    "generated_at": "2026-07-04T18:22:16.977401+00:00"
+    "generated_at": "2026-07-05T15:41:26.815985+00:00"
   },
   "lanes": [
     {
@@ -510,9 +510,9 @@
       "finding_id": "connector-spine-is-real",
       "lens": "data",
       "title": "The repository now begins with measured intake instead of hand-shaped payloads alone",
-      "summary": "507 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
+      "summary": "517 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
       "evidence": [
-        "connector runs recorded: 507",
+        "connector runs recorded: 517",
         "connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html"
       ],
       "why_it_matters": "A multimodal repository becomes more credible when data entry is a first-class engineering problem rather than an invisible notebook precondition.",
@@ -579,12 +579,12 @@
       "finding_id": "proof-is-now-a-backend-surface",
       "lens": "evaluation",
       "title": "Proof is no longer only a README habit",
-      "summary": "The bundle currently counts 100 routes, 60 tests, and 16 declared artifacts.",
+      "summary": "The bundle currently counts 106 routes, 64 tests, and 18 declared artifacts.",
       "evidence": [
-        "route count: 100",
-        "test count: 60",
-        "verification artifacts: 16",
-        "pipeline runs stored: 390"
+        "route count: 106",
+        "test count: 64",
+        "verification artifacts: 18",
+        "pipeline runs stored: 400"
       ],
       "why_it_matters": "Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.",
       "next_step": "Keep the export surfaces close to CI and extend replay comparisons so proof covers behavioral continuity, not only route and artifact presence.",
@@ -603,9 +603,9 @@
       "finding_id": "execution-memory-is-persisted",
       "lens": "evaluation",
       "title": "Export and verification work now leaves its own operational memory",
-      "summary": "208 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
+      "summary": "228 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
       "evidence": [
-        "execution journal runs: 208",
+        "execution journal runs: 228",
         "proof/execution-journal.json is exported from the backend journal surface."
       ],
       "why_it_matters": "A repository feels more trustworthy when its export and verification lanes can be revisited as records instead of being remembered only because someone ran them recently.",
@@ -672,9 +672,9 @@
       "summary": "The current readiness posture is 'review_ready'. The repo now has a steadier runtime edge, though the strongest next step remains more repeated evidence under varied real inputs.",
       "evidence": [
         "readiness posture: review_ready",
-        "connector runs: 507",
-        "pipeline runs: 390",
-        "compiled recipes: 167"
+        "connector runs: 517",
+        "pipeline runs: 400",
+        "compiled recipes: 177"
       ],
       "why_it_matters": "The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.",
       "next_step": "Bring in more repeated warehouse, object-store, and mixed-modality examples so the runtime is exercised under broader operational texture.",
@@ -826,5 +826,5 @@
       ]
     }
   ],
-  "created_at": "2026-07-04T18:22:16.977409+00:00"
+  "created_at": "2026-07-05T15:41:26.815993+00:00"
 }

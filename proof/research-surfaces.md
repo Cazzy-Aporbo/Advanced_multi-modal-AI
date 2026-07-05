@@ -3,8 +3,8 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Readiness posture: `review_ready`
-- Route count: `100`
-- Test count: `60`
+- Route count: `106`
+- Test count: `64`
 - Connector kinds: `7`
 - Models: `4`
 - Runtime-ready models: `0`
@@ -553,10 +553,10 @@ Consequence lanes:
 - Related surfaces: /v1/connectors/register, /v1/connectors/pipeline-ingest, /v1/catalog/register
 - Related files: src/advanced_multimodal_ai/connectors.py, src/advanced_multimodal_ai/catalog.py, src/advanced_multimodal_ai/pipelines.py
 
-507 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+517 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 Evidence:
-- connector runs recorded: 507
+- connector runs recorded: 517
 - connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html
 
 Why it matters:
@@ -616,13 +616,13 @@ Add stronger benchmark evidence for the research archive so promotion into the r
 - Related surfaces: /v1/proof/bundle, /v1/runtime/attestation, /v1/readiness/report
 - Related files: src/advanced_multimodal_ai/proof.py, src/advanced_multimodal_ai/attestation.py, scripts/export_readiness_report.py
 
-The bundle currently counts 100 routes, 60 tests, and 16 declared artifacts.
+The bundle currently counts 106 routes, 64 tests, and 18 declared artifacts.
 
 Evidence:
-- route count: 100
-- test count: 60
-- verification artifacts: 16
-- pipeline runs stored: 390
+- route count: 106
+- test count: 64
+- verification artifacts: 18
+- pipeline runs stored: 400
 
 Why it matters:
 Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.
@@ -638,10 +638,10 @@ Keep the export surfaces close to CI and extend replay comparisons so proof cove
 - Related surfaces: /v1/execution/journal, /v1/repository/pulse
 - Related files: src/advanced_multimodal_ai/execution_journal.py, src/advanced_multimodal_ai/execution_journal_store.py, scripts/export_execution_journal.py
 
-208 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
+228 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.
 
 Evidence:
-- execution journal runs: 208
+- execution journal runs: 228
 - proof/execution-journal.json is exported from the backend journal surface.
 
 Why it matters:
@@ -703,9 +703,9 @@ The current readiness posture is 'review_ready'. The repo now has a steadier run
 
 Evidence:
 - readiness posture: review_ready
-- connector runs: 507
-- pipeline runs: 390
-- compiled recipes: 167
+- connector runs: 517
+- pipeline runs: 400
+- compiled recipes: 177
 
 Why it matters:
 The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.

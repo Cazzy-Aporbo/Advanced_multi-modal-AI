@@ -1058,6 +1058,24 @@
         }
       }
     },
+    "/v1/repository/file-map": {
+      "get": {
+        "summary": "Repository File Map",
+        "operationId": "repository_file_map_v1_repository_file_map_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepositoryFileMap"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/growth/snapshot": {
       "get": {
         "summary": "Repository Growth Snapshot",
@@ -7798,6 +7816,37 @@
             "type": "array",
             "title": "Language Notes"
           },
+          "where_found": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Where Found"
+          },
+          "why_it_matters": {
+            "type": "string",
+            "title": "Why It Matters",
+            "default": ""
+          },
+          "careful_handling": {
+            "type": "string",
+            "title": "Careful Handling",
+            "default": ""
+          },
+          "source_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Refs"
+          },
+          "related_rights": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Related Rights"
+          },
           "examples_are_synthetic": {
             "type": "boolean",
             "title": "Examples Are Synthetic",
@@ -7983,6 +8032,36 @@
           "text"
         ],
         "title": "PrivacyCorpusDocument"
+      },
+      "PrivacyDesignPrinciple": {
+        "properties": {
+          "principle_id": {
+            "type": "string",
+            "title": "Principle Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "source_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Refs"
+          },
+          "implementation_note": {
+            "type": "string",
+            "title": "Implementation Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "principle_id",
+          "label",
+          "implementation_note"
+        ],
+        "title": "PrivacyDesignPrinciple"
       },
       "PrivacyDocumentAudit": {
         "properties": {
@@ -8293,6 +8372,39 @@
         ],
         "title": "PrivacyRunRecord"
       },
+      "PrivacySourceReference": {
+        "properties": {
+          "reference_id": {
+            "type": "string",
+            "title": "Reference Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "publisher": {
+            "type": "string",
+            "title": "Publisher"
+          },
+          "use_note": {
+            "type": "string",
+            "title": "Use Note",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "reference_id",
+          "title",
+          "url",
+          "publisher"
+        ],
+        "title": "PrivacySourceReference"
+      },
       "PrivacyTaxonomyResponse": {
         "properties": {
           "detector_version": {
@@ -8327,6 +8439,34 @@
             },
             "type": "array",
             "title": "Language Hints"
+          },
+          "family_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Family Counts"
+          },
+          "severity_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Severity Counts"
+          },
+          "source_references": {
+            "items": {
+              "$ref": "#/components/schemas/PrivacySourceReference"
+            },
+            "type": "array",
+            "title": "Source References"
+          },
+          "design_principles": {
+            "items": {
+              "$ref": "#/components/schemas/PrivacyDesignPrinciple"
+            },
+            "type": "array",
+            "title": "Design Principles"
           },
           "boundary_notes": {
             "items": {
@@ -8964,6 +9104,252 @@
         },
         "type": "object",
         "title": "ReferenceBenchmarkRequest"
+      },
+      "RepositoryFileEdge": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "target": {
+            "type": "string",
+            "title": "Target"
+          },
+          "relation": {
+            "type": "string",
+            "enum": [
+              "imports",
+              "renders",
+              "exports",
+              "tests",
+              "reads",
+              "documents"
+            ],
+            "title": "Relation"
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Weight",
+            "default": 1.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "target",
+          "relation"
+        ],
+        "title": "RepositoryFileEdge"
+      },
+      "RepositoryFileMap": {
+        "properties": {
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "file_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "File Count",
+            "default": 0
+          },
+          "edge_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Edge Count",
+            "default": 0
+          },
+          "active_python_files": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Active Python Files",
+            "default": 0
+          },
+          "frontend_files": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Frontend Files",
+            "default": 0
+          },
+          "proof_files": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Proof Files",
+            "default": 0
+          },
+          "lane_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Lane Counts"
+          },
+          "language_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Language Counts"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/RepositoryFileNode"
+            },
+            "type": "array",
+            "title": "Nodes"
+          },
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/RepositoryFileEdge"
+            },
+            "type": "array",
+            "title": "Edges"
+          },
+          "top_connected": {
+            "items": {
+              "$ref": "#/components/schemas/RepositoryFileNode"
+            },
+            "type": "array",
+            "title": "Top Connected"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "service",
+          "version"
+        ],
+        "title": "RepositoryFileMap"
+      },
+      "RepositoryFileNode": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Path"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language"
+          },
+          "lane": {
+            "type": "string",
+            "title": "Lane"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "frontend",
+              "proof",
+              "test",
+              "supporting"
+            ],
+            "title": "Status"
+          },
+          "purpose": {
+            "type": "string",
+            "title": "Purpose"
+          },
+          "inputs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Inputs"
+          },
+          "outputs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Outputs"
+          },
+          "connects_to": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Connects To"
+          },
+          "imported_by": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Imported By"
+          },
+          "evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "line_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Line Count",
+            "default": 0
+          },
+          "byte_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Byte Count",
+            "default": 0
+          },
+          "route_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Route Count",
+            "default": 0
+          },
+          "test_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Test Count",
+            "default": 0
+          },
+          "complexity_score": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Complexity Score",
+            "default": 0
+          },
+          "modified_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Modified At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "path",
+          "label",
+          "language",
+          "lane",
+          "status",
+          "purpose"
+        ],
+        "title": "RepositoryFileNode"
       },
       "RepositoryGrowthSnapshot": {
         "properties": {

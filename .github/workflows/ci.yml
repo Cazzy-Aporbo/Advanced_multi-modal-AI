@@ -76,6 +76,9 @@ jobs:
       - name: Export repository pulse
         run: python scripts/export_repository_pulse.py
 
+      - name: Export repository file map
+        run: python scripts/export_repository_file_map.py
+
       - name: Export repository growth
         run: python scripts/export_repository_growth.py
 

@@ -46,6 +46,7 @@ jobs:
           python scripts/export_industrial_diagnostics.py
           python scripts/export_edge_topology.py
           python scripts/export_repository_pulse.py
+          python scripts/export_repository_file_map.py
           python scripts/export_repository_growth.py
           python scripts/export_readiness_report.py
           python scripts/export_example_bundle.py

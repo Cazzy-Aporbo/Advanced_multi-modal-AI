@@ -239,6 +239,11 @@ class GeneratedOpenAPIClient:
         path = f"/v1/repository/pulse"
         return self._request("GET", path)
 
+    def repositoryFileMapV1RepositoryFileMapGet(self) -> Any:
+        """Repository File Map"""
+        path = f"/v1/repository/file-map"
+        return self._request("GET", path)
+
     def repositoryGrowthSnapshotV1GrowthSnapshotGet(self) -> Any:
         """Repository Growth Snapshot"""
         path = f"/v1/growth/snapshot"

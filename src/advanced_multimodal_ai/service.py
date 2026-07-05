@@ -105,6 +105,7 @@ from .contracts import (
     RecipeRecord,
     ReferenceBenchmarkRequest,
     ReferenceBenchmarkResult,
+    RepositoryFileMap,
     RepositoryGrowthSnapshot,
     RepositoryPulse,
     ResearchInfluenceBundle,
@@ -184,6 +185,7 @@ from .recipe_store import RecipeStore
 from .recipes import compile_recipe_record
 from .registry import list_registered_models
 from .replay import build_replay_frames, compare_replay, export_pipeline_run
+from .repository_file_map import build_repository_file_map
 from .repository_growth import build_repository_growth_snapshot
 from .repository_pulse import build_repository_pulse
 from .research_influence import (
@@ -1165,6 +1167,10 @@ class AdvancedMultimodalService:
             readiness=readiness,
             model_cards=self.list_model_research_cards(),
         )
+
+    def repository_file_map(self) -> RepositoryFileMap:
+        record_data_plane("repository_file_map")
+        return build_repository_file_map(settings=self.settings)
 
     def repository_growth_snapshot(self, route_count: int) -> RepositoryGrowthSnapshot:
         record_data_plane("repository_growth")

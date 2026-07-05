@@ -3,9 +3,9 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Environment: `development`
-- Route count: `105`
-- Test count: `63`
-- Verification artifacts: `17`
+- Route count: `106`
+- Test count: `64`
+- Verification artifacts: `18`
 
 ## Connector kinds
 - `local_csv`
@@ -25,6 +25,7 @@
 - `python3 scripts/generate_sdk_surfaces.py`
 - `python3 scripts/export_research_surfaces.py`
 - `python3 scripts/export_repository_pulse.py`
+- `python3 scripts/export_repository_file_map.py`
 - `python3 scripts/export_repository_growth.py`
 - `python3 scripts/export_benchmark_surfaces.py`
 - `python3 scripts/export_cymatic_surface.py`
@@ -47,6 +48,7 @@
 - `Rust core` · present · `crates/multimodal-core/Cargo.toml`
 - `Research surface export` · present · `proof/research-surfaces.json`
 - `Repository pulse export` · present · `proof/repository-pulse.json`
+- `Repository file map export` · present · `proof/repository-file-map.json`
 - `Repository growth export` · present · `proof/repository-growth.json`
 - `Execution journal export` · present · `proof/execution-journal.json`
 - `Cymatic surface export` · present · `proof/cymatic-surface.json`

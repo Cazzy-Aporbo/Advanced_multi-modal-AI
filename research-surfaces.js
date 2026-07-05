@@ -56,6 +56,21 @@
     return null;
   }
 
+  async function loadRepositoryFileMap() {
+    const candidates = ["proof/repository-file-map.json", "/v1/repository/file-map"];
+    for (const url of candidates) {
+      try {
+        const response = await fetch(url, { cache: "no-store" });
+        if (response.ok) {
+          return await response.json();
+        }
+      } catch (_error) {
+        // keep trying the next surface
+      }
+    }
+    return null;
+  }
+
   async function loadExecutionJournal() {
     const candidates = ["proof/execution-journal.json", "/v1/execution/journal"];
     for (const url of candidates) {
@@ -285,6 +300,7 @@
     listMarkup,
     loadResearchSurfaceBundle,
     loadRepositoryPulse,
+    loadRepositoryFileMap,
     loadExecutionJournal,
     loadBenchmarkSurface,
     loadCymaticSurface,

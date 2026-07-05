@@ -69,10 +69,24 @@ def main() -> None:
         taxonomy_payload = payload["taxonomy"]
         category_rows = "\n".join(
             (
-                f"- `{item['category_id']}` · {item['severity']} · "
-                f"{', '.join(item['detector_kinds'])}"
+                f"| `{item['category_id']}` | {item['family']} | {item['severity']} | "
+                f"{', '.join(item['detector_kinds'])} | {item['why_it_matters']} |"
             )
-            for item in taxonomy_payload["categories"][:24]
+            for item in taxonomy_payload["categories"]
+        )
+        source_rows = "\n".join(
+            (
+                f"- `{item['reference_id']}`: [{item['title']}]({item['url']}) "
+                f"({item['publisher']}). {item['use_note']}"
+            )
+            for item in taxonomy_payload["source_references"]
+        )
+        principle_rows = "\n".join(
+            (
+                f"- `{item['principle_id']}` · {item['label']}: "
+                f"{item['implementation_note']}"
+            )
+            for item in taxonomy_payload["design_principles"]
         )
         receipt = payload["sample_receipt"]
         summary_rows = "\n".join(
@@ -88,6 +102,8 @@ def main() -> None:
 - Categories: `{taxonomy_payload['category_count']}`
 - Language hints: `{taxonomy_payload['language_count']}`
 - Deterministic category coverage: `{taxonomy_payload['deterministic_category_count']}`
+- Family counts: `{taxonomy_payload['family_counts']}`
+- Severity counts: `{taxonomy_payload['severity_counts']}`
 - Sample source hash: `{receipt['source_sha256']}`
 - Sample redacted hash: `{receipt['redacted_sha256']}`
 - Sample finding-set hash: `{receipt['finding_set_sha256']}`
@@ -96,11 +112,22 @@ def main() -> None:
 
 {chr(10).join(f"- {note}" for note in taxonomy_payload['boundary_notes'])}
 
+## Design principles
+
+{principle_rows}
+
+## Source anchors
+
+{source_rows}
+
 ## Sample finding summary
 
 {summary_rows}
 
-## Category register excerpt
+## Category register
+
+| Category | Family | Severity | Detector kinds | Why it matters |
+| --- | --- | --- | --- | --- |
 
 {category_rows}
 """

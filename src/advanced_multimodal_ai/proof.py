@@ -62,6 +62,10 @@ def build_runtime_proof_bundle(
                 command="python3 scripts/export_repository_pulse.py",
             ),
             VerificationCommand(
+                label="repository-file-map",
+                command="python3 scripts/export_repository_file_map.py",
+            ),
+            VerificationCommand(
                 label="repository-growth",
                 command="python3 scripts/export_repository_growth.py",
             ),

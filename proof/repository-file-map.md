@@ -2,9 +2,9 @@
 
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
-- Files mapped: `174`
-- Edges mapped: `1043`
-- Active Python files: `99`
+- Files mapped: `175`
+- Edges mapped: `1042`
+- Active Python files: `100`
 - Frontend files: `21`
 - Proof files: `34`
 
@@ -14,7 +14,7 @@
 - `compiled signal core`: `2`
 - `data movement`: `4`
 - `documentation`: `12`
-- `export and proof`: `21`
+- `export and proof`: `22`
 - `generated evidence`: `34`
 - `industrial diagnostics`: `15`
 - `privacy membrane`: `2`
@@ -31,7 +31,7 @@
 - `JSON`: `17`
 - `JavaScript`: `9`
 - `Markdown`: `29`
-- `Python`: `105`
+- `Python`: `106`
 - `Rust`: `2`
 
 ## Most connected files
@@ -355,7 +355,7 @@ Evidence:
 - Language: `Markdown`
 - Status: `supporting`
 - Complexity score: `100`
-- Lines: `509`
+- Lines: `504`
 - Routes: `0`
 - Tests: `0`
 
@@ -364,7 +364,7 @@ Documents repository use, contribution, security, or generated proof context.
 Inputs:
 - Arrow or Parquet tables
 - local persisted runtime records
-- 23 referenced file connections
+- 22 referenced file connections
 
 Outputs:
 - queryable runtime store rows
@@ -372,13 +372,13 @@ Outputs:
 
 Connects to:
 - `docs/GROUNDING_AND_BOUNDARIES.md`
-- `docs/engineering-journal.md`
 - `examples/diesel_engine.py`
 - `examples/electrical_system.py`
 - `examples/hydraulic_system.py`
 - `growth-surface.js`
 - `index.html`
 - `industrial-diagnostics.html`
+- `model-observatory.html`
 
 Imported by:
 - `CLAUDE.md`

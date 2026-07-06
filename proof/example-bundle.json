@@ -1,10 +1,10 @@
 {
-  "created_at": "2026-07-06T00:32:31.133140+00:00",
+  "created_at": "2026-07-06T00:49:19.260708+00:00",
   "service": "advanced-multimodal-ai",
   "version": "0.5.0",
   "examples": {
     "inference": {
-      "request_id": "305d5d1b-4c14-4109-9334-9748ad7b4e45",
+      "request_id": "7da153c7-6397-40d1-9c15-317ed74e439e",
       "route": [
         "validate_payloads",
         "encode_audio",
@@ -28,14 +28,14 @@
       "warning_count": 0
     },
     "connector_ingest": {
-      "run_id": "2aeabd5a-71be-4e3d-86e1-46e6b709feea",
+      "run_id": "155ff8fd-b06d-4190-9fc8-90e482b61aa5",
       "connector_kind": "local_parquet",
       "record_count": 3,
-      "pipeline_run_id": "5a096c51-a5d9-4d5c-8b91-4f4083c9315c",
+      "pipeline_run_id": "16325bb2-f26e-4f14-85cc-55b6fd364e50",
       "pipeline_status": "accepted"
     },
     "web_ingest": {
-      "dataset_id": "8f5bc808-96da-4b70-bdc2-44cde602bf1a",
+      "dataset_id": "9b329620-5671-462d-919f-112968976aaa",
       "record_count": 4,
       "sample_block_kinds": [
         "title",
@@ -46,7 +46,7 @@
       "title": "Example Intake"
     },
     "recipe_manifest": {
-      "recipe_id": "4530d07d-05cf-4e42-8eff-5054521e28d3",
+      "recipe_id": "a8fcf579-ce28-4e6a-a2e3-afd1182ae557",
       "launcher": "python",
       "engine": "local",
       "estimated_global_batch_size": 4,
@@ -59,11 +59,11 @@
       "cut_script_lines": 1
     },
     "smoke_benchmark": {
-      "benchmark_id": "f1edd38a-2a88-4684-9e25-e2bec701bec0",
+      "benchmark_id": "9dfe8090-a013-4728-8b3f-b9cb383ba03f",
       "model_id": "adaptive_transformer",
       "iterations": 3,
-      "median_latency_ms": 14.919667009962723,
-      "p95_latency_ms": 14.919667009962723
+      "median_latency_ms": 14.72762500634417,
+      "p95_latency_ms": 14.72762500634417
     },
     "proof": {
       "route_count": 106,
@@ -81,8 +81,8 @@
     },
     "readiness": {
       "posture": "review_ready",
-      "compiled_recipe_count": 193,
-      "resolved_recipe_count": 193,
+      "compiled_recipe_count": 197,
+      "resolved_recipe_count": 197,
       "check_names": [
         "contract_surface",
         "verification_depth",

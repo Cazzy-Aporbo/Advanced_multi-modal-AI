@@ -10,7 +10,7 @@
 - Baseline harmony: `0.95`
 - Tension index: `0.37`
 - Active files counted: `96`
-- Total recorded runs: `278`
+- Total recorded runs: `297`
 
 ## Harmonic bands
 
@@ -30,8 +30,8 @@
 ### Ingest and shape
 
 - Stage id: `connector_ingest`
-- Harmony: `0.82`
-- Friction: `0.16`
+- Harmony: `0.81`
+- Friction: `0.19`
 
 Human read:
 Different file shapes are named and typed before they turn into a convincing multimodal story.
@@ -56,7 +56,7 @@ Files:
 - `src/advanced_multimodal_ai/pipelines.py`
 
 Metrics:
-- **duration**: `104.81` ms
+- **duration**: `141.28` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **connector kinds**: `7.0` lanes
@@ -90,7 +90,7 @@ Files:
 - `src/advanced_multimodal_ai/alignment.py`
 
 Metrics:
-- **duration**: `16.15` ms
+- **duration**: `16.19` ms
 - **records**: `2.0` records
 - **artifacts**: `1.0` items
 
@@ -99,7 +99,7 @@ Metrics:
 
 - Stage id: `pipeline_replay`
 - Harmony: `0.88`
-- Friction: `0.12`
+- Friction: `0.11`
 
 Human read:
 If a run can be replayed cleanly, the repository is giving you memory rather than theatre.
@@ -123,7 +123,7 @@ Files:
 - `src/advanced_multimodal_ai/pipeline_store.py`
 
 Metrics:
-- **duration**: `79.16` ms
+- **duration**: `74.16` ms
 - **records**: `6.0` records
 - **artifacts**: `2.0` items
 
@@ -156,7 +156,7 @@ Files:
 - `src/advanced_multimodal_ai/api.py`
 
 Metrics:
-- **duration**: `64.2` ms
+- **duration**: `61.74` ms
 - **records**: `3.0` records
 - **artifacts**: `1.0` items
 
@@ -164,7 +164,7 @@ Metrics:
 ### Segment and warehouse
 
 - Stage id: `music_warehouse`
-- Harmony: `0.86`
+- Harmony: `0.85`
 - Friction: `0.12`
 
 Human read:
@@ -190,7 +190,7 @@ Files:
 - `src/advanced_multimodal_ai/service.py`
 
 Metrics:
-- **duration**: `24.94` ms
+- **duration**: `29.11` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **manifests**: `0.0` records
@@ -228,7 +228,7 @@ Files:
 - `src/advanced_multimodal_ai/governance_ledger.py`
 
 Metrics:
-- **duration**: `4.62` ms
+- **duration**: `4.8` ms
 - **records**: `18.0` records
 - **artifacts**: `1.0` items
 - **open questions**: `5.0` questions
@@ -246,7 +246,7 @@ Consequence:
 The cost is not only technical. Repetition flattens taste, reduces surprise, and makes a catalogue feel smaller than it is.
 
 Continuation:
-534 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+539 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 
 ### For operators and review teams

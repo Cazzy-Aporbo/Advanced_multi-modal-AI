@@ -91,6 +91,9 @@ jobs:
       - name: Build runtime proof bundle
         run: python scripts/build_runtime_proof_bundle.py
 
+      - name: Export README visuals
+        run: python scripts/export_readme_visuals.py
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:

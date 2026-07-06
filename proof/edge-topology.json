@@ -3,7 +3,7 @@
     "service": "advanced-multimodal-ai",
     "version": "0.5.0",
     "route_count": 106,
-    "ledger_event_count": 8,
+    "ledger_event_count": 9,
     "retrieval_backend": "memory",
     "active_policy": {
       "jurisdiction": "EU_EEA",
@@ -38,35 +38,59 @@
       "append-only tracking ledger"
     ],
     "store_counts": {
-      "async_jobs": 228,
-      "dataset_catalog": 837,
-      "connector_runs": 536,
+      "async_jobs": 231,
+      "dataset_catalog": 846,
+      "connector_runs": 541,
       "drift_baselines": 8,
-      "pipeline_runs": 418,
+      "pipeline_runs": 422,
       "ontology_snapshots": 131,
-      "recipe_registry": 192,
+      "recipe_registry": 196,
       "lifecycle_policies": 33,
       "change_controls": 33,
       "supply_chain_snapshots": 33,
-      "execution_journal_runs": 288,
-      "edge_packets": 8,
-      "music_manifests": 98,
-      "music_feature_runs": 98,
-      "privacy_runs": 5
+      "execution_journal_runs": 307,
+      "edge_packets": 9,
+      "music_manifests": 101,
+      "music_feature_runs": 101,
+      "privacy_runs": 6
     },
     "notes": [
       "The deployment stack is explicit and versioned, even when the default runtime remains a single local service edge.",
       "The gateway lane stays narrow: it evaluates packet geometry and routing posture before downstream orchestration claims more than the current code can support.",
       "Connector, music, replay, and governance stores remain visible so the edge route does not become a disconnected glamour layer."
     ],
-    "created_at": "2026-07-06T00:32:24.164268+00:00"
+    "created_at": "2026-07-06T00:49:12.391680+00:00"
   },
   "ledger": {
-    "total_events": 8,
+    "total_events": 9,
     "action_counts": {
-      "hold": 8
+      "hold": 9
     },
     "recent_events": [
+      {
+        "event_id": "e6261b1e-1d8d-440b-991f-e33e3a174bae",
+        "transaction_id": "83fab542-e1db-4f08-842a-7d98befad162",
+        "jurisdiction": "EU_EEA",
+        "source_region": "DE",
+        "target_region": "DE",
+        "route_action": "hold",
+        "manifest_hash": "1c802f344f52e67e67680c543e61926d611f1c9c934bfca5da254eb67e402ac1",
+        "overall_entropy_score": 0.8938578654609097,
+        "highest_modality_risk": 1.0,
+        "encrypted_in_transit": true,
+        "cross_border": false,
+        "connector_kind": "s3_parquet",
+        "ledger_parent_hash": "d638b6584177c005baa1bdb7f264cb4b307cbb97d82e58efde75e67ce004553c",
+        "ledger_hash": "61dccbb43559b50b840c94be88241cf0eb13de0d822fa8985bdb3d1572c2b6ed",
+        "notes": [
+          "policy=EU_EEA",
+          "connector_kind=s3_parquet",
+          "modalities=audio,text",
+          "audio: entropy crossed the hold threshold.",
+          "text: entropy crossed the hold threshold."
+        ],
+        "created_at": "2026-07-06T00:49:12.383880+00:00"
+      },
       {
         "event_id": "e71c7b67-61a9-40da-9c47-8c47d5a07d38",
         "transaction_id": "9bd76889-16ec-4aab-b8a0-a56e937c5370",
@@ -186,32 +210,8 @@
           "text: entropy crossed the hold threshold."
         ],
         "created_at": "2026-07-04T03:01:41.680279+00:00"
-      },
-      {
-        "event_id": "e868abd2-3952-48ad-be0f-dfcf0550144a",
-        "transaction_id": "70f69ca0-af64-45c9-af58-df5173e3bede",
-        "jurisdiction": "EU_EEA",
-        "source_region": "DE",
-        "target_region": "DE",
-        "route_action": "hold",
-        "manifest_hash": "e1f3a723d6c2731337538ecf9205e7bdeb48811deb8e7232d205b498177dd0ce",
-        "overall_entropy_score": 0.8938578654609097,
-        "highest_modality_risk": 1.0,
-        "encrypted_in_transit": true,
-        "cross_border": false,
-        "connector_kind": "s3_parquet",
-        "ledger_parent_hash": "076dd4bfde1ab2d2b14c8752261c5b4ecbc358edcc6608532218a0454ada5edb",
-        "ledger_hash": "da6b2a78ac6f34a467af805f80dfb6bd96f8c8983d0000f3cb14a61bd7c1bc0f",
-        "notes": [
-          "policy=EU_EEA",
-          "connector_kind=s3_parquet",
-          "modalities=audio,text",
-          "audio: entropy crossed the hold threshold.",
-          "text: entropy crossed the hold threshold."
-        ],
-        "created_at": "2026-07-04T02:49:40.112927+00:00"
       }
     ],
-    "created_at": "2026-07-06T00:32:24.169113+00:00"
+    "created_at": "2026-07-06T00:49:12.395796+00:00"
   }
 }

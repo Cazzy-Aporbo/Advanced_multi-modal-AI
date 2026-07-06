@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1200 420">
+  <title id="title">Runtime map</title>
+  <desc id="desc">Generated from repository proof files by scripts/export_readme_visuals.py.</desc>
+  <defs>
+    <linearGradient id="atlas" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1b1721"/>
+      <stop offset="38%" stop-color="#26323a"/>
+      <stop offset="72%" stop-color="#201826"/>
+      <stop offset="100%" stop-color="#182927"/>
+    </linearGradient>
+    <linearGradient id="softLine" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f3b274"/>
+      <stop offset="32%" stop-color="#f0b7d3"/>
+      <stop offset="66%" stop-color="#9adfd4"/>
+      <stop offset="100%" stop-color="#9bbcff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.42"/>
+      <stop offset="45%" stop-color="#f0b7d3" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#9adfd4" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blurGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="420" rx="34" fill="url(#atlas)"/>
+<path d="M120 230 H1080" stroke="url(#softLine)" stroke-width="4" stroke-linecap="round" opacity="0.75"/>
+<path d="M198 176 H240" stroke="#f3b274" stroke-width="3" opacity="0.65"/>
+<rect x="72" y="120" width="138" height="118" rx="26" fill="#ffffff" fill-opacity="0.055" stroke="#f3b27488" stroke-width="1.2"/>
+<circle cx="141" cy="154" r="12" fill="#f3b274" opacity="0.86"></circle>
+<text x="94" y="190" fill="#fff7ef" font-family="Georgia, serif" font-size="24" font-weight="700">Ingest</text>
+<text x="94" y="218" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="10" letter-spacing="3">TYPED CONNECTORS</text>
+<path d="M378 176 H420" stroke="#f0b7d3" stroke-width="3" opacity="0.65"/>
+<rect x="252" y="120" width="138" height="118" rx="26" fill="#ffffff" fill-opacity="0.055" stroke="#f0b7d388" stroke-width="1.2"/>
+<circle cx="321" cy="154" r="12" fill="#f0b7d3" opacity="0.86"></circle>
+<text x="274" y="190" fill="#fff7ef" font-family="Georgia, serif" font-size="24" font-weight="700">Contract</text>
+<text x="274" y="218" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="10" letter-spacing="3">SCHEMA FINGERPRINT</text>
+<path d="M558 176 H600" stroke="#9adfd4" stroke-width="3" opacity="0.65"/>
+<rect x="432" y="120" width="138" height="118" rx="26" fill="#ffffff" fill-opacity="0.055" stroke="#9adfd488" stroke-width="1.2"/>
+<circle cx="501" cy="154" r="12" fill="#9adfd4" opacity="0.86"></circle>
+<text x="454" y="190" fill="#fff7ef" font-family="Georgia, serif" font-size="24" font-weight="700">Profile</text>
+<text x="454" y="218" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="10" letter-spacing="3">QUALITY RECEIPT</text>
+<path d="M738 176 H780" stroke="#9bbcff" stroke-width="3" opacity="0.65"/>
+<rect x="612" y="120" width="138" height="118" rx="26" fill="#ffffff" fill-opacity="0.055" stroke="#9bbcff88" stroke-width="1.2"/>
+<circle cx="681" cy="154" r="12" fill="#9bbcff" opacity="0.86"></circle>
+<text x="634" y="190" fill="#fff7ef" font-family="Georgia, serif" font-size="24" font-weight="700">Align</text>
+<text x="634" y="218" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="10" letter-spacing="3">TEMPORAL WINDOW</text>
+<path d="M918 176 H960" stroke="#c7b4ff" stroke-width="3" opacity="0.65"/>
+<rect x="792" y="120" width="138" height="118" rx="26" fill="#ffffff" fill-opacity="0.055" stroke="#c7b4ff88" stroke-width="1.2"/>
+<circle cx="861" cy="154" r="12" fill="#c7b4ff" opacity="0.86"></circle>
+<text x="814" y="190" fill="#fff7ef" font-family="Georgia, serif" font-size="24" font-weight="700">Replay</text>
+<text x="814" y="218" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="10" letter-spacing="3">LEDGER FRAME</text>
+<rect x="972" y="120" width="138" height="118" rx="26" fill="#ffffff" fill-opacity="0.055" stroke="#f3b27488" stroke-width="1.2"/>
+<circle cx="1041" cy="154" r="12" fill="#f3b274" opacity="0.86"></circle>
+<text x="994" y="190" fill="#fff7ef" font-family="Georgia, serif" font-size="24" font-weight="700">Surface</text>
+<text x="994" y="218" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="10" letter-spacing="3">PROOF EXPORT</text>
+<rect x="82" y="292" width="245" height="72" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff22" stroke-width="1.2"/>
+<rect x="82" y="292" width="245" height="3" rx="1.5" fill="#9bbcff"/>
+<text x="100" y="324" fill="#fff7ef" font-family="Georgia, serif" font-size="22" font-weight="700">Python</text>
+<text x="100" y="348" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="9" letter-spacing="3">API, STORES, PROOF, WORKERS</text>
+<rect x="350" y="292" width="245" height="72" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff22" stroke-width="1.2"/>
+<rect x="350" y="292" width="245" height="3" rx="1.5" fill="#f3b274"/>
+<text x="368" y="324" fill="#fff7ef" font-family="Georgia, serif" font-size="22" font-weight="700">Rust</text>
+<text x="368" y="348" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="9" letter-spacing="3">TENSOR SIGNATURES, GUARD, REPLAY, RECEIPTS</text>
+<rect x="618" y="292" width="245" height="72" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff22" stroke-width="1.2"/>
+<rect x="618" y="292" width="245" height="3" rx="1.5" fill="#9adfd4"/>
+<text x="636" y="324" fill="#fff7ef" font-family="Georgia, serif" font-size="22" font-weight="700">TypeScript</text>
+<text x="636" y="348" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="9" letter-spacing="3">SDK VALIDATION AND GENERATED CLIENTS</text>
+<rect x="886" y="292" width="245" height="72" rx="22" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff22" stroke-width="1.2"/>
+<rect x="886" y="292" width="245" height="3" rx="1.5" fill="#f0b7d3"/>
+<text x="904" y="324" fill="#fff7ef" font-family="Georgia, serif" font-size="22" font-weight="700">HTML/JS</text>
+<text x="904" y="348" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="9" letter-spacing="3">PUBLIC READING SURFACES FROM PROOF FILES</text>
+<text x="72" y="72" fill="#f3b274" font-family="Avenir, Verdana, sans-serif" font-size="14" letter-spacing="3">DATA PATH</text>
+<text x="72" y="98" fill="#fff7ef" font-family="Georgia, serif" font-size="28" font-weight="700">One request, several languages, one receipt trail.</text>
+</svg>

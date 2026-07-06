@@ -50,6 +50,7 @@ jobs:
           python scripts/export_example_bundle.py
           python scripts/build_runtime_proof_bundle.py
           python scripts/export_execution_journal.py
+          python scripts/export_readme_visuals.py
 
       - name: Prepare site bundle
         run: |
@@ -81,6 +82,7 @@ jobs:
           cp CONTRIBUTING.md site/CONTRIBUTING.md
           cp CODE_OF_CONDUCT.md site/CODE_OF_CONDUCT.md
           cp SECURITY.md site/SECURITY.md
+          cp -R assets site/assets
           cp -R docs site/docs
           cp -R proof site/proof
           cp -R openapi site/openapi

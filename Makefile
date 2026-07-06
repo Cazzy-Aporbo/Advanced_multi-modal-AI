@@ -56,6 +56,7 @@ proof:
 	$(PYTHON) scripts/export_readiness_report.py
 	$(PYTHON) scripts/export_example_bundle.py
 	$(PYTHON) scripts/build_runtime_proof_bundle.py
+	$(PYTHON) scripts/export_readme_visuals.py
 
 stack-config:
 	docker compose -f containers/compose.yaml config

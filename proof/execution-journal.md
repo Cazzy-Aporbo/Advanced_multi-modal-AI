@@ -1,43 +1,43 @@
 # Execution Journal
 
-- Total runs: `289`
-- Passing runs: `287`
+- Total runs: `308`
+- Passing runs: `306`
 - Failing runs: `2`
 
 ## Runs by lane
 
 - `test_export_lane`: 26
-- `openapi_export`: 22
-- `proof_export`: 22
-- `repository_pulse_export`: 21
-- `research_surface_export`: 21
-- `client_generation`: 19
-- `benchmark_surface_export`: 17
-- `execution_journal_export`: 17
-- `readiness_export`: 17
-- `cymatic_surface_export`: 15
-- `example_bundle_export`: 14
-- `music_observatory_export`: 13
-- `operator_surfaces_export`: 11
-- `edge_topology_export`: 9
-- `industrial_diagnostics_export`: 9
-- `industry_profiles_export`: 9
-- `repository_file_map_export`: 9
-- `repository_growth_export`: 9
-- `privacy_membrane_export`: 5
-- `research_influence_export`: 4
+- `openapi_export`: 23
+- `proof_export`: 23
+- `repository_pulse_export`: 22
+- `research_surface_export`: 22
+- `client_generation`: 20
+- `benchmark_surface_export`: 18
+- `execution_journal_export`: 18
+- `readiness_export`: 18
+- `cymatic_surface_export`: 16
+- `example_bundle_export`: 15
+- `music_observatory_export`: 14
+- `operator_surfaces_export`: 12
+- `edge_topology_export`: 10
+- `industrial_diagnostics_export`: 10
+- `industry_profiles_export`: 10
+- `repository_file_map_export`: 10
+- `repository_growth_export`: 10
+- `privacy_membrane_export`: 6
+- `research_influence_export`: 5
 
 ## Recent runs
 
 ### edge_topology_export · pass
 
 - Command: `python3 scripts/export_edge_topology.py`
-- Duration: `56.82ms`
-- Started: `2026-07-06T00:32:24.115970+00:00`
-- Completed: `2026-07-06T00:32:24.172789+00:00`
+- Duration: `56.53ms`
+- Started: `2026-07-06T00:49:12.343346+00:00`
+- Completed: `2026-07-06T00:49:12.399878+00:00`
 
 Artifacts:
-- `proof/edge-topology.json` · present · 8596 bytes
+- `proof/edge-topology.json` · present · 8598 bytes
 - `proof/edge-topology.md` · present · 1082 bytes
 
 Notes:
@@ -47,9 +47,9 @@ Notes:
 ### industrial_diagnostics_export · pass
 
 - Command: `python3 scripts/export_industrial_diagnostics.py`
-- Duration: `1.59ms`
-- Started: `2026-07-06T00:32:21.936252+00:00`
-- Completed: `2026-07-06T00:32:21.937839+00:00`
+- Duration: `1.61ms`
+- Started: `2026-07-06T00:49:10.225585+00:00`
+- Completed: `2026-07-06T00:49:10.227200+00:00`
 
 Artifacts:
 - `proof/industrial-diagnostics.json` · present · 42175 bytes
@@ -62,9 +62,9 @@ Notes:
 ### industry_profiles_export · pass
 
 - Command: `python3 scripts/export_industry_profiles.py`
-- Duration: `42.18ms`
-- Started: `2026-07-06T00:32:19.668412+00:00`
-- Completed: `2026-07-06T00:32:19.710596+00:00`
+- Duration: `58.50ms`
+- Started: `2026-07-06T00:49:07.919857+00:00`
+- Completed: `2026-07-06T00:49:07.978360+00:00`
 
 Artifacts:
 - `proof/industry-profiles.json` · present · 14303 bytes
@@ -77,13 +77,13 @@ Notes:
 ### operator_surfaces_export · pass
 
 - Command: `python3 scripts/export_operator_surfaces.py`
-- Duration: `61.97ms`
-- Started: `2026-07-06T00:32:17.503270+00:00`
-- Completed: `2026-07-06T00:32:17.565238+00:00`
+- Duration: `61.56ms`
+- Started: `2026-07-06T00:49:05.718631+00:00`
+- Completed: `2026-07-06T00:49:05.780198+00:00`
 
 Artifacts:
-- `proof/operator-surfaces.json` · present · 25063 bytes
-- `proof/operator-surfaces.md` · present · 5102 bytes
+- `proof/operator-surfaces.json` · present · 25065 bytes
+- `proof/operator-surfaces.md` · present · 5104 bytes
 
 Notes:
 - Operator surfaces regenerated from live runtime proof and music warehouse state.
@@ -92,12 +92,12 @@ Notes:
 ### privacy_membrane_export · pass
 
 - Command: `python3 scripts/export_privacy_membrane.py`
-- Duration: `64.54ms`
-- Started: `2026-07-06T00:32:15.245803+00:00`
-- Completed: `2026-07-06T00:32:15.310320+00:00`
+- Duration: `64.99ms`
+- Started: `2026-07-06T00:49:03.573562+00:00`
+- Completed: `2026-07-06T00:49:03.638558+00:00`
 
 Artifacts:
-- `proof/privacy-membrane.json` · present · 75061 bytes
+- `proof/privacy-membrane.json` · present · 76607 bytes
 - `proof/privacy-membrane.md` · present · 13331 bytes
 
 Notes:
@@ -107,13 +107,13 @@ Notes:
 ### music_observatory_export · pass
 
 - Command: `python3 scripts/export_music_observatory.py`
-- Duration: `168.53ms`
-- Started: `2026-07-06T00:32:12.913133+00:00`
-- Completed: `2026-07-06T00:32:13.081663+00:00`
+- Duration: `182.30ms`
+- Started: `2026-07-06T00:49:01.226928+00:00`
+- Completed: `2026-07-06T00:49:01.409229+00:00`
 
 Artifacts:
-- `proof/music-observatory.json` · present · 231571 bytes
-- `proof/music-observatory.md` · present · 4032 bytes
+- `proof/music-observatory.json` · present · 231860 bytes
+- `proof/music-observatory.md` · present · 4034 bytes
 
 Notes:
 - Music observatory regenerated from the persisted warehouse lane.
@@ -122,12 +122,12 @@ Notes:
 ### benchmark_surface_export · pass
 
 - Command: `python3 scripts/export_benchmark_surfaces.py`
-- Duration: `468.19ms`
-- Started: `2026-07-06T00:32:10.433756+00:00`
-- Completed: `2026-07-06T00:32:10.901956+00:00`
+- Duration: `455.63ms`
+- Started: `2026-07-06T00:48:58.550256+00:00`
+- Completed: `2026-07-06T00:48:59.005894+00:00`
 
 Artifacts:
-- `proof/benchmark-surfaces.json` · present · 4568 bytes
+- `proof/benchmark-surfaces.json` · present · 4563 bytes
 - `proof/benchmark-surfaces.md` · present · 3294 bytes
 
 Notes:
@@ -137,14 +137,14 @@ Notes:
 ### repository_growth_export · pass
 
 - Command: `python3 scripts/export_repository_growth.py`
-- Duration: `75.05ms`
-- Started: `2026-07-06T00:32:08.222491+00:00`
-- Completed: `2026-07-06T00:32:08.297545+00:00`
+- Duration: `96.60ms`
+- Started: `2026-07-06T00:48:56.399083+00:00`
+- Completed: `2026-07-06T00:48:56.495687+00:00`
 
 Artifacts:
 - `proof/repository-growth.json` · present · 1174 bytes
 - `proof/repository-growth.md` · present · 1009 bytes
-- `proof/repository-growth-history.jsonl` · present · 2250 bytes
+- `proof/repository-growth-history.jsonl` · present · 2455 bytes
 
 Notes:
 - Repository growth snapshot regenerated from the live proof bundle and any GitHub API data available at export time.
@@ -153,13 +153,13 @@ Notes:
 ### repository_file_map_export · pass
 
 - Command: `python3 scripts/export_repository_file_map.py`
-- Duration: `449.11ms`
-- Started: `2026-07-06T00:32:05.682660+00:00`
-- Completed: `2026-07-06T00:32:06.131769+00:00`
+- Duration: `459.56ms`
+- Started: `2026-07-06T00:48:53.846502+00:00`
+- Completed: `2026-07-06T00:48:54.306066+00:00`
 
 Artifacts:
-- `proof/repository-file-map.json` · present · 386348 bytes
-- `proof/repository-file-map.md` · present · 11639 bytes
+- `proof/repository-file-map.json` · present · 386878 bytes
+- `proof/repository-file-map.md` · present · 11635 bytes
 
 Notes:
 - Repository file map regenerated from static analysis.
@@ -168,13 +168,13 @@ Notes:
 ### repository_pulse_export · pass
 
 - Command: `python3 scripts/export_repository_pulse.py`
-- Duration: `61.75ms`
-- Started: `2026-07-06T00:32:03.468462+00:00`
-- Completed: `2026-07-06T00:32:03.530216+00:00`
+- Duration: `64.67ms`
+- Started: `2026-07-06T00:48:51.694075+00:00`
+- Completed: `2026-07-06T00:48:51.758747+00:00`
 
 Artifacts:
-- `proof/repository-pulse.json` · present · 41765 bytes
-- `proof/repository-pulse.md` · present · 19014 bytes
+- `proof/repository-pulse.json` · present · 41767 bytes
+- `proof/repository-pulse.md` · present · 19016 bytes
 
 Notes:
 - Repository pulse regenerated from the live backend.
@@ -183,9 +183,9 @@ Notes:
 ### cymatic_surface_export · pass
 
 - Command: `python3 scripts/export_cymatic_surface.py`
-- Duration: `475.12ms`
-- Started: `2026-07-06T00:32:00.839487+00:00`
-- Completed: `2026-07-06T00:32:01.314609+00:00`
+- Duration: `509.17ms`
+- Started: `2026-07-06T00:48:49.111058+00:00`
+- Completed: `2026-07-06T00:48:49.620237+00:00`
 
 Artifacts:
 - `proof/cymatic-surface.json` · present · 15432 bytes
@@ -198,9 +198,9 @@ Notes:
 ### research_influence_export · pass
 
 - Command: `python3 scripts/export_research_influence.py`
-- Duration: `69.93ms`
-- Started: `2026-07-06T00:31:58.779766+00:00`
-- Completed: `2026-07-06T00:31:58.849693+00:00`
+- Duration: `68.88ms`
+- Started: `2026-07-06T00:48:47.111193+00:00`
+- Completed: `2026-07-06T00:48:47.180080+00:00`
 
 Artifacts:
 - `proof/research-influence.json` · present · 24220 bytes
@@ -213,9 +213,9 @@ Notes:
 ### research_surface_export · pass
 
 - Command: `python3 scripts/export_research_surfaces.py`
-- Duration: `63.26ms`
-- Started: `2026-07-06T00:31:56.801586+00:00`
-- Completed: `2026-07-06T00:31:56.864846+00:00`
+- Duration: `65.53ms`
+- Started: `2026-07-06T00:48:45.143420+00:00`
+- Completed: `2026-07-06T00:48:45.208957+00:00`
 
 Artifacts:
 - `proof/research-surfaces.json` · present · 39365 bytes
@@ -228,9 +228,9 @@ Notes:
 ### client_generation · pass
 
 - Command: `python3 scripts/generate_sdk_surfaces.py`
-- Duration: `2.35ms`
-- Started: `2026-07-06T00:31:54.889736+00:00`
-- Completed: `2026-07-06T00:31:54.892086+00:00`
+- Duration: `3.23ms`
+- Started: `2026-07-06T00:48:43.226781+00:00`
+- Completed: `2026-07-06T00:48:43.230017+00:00`
 
 Artifacts:
 - `sdk/typescript/src/generated-openapi.ts` · present · 30747 bytes
@@ -243,9 +243,9 @@ Notes:
 ### openapi_export · pass
 
 - Command: `python3 scripts/export_openapi.py`
-- Duration: `105.19ms`
-- Started: `2026-07-06T00:31:52.803377+00:00`
-- Completed: `2026-07-06T00:31:52.908573+00:00`
+- Duration: `109.72ms`
+- Started: `2026-07-06T00:48:41.212282+00:00`
+- Completed: `2026-07-06T00:48:41.322005+00:00`
 
 Artifacts:
 - `openapi/openapi.json` · present · 274449 bytes
@@ -257,9 +257,9 @@ Notes:
 ### proof_export · pass
 
 - Command: `python3 scripts/build_runtime_proof_bundle.py`
-- Duration: `46.00ms`
-- Started: `2026-07-06T00:28:37.054220+00:00`
-- Completed: `2026-07-06T00:28:37.100218+00:00`
+- Duration: `46.28ms`
+- Started: `2026-07-06T00:32:33.198152+00:00`
+- Completed: `2026-07-06T00:32:33.244431+00:00`
 
 Artifacts:
 - `proof/runtime-proof.json` · present · 6329 bytes
@@ -272,9 +272,9 @@ Notes:
 ### example_bundle_export · pass
 
 - Command: `python3 scripts/export_example_bundle.py`
-- Duration: `379.54ms`
-- Started: `2026-07-06T00:28:34.463332+00:00`
-- Completed: `2026-07-06T00:28:34.842873+00:00`
+- Duration: `362.91ms`
+- Started: `2026-07-06T00:32:30.770771+00:00`
+- Completed: `2026-07-06T00:32:31.133681+00:00`
 
 Artifacts:
 - `proof/example-bundle.json` · present · 2603 bytes
@@ -287,9 +287,9 @@ Notes:
 ### readiness_export · pass
 
 - Command: `python3 scripts/export_readiness_report.py`
-- Duration: `55.37ms`
-- Started: `2026-07-06T00:28:32.233610+00:00`
-- Completed: `2026-07-06T00:28:32.288980+00:00`
+- Duration: `53.49ms`
+- Started: `2026-07-06T00:32:28.568683+00:00`
+- Completed: `2026-07-06T00:32:28.622176+00:00`
 
 Artifacts:
 - `proof/readiness-report.json` · present · 2795 bytes
@@ -302,12 +302,12 @@ Notes:
 ### execution_journal_export · pass
 
 - Command: `python3 scripts/export_execution_journal.py`
-- Duration: `44.75ms`
-- Started: `2026-07-06T00:28:30.023437+00:00`
-- Completed: `2026-07-06T00:28:30.068188+00:00`
+- Duration: `45.76ms`
+- Started: `2026-07-06T00:32:26.306881+00:00`
+- Completed: `2026-07-06T00:32:26.352641+00:00`
 
 Artifacts:
-- `proof/execution-journal.json` · present · 22524 bytes
+- `proof/execution-journal.json` · present · 22517 bytes
 - `proof/execution-journal.md` · present · 8988 bytes
 
 Notes:
@@ -317,9 +317,9 @@ Notes:
 ### edge_topology_export · pass
 
 - Command: `python3 scripts/export_edge_topology.py`
-- Duration: `58.20ms`
-- Started: `2026-07-06T00:28:27.821072+00:00`
-- Completed: `2026-07-06T00:28:27.879271+00:00`
+- Duration: `56.82ms`
+- Started: `2026-07-06T00:32:24.115970+00:00`
+- Completed: `2026-07-06T00:32:24.172789+00:00`
 
 Artifacts:
 - `proof/edge-topology.json` · present · 8596 bytes

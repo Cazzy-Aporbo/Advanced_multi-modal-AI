@@ -400,7 +400,7 @@
         "proof_to_add": "A readiness export showing which high-impact routes have adequate review state."
       }
     ],
-    "generated_at": "2026-07-06T00:31:58.821950+00:00"
+    "generated_at": "2026-07-06T00:48:47.153158+00:00"
   },
   "sample_outputs": {
     "harness_improvement": {
@@ -478,7 +478,7 @@
           "rejection_reason": "Support is not high enough to change the harness yet."
         }
       ],
-      "generated_at": "2026-07-06T00:31:58.827781+00:00"
+      "generated_at": "2026-07-06T00:48:47.159667+00:00"
     },
     "deliberation_assessment": {
       "decision_id": "domain-transfer-review",
@@ -501,7 +501,7 @@
         "Which view is missing: reviewer?",
         "Can the disagreement be reduced to one observable test?"
       ],
-      "generated_at": "2026-07-06T00:31:58.833495+00:00"
+      "generated_at": "2026-07-06T00:48:47.164950+00:00"
     },
     "trust_calibration": {
       "route": "/v1/industrial/diagnose",
@@ -557,7 +557,7 @@
         "human_control",
         "oversight"
       ],
-      "generated_at": "2026-07-06T00:31:58.838877+00:00"
+      "generated_at": "2026-07-06T00:48:47.171109+00:00"
     },
     "epistemic_risk": {
       "assessment_id": "catalog-epistemic-slice",
@@ -608,7 +608,7 @@
         "Keep uncertainty visible beside any confident answer.",
         "Require a human reviewer for high-impact or stale evidence."
       ],
-      "generated_at": "2026-07-06T00:31:58.844805+00:00"
+      "generated_at": "2026-07-06T00:48:47.176096+00:00"
     }
   }
 }

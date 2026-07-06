@@ -4,8 +4,8 @@
 - Route count: `106`
 - Test count: `64`
 - Connector kinds: `local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html`
-- Compiled recipes: `192`
-- Fully resolved recipes: `192`
+- Compiled recipes: `196`
+- Fully resolved recipes: `196`
 
 ## Checks
 
@@ -13,11 +13,11 @@
 - `pass` verification_depth: 64 tests are currently counted in the proof bundle.
 - `pass` artifact_evidence: 18 of 18 declared verification artifacts are present.
 - `pass` connector_coverage: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html
-- `pass` connector_evidence: 536 persisted connector runs are recorded.
-- `pass` recipe_resolution: 192 of 192 compiled recipes have fully resolved source evidence.
-- `pass` governance_evidence: drift baselines=8, ontology snapshots=131, pipeline runs=418
+- `pass` connector_evidence: 541 persisted connector runs are recorded.
+- `pass` recipe_resolution: 196 of 196 compiled recipes have fully resolved source evidence.
+- `pass` governance_evidence: drift baselines=8, ontology snapshots=131, pipeline runs=422
 - `pass` stewardship_surface: lifecycle policies=33, change controls=33, supply snapshots=33
-- `pass` execution_history: 290 persisted export or verification runs are recorded.
+- `pass` execution_history: 309 persisted export or verification runs are recorded.
 
 ## Blockers
 

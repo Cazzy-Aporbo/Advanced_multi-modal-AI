@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" viewBox="0 0 1200 430">
+  <title id="title">Music and privacy evidence</title>
+  <desc id="desc">Generated from repository proof files by scripts/export_readme_visuals.py.</desc>
+  <defs>
+    <linearGradient id="atlas" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1b1721"/>
+      <stop offset="38%" stop-color="#26323a"/>
+      <stop offset="72%" stop-color="#201826"/>
+      <stop offset="100%" stop-color="#182927"/>
+    </linearGradient>
+    <linearGradient id="softLine" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f3b274"/>
+      <stop offset="32%" stop-color="#f0b7d3"/>
+      <stop offset="66%" stop-color="#9adfd4"/>
+      <stop offset="100%" stop-color="#9bbcff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.42"/>
+      <stop offset="45%" stop-color="#f0b7d3" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#9adfd4" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blurGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="430" rx="34" fill="url(#atlas)"/>
+<text x="72" y="72" fill="#f3b274" font-family="Avenir, Verdana, sans-serif" font-size="14" letter-spacing="3">SIGNAL CARE</text>
+<text x="72" y="104" fill="#fff7ef" font-family="Georgia, serif" font-size="28" font-weight="700">Audio and privacy are measured without storing what should stay private.</text>
+<rect x="72" y="144" width="150" height="86" rx="22" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff2c" stroke-width="1.2"/>
+<rect x="72" y="144" width="150" height="3" rx="1.5" fill="#f3b274"/>
+<text x="90" y="174" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="12" letter-spacing="3">MANIFESTS</text>
+<text x="90" y="212" fill="#fff7ef" font-family="Georgia, serif" font-size="30" font-weight="700">101</text>
+<rect x="248" y="144" width="150" height="86" rx="22" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff2c" stroke-width="1.2"/>
+<rect x="248" y="144" width="150" height="3" rx="1.5" fill="#9adfd4"/>
+<text x="266" y="174" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="12" letter-spacing="3">SEGMENTS</text>
+<text x="266" y="212" fill="#fff7ef" font-family="Georgia, serif" font-size="30" font-weight="700">72</text>
+<rect x="424" y="144" width="150" height="86" rx="22" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff2c" stroke-width="1.2"/>
+<rect x="424" y="144" width="150" height="3" rx="1.5" fill="#f0b7d3"/>
+<text x="442" y="174" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="12" letter-spacing="3">PRIVACY TYPES</text>
+<text x="442" y="212" fill="#fff7ef" font-family="Georgia, serif" font-size="30" font-weight="700">63</text>
+<rect x="600" y="144" width="150" height="86" rx="22" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff2c" stroke-width="1.2"/>
+<rect x="600" y="144" width="150" height="3" rx="1.5" fill="#9bbcff"/>
+<text x="618" y="174" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="12" letter-spacing="3">LANGUAGES</text>
+<text x="618" y="212" fill="#fff7ef" font-family="Georgia, serif" font-size="30" font-weight="700">32</text>
+<text x="72" y="258" fill="#d8ccbf" font-family="Avenir, Verdana, sans-serif" font-size="12" letter-spacing="3">SOUND DRIFT INDICATORS</text>
+<text x="72" y="276" fill="#fff7ef" font-family="Georgia, serif" font-size="15" font-weight="600">Loudness drift</text>
+<rect x="360" y="262" width="380" height="12" rx="6" fill="#ffffff12"/>
+<rect x="360" y="262" width="32" height="12" rx="6" fill="#9adfd4" opacity="0.86"/>
+<text x="72" y="304" fill="#fff7ef" font-family="Georgia, serif" font-size="15" font-weight="600">Language-share drift</text>
+<rect x="360" y="290" width="380" height="12" rx="6" fill="#ffffff12"/>
+<rect x="360" y="290" width="360" height="12" rx="6" fill="#f3b274" opacity="0.86"/>
+<text x="72" y="332" fill="#fff7ef" font-family="Georgia, serif" font-size="15" font-weight="600">Genre imbalance</text>
+<rect x="360" y="318" width="380" height="12" rx="6" fill="#ffffff12"/>
+<rect x="360" y="318" width="180" height="12" rx="6" fill="#f0b7d3" opacity="0.86"/>
+<text x="72" y="360" fill="#fff7ef" font-family="Georgia, serif" font-size="15" font-weight="600">Instrumentation collapse</text>
+<rect x="360" y="346" width="380" height="12" rx="6" fill="#ffffff12"/>
+<rect x="360" y="346" width="240" height="12" rx="6" fill="#9bbcff" opacity="0.86"/>
+<text x="72" y="388" fill="#fff7ef" font-family="Georgia, serif" font-size="15" font-weight="600">Repetition inflation</text>
+<rect x="360" y="374" width="380" height="12" rx="6" fill="#ffffff12"/>
+<rect x="360" y="374" width="359" height="12" rx="6" fill="#c7b4ff" opacity="0.86"/>
+<rect x="800" y="144" width="315" height="214" rx="28" fill="#ffffff" fill-opacity="0.055" stroke="#ffffff24" stroke-width="1.2"/>
+<rect x="800" y="144" width="315" height="3" rx="1.5" fill="url(#softLine)"/>
+<text x="828" y="190" fill="#fff7ef" font-family="Georgia, serif" font-size="25" font-weight="700">Receipt posture</text>
+<text x="828" y="226" fill="#d8ccbf" font-family="Georgia, serif" font-size="17" font-weight="400">Raw media is referenced, not committed.</text>
+<text x="828" y="258" fill="#d8ccbf" font-family="Georgia, serif" font-size="17" font-weight="400">Features, masks, hashes, and counts are kept.</text>
+<text x="828" y="290" fill="#d8ccbf" font-family="Georgia, serif" font-size="17" font-weight="400">Small signals remain inspectable.</text>
+<circle cx="1042" cy="320" r="44" fill="url(#glow)"><animate attributeName="r" values="36;48;36" dur="6s" repeatCount="indefinite"/></circle>
+</svg>

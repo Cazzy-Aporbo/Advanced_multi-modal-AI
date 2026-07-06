@@ -1,9 +1,9 @@
 {
   "service": "advanced-multimodal-ai",
   "version": "0.5.0",
-  "file_count": 174,
-  "edge_count": 1043,
-  "active_python_files": 99,
+  "file_count": 175,
+  "edge_count": 1042,
+  "active_python_files": 100,
   "frontend_files": 21,
   "proof_files": 34,
   "lane_counts": {
@@ -11,7 +11,7 @@
     "compiled signal core": 2,
     "data movement": 4,
     "documentation": 12,
-    "export and proof": 21,
+    "export and proof": 22,
     "generated evidence": 34,
     "industrial diagnostics": 15,
     "privacy membrane": 2,
@@ -27,7 +27,7 @@
     "JSON": 17,
     "JavaScript": 9,
     "Markdown": 29,
-    "Python": 105,
+    "Python": 106,
     "Rust": 2
   },
   "nodes": [
@@ -2143,6 +2143,31 @@
       "modified_at": "2026-07-05T15:47:46.773512+00:00"
     },
     {
+      "path": "scripts/export_readme_visuals.py",
+      "label": "export_readme_visuals.py",
+      "language": "Python",
+      "lane": "export and proof",
+      "status": "active",
+      "purpose": "Supports the export and proof lane.",
+      "inputs": [
+        "source code and local repository state"
+      ],
+      "outputs": [
+        "versioned proof artifacts"
+      ],
+      "connects_to": [],
+      "imported_by": [],
+      "evidence": [
+        "static repository evidence"
+      ],
+      "line_count": 260,
+      "byte_count": 12606,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 28,
+      "modified_at": "2026-07-06T00:45:17.122662+00:00"
+    },
+    {
       "path": "scripts/validate_recipe_manifest.py",
       "label": "validate_recipe_manifest.py",
       "language": "Python",
@@ -2214,7 +2239,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-06T00:28:30.068086+00:00"
+      "modified_at": "2026-07-06T00:32:26.352583+00:00"
     },
     {
       "path": "proof/repository-file-map.md",
@@ -2261,7 +2286,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-06T00:28:09.760444+00:00"
+      "modified_at": "2026-07-06T00:32:06.131675+00:00"
     },
     {
       "path": "proof/repository-pulse.md",
@@ -2302,11 +2327,11 @@
         "writes or reads proof files"
       ],
       "line_count": 450,
-      "byte_count": 19014,
+      "byte_count": 19016,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-06T00:32:03.530169+00:00"
+      "modified_at": "2026-07-06T00:48:51.758710+00:00"
     },
     {
       "path": "proof/research-surfaces.md",
@@ -2356,7 +2381,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-06T00:31:56.864820+00:00"
+      "modified_at": "2026-07-06T00:48:45.208932+00:00"
     },
     {
       "path": "proof/runtime-proof.md",
@@ -2404,7 +2429,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-06T00:28:37.100174+00:00"
+      "modified_at": "2026-07-06T00:32:33.244403+00:00"
     },
     {
       "path": "proof/cymatic-surface.md",
@@ -2449,7 +2474,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 94,
-      "modified_at": "2026-07-06T00:32:01.314516+00:00"
+      "modified_at": "2026-07-06T00:48:49.620148+00:00"
     },
     {
       "path": "proof/research-surfaces.json",
@@ -2488,7 +2513,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 87,
-      "modified_at": "2026-07-06T00:31:56.864586+00:00"
+      "modified_at": "2026-07-06T00:48:45.208712+00:00"
     },
     {
       "path": "proof/music-observatory.json",
@@ -2521,12 +2546,12 @@
       "evidence": [
         "generated artifact"
       ],
-      "line_count": 5749,
-      "byte_count": 231376,
+      "line_count": 5751,
+      "byte_count": 231571,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 81,
-      "modified_at": "2026-07-06T00:28:16.787822+00:00"
+      "modified_at": "2026-07-06T00:32:13.081340+00:00"
     },
     {
       "path": "proof/execution-journal.json",
@@ -2557,11 +2582,11 @@
         "generated artifact"
       ],
       "line_count": 650,
-      "byte_count": 22524,
+      "byte_count": 22517,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 70,
-      "modified_at": "2026-07-06T00:28:30.067672+00:00"
+      "modified_at": "2026-07-06T00:32:26.352407+00:00"
     },
     {
       "path": "proof/industry-profiles.md",
@@ -2606,7 +2631,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 70,
-      "modified_at": "2026-07-06T00:28:23.475489+00:00"
+      "modified_at": "2026-07-06T00:32:19.710528+00:00"
     },
     {
       "path": "proof/operator-surfaces.json",
@@ -2642,7 +2667,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 70,
-      "modified_at": "2026-07-06T00:28:21.202154+00:00"
+      "modified_at": "2026-07-06T00:32:17.565055+00:00"
     },
     {
       "path": "proof/industrial-diagnostics.json",
@@ -2675,7 +2700,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 66,
-      "modified_at": "2026-07-06T00:28:25.659316+00:00"
+      "modified_at": "2026-07-06T00:32:21.937667+00:00"
     },
     {
       "path": "proof/repository-file-map.json",
@@ -2704,12 +2729,12 @@
       "evidence": [
         "generated artifact"
       ],
-      "line_count": 13132,
-      "byte_count": 384776,
+      "line_count": 13188,
+      "byte_count": 386348,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 66,
-      "modified_at": "2026-07-06T00:28:09.760112+00:00"
+      "modified_at": "2026-07-06T00:32:06.131415+00:00"
     },
     {
       "path": "proof/repository-pulse.json",
@@ -2739,11 +2764,11 @@
         "generated artifact"
       ],
       "line_count": 1192,
-      "byte_count": 41765,
+      "byte_count": 41767,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 66,
-      "modified_at": "2026-07-06T00:32:03.529871+00:00"
+      "modified_at": "2026-07-06T00:48:51.758476+00:00"
     },
     {
       "path": "proof/privacy-membrane.json",
@@ -2770,12 +2795,12 @@
       "evidence": [
         "generated artifact"
       ],
-      "line_count": 2253,
-      "byte_count": 73515,
+      "line_count": 2300,
+      "byte_count": 75061,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 63,
-      "modified_at": "2026-07-06T00:28:19.024900+00:00"
+      "modified_at": "2026-07-06T00:32:15.310013+00:00"
     },
     {
       "path": "proof/cymatic-surface.json",
@@ -2813,7 +2838,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 61,
-      "modified_at": "2026-07-06T00:32:01.314301+00:00"
+      "modified_at": "2026-07-06T00:48:49.619924+00:00"
     },
     {
       "path": "proof/runtime-proof.json",
@@ -2851,7 +2876,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 60,
-      "modified_at": "2026-07-06T00:28:37.100020+00:00"
+      "modified_at": "2026-07-06T00:32:33.244231+00:00"
     },
     {
       "path": "proof/research-influence.json",
@@ -2882,7 +2907,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 56,
-      "modified_at": "2026-07-06T00:31:58.849429+00:00"
+      "modified_at": "2026-07-06T00:48:47.179904+00:00"
     },
     {
       "path": "proof/benchmark-surfaces.md",
@@ -2920,7 +2945,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 52,
-      "modified_at": "2026-07-06T00:28:14.480799+00:00"
+      "modified_at": "2026-07-06T00:32:10.901915+00:00"
     },
     {
       "path": "proof/benchmark-surfaces.json",
@@ -2954,11 +2979,11 @@
         "generated artifact"
       ],
       "line_count": 157,
-      "byte_count": 4565,
+      "byte_count": 4568,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 48,
-      "modified_at": "2026-07-06T00:28:14.480603+00:00"
+      "modified_at": "2026-07-06T00:32:10.901740+00:00"
     },
     {
       "path": "proof/edge-topology.json",
@@ -2994,7 +3019,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 46,
-      "modified_at": "2026-07-06T00:28:27.878995+00:00"
+      "modified_at": "2026-07-06T00:32:24.172572+00:00"
     },
     {
       "path": "proof/operator-surfaces.md",
@@ -3033,7 +3058,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 42,
-      "modified_at": "2026-07-06T00:28:21.202315+00:00"
+      "modified_at": "2026-07-06T00:32:17.565212+00:00"
     },
     {
       "path": "proof/music-observatory.md",
@@ -3069,7 +3094,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 41,
-      "modified_at": "2026-07-06T00:28:16.788027+00:00"
+      "modified_at": "2026-07-06T00:32:13.081630+00:00"
     },
     {
       "path": "proof/industry-profiles.json",
@@ -3099,7 +3124,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 40,
-      "modified_at": "2026-07-06T00:28:23.475306+00:00"
+      "modified_at": "2026-07-06T00:32:19.710320+00:00"
     },
     {
       "path": "proof/repository-growth.md",
@@ -3135,7 +3160,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 39,
-      "modified_at": "2026-07-06T00:28:11.939230+00:00"
+      "modified_at": "2026-07-06T00:32:08.296643+00:00"
     },
     {
       "path": "proof/readiness-report.json",
@@ -3170,7 +3195,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 35,
-      "modified_at": "2026-07-06T00:28:32.288805+00:00"
+      "modified_at": "2026-07-06T00:32:28.622010+00:00"
     },
     {
       "path": "proof/example-bundle.json",
@@ -3204,7 +3229,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 33,
-      "modified_at": "2026-07-06T00:28:34.842686+00:00"
+      "modified_at": "2026-07-06T00:32:31.133468+00:00"
     },
     {
       "path": "proof/industrial-diagnostics.md",
@@ -3238,7 +3263,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 32,
-      "modified_at": "2026-07-06T00:28:25.659465+00:00"
+      "modified_at": "2026-07-06T00:32:21.937814+00:00"
     },
     {
       "path": "proof/edge-topology.md",
@@ -3272,7 +3297,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 30,
-      "modified_at": "2026-07-06T00:28:27.879235+00:00"
+      "modified_at": "2026-07-06T00:32:24.172764+00:00"
     },
     {
       "path": "proof/repository-growth.json",
@@ -3305,7 +3330,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 30,
-      "modified_at": "2026-07-06T00:28:11.939081+00:00"
+      "modified_at": "2026-07-06T00:32:08.296497+00:00"
     },
     {
       "path": "proof/privacy-membrane.md",
@@ -3336,7 +3361,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 28,
-      "modified_at": "2026-07-06T00:28:19.025086+00:00"
+      "modified_at": "2026-07-06T00:32:15.310280+00:00"
     },
     {
       "path": "proof/readiness-report.md",
@@ -3369,7 +3394,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 26,
-      "modified_at": "2026-07-06T00:28:32.288946+00:00"
+      "modified_at": "2026-07-06T00:32:28.622143+00:00"
     },
     {
       "path": "proof/example-bundle.md",
@@ -3400,7 +3425,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 22,
-      "modified_at": "2026-07-06T00:28:34.842840+00:00"
+      "modified_at": "2026-07-06T00:32:31.133644+00:00"
     },
     {
       "path": "proof/research-influence.md",
@@ -3430,7 +3455,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 22,
-      "modified_at": "2026-07-06T00:31:58.849650+00:00"
+      "modified_at": "2026-07-06T00:48:47.180050+00:00"
     },
     {
       "path": "advanced-technical-portfolio.html",
@@ -4558,7 +4583,7 @@
       "inputs": [
         "Arrow or Parquet tables",
         "local persisted runtime records",
-        "23 referenced file connections"
+        "22 referenced file connections"
       ],
       "outputs": [
         "queryable runtime store rows",
@@ -4566,7 +4591,6 @@
       ],
       "connects_to": [
         "docs/GROUNDING_AND_BOUNDARIES.md",
-        "docs/engineering-journal.md",
         "examples/diesel_engine.py",
         "examples/electrical_system.py",
         "examples/hydraulic_system.py",
@@ -4574,7 +4598,8 @@
         "index.html",
         "industrial-diagnostics.html",
         "model-observatory.html",
-        "music-observatory.html"
+        "music-observatory.html",
+        "proof/benchmark-surfaces.md"
       ],
       "imported_by": [
         "CLAUDE.md",
@@ -4591,12 +4616,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 509,
-      "byte_count": 20918,
+      "line_count": 504,
+      "byte_count": 21525,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-06T00:26:50.003926+00:00"
+      "modified_at": "2026-07-06T00:48:01.206740+00:00"
     },
     {
       "path": "docs/REPOSITORY_LANES.md",
@@ -4796,12 +4821,11 @@
         "source code and local repository state"
       ],
       "outputs": [
-        "read by 3 repository files"
+        "read by 2 repository files"
       ],
       "connects_to": [],
       "imported_by": [
         "CONTRIBUTING.md",
-        "README.md",
         "proof/repository-file-map.md"
       ],
       "evidence": [
@@ -4811,7 +4835,7 @@
       "byte_count": 2897,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 18,
+      "complexity_score": 15,
       "modified_at": "2026-07-05T15:47:46.758669+00:00"
     },
     {
@@ -6478,12 +6502,6 @@
     {
       "source": "README.md",
       "target": "docs/GROUNDING_AND_BOUNDARIES.md",
-      "relation": "documents",
-      "weight": 0.55
-    },
-    {
-      "source": "README.md",
-      "target": "docs/engineering-journal.md",
       "relation": "documents",
       "weight": 0.55
     },
@@ -12949,7 +12967,7 @@
       "inputs": [
         "Arrow or Parquet tables",
         "local persisted runtime records",
-        "23 referenced file connections"
+        "22 referenced file connections"
       ],
       "outputs": [
         "queryable runtime store rows",
@@ -12957,7 +12975,6 @@
       ],
       "connects_to": [
         "docs/GROUNDING_AND_BOUNDARIES.md",
-        "docs/engineering-journal.md",
         "examples/diesel_engine.py",
         "examples/electrical_system.py",
         "examples/hydraulic_system.py",
@@ -12965,7 +12982,8 @@
         "index.html",
         "industrial-diagnostics.html",
         "model-observatory.html",
-        "music-observatory.html"
+        "music-observatory.html",
+        "proof/benchmark-surfaces.md"
       ],
       "imported_by": [
         "CLAUDE.md",
@@ -12982,12 +13000,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 509,
-      "byte_count": 20918,
+      "line_count": 504,
+      "byte_count": 21525,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-06T00:26:50.003926+00:00"
+      "modified_at": "2026-07-06T00:48:01.206740+00:00"
     },
     {
       "path": "field-notes.html",
@@ -13181,8 +13199,8 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-06T00:31:56.864820+00:00"
+      "modified_at": "2026-07-06T00:48:45.208932+00:00"
     }
   ],
-  "generated_at": "2026-07-06T00:32:06.116086+00:00"
+  "generated_at": "2026-07-06T00:48:54.291796+00:00"
 }

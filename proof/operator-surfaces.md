@@ -5,8 +5,8 @@
 - live routes: 106 · The command lattice stays tied to executable contracts.
 - test functions: 64 · Proof is carried beside the operator surfaces, not after them.
 - named models: 4 · Model count stays visible so command breadth does not drift into theater.
-- audio manifests: 98 · Raw media stays external while the manifest and feature lane remain inspectable.
-- music feature runs: 98 · Every speech-task card below is backed by the same derived warehouse lane.
+- audio manifests: 101 · Raw media stays external while the manifest and feature lane remain inspectable.
+- music feature runs: 101 · Every speech-task card below is backed by the same derived warehouse lane.
 - language × genre spread: 1 × 2 · Coverage is counted as declared signal breadth, not treated as decoration.
 
 ## Command lattice

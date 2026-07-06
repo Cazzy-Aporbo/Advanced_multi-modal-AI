@@ -18,71 +18,66 @@
   </a>
 </p>
 
-<p>
-  A multimodal systems repository for cleaning, aligning, profiling, testing,
-  and explaining signals before they become model output. It keeps the work
-  visible: contracts, proof exports, generated clients, replay records, derived
-  audio features, industry transfer profiles, and deterministic industrial
-  diagnostics all sit beside the code that creates them.
-</p>
-
-<p>
-  The public pages are not separate marketing pages. They read generated files
-  from <a href="./proof">proof/</a>, so the visible story remains tied to the
-  runtime.
+<p align="center">
+  <img src="./assets/readme/signal-atlas.svg" width="100%" alt="Generated signal atlas with route, test, file, edge, and model counts">
 </p>
 
 <table>
   <tr>
-    <td width="33%" valign="top" bgcolor="#211825">
-      <font color="#f8edf5"><strong>Read the anatomy</strong><br/>
-      <sub>File purpose, inputs, outputs, evidence, and connection edges.</sub></font><br/><br/>
-      <a href="./proof/repository-file-map.md">repository file map</a>
-    </td>
-    <td width="33%" valign="top" bgcolor="#172327">
-      <font color="#eef9f7"><strong>Repeat the proof</strong><br/>
-      <sub>Routes, tests, stores, commands, artifacts, SDKs, and generated reports.</sub></font><br/><br/>
-      <a href="./proof/runtime-proof.md">runtime proof</a>
-    </td>
-    <td width="33%" valign="top" bgcolor="#281f16">
-      <font color="#fff3e7"><strong>Keep the learning visible</strong><br/>
-      <sub>Pass/fail notes, reference criteria, and review discipline.</sub></font><br/><br/>
-      <a href="./docs/engineering-journal.md">engineering journal</a>
-    </td>
-  </tr>
-</table>
-
-<table>
-  <tr>
-    <td width="20%" valign="top"><strong>Runtime</strong><br/>FastAPI contracts, persistence, replay, inference, retrieval, jobs.</td>
-    <td width="20%" valign="top"><strong>Signals</strong><br/>Audio features, tensor profiles, temporal windows, cross-modal alignment.</td>
-    <td width="20%" valign="top"><strong>Proof</strong><br/>OpenAPI, readiness, benchmark, execution journal, generated bundles.</td>
-    <td width="20%" valign="top"><strong>Safety</strong><br/>Drift checks, provenance, supply chain, bias taxonomy, edge review.</td>
-    <td width="20%" valign="top"><strong>Field Work</strong><br/>Industrial fault reasoning, compliance checks, formal restart logic.</td>
-  </tr>
-</table>
-
-<table>
-  <tr>
-    <td width="33%" valign="top">
-      <strong>Start visually</strong><br/>
-      <sub>Architecture, models, music, industry lanes, and diagnostics.</sub><br/><br/>
+    <td width="25%" valign="top" bgcolor="#211825">
+      <font color="#f8edf5"><strong>Start visually</strong><br/>
+      <sub>Architecture, models, music, industry lanes, and diagnostics.</sub></font><br/><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html">Open the Signal Atlas</a>
     </td>
-    <td width="33%" valign="top">
-      <strong>Start from code</strong><br/>
-      <sub>Run the API, tests, proof exports, and generated clients.</sub><br/><br/>
+    <td width="25%" valign="top" bgcolor="#172327">
+      <font color="#eef9f7"><strong>Run the spine</strong><br/>
+      <sub>API, tests, Rust core, SDK checks, proof exports, and acceptance.</sub></font><br/><br/>
       <a href="#quick-start">Quick start</a>
     </td>
-    <td width="33%" valign="top">
-      <strong>Start from evidence</strong><br/>
-      <sub>Read the generated proof bundle before reading the claims.</sub><br/><br/>
-      <a href="./proof/runtime-proof.md">Runtime proof</a> ·
-      <a href="./proof/readiness-report.md">Readiness</a> ·
+    <td width="25%" valign="top" bgcolor="#281f16">
+      <font color="#fff3e7"><strong>Read the anatomy</strong><br/>
+      <sub>File purpose, inputs, outputs, evidence, and connection edges.</sub></font><br/><br/>
       <a href="./proof/repository-file-map.md">File map</a>
+    </td>
+    <td width="25%" valign="top" bgcolor="#1d2030">
+      <font color="#eef1ff"><strong>Repeat the proof</strong><br/>
+      <sub>Routes, stores, commands, artifacts, clients, and generated reports.</sub></font><br/><br/>
+      <a href="./proof/runtime-proof.md">Runtime proof</a>
     </td>
   </tr>
 </table>
+
+<table>
+  <tr>
+    <td width="20%" valign="top" bgcolor="#172733"><font color="#dfeeff"><strong>Runtime</strong><br/><sub>FastAPI contracts, persistence, replay, inference, retrieval, jobs.</sub></font></td>
+    <td width="20%" valign="top" bgcolor="#17302d"><font color="#e6fff9"><strong>Signals</strong><br/><sub>Audio features, tensor profiles, temporal windows, cross-modal alignment.</sub></font></td>
+    <td width="20%" valign="top" bgcolor="#2b2030"><font color="#ffe9f4"><strong>Proof</strong><br/><sub>OpenAPI, readiness, benchmark, execution journal, generated bundles.</sub></font></td>
+    <td width="20%" valign="top" bgcolor="#2b2418"><font color="#fff2de"><strong>Care</strong><br/><sub>Drift checks, provenance, privacy taxonomy, edge review.</sub></font></td>
+    <td width="20%" valign="top" bgcolor="#211f33"><font color="#eeebff"><strong>Field Work</strong><br/><sub>Fault reasoning, compliance checks, formal restart logic.</sub></font></td>
+  </tr>
+</table>
+
+<p align="center">
+  <img src="./assets/readme/runtime-map.svg" width="100%" alt="Generated runtime map showing ingestion, contracts, profiling, alignment, replay, and proof surfaces">
+</p>
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="./assets/readme/proof-bars.svg" width="100%" alt="Generated proof metric bars showing language counts and benchmark evidence">
+    </td>
+    <td width="50%" valign="top">
+      <img src="./assets/readme/music-privacy-panel.svg" width="100%" alt="Generated music and privacy evidence panel">
+    </td>
+  </tr>
+</table>
+
+<p>
+  A multimodal systems repository for cleaning, aligning, profiling, testing,
+  and explaining signals before they become model output. The public pages read
+  generated files from <a href="./proof">proof/</a>, so the visible story stays
+  tied to the runtime rather than detached from it.
+</p>
 
 ---
 
@@ -90,58 +85,58 @@
 
 <table>
   <tr>
-    <td width="25%" valign="top">
-      <strong>Signal Atlas</strong><br/>
-      <sub>Runtime pulse, proof atoms, file atlas, and public route map.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#201826">
+      <font color="#ffe9f4"><strong>Signal Atlas</strong><br/>
+      <sub>Runtime pulse, proof atoms, file atlas, and public route map.</sub></font><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/index.html">open</a>
     </td>
-    <td width="25%" valign="top">
-      <strong>Architecture</strong><br/>
-      <sub>Runtime lanes and contracts.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#172733">
+      <font color="#dfeeff"><strong>Architecture</strong><br/>
+      <sub>Runtime lanes and contracts.</sub></font><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/advanced-technical-portfolio.html">open</a>
     </td>
-    <td width="25%" valign="top">
-      <strong>Catalog</strong><br/>
-      <sub>Files, models, generated clients, and file-map evidence.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#172f2c">
+      <font color="#e6fff9"><strong>Catalog</strong><br/>
+      <sub>Files, models, generated clients, and file-map evidence.</sub></font><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/technical-portfolio.html">open</a>
     </td>
-    <td width="25%" valign="top">
-      <strong>Models</strong><br/>
-      <sub>Model cards and open questions.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#2a2418">
+      <font color="#fff2de"><strong>Models</strong><br/>
+      <sub>Model cards and open questions.</sub></font><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/model-observatory.html">open</a>
     </td>
   </tr>
   <tr>
-    <td width="25%" valign="top">
-      <strong>Benchmarks</strong><br/>
-      <sub>Reference runs and replay ledger.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#211f33">
+      <font color="#eeebff"><strong>Benchmarks</strong><br/>
+      <sub>Reference runs and replay ledger.</sub></font><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/benchmark-observatory.html">open</a>
     </td>
-    <td width="25%" valign="top">
-      <strong>Music Warehouse</strong><br/>
-      <sub>Manifest-only audio lane and drift proof.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#1c2732">
+      <font color="#e8f2ff"><strong>Music Warehouse</strong><br/>
+      <sub>Manifest-only audio lane and drift proof.</sub></font><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/music-observatory.html">open</a>
     </td>
-    <td width="25%" valign="top">
-      <strong>Privacy Membrane</strong><br/>
-      <sub>Local de-identification and receipt proof.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#241b25">
+      <font color="#ffeaf5"><strong>Privacy Membrane</strong><br/>
+      <sub>Local de-identification and receipt proof.</sub></font><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/privacy-membrane.html">open</a>
     </td>
-    <td width="25%" valign="top">
-      <strong>File Map</strong><br/>
-      <sub>Purpose, inputs, outputs, imports, tests, and generated proof links.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#1b2925">
+      <font color="#ebfff7"><strong>File Map</strong><br/>
+      <sub>Purpose, inputs, outputs, imports, tests, and generated proof links.</sub></font><br/>
       <a href="./proof/repository-file-map.md">open</a>
     </td>
   </tr>
   <tr>
-    <td width="25%" valign="top">
-      <strong>Industry Profiles</strong><br/>
-      <sub>Domain routes tied to live endpoints.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#2b2418">
+      <font color="#fff2de"><strong>Industry Profiles</strong><br/>
+      <sub>Domain routes tied to live endpoints.</sub></font><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/industry-profiles.html">open</a>
     </td>
-    <td width="25%" valign="top">
-      <strong>Industrial Diagnostics</strong><br/>
-      <sub>Fault graph, compliance, restart checks.</sub><br/>
+    <td width="25%" valign="top" bgcolor="#172733">
+      <font color="#dfeeff"><strong>Industrial Diagnostics</strong><br/>
+      <sub>Fault graph, compliance, restart checks.</sub></font><br/>
       <a href="https://htmlpreview.github.io/?https://github.com/Cazzy-Aporbo/Advanced_multi-modal-AI/blob/main/industrial-diagnostics.html">open</a>
     </td>
   </tr>

@@ -2,7 +2,7 @@
   "service": "advanced-multimodal-ai",
   "version": "0.5.0",
   "file_count": 174,
-  "edge_count": 1014,
+  "edge_count": 1043,
   "active_python_files": 99,
   "frontend_files": 21,
   "proof_files": 34,
@@ -75,7 +75,7 @@
       "route_count": 105,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:00:16.391380+00:00"
+      "modified_at": "2026-07-05T15:47:46.774960+00:00"
     },
     {
       "path": "src/advanced_multimodal_ai/service.py",
@@ -125,7 +125,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:22:34.690068+00:00"
+      "modified_at": "2026-07-05T15:47:46.777879+00:00"
     },
     {
       "path": "src/advanced_multimodal_ai/connectors.py",
@@ -611,7 +611,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 58,
-      "modified_at": "2026-07-05T15:39:12.231968+00:00"
+      "modified_at": "2026-07-05T15:47:46.776456+00:00"
     },
     {
       "path": "src/advanced_multimodal_ai/privacy_store.py",
@@ -1097,12 +1097,12 @@
       "evidence": [
         "compiled lane"
       ],
-      "line_count": 647,
-      "byte_count": 20389,
+      "line_count": 890,
+      "byte_count": 28027,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 58,
-      "modified_at": "2026-07-03T16:57:21.652482+00:00"
+      "complexity_score": 61,
+      "modified_at": "2026-07-06T00:21:11.676276+00:00"
     },
     {
       "path": "crates/multimodal-core/src/main.rs",
@@ -1122,12 +1122,12 @@
       "evidence": [
         "compiled lane"
       ],
-      "line_count": 49,
-      "byte_count": 1972,
+      "line_count": 54,
+      "byte_count": 2283,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 16,
-      "modified_at": "2026-07-03T16:42:46.416993+00:00"
+      "complexity_score": 17,
+      "modified_at": "2026-07-06T00:13:30.400612+00:00"
     },
     {
       "path": "tests/test_api.py",
@@ -1167,7 +1167,7 @@
       "route_count": 0,
       "test_count": 52,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:34:27.711002+00:00"
+      "modified_at": "2026-07-05T15:47:46.778908+00:00"
     },
     {
       "path": "tests/test_property_fuzz.py",
@@ -1420,7 +1420,7 @@
         "versioned proof artifacts",
         "execution journal receipts",
         "schema-checked payloads",
-        "read by 5 repository files"
+        "read by 6 repository files"
       ],
       "connects_to": [
         "proof/repository-growth.json",
@@ -1434,6 +1434,7 @@
       "imported_by": [
         "CONTRIBUTING.md",
         "docs/REPOSITORY_LANES.md",
+        "proof/execution-journal.md",
         "proof/repository-pulse.md",
         "proof/runtime-proof.md",
         "src/advanced_multimodal_ai/repository_pulse.py"
@@ -1446,7 +1447,7 @@
       "byte_count": 8427,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 69,
+      "complexity_score": 72,
       "modified_at": "2026-07-04T02:12:56.939641+00:00"
     },
     {
@@ -1632,7 +1633,7 @@
       "outputs": [
         "versioned proof artifacts",
         "execution journal receipts",
-        "read by 6 repository files"
+        "read by 7 repository files"
       ],
       "connects_to": [
         "proof/music-observatory.json",
@@ -1642,6 +1643,7 @@
       ],
       "imported_by": [
         "CONTRIBUTING.md",
+        "proof/execution-journal.md",
         "proof/repository-pulse.md",
         "proof/research-surfaces.md",
         "proof/runtime-proof.md",
@@ -1656,8 +1658,178 @@
       "byte_count": 4965,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 59,
+      "complexity_score": 62,
       "modified_at": "2026-07-03T20:12:58.767772+00:00"
+    },
+    {
+      "path": "scripts/export_benchmark_surfaces.py",
+      "label": "export_benchmark_surfaces.py",
+      "language": "Python",
+      "lane": "export and proof",
+      "status": "active",
+      "purpose": "Supports the export and proof lane.",
+      "inputs": [
+        "live FastAPI route responses",
+        "4 referenced file connections"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "execution journal receipts",
+        "read by 7 repository files"
+      ],
+      "connects_to": [
+        "proof/benchmark-surfaces.json",
+        "proof/benchmark-surfaces.md",
+        "src/advanced_multimodal_ai/api.py",
+        "src/advanced_multimodal_ai/execution_journal.py"
+      ],
+      "imported_by": [
+        "docs/GROUNDING_AND_BOUNDARIES.md",
+        "proof/execution-journal.md",
+        "proof/repository-pulse.md",
+        "proof/research-surfaces.md",
+        "proof/runtime-proof.md",
+        "src/advanced_multimodal_ai/repository_pulse.py",
+        "src/advanced_multimodal_ai/research_surfaces.py"
+      ],
+      "evidence": [
+        "journaled export",
+        "writes or reads proof files"
+      ],
+      "line_count": 128,
+      "byte_count": 4085,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 60,
+      "modified_at": "2026-07-03T18:46:54.702734+00:00"
+    },
+    {
+      "path": "scripts/export_cymatic_surface.py",
+      "label": "export_cymatic_surface.py",
+      "language": "Python",
+      "lane": "export and proof",
+      "status": "active",
+      "purpose": "Supports the export and proof lane.",
+      "inputs": [
+        "live FastAPI route responses",
+        "6 referenced file connections"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "execution journal receipts",
+        "schema-checked payloads",
+        "read by 4 repository files"
+      ],
+      "connects_to": [
+        "proof/cymatic-surface.json",
+        "proof/cymatic-surface.md",
+        "src/advanced_multimodal_ai/api.py",
+        "src/advanced_multimodal_ai/contracts.py",
+        "src/advanced_multimodal_ai/cymatic_surface.py",
+        "src/advanced_multimodal_ai/execution_journal.py"
+      ],
+      "imported_by": [
+        "proof/execution-journal.md",
+        "proof/repository-pulse.md",
+        "proof/runtime-proof.md",
+        "src/advanced_multimodal_ai/repository_pulse.py"
+      ],
+      "evidence": [
+        "journaled export",
+        "writes or reads proof files"
+      ],
+      "line_count": 187,
+      "byte_count": 5169,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 60,
+      "modified_at": "2026-07-03T18:46:54.415961+00:00"
+    },
+    {
+      "path": "scripts/export_edge_topology.py",
+      "label": "export_edge_topology.py",
+      "language": "Python",
+      "lane": "export and proof",
+      "status": "active",
+      "purpose": "Supports the export and proof lane.",
+      "inputs": [
+        "live FastAPI route responses",
+        "Arrow or Parquet tables",
+        "5 referenced file connections"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "execution journal receipts",
+        "schema-checked payloads",
+        "read by 6 repository files"
+      ],
+      "connects_to": [
+        "proof/edge-topology.json",
+        "proof/edge-topology.md",
+        "src/advanced_multimodal_ai/api.py",
+        "src/advanced_multimodal_ai/contracts.py",
+        "src/advanced_multimodal_ai/execution_journal.py"
+      ],
+      "imported_by": [
+        "proof/execution-journal.md",
+        "proof/repository-pulse.md",
+        "proof/research-surfaces.md",
+        "proof/runtime-proof.md",
+        "src/advanced_multimodal_ai/repository_pulse.py",
+        "src/advanced_multimodal_ai/research_surfaces.py"
+      ],
+      "evidence": [
+        "journaled export",
+        "writes or reads proof files"
+      ],
+      "line_count": 143,
+      "byte_count": 4577,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 60,
+      "modified_at": "2026-07-04T01:07:21.476921+00:00"
+    },
+    {
+      "path": "scripts/export_execution_journal.py",
+      "label": "export_execution_journal.py",
+      "language": "Python",
+      "lane": "export and proof",
+      "status": "active",
+      "purpose": "Supports the export and proof lane.",
+      "inputs": [
+        "live FastAPI route responses",
+        "4 referenced file connections"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "execution journal receipts",
+        "read by 7 repository files"
+      ],
+      "connects_to": [
+        "proof/execution-journal.json",
+        "proof/execution-journal.md",
+        "src/advanced_multimodal_ai/api.py",
+        "src/advanced_multimodal_ai/execution_journal.py"
+      ],
+      "imported_by": [
+        "docs/GROUNDING_AND_BOUNDARIES.md",
+        "proof/execution-journal.md",
+        "proof/repository-pulse.md",
+        "proof/research-surfaces.md",
+        "proof/runtime-proof.md",
+        "src/advanced_multimodal_ai/repository_pulse.py",
+        "src/advanced_multimodal_ai/research_surfaces.py"
+      ],
+      "evidence": [
+        "journaled export",
+        "writes or reads proof files"
+      ],
+      "line_count": 113,
+      "byte_count": 3172,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 59,
+      "modified_at": "2026-07-03T18:46:55.757890+00:00"
     },
     {
       "path": "scripts/export_openapi.py",
@@ -1701,49 +1873,8 @@
       "modified_at": "2026-07-03T08:01:24.658648+00:00"
     },
     {
-      "path": "scripts/export_benchmark_surfaces.py",
-      "label": "export_benchmark_surfaces.py",
-      "language": "Python",
-      "lane": "export and proof",
-      "status": "active",
-      "purpose": "Supports the export and proof lane.",
-      "inputs": [
-        "live FastAPI route responses",
-        "4 referenced file connections"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "execution journal receipts",
-        "read by 6 repository files"
-      ],
-      "connects_to": [
-        "proof/benchmark-surfaces.json",
-        "proof/benchmark-surfaces.md",
-        "src/advanced_multimodal_ai/api.py",
-        "src/advanced_multimodal_ai/execution_journal.py"
-      ],
-      "imported_by": [
-        "docs/GROUNDING_AND_BOUNDARIES.md",
-        "proof/repository-pulse.md",
-        "proof/research-surfaces.md",
-        "proof/runtime-proof.md",
-        "src/advanced_multimodal_ai/repository_pulse.py",
-        "src/advanced_multimodal_ai/research_surfaces.py"
-      ],
-      "evidence": [
-        "journaled export",
-        "writes or reads proof files"
-      ],
-      "line_count": 128,
-      "byte_count": 4085,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 57,
-      "modified_at": "2026-07-03T18:46:54.702734+00:00"
-    },
-    {
-      "path": "scripts/export_cymatic_surface.py",
-      "label": "export_cymatic_surface.py",
+      "path": "scripts/export_research_influence.py",
+      "label": "export_research_influence.py",
       "language": "Python",
       "lane": "export and proof",
       "status": "active",
@@ -1755,75 +1886,29 @@
       "outputs": [
         "versioned proof artifacts",
         "execution journal receipts",
-        "schema-checked payloads",
-        "read by 3 repository files"
+        "read by 1 repository files"
       ],
       "connects_to": [
-        "proof/cymatic-surface.json",
-        "proof/cymatic-surface.md",
+        "proof/research-influence.json",
+        "proof/research-influence.md",
+        "proof/research-surfaces.json",
+        "scripts/export_research_surfaces.py",
         "src/advanced_multimodal_ai/api.py",
-        "src/advanced_multimodal_ai/contracts.py",
-        "src/advanced_multimodal_ai/cymatic_surface.py",
         "src/advanced_multimodal_ai/execution_journal.py"
       ],
       "imported_by": [
-        "proof/repository-pulse.md",
-        "proof/runtime-proof.md",
-        "src/advanced_multimodal_ai/repository_pulse.py"
+        "proof/execution-journal.md"
       ],
       "evidence": [
         "journaled export",
         "writes or reads proof files"
       ],
-      "line_count": 187,
-      "byte_count": 5169,
+      "line_count": 307,
+      "byte_count": 10341,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 57,
-      "modified_at": "2026-07-03T18:46:54.415961+00:00"
-    },
-    {
-      "path": "scripts/export_edge_topology.py",
-      "label": "export_edge_topology.py",
-      "language": "Python",
-      "lane": "export and proof",
-      "status": "active",
-      "purpose": "Supports the export and proof lane.",
-      "inputs": [
-        "live FastAPI route responses",
-        "Arrow or Parquet tables",
-        "5 referenced file connections"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "execution journal receipts",
-        "schema-checked payloads",
-        "read by 5 repository files"
-      ],
-      "connects_to": [
-        "proof/edge-topology.json",
-        "proof/edge-topology.md",
-        "src/advanced_multimodal_ai/api.py",
-        "src/advanced_multimodal_ai/contracts.py",
-        "src/advanced_multimodal_ai/execution_journal.py"
-      ],
-      "imported_by": [
-        "proof/repository-pulse.md",
-        "proof/research-surfaces.md",
-        "proof/runtime-proof.md",
-        "src/advanced_multimodal_ai/repository_pulse.py",
-        "src/advanced_multimodal_ai/research_surfaces.py"
-      ],
-      "evidence": [
-        "journaled export",
-        "writes or reads proof files"
-      ],
-      "line_count": 143,
-      "byte_count": 4577,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 57,
-      "modified_at": "2026-07-04T01:07:21.476921+00:00"
+      "complexity_score": 58,
+      "modified_at": "2026-07-04T03:58:29.121294+00:00"
     },
     {
       "path": "scripts/export_repository_file_map.py",
@@ -1864,83 +1949,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 57,
-      "modified_at": "2026-07-05T15:00:50.596381+00:00"
-    },
-    {
-      "path": "scripts/export_execution_journal.py",
-      "label": "export_execution_journal.py",
-      "language": "Python",
-      "lane": "export and proof",
-      "status": "active",
-      "purpose": "Supports the export and proof lane.",
-      "inputs": [
-        "live FastAPI route responses",
-        "4 referenced file connections"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "execution journal receipts",
-        "read by 6 repository files"
-      ],
-      "connects_to": [
-        "proof/execution-journal.json",
-        "proof/execution-journal.md",
-        "src/advanced_multimodal_ai/api.py",
-        "src/advanced_multimodal_ai/execution_journal.py"
-      ],
-      "imported_by": [
-        "docs/GROUNDING_AND_BOUNDARIES.md",
-        "proof/repository-pulse.md",
-        "proof/research-surfaces.md",
-        "proof/runtime-proof.md",
-        "src/advanced_multimodal_ai/repository_pulse.py",
-        "src/advanced_multimodal_ai/research_surfaces.py"
-      ],
-      "evidence": [
-        "journaled export",
-        "writes or reads proof files"
-      ],
-      "line_count": 113,
-      "byte_count": 3172,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 56,
-      "modified_at": "2026-07-03T18:46:55.757890+00:00"
-    },
-    {
-      "path": "scripts/export_research_influence.py",
-      "label": "export_research_influence.py",
-      "language": "Python",
-      "lane": "export and proof",
-      "status": "active",
-      "purpose": "Supports the export and proof lane.",
-      "inputs": [
-        "live FastAPI route responses",
-        "6 referenced file connections"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "execution journal receipts"
-      ],
-      "connects_to": [
-        "proof/research-influence.json",
-        "proof/research-influence.md",
-        "proof/research-surfaces.json",
-        "scripts/export_research_surfaces.py",
-        "src/advanced_multimodal_ai/api.py",
-        "src/advanced_multimodal_ai/execution_journal.py"
-      ],
-      "imported_by": [],
-      "evidence": [
-        "journaled export",
-        "writes or reads proof files"
-      ],
-      "line_count": 307,
-      "byte_count": 10341,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 55,
-      "modified_at": "2026-07-04T03:58:29.121294+00:00"
+      "modified_at": "2026-07-05T15:47:46.773659+00:00"
     },
     {
       "path": "scripts/export_operator_surfaces.py",
@@ -1956,7 +1965,7 @@
       "outputs": [
         "versioned proof artifacts",
         "execution journal receipts",
-        "read by 4 repository files"
+        "read by 5 repository files"
       ],
       "connects_to": [
         "proof/operator-surfaces.json",
@@ -1965,6 +1974,7 @@
         "src/advanced_multimodal_ai/execution_journal.py"
       ],
       "imported_by": [
+        "proof/execution-journal.md",
         "proof/repository-pulse.md",
         "proof/runtime-proof.md",
         "src/advanced_multimodal_ai/operator_surfaces.py",
@@ -1978,8 +1988,46 @@
       "byte_count": 4117,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 52,
+      "complexity_score": 55,
       "modified_at": "2026-07-04T00:09:49.415768+00:00"
+    },
+    {
+      "path": "scripts/export_industrial_diagnostics.py",
+      "label": "export_industrial_diagnostics.py",
+      "language": "Python",
+      "lane": "export and proof",
+      "status": "active",
+      "purpose": "Supports the export and proof lane.",
+      "inputs": [
+        "4 referenced file connections"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "execution journal receipts",
+        "read by 4 repository files"
+      ],
+      "connects_to": [
+        "proof/industrial-diagnostics.json",
+        "proof/industrial-diagnostics.md",
+        "src/advanced_multimodal_ai/execution_journal.py",
+        "src/advanced_multimodal_ai/industrial_diagnostics/__init__.py"
+      ],
+      "imported_by": [
+        "docs/REPOSITORY_LANES.md",
+        "docs/getting_started.md",
+        "proof/execution-journal.md",
+        "proof/runtime-proof.md"
+      ],
+      "evidence": [
+        "journaled export",
+        "writes or reads proof files"
+      ],
+      "line_count": 122,
+      "byte_count": 3734,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 50,
+      "modified_at": "2026-07-04T02:48:01.513422+00:00"
     },
     {
       "path": "scripts/export_repository_pulse.py",
@@ -2021,13 +2069,14 @@
       "modified_at": "2026-07-03T18:46:55.124514+00:00"
     },
     {
-      "path": "scripts/export_industrial_diagnostics.py",
-      "label": "export_industrial_diagnostics.py",
+      "path": "scripts/export_industry_profiles.py",
+      "label": "export_industry_profiles.py",
       "language": "Python",
       "lane": "export and proof",
       "status": "active",
       "purpose": "Supports the export and proof lane.",
       "inputs": [
+        "live FastAPI route responses",
         "4 referenced file connections"
       ],
       "outputs": [
@@ -2036,26 +2085,26 @@
         "read by 3 repository files"
       ],
       "connects_to": [
-        "proof/industrial-diagnostics.json",
-        "proof/industrial-diagnostics.md",
-        "src/advanced_multimodal_ai/execution_journal.py",
-        "src/advanced_multimodal_ai/industrial_diagnostics/__init__.py"
+        "proof/industry-profiles.json",
+        "proof/industry-profiles.md",
+        "src/advanced_multimodal_ai/api.py",
+        "src/advanced_multimodal_ai/execution_journal.py"
       ],
       "imported_by": [
-        "docs/REPOSITORY_LANES.md",
-        "docs/getting_started.md",
+        "CONTRIBUTING.md",
+        "proof/execution-journal.md",
         "proof/runtime-proof.md"
       ],
       "evidence": [
         "journaled export",
         "writes or reads proof files"
       ],
-      "line_count": 122,
-      "byte_count": 3734,
+      "line_count": 107,
+      "byte_count": 3502,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 47,
-      "modified_at": "2026-07-04T02:48:01.513422+00:00"
+      "complexity_score": 46,
+      "modified_at": "2026-07-04T01:21:56.350179+00:00"
     },
     {
       "path": "scripts/export_privacy_membrane.py",
@@ -2091,44 +2140,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 44,
-      "modified_at": "2026-07-05T15:34:53.198456+00:00"
-    },
-    {
-      "path": "scripts/export_industry_profiles.py",
-      "label": "export_industry_profiles.py",
-      "language": "Python",
-      "lane": "export and proof",
-      "status": "active",
-      "purpose": "Supports the export and proof lane.",
-      "inputs": [
-        "live FastAPI route responses",
-        "4 referenced file connections"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "execution journal receipts",
-        "read by 2 repository files"
-      ],
-      "connects_to": [
-        "proof/industry-profiles.json",
-        "proof/industry-profiles.md",
-        "src/advanced_multimodal_ai/api.py",
-        "src/advanced_multimodal_ai/execution_journal.py"
-      ],
-      "imported_by": [
-        "CONTRIBUTING.md",
-        "proof/runtime-proof.md"
-      ],
-      "evidence": [
-        "journaled export",
-        "writes or reads proof files"
-      ],
-      "line_count": 107,
-      "byte_count": 3502,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 43,
-      "modified_at": "2026-07-04T01:21:56.350179+00:00"
+      "modified_at": "2026-07-05T15:47:46.773512+00:00"
     },
     {
       "path": "scripts/validate_recipe_manifest.py",
@@ -2166,23 +2178,23 @@
       "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
       "inputs": [
         "export script output",
-        "23 referenced file connections"
+        "52 referenced file connections"
       ],
       "outputs": [
         "versioned proof artifacts",
         "read by 7 repository files"
       ],
       "connects_to": [
+        "proof/benchmark-surfaces.json",
+        "proof/benchmark-surfaces.md",
+        "proof/cymatic-surface.json",
+        "proof/cymatic-surface.md",
+        "proof/edge-topology.json",
+        "proof/edge-topology.md",
         "proof/example-bundle.json",
         "proof/example-bundle.md",
-        "proof/privacy-membrane.json",
-        "proof/privacy-membrane.md",
-        "proof/readiness-report.json",
-        "proof/readiness-report.md",
-        "proof/repository-file-map.json",
-        "proof/repository-file-map.md",
-        "proof/repository-pulse.json",
-        "proof/repository-pulse.md"
+        "proof/execution-journal.json",
+        "proof/industrial-diagnostics.json"
       ],
       "imported_by": [
         "README.md",
@@ -2197,12 +2209,12 @@
         "generated artifact",
         "writes or reads proof files"
       ],
-      "line_count": 328,
-      "byte_count": 8511,
+      "line_count": 331,
+      "byte_count": 8988,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:40:58.909144+00:00"
+      "modified_at": "2026-07-06T00:28:30.068086+00:00"
     },
     {
       "path": "proof/repository-file-map.md",
@@ -2249,7 +2261,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:43:11.566622+00:00"
+      "modified_at": "2026-07-06T00:28:09.760444+00:00"
     },
     {
       "path": "proof/repository-pulse.md",
@@ -2290,11 +2302,11 @@
         "writes or reads proof files"
       ],
       "line_count": 450,
-      "byte_count": 19013,
+      "byte_count": 19014,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:43:11.052278+00:00"
+      "modified_at": "2026-07-06T00:32:03.530169+00:00"
     },
     {
       "path": "proof/research-surfaces.md",
@@ -2344,7 +2356,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:41:26.823247+00:00"
+      "modified_at": "2026-07-06T00:31:56.864820+00:00"
     },
     {
       "path": "proof/runtime-proof.md",
@@ -2392,7 +2404,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:43:11.024687+00:00"
+      "modified_at": "2026-07-06T00:28:37.100174+00:00"
     },
     {
       "path": "proof/cymatic-surface.md",
@@ -2407,7 +2419,7 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 5 repository files"
+        "read by 6 repository files"
       ],
       "connects_to": [
         "src/advanced_multimodal_ai/alignment.py",
@@ -2424,6 +2436,7 @@
       "imported_by": [
         "cymatic-media-engine.html",
         "music-observatory.html",
+        "proof/execution-journal.md",
         "proof/repository-file-map.md",
         "scripts/export_cymatic_surface.py",
         "src/advanced_multimodal_ai/cymatic_surface.py"
@@ -2432,11 +2445,11 @@
         "generated artifact"
       ],
       "line_count": 286,
-      "byte_count": 8504,
+      "byte_count": 8502,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 91,
-      "modified_at": "2026-07-05T15:40:59.630486+00:00"
+      "complexity_score": 94,
+      "modified_at": "2026-07-06T00:32:01.314516+00:00"
     },
     {
       "path": "proof/research-surfaces.json",
@@ -2475,7 +2488,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 87,
-      "modified_at": "2026-07-05T15:41:26.823000+00:00"
+      "modified_at": "2026-07-06T00:31:56.864586+00:00"
     },
     {
       "path": "proof/music-observatory.json",
@@ -2490,10 +2503,11 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 10 repository files"
+        "read by 11 repository files"
       ],
       "connects_to": [],
       "imported_by": [
+        "proof/execution-journal.md",
         "proof/industry-profiles.md",
         "proof/repository-file-map.md",
         "proof/repository-pulse.md",
@@ -2502,18 +2516,52 @@
         "scripts/export_music_observatory.py",
         "src/advanced_multimodal_ai/industry_profiles.py",
         "src/advanced_multimodal_ai/operator_surfaces.py",
-        "src/advanced_multimodal_ai/repository_pulse.py",
-        "src/advanced_multimodal_ai/research_surfaces.py"
+        "src/advanced_multimodal_ai/repository_pulse.py"
       ],
       "evidence": [
         "generated artifact"
       ],
-      "line_count": 5727,
-      "byte_count": 229241,
+      "line_count": 5749,
+      "byte_count": 231376,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 78,
-      "modified_at": "2026-07-04T04:03:08.559955+00:00"
+      "complexity_score": 81,
+      "modified_at": "2026-07-06T00:28:16.787822+00:00"
+    },
+    {
+      "path": "proof/execution-journal.json",
+      "label": "execution-journal.json",
+      "language": "JSON",
+      "lane": "generated evidence",
+      "status": "proof",
+      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
+      "inputs": [
+        "export script output"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "read by 8 repository files"
+      ],
+      "connects_to": [],
+      "imported_by": [
+        "proof/execution-journal.md",
+        "proof/industry-profiles.md",
+        "proof/repository-pulse.md",
+        "proof/runtime-proof.md",
+        "scripts/export_execution_journal.py",
+        "src/advanced_multimodal_ai/industry_profiles.py",
+        "src/advanced_multimodal_ai/operator_surfaces.py",
+        "src/advanced_multimodal_ai/repository_pulse.py"
+      ],
+      "evidence": [
+        "generated artifact"
+      ],
+      "line_count": 650,
+      "byte_count": 22524,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 70,
+      "modified_at": "2026-07-06T00:28:30.067672+00:00"
     },
     {
       "path": "proof/industry-profiles.md",
@@ -2528,7 +2576,7 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 4 repository files"
+        "read by 5 repository files"
       ],
       "connects_to": [
         "proof/benchmark-surfaces.json",
@@ -2544,6 +2592,7 @@
       ],
       "imported_by": [
         "README.md",
+        "proof/execution-journal.md",
         "scripts/export_industry_profiles.py",
         "src/advanced_multimodal_ai/industry_profiles.py",
         "src/advanced_multimodal_ai/research_influence.py"
@@ -2556,8 +2605,8 @@
       "byte_count": 8232,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 67,
-      "modified_at": "2026-07-04T04:03:13.300566+00:00"
+      "complexity_score": 70,
+      "modified_at": "2026-07-06T00:28:23.475489+00:00"
     },
     {
       "path": "proof/operator-surfaces.json",
@@ -2572,10 +2621,11 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 7 repository files"
+        "read by 8 repository files"
       ],
       "connects_to": [],
       "imported_by": [
+        "proof/execution-journal.md",
         "proof/industry-profiles.md",
         "proof/repository-pulse.md",
         "proof/runtime-proof.md",
@@ -2591,8 +2641,41 @@
       "byte_count": 25063,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 67,
-      "modified_at": "2026-07-04T04:03:10.995042+00:00"
+      "complexity_score": 70,
+      "modified_at": "2026-07-06T00:28:21.202154+00:00"
+    },
+    {
+      "path": "proof/industrial-diagnostics.json",
+      "label": "industrial-diagnostics.json",
+      "language": "JSON",
+      "lane": "generated evidence",
+      "status": "proof",
+      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
+      "inputs": [
+        "export script output"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "read by 6 repository files"
+      ],
+      "connects_to": [],
+      "imported_by": [
+        "docs/REPOSITORY_LANES.md",
+        "proof/execution-journal.md",
+        "proof/industry-profiles.md",
+        "proof/runtime-proof.md",
+        "scripts/export_industrial_diagnostics.py",
+        "src/advanced_multimodal_ai/industry_profiles.py"
+      ],
+      "evidence": [
+        "generated artifact"
+      ],
+      "line_count": 1230,
+      "byte_count": 42175,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 66,
+      "modified_at": "2026-07-06T00:28:25.659316+00:00"
     },
     {
       "path": "proof/repository-file-map.json",
@@ -2621,12 +2704,12 @@
       "evidence": [
         "generated artifact"
       ],
-      "line_count": 12985,
-      "byte_count": 380651,
+      "line_count": 13132,
+      "byte_count": 384776,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 66,
-      "modified_at": "2026-07-05T15:43:11.566427+00:00"
+      "modified_at": "2026-07-06T00:28:09.760112+00:00"
     },
     {
       "path": "proof/repository-pulse.json",
@@ -2656,77 +2739,11 @@
         "generated artifact"
       ],
       "line_count": 1192,
-      "byte_count": 41764,
+      "byte_count": 41765,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 66,
-      "modified_at": "2026-07-05T15:43:11.051988+00:00"
-    },
-    {
-      "path": "proof/execution-journal.json",
-      "label": "execution-journal.json",
-      "language": "JSON",
-      "lane": "generated evidence",
-      "status": "proof",
-      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
-      "inputs": [
-        "export script output"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "read by 7 repository files"
-      ],
-      "connects_to": [],
-      "imported_by": [
-        "proof/industry-profiles.md",
-        "proof/repository-pulse.md",
-        "proof/runtime-proof.md",
-        "scripts/export_execution_journal.py",
-        "src/advanced_multimodal_ai/industry_profiles.py",
-        "src/advanced_multimodal_ai/operator_surfaces.py",
-        "src/advanced_multimodal_ai/repository_pulse.py"
-      ],
-      "evidence": [
-        "generated artifact"
-      ],
-      "line_count": 626,
-      "byte_count": 21242,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 65,
-      "modified_at": "2026-07-05T15:40:58.908825+00:00"
-    },
-    {
-      "path": "proof/industrial-diagnostics.json",
-      "label": "industrial-diagnostics.json",
-      "language": "JSON",
-      "lane": "generated evidence",
-      "status": "proof",
-      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
-      "inputs": [
-        "export script output"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "read by 5 repository files"
-      ],
-      "connects_to": [],
-      "imported_by": [
-        "docs/REPOSITORY_LANES.md",
-        "proof/industry-profiles.md",
-        "proof/runtime-proof.md",
-        "scripts/export_industrial_diagnostics.py",
-        "src/advanced_multimodal_ai/industry_profiles.py"
-      ],
-      "evidence": [
-        "generated artifact"
-      ],
-      "line_count": 1230,
-      "byte_count": 42175,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 63,
-      "modified_at": "2026-07-04T04:03:15.600136+00:00"
+      "modified_at": "2026-07-06T00:32:03.529871+00:00"
     },
     {
       "path": "proof/privacy-membrane.json",
@@ -2753,12 +2770,50 @@
       "evidence": [
         "generated artifact"
       ],
-      "line_count": 2159,
-      "byte_count": 70423,
+      "line_count": 2253,
+      "byte_count": 73515,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 63,
-      "modified_at": "2026-07-05T15:40:32.518469+00:00"
+      "modified_at": "2026-07-06T00:28:19.024900+00:00"
+    },
+    {
+      "path": "proof/cymatic-surface.json",
+      "label": "cymatic-surface.json",
+      "language": "JSON",
+      "lane": "generated evidence",
+      "status": "proof",
+      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
+      "inputs": [
+        "Arrow or Parquet tables",
+        "export script output"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "read by 10 repository files"
+      ],
+      "connects_to": [],
+      "imported_by": [
+        "proof/execution-journal.md",
+        "proof/industry-profiles.md",
+        "proof/repository-file-map.md",
+        "proof/repository-pulse.md",
+        "proof/research-surfaces.md",
+        "proof/runtime-proof.md",
+        "scripts/export_cymatic_surface.py",
+        "src/advanced_multimodal_ai/industry_profiles.py",
+        "src/advanced_multimodal_ai/repository_pulse.py",
+        "src/advanced_multimodal_ai/research_surfaces.py"
+      ],
+      "evidence": [
+        "generated artifact"
+      ],
+      "line_count": 388,
+      "byte_count": 15432,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 61,
+      "modified_at": "2026-07-06T00:32:01.314301+00:00"
     },
     {
       "path": "proof/runtime-proof.json",
@@ -2796,44 +2851,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 60,
-      "modified_at": "2026-07-05T15:43:11.024520+00:00"
-    },
-    {
-      "path": "proof/cymatic-surface.json",
-      "label": "cymatic-surface.json",
-      "language": "JSON",
-      "lane": "generated evidence",
-      "status": "proof",
-      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
-      "inputs": [
-        "Arrow or Parquet tables",
-        "export script output"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "read by 9 repository files"
-      ],
-      "connects_to": [],
-      "imported_by": [
-        "proof/industry-profiles.md",
-        "proof/repository-file-map.md",
-        "proof/repository-pulse.md",
-        "proof/research-surfaces.md",
-        "proof/runtime-proof.md",
-        "scripts/export_cymatic_surface.py",
-        "src/advanced_multimodal_ai/industry_profiles.py",
-        "src/advanced_multimodal_ai/repository_pulse.py",
-        "src/advanced_multimodal_ai/research_surfaces.py"
-      ],
-      "evidence": [
-        "generated artifact"
-      ],
-      "line_count": 388,
-      "byte_count": 15433,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 58,
-      "modified_at": "2026-07-05T15:40:59.630294+00:00"
+      "modified_at": "2026-07-06T00:28:37.100020+00:00"
     },
     {
       "path": "proof/research-influence.json",
@@ -2847,10 +2865,11 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 3 repository files"
+        "read by 4 repository files"
       ],
       "connects_to": [],
       "imported_by": [
+        "proof/execution-journal.md",
         "research-influence.html",
         "research-influence.js",
         "scripts/export_research_influence.py"
@@ -2862,8 +2881,8 @@
       "byte_count": 24220,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 53,
-      "modified_at": "2026-07-04T04:02:56.186405+00:00"
+      "complexity_score": 56,
+      "modified_at": "2026-07-06T00:31:58.849429+00:00"
     },
     {
       "path": "proof/benchmark-surfaces.md",
@@ -2878,7 +2897,7 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 11 repository files"
+        "read by 12 repository files"
       ],
       "connects_to": [],
       "imported_by": [
@@ -2887,11 +2906,11 @@
         "cymatic-media-engine.html",
         "index.html",
         "music-observatory.js",
+        "proof/execution-journal.md",
         "proof/repository-file-map.md",
         "proof/repository-pulse.md",
         "proof/research-surfaces.md",
-        "scripts/export_benchmark_surfaces.py",
-        "src/advanced_multimodal_ai/repository_pulse.py"
+        "scripts/export_benchmark_surfaces.py"
       ],
       "evidence": [
         "generated artifact"
@@ -2900,8 +2919,8 @@
       "byte_count": 3294,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 49,
-      "modified_at": "2026-07-05T15:41:01.244825+00:00"
+      "complexity_score": 52,
+      "modified_at": "2026-07-06T00:28:14.480799+00:00"
     },
     {
       "path": "proof/benchmark-surfaces.json",
@@ -2916,10 +2935,11 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 9 repository files"
+        "read by 10 repository files"
       ],
       "connects_to": [],
       "imported_by": [
+        "proof/execution-journal.md",
         "proof/industry-profiles.md",
         "proof/repository-file-map.md",
         "proof/repository-pulse.md",
@@ -2937,8 +2957,8 @@
       "byte_count": 4565,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 45,
-      "modified_at": "2026-07-05T15:41:01.244665+00:00"
+      "complexity_score": 48,
+      "modified_at": "2026-07-06T00:28:14.480603+00:00"
     },
     {
       "path": "proof/edge-topology.json",
@@ -2953,10 +2973,11 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 7 repository files"
+        "read by 8 repository files"
       ],
       "connects_to": [],
       "imported_by": [
+        "proof/execution-journal.md",
         "proof/industry-profiles.md",
         "proof/repository-pulse.md",
         "proof/runtime-proof.md",
@@ -2968,12 +2989,12 @@
       "evidence": [
         "generated artifact"
       ],
-      "line_count": 192,
-      "byte_count": 7456,
+      "line_count": 217,
+      "byte_count": 8596,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 41,
-      "modified_at": "2026-07-04T04:03:17.918887+00:00"
+      "complexity_score": 46,
+      "modified_at": "2026-07-06T00:28:27.878995+00:00"
     },
     {
       "path": "proof/operator-surfaces.md",
@@ -2988,7 +3009,7 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 6 repository files"
+        "read by 7 repository files"
       ],
       "connects_to": [
         "scripts/run_acceptance_spine.py",
@@ -2997,6 +3018,7 @@
       ],
       "imported_by": [
         "model-observatory.html",
+        "proof/execution-journal.md",
         "proof/repository-file-map.md",
         "proof/repository-pulse.md",
         "scripts/export_operator_surfaces.py",
@@ -3010,8 +3032,8 @@
       "byte_count": 5102,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 39,
-      "modified_at": "2026-07-04T04:03:10.995210+00:00"
+      "complexity_score": 42,
+      "modified_at": "2026-07-06T00:28:21.202315+00:00"
     },
     {
       "path": "proof/music-observatory.md",
@@ -3025,13 +3047,14 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 8 repository files"
+        "read by 9 repository files"
       ],
       "connects_to": [],
       "imported_by": [
         "README.md",
         "music-observatory.html",
         "music-observatory.js",
+        "proof/execution-journal.md",
         "proof/repository-pulse.md",
         "scripts/export_music_observatory.py",
         "src/advanced_multimodal_ai/operator_surfaces.py",
@@ -3045,8 +3068,8 @@
       "byte_count": 4032,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 38,
-      "modified_at": "2026-07-04T04:03:08.560163+00:00"
+      "complexity_score": 41,
+      "modified_at": "2026-07-06T00:28:16.788027+00:00"
     },
     {
       "path": "proof/industry-profiles.json",
@@ -3060,10 +3083,11 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 2 repository files"
+        "read by 3 repository files"
       ],
       "connects_to": [],
       "imported_by": [
+        "proof/execution-journal.md",
         "proof/runtime-proof.md",
         "scripts/export_industry_profiles.py"
       ],
@@ -3074,8 +3098,8 @@
       "byte_count": 14303,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 37,
-      "modified_at": "2026-07-04T04:03:13.300372+00:00"
+      "complexity_score": 40,
+      "modified_at": "2026-07-06T00:28:23.475306+00:00"
     },
     {
       "path": "proof/repository-growth.md",
@@ -3089,7 +3113,7 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 8 repository files"
+        "read by 9 repository files"
       ],
       "connects_to": [],
       "imported_by": [
@@ -3097,6 +3121,7 @@
         "docs/REPOSITORY_LANES.md",
         "growth-surface.js",
         "index.html",
+        "proof/execution-journal.md",
         "proof/repository-pulse.md",
         "scripts/export_repository_growth.py",
         "src/advanced_multimodal_ai/repository_pulse.py",
@@ -3106,11 +3131,11 @@
         "generated artifact"
       ],
       "line_count": 43,
-      "byte_count": 1015,
+      "byte_count": 1009,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 36,
-      "modified_at": "2026-07-04T18:37:11.249780+00:00"
+      "complexity_score": 39,
+      "modified_at": "2026-07-06T00:28:11.939230+00:00"
     },
     {
       "path": "proof/readiness-report.json",
@@ -3145,7 +3170,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 35,
-      "modified_at": "2026-07-05T15:40:58.449413+00:00"
+      "modified_at": "2026-07-06T00:28:32.288805+00:00"
     },
     {
       "path": "proof/example-bundle.json",
@@ -3179,7 +3204,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 33,
-      "modified_at": "2026-07-04T04:03:25.313060+00:00"
+      "modified_at": "2026-07-06T00:28:34.842686+00:00"
     },
     {
       "path": "proof/industrial-diagnostics.md",
@@ -3193,7 +3218,7 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 6 repository files"
+        "read by 7 repository files"
       ],
       "connects_to": [],
       "imported_by": [
@@ -3201,6 +3226,7 @@
         "docs/REPOSITORY_LANES.md",
         "industrial-diagnostics.html",
         "industrial-diagnostics.js",
+        "proof/execution-journal.md",
         "scripts/export_industrial_diagnostics.py",
         "src/advanced_multimodal_ai/research_influence.py"
       ],
@@ -3211,8 +3237,75 @@
       "byte_count": 1475,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 29,
-      "modified_at": "2026-07-04T04:03:15.600316+00:00"
+      "complexity_score": 32,
+      "modified_at": "2026-07-06T00:28:25.659465+00:00"
+    },
+    {
+      "path": "proof/edge-topology.md",
+      "label": "edge-topology.md",
+      "language": "Markdown",
+      "lane": "generated evidence",
+      "status": "proof",
+      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
+      "inputs": [
+        "Arrow or Parquet tables",
+        "export script output"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "read by 6 repository files"
+      ],
+      "connects_to": [],
+      "imported_by": [
+        "proof/execution-journal.md",
+        "proof/repository-pulse.md",
+        "scripts/export_edge_topology.py",
+        "src/advanced_multimodal_ai/operator_surfaces.py",
+        "src/advanced_multimodal_ai/repository_pulse.py",
+        "src/advanced_multimodal_ai/research_influence.py"
+      ],
+      "evidence": [
+        "generated artifact"
+      ],
+      "line_count": 36,
+      "byte_count": 1082,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 30,
+      "modified_at": "2026-07-06T00:28:27.879235+00:00"
+    },
+    {
+      "path": "proof/repository-growth.json",
+      "label": "repository-growth.json",
+      "language": "JSON",
+      "lane": "generated evidence",
+      "status": "proof",
+      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
+      "inputs": [
+        "export script output"
+      ],
+      "outputs": [
+        "versioned proof artifacts",
+        "read by 6 repository files"
+      ],
+      "connects_to": [],
+      "imported_by": [
+        "docs/REPOSITORY_LANES.md",
+        "proof/execution-journal.md",
+        "proof/repository-pulse.md",
+        "proof/runtime-proof.md",
+        "scripts/export_repository_growth.py",
+        "src/advanced_multimodal_ai/repository_pulse.py"
+      ],
+      "evidence": [
+        "generated artifact"
+      ],
+      "line_count": 42,
+      "byte_count": 1174,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 30,
+      "modified_at": "2026-07-06T00:28:11.939081+00:00"
     },
     {
       "path": "proof/privacy-membrane.md",
@@ -3243,72 +3336,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 28,
-      "modified_at": "2026-07-05T15:40:32.518716+00:00"
-    },
-    {
-      "path": "proof/repository-growth.json",
-      "label": "repository-growth.json",
-      "language": "JSON",
-      "lane": "generated evidence",
-      "status": "proof",
-      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
-      "inputs": [
-        "export script output"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "read by 5 repository files"
-      ],
-      "connects_to": [],
-      "imported_by": [
-        "docs/REPOSITORY_LANES.md",
-        "proof/repository-pulse.md",
-        "proof/runtime-proof.md",
-        "scripts/export_repository_growth.py",
-        "src/advanced_multimodal_ai/repository_pulse.py"
-      ],
-      "evidence": [
-        "generated artifact"
-      ],
-      "line_count": 42,
-      "byte_count": 1180,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 27,
-      "modified_at": "2026-07-04T18:37:11.249576+00:00"
-    },
-    {
-      "path": "proof/edge-topology.md",
-      "label": "edge-topology.md",
-      "language": "Markdown",
-      "lane": "generated evidence",
-      "status": "proof",
-      "purpose": "Stores a generated proof surface read by the public atlas and review workflows.",
-      "inputs": [
-        "Arrow or Parquet tables",
-        "export script output"
-      ],
-      "outputs": [
-        "versioned proof artifacts",
-        "read by 5 repository files"
-      ],
-      "connects_to": [],
-      "imported_by": [
-        "proof/repository-pulse.md",
-        "scripts/export_edge_topology.py",
-        "src/advanced_multimodal_ai/operator_surfaces.py",
-        "src/advanced_multimodal_ai/repository_pulse.py",
-        "src/advanced_multimodal_ai/research_influence.py"
-      ],
-      "evidence": [
-        "generated artifact"
-      ],
-      "line_count": 35,
-      "byte_count": 999,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 26,
-      "modified_at": "2026-07-04T04:03:17.919071+00:00"
+      "modified_at": "2026-07-06T00:28:19.025086+00:00"
     },
     {
       "path": "proof/readiness-report.md",
@@ -3341,7 +3369,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 26,
-      "modified_at": "2026-07-05T15:40:58.449583+00:00"
+      "modified_at": "2026-07-06T00:28:32.288946+00:00"
     },
     {
       "path": "proof/example-bundle.md",
@@ -3372,7 +3400,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 22,
-      "modified_at": "2026-07-04T04:03:25.313468+00:00"
+      "modified_at": "2026-07-06T00:28:34.842840+00:00"
     },
     {
       "path": "proof/research-influence.md",
@@ -3386,10 +3414,11 @@
       ],
       "outputs": [
         "versioned proof artifacts",
-        "read by 2 repository files"
+        "read by 3 repository files"
       ],
       "connects_to": [],
       "imported_by": [
+        "proof/execution-journal.md",
         "research-influence.html",
         "scripts/export_research_influence.py"
       ],
@@ -3400,8 +3429,8 @@
       "byte_count": 2852,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 19,
-      "modified_at": "2026-07-04T04:02:56.186628+00:00"
+      "complexity_score": 22,
+      "modified_at": "2026-07-06T00:31:58.849650+00:00"
     },
     {
       "path": "advanced-technical-portfolio.html",
@@ -3495,12 +3524,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 859,
-      "byte_count": 32852,
+      "line_count": 910,
+      "byte_count": 34150,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-04T04:35:25.679870+00:00"
+      "modified_at": "2026-07-06T00:12:03.596040+00:00"
     },
     {
       "path": "cymatic-media-engine.html",
@@ -3643,12 +3672,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 3693,
-      "byte_count": 142411,
+      "line_count": 3759,
+      "byte_count": 144333,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:10:13.863806+00:00"
+      "modified_at": "2026-07-06T00:04:11.215111+00:00"
     },
     {
       "path": "model-observatory.html",
@@ -3739,12 +3768,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 681,
-      "byte_count": 17538,
+      "line_count": 743,
+      "byte_count": 19285,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-04T04:35:26.831518+00:00"
+      "modified_at": "2026-07-06T00:04:42.806079+00:00"
     },
     {
       "path": "technical-portfolio.html",
@@ -3877,12 +3906,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 572,
-      "byte_count": 19814,
+      "line_count": 624,
+      "byte_count": 21328,
       "route_count": 0,
       "test_count": 0,
-      "complexity_score": 70,
-      "modified_at": "2026-07-05T15:36:14.442132+00:00"
+      "complexity_score": 73,
+      "modified_at": "2026-07-06T00:05:40.924068+00:00"
     },
     {
       "path": "research-influence.html",
@@ -3958,7 +3987,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 56,
-      "modified_at": "2026-07-05T15:01:55.675451+00:00"
+      "modified_at": "2026-07-05T15:47:46.773295+00:00"
     },
     {
       "path": "industrial-diagnostics.html",
@@ -4134,7 +4163,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 30,
-      "modified_at": "2026-07-05T15:37:09.499423+00:00"
+      "modified_at": "2026-07-05T15:47:46.763722+00:00"
     },
     {
       "path": "growth-surface.js",
@@ -4349,7 +4378,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:13:43.647001+00:00"
+      "modified_at": "2026-07-05T15:47:46.777580+00:00"
     },
     {
       "path": "src/advanced_multimodal_ai/research_influence.py",
@@ -4517,7 +4546,7 @@
       "route_count": 2,
       "test_count": 0,
       "complexity_score": 79,
-      "modified_at": "2026-07-05T15:22:14.337672+00:00"
+      "modified_at": "2026-07-05T15:47:46.777295+00:00"
     },
     {
       "path": "README.md",
@@ -4562,12 +4591,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 498,
-      "byte_count": 20399,
+      "line_count": 509,
+      "byte_count": 20918,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:44:33.318939+00:00"
+      "modified_at": "2026-07-06T00:26:50.003926+00:00"
     },
     {
       "path": "docs/REPOSITORY_LANES.md",
@@ -4688,7 +4717,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 54,
-      "modified_at": "2026-07-05T15:18:36.868138+00:00"
+      "modified_at": "2026-07-05T15:47:46.758135+00:00"
     },
     {
       "path": "CLAUDE.md",
@@ -4783,7 +4812,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 18,
-      "modified_at": "2026-07-05T15:18:12.444224+00:00"
+      "modified_at": "2026-07-05T15:47:46.758669+00:00"
     },
     {
       "path": "CODE_OF_CONDUCT.md",
@@ -4959,7 +4988,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:30:48.582049+00:00"
+      "modified_at": "2026-07-05T15:47:46.775458+00:00"
     },
     {
       "path": "src/advanced_multimodal_ai/cymatic_surface.py",
@@ -5200,6 +5229,44 @@
       "modified_at": "2026-07-04T02:20:26.515469+00:00"
     },
     {
+      "path": "src/advanced_multimodal_ai/rust_bridge.py",
+      "label": "rust_bridge.py",
+      "language": "Python",
+      "lane": "runtime support",
+      "status": "active",
+      "purpose": "Supports the runtime support lane.",
+      "inputs": [
+        "1 referenced file connections"
+      ],
+      "outputs": [
+        "read by 11 repository files"
+      ],
+      "connects_to": [
+        "src/advanced_multimodal_ai/config.py"
+      ],
+      "imported_by": [
+        "docs/REPOSITORY_LANES.md",
+        "proof/operator-surfaces.md",
+        "proof/repository-pulse.md",
+        "proof/research-surfaces.md",
+        "src/advanced_multimodal_ai/catalog.py",
+        "src/advanced_multimodal_ai/operator_surfaces.py",
+        "src/advanced_multimodal_ai/replay.py",
+        "src/advanced_multimodal_ai/repository_pulse.py",
+        "src/advanced_multimodal_ai/research_surfaces.py",
+        "src/advanced_multimodal_ai/service.py"
+      ],
+      "evidence": [
+        "static repository evidence"
+      ],
+      "line_count": 94,
+      "byte_count": 2862,
+      "route_count": 0,
+      "test_count": 0,
+      "complexity_score": 55,
+      "modified_at": "2026-07-06T00:13:49.259393+00:00"
+    },
+    {
       "path": "src/advanced_multimodal_ai/catalog.py",
       "label": "catalog.py",
       "language": "Python",
@@ -5237,44 +5304,6 @@
       "test_count": 0,
       "complexity_score": 54,
       "modified_at": "2026-07-03T04:57:11.889540+00:00"
-    },
-    {
-      "path": "src/advanced_multimodal_ai/rust_bridge.py",
-      "label": "rust_bridge.py",
-      "language": "Python",
-      "lane": "runtime support",
-      "status": "active",
-      "purpose": "Supports the runtime support lane.",
-      "inputs": [
-        "1 referenced file connections"
-      ],
-      "outputs": [
-        "read by 11 repository files"
-      ],
-      "connects_to": [
-        "src/advanced_multimodal_ai/config.py"
-      ],
-      "imported_by": [
-        "docs/REPOSITORY_LANES.md",
-        "proof/operator-surfaces.md",
-        "proof/repository-pulse.md",
-        "proof/research-surfaces.md",
-        "src/advanced_multimodal_ai/catalog.py",
-        "src/advanced_multimodal_ai/operator_surfaces.py",
-        "src/advanced_multimodal_ai/replay.py",
-        "src/advanced_multimodal_ai/repository_pulse.py",
-        "src/advanced_multimodal_ai/research_surfaces.py",
-        "src/advanced_multimodal_ai/service.py"
-      ],
-      "evidence": [
-        "static repository evidence"
-      ],
-      "line_count": 88,
-      "byte_count": 2689,
-      "route_count": 0,
-      "test_count": 0,
-      "complexity_score": 54,
-      "modified_at": "2026-07-03T16:39:56.122111+00:00"
     },
     {
       "path": "src/advanced_multimodal_ai/stewardship_store.py",
@@ -5600,7 +5629,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 42,
-      "modified_at": "2026-07-05T15:11:44.764449+00:00"
+      "modified_at": "2026-07-05T15:47:46.777146+00:00"
     },
     {
       "path": "src/advanced_multimodal_ai/readiness.py",
@@ -5735,7 +5764,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 40,
-      "modified_at": "2026-07-05T15:12:24.574724+00:00"
+      "modified_at": "2026-07-05T15:47:46.775297+00:00"
     },
     {
       "path": "src/advanced_multimodal_ai/domain_ontology.py",
@@ -7912,6 +7941,42 @@
     },
     {
       "source": "proof/execution-journal.md",
+      "target": "proof/benchmark-surfaces.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/benchmark-surfaces.md",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/cymatic-surface.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/cymatic-surface.md",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/edge-topology.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/edge-topology.md",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
       "target": "proof/example-bundle.json",
       "relation": "documents",
       "weight": 0.55
@@ -7919,6 +7984,60 @@
     {
       "source": "proof/execution-journal.md",
       "target": "proof/example-bundle.md",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/execution-journal.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/industrial-diagnostics.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/industrial-diagnostics.md",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/industry-profiles.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/industry-profiles.md",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/music-observatory.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/music-observatory.md",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/operator-surfaces.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/operator-surfaces.md",
       "relation": "documents",
       "weight": 0.55
     },
@@ -7960,6 +8079,18 @@
     },
     {
       "source": "proof/execution-journal.md",
+      "target": "proof/repository-growth.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/repository-growth.md",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
       "target": "proof/repository-pulse.json",
       "relation": "documents",
       "weight": 0.55
@@ -7967,6 +8098,18 @@
     {
       "source": "proof/execution-journal.md",
       "target": "proof/repository-pulse.md",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/research-influence.json",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "proof/research-influence.md",
       "relation": "documents",
       "weight": 0.55
     },
@@ -8002,13 +8145,61 @@
     },
     {
       "source": "proof/execution-journal.md",
+      "target": "scripts/export_benchmark_surfaces.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "scripts/export_cymatic_surface.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "scripts/export_edge_topology.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
       "target": "scripts/export_example_bundle.py",
       "relation": "documents",
       "weight": 0.55
     },
     {
       "source": "proof/execution-journal.md",
+      "target": "scripts/export_execution_journal.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "scripts/export_industrial_diagnostics.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "scripts/export_industry_profiles.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "scripts/export_music_observatory.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
       "target": "scripts/export_openapi.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "scripts/export_operator_surfaces.py",
       "relation": "documents",
       "weight": 0.55
     },
@@ -8032,7 +8223,19 @@
     },
     {
       "source": "proof/execution-journal.md",
+      "target": "scripts/export_repository_growth.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
       "target": "scripts/export_repository_pulse.py",
+      "relation": "documents",
+      "weight": 0.55
+    },
+    {
+      "source": "proof/execution-journal.md",
+      "target": "scripts/export_research_influence.py",
       "relation": "documents",
       "weight": 0.55
     },
@@ -12433,12 +12636,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 3693,
-      "byte_count": 142411,
+      "line_count": 3759,
+      "byte_count": 144333,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:10:13.863806+00:00"
+      "modified_at": "2026-07-06T00:04:11.215111+00:00"
     },
     {
       "path": "src/advanced_multimodal_ai/service.py",
@@ -12488,7 +12691,7 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:22:34.690068+00:00"
+      "modified_at": "2026-07-05T15:47:46.777879+00:00"
     },
     {
       "path": "model-observatory.html",
@@ -12579,12 +12782,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 859,
-      "byte_count": 32852,
+      "line_count": 910,
+      "byte_count": 34150,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-04T04:35:25.679870+00:00"
+      "modified_at": "2026-07-06T00:12:03.596040+00:00"
     },
     {
       "path": "music-observatory.html",
@@ -12627,12 +12830,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 681,
-      "byte_count": 17538,
+      "line_count": 743,
+      "byte_count": 19285,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-04T04:35:26.831518+00:00"
+      "modified_at": "2026-07-06T00:04:42.806079+00:00"
     },
     {
       "path": "technical-portfolio.html",
@@ -12779,12 +12982,12 @@
       "evidence": [
         "writes or reads proof files"
       ],
-      "line_count": 498,
-      "byte_count": 20399,
+      "line_count": 509,
+      "byte_count": 20918,
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:44:33.318939+00:00"
+      "modified_at": "2026-07-06T00:26:50.003926+00:00"
     },
     {
       "path": "field-notes.html",
@@ -12978,8 +13181,8 @@
       "route_count": 0,
       "test_count": 0,
       "complexity_score": 100,
-      "modified_at": "2026-07-05T15:41:26.823247+00:00"
+      "modified_at": "2026-07-06T00:31:56.864820+00:00"
     }
   ],
-  "generated_at": "2026-07-05T15:44:56.344557+00:00"
+  "generated_at": "2026-07-06T00:32:06.116086+00:00"
 }

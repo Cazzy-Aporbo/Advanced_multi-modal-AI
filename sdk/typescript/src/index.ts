@@ -91,6 +91,25 @@ export interface StreamEvent {
   [key: string]: unknown;
 }
 
+export interface TensorValidationIssue {
+  modality: ModalityKind;
+  code:
+    | "missing-shape"
+    | "missing-values"
+    | "invalid-dimension"
+    | "length-mismatch"
+    | "non-finite-value";
+  message: string;
+}
+
+export interface TensorValidationReport {
+  ok: boolean;
+  issueCount: number;
+  totalValues: number;
+  modalities: ModalityKind[];
+  issues: TensorValidationIssue[];
+}
+
 export interface TemporalObservation {
   modality: ModalityKind;
   start_ms: number;
@@ -127,7 +146,11 @@ export interface TemporalAlignmentResponse {
 export { GeneratedOpenAPIClient } from "./generated-openapi.js";
 
 export class AdvancedMultimodalAIClient {
-  constructor(private readonly baseUrl: string) {}
+  private readonly baseUrl: string;
+
+  constructor(baseUrl: string) {
+    this.baseUrl = baseUrl.replace(/\/+$/, "");
+  }
 
   async health(): Promise<HealthResponse> {
     return this.get<HealthResponse>("/v1/health");
@@ -138,10 +161,12 @@ export class AdvancedMultimodalAIClient {
   }
 
   async profile(payload: InferenceRequest): Promise<DataProfileResponse> {
+    assertInferenceRequest(payload);
     return this.post<DataProfileResponse>("/v1/data/profile", payload);
   }
 
   async provenance(payload: InferenceRequest): Promise<ProvenanceReceipt> {
+    assertInferenceRequest(payload);
     return this.post<ProvenanceReceipt>("/v1/data/provenance", payload);
   }
 
@@ -152,10 +177,12 @@ export class AdvancedMultimodalAIClient {
   }
 
   async infer(payload: InferenceRequest): Promise<unknown> {
+    assertInferenceRequest(payload);
     return this.post("/v1/infer", payload);
   }
 
   async plan(payload: InferenceRequest): Promise<unknown> {
+    assertInferenceRequest(payload);
     return this.post("/v1/plan", payload);
   }
 
@@ -163,6 +190,7 @@ export class AdvancedMultimodalAIClient {
     payload: InferenceRequest,
     onEvent: (event: StreamEvent) => void,
   ): WebSocket {
+    assertInferenceRequest(payload);
     const url = new URL(this.baseUrl);
     url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
     url.pathname = "/v1/stream";
@@ -196,4 +224,76 @@ export class AdvancedMultimodalAIClient {
     }
     return response.json() as Promise<T>;
   }
+}
+
+export function validateInferenceRequest(
+  payload: InferenceRequest,
+): TensorValidationReport {
+  const issues: TensorValidationIssue[] = [];
+  let totalValues = 0;
+  const modalityMap = payload.modalities ?? {};
+  const modalities = Object.keys(modalityMap) as ModalityKind[];
+
+  for (const modality of modalities) {
+    const tensor = modalityMap[modality];
+    if (!tensor) continue;
+    const values = Array.isArray(tensor.values) ? tensor.values : [];
+    totalValues += values.length;
+    if (!Array.isArray(tensor.values)) {
+      issues.push({
+        modality,
+        code: "missing-values",
+        message: "Tensor values must be supplied as a flat numeric array.",
+      });
+    }
+    if (!Array.isArray(tensor.shape) || tensor.shape.length < 2) {
+      issues.push({
+        modality,
+        code: "missing-shape",
+        message: "Tensor shape must include at least batch and feature dimensions.",
+      });
+      continue;
+    }
+    const expected = tensor.shape.reduce((product, dimension) => {
+      if (!Number.isInteger(dimension) || dimension <= 0) {
+        issues.push({
+          modality,
+          code: "invalid-dimension",
+          message: `Invalid tensor dimension: ${dimension}.`,
+        });
+      }
+      return product * Math.max(0, dimension);
+    }, 1);
+    if (expected !== values.length) {
+      issues.push({
+        modality,
+        code: "length-mismatch",
+        message: `Shape ${tensor.shape.join("x")} expects ${expected} values, received ${values.length}.`,
+      });
+    }
+    const firstBadIndex = values.findIndex((value) => !Number.isFinite(value));
+    if (firstBadIndex >= 0) {
+      issues.push({
+        modality,
+        code: "non-finite-value",
+        message: `Non-finite tensor value at flattened index ${firstBadIndex}.`,
+      });
+    }
+  }
+
+  return {
+    ok: issues.length === 0 && modalities.length > 0,
+    issueCount: issues.length,
+    totalValues,
+    modalities,
+    issues,
+  };
+}
+
+export function assertInferenceRequest(payload: InferenceRequest): void {
+  const report = validateInferenceRequest(payload);
+  if (report.ok) return;
+  const details =
+    report.issues[0]?.message ?? "At least one modality payload is required.";
+  throw new Error(`Invalid multimodal request: ${details}`);
 }

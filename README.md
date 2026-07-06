@@ -200,8 +200,8 @@ The repository is split by responsibility.
 | --- | --- | --- |
 | Public pages | `index.html`, `model-observatory.html`, `music-observatory.html`, `industrial-diagnostics.html` | render generated proof and guide reading |
 | Backend | `src/advanced_multimodal_ai/` | validate contracts, run analysis, persist records, expose API |
-| Compiled core | `crates/multimodal-core/` | deterministic tensor signatures and transcript-led cut logic |
-| SDKs | `sdk/python`, `sdk/typescript` | generated client surfaces from the live OpenAPI app |
+| Compiled core | `crates/multimodal-core/` | deterministic tensor signatures, tensor guard checks, replay frames, quality receipts, and transcript-led cut logic |
+| SDKs | `sdk/python`, `sdk/typescript` | generated client surfaces plus typed request validation before payloads reach the API |
 | Proof exports | `proof/`, `scripts/export_*.py` | static evidence for pages, docs, and review |
 | Runtime memory | `.runtime/` | local SQLite stores for jobs, catalogs, recipes, ledgers, and journals |
 
@@ -418,11 +418,22 @@ Check the compiled core:
 cargo test -p multimodal-core
 ```
 
+The Rust lane exposes the same executable boundary through the CLI:
+
+```bash
+printf '{"request_id":"demo","max_risk":0.82,"tensors":[{"modality":"audio","shape":[1,4],"values":[0.0,0.1,0.2,0.1]}]}' \
+  | cargo run --quiet --bin multimodal-core -- quality-receipt
+```
+
 Check the TypeScript SDK:
 
 ```bash
 npm run --prefix sdk/typescript check
 ```
+
+The TypeScript lane validates tensor shape, value count, and finite numeric
+values before `profile`, `provenance`, `infer`, `plan`, or streaming calls are
+sent.
 
 Generated outputs:
 

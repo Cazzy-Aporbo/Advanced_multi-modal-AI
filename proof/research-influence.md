@@ -3,8 +3,8 @@
 - Sources: `4`
 - Mechanisms: `6`
 - Feature surfaces: `6`
-- Routes: `100`
-- Tests: `60`
+- Routes: `106`
+- Tests: `64`
 
 ## Sources
 

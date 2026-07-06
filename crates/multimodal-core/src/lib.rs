@@ -132,6 +132,44 @@ pub struct ReplayFrameResponse {
     pub zero_ratio: f64,
 }
 
+#[derive(Debug, Deserialize, Clone)]
+pub struct NamedTensorPayload {
+    pub modality: String,
+    pub shape: Vec<usize>,
+    pub values: Vec<f64>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct QualityReceiptRequest {
+    pub request_id: String,
+    pub tensors: Vec<NamedTensorPayload>,
+    pub max_risk: Option<f64>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
+pub struct ModalityQualityReceipt {
+    pub modality: String,
+    pub value_count: usize,
+    pub finite_ratio: f64,
+    pub mean: f64,
+    pub std: f64,
+    pub entropy_score: f64,
+    pub spatial_frequency: f64,
+    pub risk_score: f64,
+    pub status: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
+pub struct QualityReceiptResponse {
+    pub request_id: String,
+    pub modality_count: usize,
+    pub total_values: usize,
+    pub readiness_score: f64,
+    pub status: String,
+    pub receipt_digest: String,
+    pub modalities: Vec<ModalityQualityReceipt>,
+}
+
 pub fn signature_from_payload(payload: &TensorPayload) -> SignatureResponse {
     let batch = payload.shape.first().copied().unwrap_or(1).max(1);
     let flat_width = payload.values.len() / batch;
@@ -145,9 +183,17 @@ pub fn signature_from_payload(payload: &TensorPayload) -> SignatureResponse {
         let row_max = row.iter().copied().fold(f64::NEG_INFINITY, f64::max);
         let abs_mean = mean(&row.iter().map(|value| value.abs()).collect::<Vec<_>>());
         let rms = (row.iter().map(|value| value.powi(2)).sum::<f64>() / row.len() as f64).sqrt();
-        let deltas: Vec<f64> = row.windows(2).map(|pair| (pair[1] - pair[0]).abs()).collect();
-        let delta_mean = if deltas.is_empty() { 0.0 } else { mean(&deltas) };
-        let sparsity = row.iter().filter(|value| value.abs() < 1e-6).count() as f64 / row.len() as f64;
+        let deltas: Vec<f64> = row
+            .windows(2)
+            .map(|pair| (pair[1] - pair[0]).abs())
+            .collect();
+        let delta_mean = if deltas.is_empty() {
+            0.0
+        } else {
+            mean(&deltas)
+        };
+        let sparsity =
+            row.iter().filter(|value| value.abs() < 1e-6).count() as f64 / row.len() as f64;
         signatures.push(vec![
             row_mean, row_std, row_min, row_max, abs_mean, rms, delta_mean, sparsity,
         ]);
@@ -161,7 +207,11 @@ pub fn signature_from_payload(payload: &TensorPayload) -> SignatureResponse {
             mean: global_mean,
             std: std(&payload.values, global_mean),
             min: payload.values.iter().copied().fold(f64::INFINITY, f64::min),
-            max: payload.values.iter().copied().fold(f64::NEG_INFINITY, f64::max),
+            max: payload
+                .values
+                .iter()
+                .copied()
+                .fold(f64::NEG_INFINITY, f64::max),
         },
     }
 }
@@ -253,7 +303,11 @@ pub fn schema_fingerprint(payload: &SchemaFingerprintRequest) -> SchemaFingerpri
                 "{}:{}:{}",
                 field.name.trim().to_ascii_lowercase(),
                 field.dtype.trim().to_ascii_lowercase(),
-                if field.nullable { "nullable" } else { "required" }
+                if field.nullable {
+                    "nullable"
+                } else {
+                    "required"
+                }
             )
         })
         .collect::<Vec<_>>()
@@ -299,7 +353,12 @@ pub fn tensor_guard(payload: &TensorGuardRequest) -> TensorGuardResponse {
         / payload.values.len().max(1) as f64;
     let spatial_frequency = normalized_spatial_frequency(&rows);
     let saturation_ratio = saturation_ratio(&payload.values);
-    let risk_score = risk_score(entropy_score, spatial_frequency, saturation_ratio, zero_ratio);
+    let risk_score = risk_score(
+        entropy_score,
+        spatial_frequency,
+        saturation_ratio,
+        zero_ratio,
+    );
 
     let max_risk = payload.max_risk.unwrap_or(0.74);
     let max_entropy = payload.max_entropy.unwrap_or(0.92);
@@ -309,7 +368,9 @@ pub fn tensor_guard(payload: &TensorGuardRequest) -> TensorGuardResponse {
     let mut notes = Vec::new();
 
     if entropy_score >= max_entropy {
-        notes.push("Entropy is high enough that the tensor carries a dense signal field.".to_string());
+        notes.push(
+            "Entropy is high enough that the tensor carries a dense signal field.".to_string(),
+        );
         status = "watch".to_string();
     }
     if spatial_frequency >= max_spatial_frequency {
@@ -320,7 +381,9 @@ pub fn tensor_guard(payload: &TensorGuardRequest) -> TensorGuardResponse {
         status = "watch".to_string();
     }
     if risk_score >= max_risk {
-        notes.push("The combined geometric risk crossed the current intercept threshold.".to_string());
+        notes.push(
+            "The combined geometric risk crossed the current intercept threshold.".to_string(),
+        );
         status = "fail".to_string();
     } else if risk_score >= (max_risk - watch_margin).max(0.0) && status == "ok" {
         notes.push(
@@ -364,7 +427,11 @@ pub fn replay_frame(payload: &ReplayFrameRequest) -> ReplayFrameResponse {
         .as_nanos() as u64;
     let signal_mean = mean(&payload.values);
     let signal_std = std(&payload.values, signal_mean);
-    let signal_energy = payload.values.iter().map(|value| value * value).sum::<f64>();
+    let signal_energy = payload
+        .values
+        .iter()
+        .map(|value| value * value)
+        .sum::<f64>();
     let zero_ratio = payload
         .values
         .iter()
@@ -391,6 +458,117 @@ pub fn replay_frame(payload: &ReplayFrameRequest) -> ReplayFrameResponse {
         signal_std,
         signal_energy,
         zero_ratio,
+    }
+}
+
+pub fn quality_receipt(payload: &QualityReceiptRequest) -> QualityReceiptResponse {
+    let max_risk = payload.max_risk.unwrap_or(0.74).clamp(0.0, 1.0);
+    let mut modalities = payload
+        .tensors
+        .iter()
+        .map(|tensor| {
+            let finite_count = tensor
+                .values
+                .iter()
+                .filter(|value| value.is_finite())
+                .count();
+            let finite_ratio = finite_count as f64 / tensor.values.len().max(1) as f64;
+            let safe_values = tensor
+                .values
+                .iter()
+                .map(|value| if value.is_finite() { *value } else { 0.0 })
+                .collect::<Vec<_>>();
+            let batch = tensor.shape.first().copied().unwrap_or(1).max(1);
+            let flat_width = (safe_values.len() / batch).max(1);
+            let rows: Vec<&[f64]> = safe_values.chunks(flat_width).collect();
+            let tensor_mean = mean(&safe_values);
+            let tensor_std = std(&safe_values, tensor_mean);
+            let entropy_score = normalized_entropy(&safe_values, 12);
+            let spatial_frequency = normalized_spatial_frequency(&rows);
+            let zero_ratio = safe_values
+                .iter()
+                .filter(|value| value.abs() < 1e-6)
+                .count() as f64
+                / safe_values.len().max(1) as f64;
+            let tensor_risk = risk_score(
+                entropy_score,
+                spatial_frequency,
+                saturation_ratio(&safe_values),
+                zero_ratio,
+            );
+            let status = if finite_ratio < 1.0 || tensor_risk >= max_risk {
+                "fail"
+            } else if tensor_risk >= (max_risk - 0.12).max(0.0) || entropy_score < 0.08 {
+                "watch"
+            } else {
+                "ok"
+            };
+            ModalityQualityReceipt {
+                modality: tensor.modality.trim().to_ascii_lowercase(),
+                value_count: tensor.values.len(),
+                finite_ratio,
+                mean: tensor_mean,
+                std: tensor_std,
+                entropy_score,
+                spatial_frequency,
+                risk_score: tensor_risk,
+                status: status.to_string(),
+            }
+        })
+        .collect::<Vec<_>>();
+    modalities.sort_by(|left, right| left.modality.cmp(&right.modality));
+
+    let total_values = modalities
+        .iter()
+        .map(|receipt| receipt.value_count)
+        .sum::<usize>();
+    let readiness_score = if modalities.is_empty() {
+        0.0
+    } else {
+        let mean_risk = modalities
+            .iter()
+            .map(|receipt| receipt.risk_score)
+            .sum::<f64>()
+            / modalities.len() as f64;
+        let mean_finite = modalities
+            .iter()
+            .map(|receipt| receipt.finite_ratio)
+            .sum::<f64>()
+            / modalities.len() as f64;
+        ((1.0 - mean_risk) * 0.62 + mean_finite * 0.38).clamp(0.0, 1.0)
+    };
+    let status = if modalities.is_empty() {
+        "fail"
+    } else if modalities.iter().any(|receipt| receipt.status == "fail") {
+        "fail"
+    } else if modalities.iter().any(|receipt| receipt.status == "watch") {
+        "watch"
+    } else {
+        "ok"
+    };
+
+    let mut hasher = Sha256::new();
+    hasher.update(payload.request_id.as_bytes());
+    hasher.update(max_risk.to_le_bytes());
+    for tensor in &payload.tensors {
+        hasher.update(tensor.modality.trim().to_ascii_lowercase().as_bytes());
+        hasher.update(tensor_bytes(&tensor.shape, &tensor.values));
+    }
+    for receipt in &modalities {
+        hasher.update(receipt.modality.as_bytes());
+        hasher.update(receipt.value_count.to_le_bytes());
+        hasher.update(receipt.finite_ratio.to_le_bytes());
+        hasher.update(receipt.risk_score.to_le_bytes());
+    }
+
+    QualityReceiptResponse {
+        request_id: payload.request_id.clone(),
+        modality_count: modalities.len(),
+        total_values,
+        readiness_score,
+        status: status.to_string(),
+        receipt_digest: format!("{:x}", hasher.finalize()),
+        modalities,
     }
 }
 
@@ -602,8 +780,8 @@ mod tests {
         let payload = TensorGuardRequest {
             shape: vec![1, 16],
             values: vec![
-                -1.0, 1.0, -0.95, 0.95, -1.0, 1.0, -0.92, 0.92, -1.0, 1.0, -0.95, 0.95,
-                -1.0, 1.0, -0.9, 0.9,
+                -1.0, 1.0, -0.95, 0.95, -1.0, 1.0, -0.92, 0.92, -1.0, 1.0, -0.95, 0.95, -1.0, 1.0,
+                -0.9, 0.9,
             ],
             max_risk: Some(0.55),
             max_entropy: Some(0.75),
@@ -642,5 +820,70 @@ mod tests {
         assert_ne!(first.frame_digest, second.frame_digest);
         assert_eq!(second.parent_digest, first.frame_digest);
         assert_eq!(first.byte_count, 48);
+    }
+
+    #[test]
+    fn quality_receipt_is_deterministic_across_modalities() {
+        let payload = QualityReceiptRequest {
+            request_id: "case-001".to_string(),
+            max_risk: Some(0.82),
+            tensors: vec![
+                NamedTensorPayload {
+                    modality: "audio".to_string(),
+                    shape: vec![1, 6],
+                    values: vec![0.0, 0.1, 0.2, 0.1, 0.0, -0.1],
+                },
+                NamedTensorPayload {
+                    modality: "image".to_string(),
+                    shape: vec![1, 4],
+                    values: vec![0.2, 0.3, 0.4, 0.5],
+                },
+            ],
+        };
+
+        let first = quality_receipt(&payload);
+        let second = quality_receipt(&payload);
+
+        assert_eq!(first.receipt_digest, second.receipt_digest);
+        assert_eq!(first.modality_count, 2);
+        assert_eq!(first.total_values, 10);
+        assert_eq!(first.status, "ok");
+        assert!(first.readiness_score > 0.0);
+    }
+
+    #[test]
+    fn quality_receipt_fails_non_finite_payloads() {
+        let payload = QualityReceiptRequest {
+            request_id: "case-non-finite".to_string(),
+            max_risk: Some(0.9),
+            tensors: vec![NamedTensorPayload {
+                modality: "sensor".to_string(),
+                shape: vec![1, 4],
+                values: vec![0.1, f64::NAN, 0.2, f64::INFINITY],
+            }],
+        };
+
+        let response = quality_receipt(&payload);
+
+        assert_eq!(response.status, "fail");
+        assert_eq!(response.modalities[0].finite_ratio, 0.5);
+        assert!(response.receipt_digest.len() >= 32);
+    }
+
+    #[test]
+    fn quality_receipt_fails_empty_payloads() {
+        let payload = QualityReceiptRequest {
+            request_id: "case-empty".to_string(),
+            max_risk: Some(0.9),
+            tensors: Vec::new(),
+        };
+
+        let response = quality_receipt(&payload);
+
+        assert_eq!(response.status, "fail");
+        assert_eq!(response.modality_count, 0);
+        assert_eq!(response.total_values, 0);
+        assert_eq!(response.readiness_score, 0.0);
+        assert!(response.receipt_digest.len() >= 32);
     }
 }

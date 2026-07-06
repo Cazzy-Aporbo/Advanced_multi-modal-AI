@@ -1,277 +1,221 @@
 # Execution Journal
 
-- Total runs: `225`
-- Passing runs: `223`
+- Total runs: `289`
+- Passing runs: `287`
 - Failing runs: `2`
 
 ## Runs by lane
 
 - `test_export_lane`: 26
-- `openapi_export`: 19
-- `proof_export`: 18
-- `research_surface_export`: 17
-- `client_generation`: 16
-- `repository_pulse_export`: 16
-- `readiness_export`: 15
-- `execution_journal_export`: 14
-- `benchmark_surface_export`: 13
-- `example_bundle_export`: 12
-- `cymatic_surface_export`: 11
-- `music_observatory_export`: 10
-- `operator_surfaces_export`: 8
-- `edge_topology_export`: 6
-- `industrial_diagnostics_export`: 6
-- `industry_profiles_export`: 6
-- `repository_growth_export`: 6
-- `repository_file_map_export`: 3
-- `privacy_membrane_export`: 2
-- `research_influence_export`: 1
+- `openapi_export`: 22
+- `proof_export`: 22
+- `repository_pulse_export`: 21
+- `research_surface_export`: 21
+- `client_generation`: 19
+- `benchmark_surface_export`: 17
+- `execution_journal_export`: 17
+- `readiness_export`: 17
+- `cymatic_surface_export`: 15
+- `example_bundle_export`: 14
+- `music_observatory_export`: 13
+- `operator_surfaces_export`: 11
+- `edge_topology_export`: 9
+- `industrial_diagnostics_export`: 9
+- `industry_profiles_export`: 9
+- `repository_file_map_export`: 9
+- `repository_growth_export`: 9
+- `privacy_membrane_export`: 5
+- `research_influence_export`: 4
 
 ## Recent runs
 
-### readiness_export · pass
+### edge_topology_export · pass
 
-- Command: `python3 scripts/export_readiness_report.py`
-- Duration: `73.27ms`
-- Started: `2026-07-05T15:40:58.376370+00:00`
-- Completed: `2026-07-05T15:40:58.449639+00:00`
-
-Artifacts:
-- `proof/readiness-report.json` · present · 2795 bytes
-- `proof/readiness-report.md` · present · 1854 bytes
-
-Notes:
-- Readiness report regenerated from the live backend.
-
-
-### proof_export · pass
-
-- Command: `python3 scripts/build_runtime_proof_bundle.py`
-- Duration: `53.37ms`
-- Started: `2026-07-05T15:40:34.121406+00:00`
-- Completed: `2026-07-05T15:40:34.174777+00:00`
+- Command: `python3 scripts/export_edge_topology.py`
+- Duration: `56.82ms`
+- Started: `2026-07-06T00:32:24.115970+00:00`
+- Completed: `2026-07-06T00:32:24.172789+00:00`
 
 Artifacts:
-- `proof/runtime-proof.json` · present · 6329 bytes
-- `proof/runtime-proof.md` · present · 2676 bytes
+- `proof/edge-topology.json` · present · 8596 bytes
+- `proof/edge-topology.md` · present · 1082 bytes
 
 Notes:
-- Runtime proof bundle regenerated from the live backend.
+- Edge gateway topology and tracking ledger regenerated from the live runtime.
 
 
-### repository_pulse_export · pass
+### industrial_diagnostics_export · pass
 
-- Command: `python3 scripts/export_repository_pulse.py`
-- Duration: `125.63ms`
-- Started: `2026-07-05T15:40:33.095844+00:00`
-- Completed: `2026-07-05T15:40:33.221468+00:00`
+- Command: `python3 scripts/export_industrial_diagnostics.py`
+- Duration: `1.59ms`
+- Started: `2026-07-06T00:32:21.936252+00:00`
+- Completed: `2026-07-06T00:32:21.937839+00:00`
 
 Artifacts:
-- `proof/repository-pulse.json` · present · 41764 bytes
-- `proof/repository-pulse.md` · present · 19013 bytes
+- `proof/industrial-diagnostics.json` · present · 42175 bytes
+- `proof/industrial-diagnostics.md` · present · 1475 bytes
 
 Notes:
-- Repository pulse regenerated from the live backend.
+- Industrial diagnostics scenarios, proof tree, and audit chain were regenerated.
 
 
-### repository_file_map_export · pass
+### industry_profiles_export · pass
 
-- Command: `python3 scripts/export_repository_file_map.py`
-- Duration: `628.49ms`
-- Started: `2026-07-05T15:40:32.429682+00:00`
-- Completed: `2026-07-05T15:40:33.058185+00:00`
+- Command: `python3 scripts/export_industry_profiles.py`
+- Duration: `42.18ms`
+- Started: `2026-07-06T00:32:19.668412+00:00`
+- Completed: `2026-07-06T00:32:19.710596+00:00`
 
 Artifacts:
-- `proof/repository-file-map.json` · present · 384512 bytes
-- `proof/repository-file-map.md` · present · 11639 bytes
+- `proof/industry-profiles.json` · present · 14303 bytes
+- `proof/industry-profiles.md` · present · 8232 bytes
 
 Notes:
-- Repository file map regenerated from static analysis.
+- Industry profiles regenerated from the live API and tied back to runtime routes.
+
+
+### operator_surfaces_export · pass
+
+- Command: `python3 scripts/export_operator_surfaces.py`
+- Duration: `61.97ms`
+- Started: `2026-07-06T00:32:17.503270+00:00`
+- Completed: `2026-07-06T00:32:17.565238+00:00`
+
+Artifacts:
+- `proof/operator-surfaces.json` · present · 25063 bytes
+- `proof/operator-surfaces.md` · present · 5102 bytes
+
+Notes:
+- Operator surfaces regenerated from live runtime proof and music warehouse state.
 
 
 ### privacy_membrane_export · pass
 
 - Command: `python3 scripts/export_privacy_membrane.py`
-- Duration: `89.08ms`
-- Started: `2026-07-05T15:40:32.429681+00:00`
-- Completed: `2026-07-05T15:40:32.518766+00:00`
+- Duration: `64.54ms`
+- Started: `2026-07-06T00:32:15.245803+00:00`
+- Completed: `2026-07-06T00:32:15.310320+00:00`
 
 Artifacts:
-- `proof/privacy-membrane.json` · present · 70423 bytes
+- `proof/privacy-membrane.json` · present · 75061 bytes
 - `proof/privacy-membrane.md` · present · 13331 bytes
 
 Notes:
 - Privacy membrane proof regenerated from the live backend.
 
 
-### client_generation · pass
+### music_observatory_export · pass
 
-- Command: `python3 scripts/generate_sdk_surfaces.py`
-- Duration: `3.19ms`
-- Started: `2026-07-05T15:40:05.312612+00:00`
-- Completed: `2026-07-05T15:40:05.315803+00:00`
-
-Artifacts:
-- `sdk/typescript/src/generated-openapi.ts` · present · 30747 bytes
-- `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py` · present · 24667 bytes
-
-Notes:
-- Python and TypeScript client surfaces regenerated.
-
-
-### openapi_export · pass
-
-- Command: `python3 scripts/export_openapi.py`
-- Duration: `121.25ms`
-- Started: `2026-07-05T15:39:37.048417+00:00`
-- Completed: `2026-07-05T15:39:37.169665+00:00`
+- Command: `python3 scripts/export_music_observatory.py`
+- Duration: `168.53ms`
+- Started: `2026-07-06T00:32:12.913133+00:00`
+- Completed: `2026-07-06T00:32:13.081663+00:00`
 
 Artifacts:
-- `openapi/openapi.json` · present · 274449 bytes
+- `proof/music-observatory.json` · present · 231571 bytes
+- `proof/music-observatory.md` · present · 4032 bytes
 
 Notes:
-- OpenAPI contract regenerated.
+- Music observatory regenerated from the persisted warehouse lane.
+
+
+### benchmark_surface_export · pass
+
+- Command: `python3 scripts/export_benchmark_surfaces.py`
+- Duration: `468.19ms`
+- Started: `2026-07-06T00:32:10.433756+00:00`
+- Completed: `2026-07-06T00:32:10.901956+00:00`
+
+Artifacts:
+- `proof/benchmark-surfaces.json` · present · 4568 bytes
+- `proof/benchmark-surfaces.md` · present · 3294 bytes
+
+Notes:
+- Reference benchmark surface regenerated from the live backend.
+
+
+### repository_growth_export · pass
+
+- Command: `python3 scripts/export_repository_growth.py`
+- Duration: `75.05ms`
+- Started: `2026-07-06T00:32:08.222491+00:00`
+- Completed: `2026-07-06T00:32:08.297545+00:00`
+
+Artifacts:
+- `proof/repository-growth.json` · present · 1174 bytes
+- `proof/repository-growth.md` · present · 1009 bytes
+- `proof/repository-growth-history.jsonl` · present · 2250 bytes
+
+Notes:
+- Repository growth snapshot regenerated from the live proof bundle and any GitHub API data available at export time.
 
 
 ### repository_file_map_export · pass
 
 - Command: `python3 scripts/export_repository_file_map.py`
-- Duration: `511.75ms`
-- Started: `2026-07-05T15:24:25.732505+00:00`
-- Completed: `2026-07-05T15:24:26.244264+00:00`
+- Duration: `449.11ms`
+- Started: `2026-07-06T00:32:05.682660+00:00`
+- Completed: `2026-07-06T00:32:06.131769+00:00`
 
 Artifacts:
-- `proof/repository-file-map.json` · present · 384128 bytes
+- `proof/repository-file-map.json` · present · 386348 bytes
 - `proof/repository-file-map.md` · present · 11639 bytes
 
 Notes:
 - Repository file map regenerated from static analysis.
 
 
-### proof_export · pass
+### repository_pulse_export · pass
 
-- Command: `python3 scripts/build_runtime_proof_bundle.py`
-- Duration: `53.56ms`
-- Started: `2026-07-05T15:24:26.101501+00:00`
-- Completed: `2026-07-05T15:24:26.155059+00:00`
-
-Artifacts:
-- `proof/runtime-proof.json` · present · 6329 bytes
-- `proof/runtime-proof.md` · present · 2676 bytes
-
-Notes:
-- Runtime proof bundle regenerated from the live backend.
-
-
-### client_generation · pass
-
-- Command: `python3 scripts/generate_sdk_surfaces.py`
-- Duration: `3.35ms`
-- Started: `2026-07-05T15:24:01.549360+00:00`
-- Completed: `2026-07-05T15:24:01.552708+00:00`
+- Command: `python3 scripts/export_repository_pulse.py`
+- Duration: `61.75ms`
+- Started: `2026-07-06T00:32:03.468462+00:00`
+- Completed: `2026-07-06T00:32:03.530216+00:00`
 
 Artifacts:
-- `sdk/typescript/src/generated-openapi.ts` · present · 30747 bytes
-- `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py` · present · 24667 bytes
+- `proof/repository-pulse.json` · present · 41765 bytes
+- `proof/repository-pulse.md` · present · 19014 bytes
 
 Notes:
-- Python and TypeScript client surfaces regenerated.
+- Repository pulse regenerated from the live backend.
 
 
-### openapi_export · pass
+### cymatic_surface_export · pass
 
-- Command: `python3 scripts/export_openapi.py`
-- Duration: `139.93ms`
-- Started: `2026-07-05T15:23:29.577084+00:00`
-- Completed: `2026-07-05T15:23:29.717020+00:00`
+- Command: `python3 scripts/export_cymatic_surface.py`
+- Duration: `475.12ms`
+- Started: `2026-07-06T00:32:00.839487+00:00`
+- Completed: `2026-07-06T00:32:01.314609+00:00`
 
 Artifacts:
-- `openapi/openapi.json` · present · 271281 bytes
+- `proof/cymatic-surface.json` · present · 15432 bytes
+- `proof/cymatic-surface.md` · present · 8502 bytes
 
 Notes:
-- OpenAPI contract regenerated.
+- Cymatic evidence bundle regenerated from benchmark, pulse, and research surfaces.
 
 
-### repository_file_map_export · pass
+### research_influence_export · pass
 
-- Command: `python3 scripts/export_repository_file_map.py`
-- Duration: `447.00ms`
-- Started: `2026-07-05T15:15:26.578145+00:00`
-- Completed: `2026-07-05T15:15:27.025152+00:00`
+- Command: `python3 scripts/export_research_influence.py`
+- Duration: `69.93ms`
+- Started: `2026-07-06T00:31:58.779766+00:00`
+- Completed: `2026-07-06T00:31:58.849693+00:00`
 
 Artifacts:
-- `proof/repository-file-map.json` · present · 372594 bytes
-- `proof/repository-file-map.md` · present · 11612 bytes
+- `proof/research-influence.json` · present · 24220 bytes
+- `proof/research-influence.md` · present · 2852 bytes
 
 Notes:
-- Repository file map regenerated from static analysis.
-
-
-### proof_export · pass
-
-- Command: `python3 scripts/build_runtime_proof_bundle.py`
-- Duration: `50.38ms`
-- Started: `2026-07-04T21:39:30.659645+00:00`
-- Completed: `2026-07-04T21:39:30.710025+00:00`
-
-Artifacts:
-- `proof/runtime-proof.json` · present · 6053 bytes
-- `proof/runtime-proof.md` · present · 2548 bytes
-
-Notes:
-- Runtime proof bundle regenerated from the live backend.
-
-
-### client_generation · pass
-
-- Command: `python3 scripts/generate_sdk_surfaces.py`
-- Duration: `5.08ms`
-- Started: `2026-07-04T21:39:29.033650+00:00`
-- Completed: `2026-07-04T21:39:29.038735+00:00`
-
-Artifacts:
-- `sdk/typescript/src/generated-openapi.ts` · present · 30554 bytes
-- `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py` · present · 24486 bytes
-
-Notes:
-- Python and TypeScript client surfaces regenerated.
-
-
-### openapi_export · pass
-
-- Command: `python3 scripts/export_openapi.py`
-- Duration: `110.82ms`
-- Started: `2026-07-04T21:38:16.404613+00:00`
-- Completed: `2026-07-04T21:38:16.515444+00:00`
-
-Artifacts:
-- `openapi/openapi.json` · present · 264687 bytes
-
-Notes:
-- OpenAPI contract regenerated.
-
-
-### privacy_membrane_export · pass
-
-- Command: `python3 scripts/export_privacy_membrane.py`
-- Duration: `68.56ms`
-- Started: `2026-07-04T21:38:16.393290+00:00`
-- Completed: `2026-07-04T21:38:16.461835+00:00`
-
-Artifacts:
-- `proof/privacy-membrane.json` · present · 26543 bytes
-- `proof/privacy-membrane.md` · present · 2294 bytes
-
-Notes:
-- Privacy membrane proof regenerated from the live backend.
+- Research influence report regenerated from live API routes.
 
 
 ### research_surface_export · pass
 
 - Command: `python3 scripts/export_research_surfaces.py`
-- Duration: `60.00ms`
-- Started: `2026-07-04T18:22:16.923108+00:00`
-- Completed: `2026-07-04T18:22:16.983106+00:00`
+- Duration: `63.26ms`
+- Started: `2026-07-06T00:31:56.801586+00:00`
+- Completed: `2026-07-06T00:31:56.864846+00:00`
 
 Artifacts:
 - `proof/research-surfaces.json` · present · 39365 bytes
@@ -281,16 +225,45 @@ Notes:
 - Research surface bundle regenerated from the live backend.
 
 
+### client_generation · pass
+
+- Command: `python3 scripts/generate_sdk_surfaces.py`
+- Duration: `2.35ms`
+- Started: `2026-07-06T00:31:54.889736+00:00`
+- Completed: `2026-07-06T00:31:54.892086+00:00`
+
+Artifacts:
+- `sdk/typescript/src/generated-openapi.ts` · present · 30747 bytes
+- `sdk/python/src/advanced_multimodal_ai_client/generated_openapi.py` · present · 24667 bytes
+
+Notes:
+- Python and TypeScript client surfaces regenerated.
+
+
+### openapi_export · pass
+
+- Command: `python3 scripts/export_openapi.py`
+- Duration: `105.19ms`
+- Started: `2026-07-06T00:31:52.803377+00:00`
+- Completed: `2026-07-06T00:31:52.908573+00:00`
+
+Artifacts:
+- `openapi/openapi.json` · present · 274449 bytes
+
+Notes:
+- OpenAPI contract regenerated.
+
+
 ### proof_export · pass
 
 - Command: `python3 scripts/build_runtime_proof_bundle.py`
-- Duration: `44.78ms`
-- Started: `2026-07-04T04:03:27.647644+00:00`
-- Completed: `2026-07-04T04:03:27.692426+00:00`
+- Duration: `46.00ms`
+- Started: `2026-07-06T00:28:37.054220+00:00`
+- Completed: `2026-07-06T00:28:37.100218+00:00`
 
 Artifacts:
-- `proof/runtime-proof.json` · present · 5879 bytes
-- `proof/runtime-proof.md` · present · 2476 bytes
+- `proof/runtime-proof.json` · present · 6329 bytes
+- `proof/runtime-proof.md` · present · 2676 bytes
 
 Notes:
 - Runtime proof bundle regenerated from the live backend.
@@ -299,9 +272,9 @@ Notes:
 ### example_bundle_export · pass
 
 - Command: `python3 scripts/export_example_bundle.py`
-- Duration: `355.05ms`
-- Started: `2026-07-04T04:03:24.958445+00:00`
-- Completed: `2026-07-04T04:03:25.313501+00:00`
+- Duration: `379.54ms`
+- Started: `2026-07-06T00:28:34.463332+00:00`
+- Completed: `2026-07-06T00:28:34.842873+00:00`
 
 Artifacts:
 - `proof/example-bundle.json` · present · 2603 bytes
@@ -314,9 +287,9 @@ Notes:
 ### readiness_export · pass
 
 - Command: `python3 scripts/export_readiness_report.py`
-- Duration: `49.87ms`
-- Started: `2026-07-04T04:03:22.642805+00:00`
-- Completed: `2026-07-04T04:03:22.692681+00:00`
+- Duration: `55.37ms`
+- Started: `2026-07-06T00:28:32.233610+00:00`
+- Completed: `2026-07-06T00:28:32.288980+00:00`
 
 Artifacts:
 - `proof/readiness-report.json` · present · 2795 bytes
@@ -324,4 +297,34 @@ Artifacts:
 
 Notes:
 - Readiness report regenerated from the live backend.
+
+
+### execution_journal_export · pass
+
+- Command: `python3 scripts/export_execution_journal.py`
+- Duration: `44.75ms`
+- Started: `2026-07-06T00:28:30.023437+00:00`
+- Completed: `2026-07-06T00:28:30.068188+00:00`
+
+Artifacts:
+- `proof/execution-journal.json` · present · 22524 bytes
+- `proof/execution-journal.md` · present · 8988 bytes
+
+Notes:
+- Execution journal exported from persisted run records.
+
+
+### edge_topology_export · pass
+
+- Command: `python3 scripts/export_edge_topology.py`
+- Duration: `58.20ms`
+- Started: `2026-07-06T00:28:27.821072+00:00`
+- Completed: `2026-07-06T00:28:27.879271+00:00`
+
+Artifacts:
+- `proof/edge-topology.json` · present · 8596 bytes
+- `proof/edge-topology.md` · present · 1082 bytes
+
+Notes:
+- Edge gateway topology and tracking ledger regenerated from the live runtime.
 

@@ -2003,7 +2003,7 @@
     ]
   },
   "sample_receipt": {
-    "receipt_id": "5bc89b9a-6ce5-482c-a0e1-d42692671e7c",
+    "receipt_id": "d61d1e72-5545-4fbf-94ea-4d6cc421ca4b",
     "source_sha256": "9bd10dbad21a44770ff9d3c19edfcf9c6b98e7752d130595547b02808595fa25",
     "redacted_sha256": "2a19669fc54fd0ee35c684f74972c91bbab7462dcb70440b51e99211f44a7d6a",
     "finding_set_sha256": "e9252e999b089fcd24b3e42692de8725d45ac3351e26d142e63655b4262d9b3a",
@@ -2017,7 +2017,7 @@
       "english",
       "fil"
     ],
-    "created_at": "2026-07-05T15:40:32.492892+00:00"
+    "created_at": "2026-07-06T00:32:15.293037+00:00"
   },
   "sample_category_summaries": [
     {
@@ -2057,6 +2057,147 @@
     }
   ],
   "run_records": [
+    {
+      "run_id": "c5edff77-f492-4b1c-999f-a6299ce6cbc0",
+      "route": "/v1/privacy/deidentify",
+      "purpose": "proof_export_fixture",
+      "tenant_id": "",
+      "document_count": 1,
+      "finding_count": 5,
+      "risk_score": 0.8156,
+      "highest_severity": "critical",
+      "category_counts": {
+        "credit_card": 1,
+        "date_of_birth": 1,
+        "email_address": 1,
+        "medical_record_number": 1,
+        "person_name": 1
+      },
+      "language_counts": {
+        "en": 1,
+        "english": 1,
+        "fil": 1
+      },
+      "receipts": [
+        {
+          "receipt_id": "d61d1e72-5545-4fbf-94ea-4d6cc421ca4b",
+          "source_sha256": "9bd10dbad21a44770ff9d3c19edfcf9c6b98e7752d130595547b02808595fa25",
+          "redacted_sha256": "2a19669fc54fd0ee35c684f74972c91bbab7462dcb70440b51e99211f44a7d6a",
+          "finding_set_sha256": "e9252e999b089fcd24b3e42692de8725d45ac3351e26d142e63655b4262d9b3a",
+          "detector_version": "privacy-membrane-2026.07",
+          "masking_mode": "stable_token",
+          "text_length": 103,
+          "finding_count": 5,
+          "category_count": 5,
+          "language_hints": [
+            "en",
+            "english",
+            "fil"
+          ],
+          "created_at": "2026-07-06T00:32:15.293037+00:00"
+        }
+      ],
+      "persisted_raw_text": false,
+      "persisted_redacted_text": false,
+      "notes": [
+        "Only receipts and aggregate privacy counts were persisted."
+      ],
+      "created_at": "2026-07-06T00:32:15.293087+00:00"
+    },
+    {
+      "run_id": "c5470f52-8863-4812-af33-6c1adf32a534",
+      "route": "/v1/privacy/deidentify",
+      "purpose": "proof_export_fixture",
+      "tenant_id": "",
+      "document_count": 1,
+      "finding_count": 5,
+      "risk_score": 0.8156,
+      "highest_severity": "critical",
+      "category_counts": {
+        "credit_card": 1,
+        "date_of_birth": 1,
+        "email_address": 1,
+        "medical_record_number": 1,
+        "person_name": 1
+      },
+      "language_counts": {
+        "en": 1,
+        "english": 1,
+        "fil": 1
+      },
+      "receipts": [
+        {
+          "receipt_id": "5336abea-d82a-48af-9d5d-39a7c3792ed6",
+          "source_sha256": "9bd10dbad21a44770ff9d3c19edfcf9c6b98e7752d130595547b02808595fa25",
+          "redacted_sha256": "2a19669fc54fd0ee35c684f74972c91bbab7462dcb70440b51e99211f44a7d6a",
+          "finding_set_sha256": "e9252e999b089fcd24b3e42692de8725d45ac3351e26d142e63655b4262d9b3a",
+          "detector_version": "privacy-membrane-2026.07",
+          "masking_mode": "stable_token",
+          "text_length": 103,
+          "finding_count": 5,
+          "category_count": 5,
+          "language_hints": [
+            "en",
+            "english",
+            "fil"
+          ],
+          "created_at": "2026-07-06T00:28:19.008158+00:00"
+        }
+      ],
+      "persisted_raw_text": false,
+      "persisted_redacted_text": false,
+      "notes": [
+        "Only receipts and aggregate privacy counts were persisted."
+      ],
+      "created_at": "2026-07-06T00:28:19.008207+00:00"
+    },
+    {
+      "run_id": "ef3b7055-e9ae-48c0-b909-1fff2e9fb610",
+      "route": "/v1/privacy/deidentify",
+      "purpose": "proof_export_fixture",
+      "tenant_id": "",
+      "document_count": 1,
+      "finding_count": 5,
+      "risk_score": 0.8156,
+      "highest_severity": "critical",
+      "category_counts": {
+        "credit_card": 1,
+        "date_of_birth": 1,
+        "email_address": 1,
+        "medical_record_number": 1,
+        "person_name": 1
+      },
+      "language_counts": {
+        "en": 1,
+        "english": 1,
+        "fil": 1
+      },
+      "receipts": [
+        {
+          "receipt_id": "7d9214a4-673e-4f93-99bb-28e4f1b6f80f",
+          "source_sha256": "9bd10dbad21a44770ff9d3c19edfcf9c6b98e7752d130595547b02808595fa25",
+          "redacted_sha256": "2a19669fc54fd0ee35c684f74972c91bbab7462dcb70440b51e99211f44a7d6a",
+          "finding_set_sha256": "e9252e999b089fcd24b3e42692de8725d45ac3351e26d142e63655b4262d9b3a",
+          "detector_version": "privacy-membrane-2026.07",
+          "masking_mode": "stable_token",
+          "text_length": 103,
+          "finding_count": 5,
+          "category_count": 5,
+          "language_hints": [
+            "en",
+            "english",
+            "fil"
+          ],
+          "created_at": "2026-07-06T00:23:58.057452+00:00"
+        }
+      ],
+      "persisted_raw_text": false,
+      "persisted_redacted_text": false,
+      "notes": [
+        "Only receipts and aggregate privacy counts were persisted."
+      ],
+      "created_at": "2026-07-06T00:23:58.057508+00:00"
+    },
     {
       "run_id": "3db52ca0-4ce1-438f-8a6a-a6f667e4ff70",
       "route": "/v1/privacy/deidentify",

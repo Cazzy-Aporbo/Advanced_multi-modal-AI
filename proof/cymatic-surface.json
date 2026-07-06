@@ -6,10 +6,10 @@
   "test_count": 64,
   "connector_kind_count": 7,
   "replay_verified": true,
-  "baseline_harmony": 0.9511384615384615,
+  "baseline_harmony": 0.9492307692307692,
   "tension_index": 0.3680769230769231,
   "active_files": 96,
-  "total_runs": 226,
+  "total_runs": 278,
   "music_manifest_count": 0,
   "music_feature_run_count": 0,
   "music_total_segments": 0,
@@ -40,7 +40,7 @@
       "band_id": "movement",
       "label": "active movement",
       "intensity": 1.0,
-      "drift": 0.008849557522123908,
+      "drift": 0.007194244604316502,
       "note": "The engine feels more alive when scripts, exports, and verification runs continue to leave visible traces."
     },
     {
@@ -55,8 +55,8 @@
     {
       "stage_id": "connector_ingest",
       "label": "Ingest and shape",
-      "harmony_score": 0.7826494000013918,
-      "friction_score": 0.22671992399785662,
+      "harmony_score": 0.8230746668041684,
+      "friction_score": 0.16446501312158068,
       "trace_paths": [
         "/v1/connectors/register",
         "/v1/connectors/pipeline-ingest",
@@ -75,7 +75,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 205.88,
+          "value": 104.81,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -105,8 +105,8 @@
     {
       "stage_id": "profile_lane",
       "label": "Profile and align",
-      "harmony_score": 0.8417290167999454,
-      "friction_score": 0.1237373141280841,
+      "harmony_score": 0.8435403331997805,
+      "friction_score": 0.12094788687233808,
       "trace_paths": [
         "/v1/data/profile",
         "/v1/alignment/windows"
@@ -124,7 +124,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 20.68,
+          "value": 16.15,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -147,8 +147,8 @@
     {
       "stage_id": "pipeline_replay",
       "label": "Replay and prove",
-      "harmony_score": 0.8656585832033306,
-      "friction_score": 0.1348857818668709,
+      "harmony_score": 0.8783352163992821,
+      "friction_score": 0.11536376674510544,
       "trace_paths": [
         "/v1/pipelines/runs/{run_id}/export",
         "/v1/pipelines/runs/{run_id}/replay"
@@ -166,7 +166,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 110.85,
+          "value": 79.16,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -189,8 +189,8 @@
     {
       "stage_id": "batch_job",
       "label": "Concurrent batch work",
-      "harmony_score": 0.8320163000002504,
-      "friction_score": 0.15069489799961444,
+      "harmony_score": 0.8393185831932352,
+      "friction_score": 0.1394493818824179,
       "trace_paths": [
         "/v1/jobs/batch-infer",
         "/v1/jobs"
@@ -208,7 +208,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 82.46,
+          "value": 64.2,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -231,8 +231,8 @@
     {
       "stage_id": "music_warehouse",
       "label": "Segment and warehouse",
-      "harmony_score": 0.8348182999971323,
-      "friction_score": 0.14637981800441627,
+      "harmony_score": 0.8550258832029067,
+      "friction_score": 0.11526013986752366,
       "trace_paths": [
         "/v1/music/manifests",
         "/v1/music/features/extract",
@@ -251,7 +251,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 75.45,
+          "value": 24.94,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -302,8 +302,8 @@
     {
       "stage_id": "proof_bundle",
       "label": "Govern and disclose",
-      "harmony_score": 0.9980194167932496,
-      "friction_score": 0.0030500981383956806,
+      "harmony_score": 0.9981518168002368,
+      "friction_score": 0.0028462021276354135,
       "trace_paths": [
         "/v1/proof/bundle",
         "/v1/repository/pulse",
@@ -322,7 +322,7 @@
         {
           "metric_id": "duration",
           "label": "duration",
-          "value": 4.95,
+          "value": 4.62,
           "unit": "ms",
           "detail": "Recorded stage duration from the current reference workload."
         },
@@ -357,7 +357,7 @@
       "audience": "creator",
       "summary": "When the intake or profile lane begins to roughen, the output usually stops sounding like a nuanced audience and starts sounding like a narrow loop.",
       "consequence": "The cost is not only technical. Repetition flattens taste, reduces surprise, and makes a catalogue feel smaller than it is.",
-      "continuation": "515 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins."
+      "continuation": "534 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins."
     },
     {
       "narrative_id": "operator_lane",
@@ -384,5 +384,5 @@
     "field-notes.html",
     "proof/cymatic-surface.md"
   ],
-  "created_at": "2026-07-05T15:40:59.629532+00:00"
+  "created_at": "2026-07-06T00:32:01.313980+00:00"
 }

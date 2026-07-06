@@ -9,7 +9,7 @@
     "model_count": 4,
     "runtime_ready_model_count": 0,
     "open_question_count": 5,
-    "generated_at": "2026-07-05T15:41:26.815985+00:00"
+    "generated_at": "2026-07-06T00:31:56.858894+00:00"
   },
   "lanes": [
     {
@@ -510,9 +510,9 @@
       "finding_id": "connector-spine-is-real",
       "lens": "data",
       "title": "The repository now begins with measured intake instead of hand-shaped payloads alone",
-      "summary": "517 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
+      "summary": "534 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.",
       "evidence": [
-        "connector runs recorded: 517",
+        "connector runs recorded: 534",
         "connector kinds exported: local_csv, local_jsonl, local_parquet, s3_parquet, http_json, http_ndjson, web_html"
       ],
       "why_it_matters": "A multimodal repository becomes more credible when data entry is a first-class engineering problem rather than an invisible notebook precondition.",
@@ -532,13 +532,13 @@
       "finding_id": "review-lives-next-to-runtime",
       "lens": "governance",
       "title": "Review work now sits beside inference instead of after it",
-      "summary": "Lifecycle policies (33), change controls (33), supply snapshots (33), drift baselines (8), and ontology snapshots (130) are persisted in the same backend story.",
+      "summary": "Lifecycle policies (33), change controls (33), supply snapshots (33), drift baselines (8), and ontology snapshots (131) are persisted in the same backend story.",
       "evidence": [
         "lifecycle policies: 33",
         "change controls: 33",
         "supply snapshots: 33",
         "drift baselines: 8",
-        "ontology snapshots: 130"
+        "ontology snapshots: 131"
       ],
       "why_it_matters": "It is easier to trust a system when retention, movement, and liability have a code path rather than only a meeting note.",
       "next_step": "Keep tying review surfaces to real route traces so the governance lane reflects operational movement, not just intended policy.",
@@ -584,7 +584,7 @@
         "route count: 106",
         "test count: 64",
         "verification artifacts: 18",
-        "pipeline runs stored: 400"
+        "pipeline runs stored: 416"
       ],
       "why_it_matters": "Trust improves when proof is generated from code paths that actually exist and can be re-exported for the public site.",
       "next_step": "Keep the export surfaces close to CI and extend replay comparisons so proof covers behavioral continuity, not only route and artifact presence.",
@@ -603,9 +603,9 @@
       "finding_id": "execution-memory-is-persisted",
       "lens": "evaluation",
       "title": "Export and verification work now leaves its own operational memory",
-      "summary": "228 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
+      "summary": "276 persisted execution-journal runs now describe which proof and packaging lanes actually ran, what they touched, and when they last changed.",
       "evidence": [
-        "execution journal runs: 228",
+        "execution journal runs: 276",
         "proof/execution-journal.json is exported from the backend journal surface."
       ],
       "why_it_matters": "A repository feels more trustworthy when its export and verification lanes can be revisited as records instead of being remembered only because someone ran them recently.",
@@ -624,9 +624,9 @@
       "finding_id": "edge-packets-are-measured",
       "lens": "runtime",
       "title": "Packet routing no longer begins as an invisible assumption",
-      "summary": "5 persisted edge packet events now tie packet geometry, cross-border posture, and route decisions into a ledgered runtime seam.",
+      "summary": "7 persisted edge packet events now tie packet geometry, cross-border posture, and route decisions into a ledgered runtime seam.",
       "evidence": [
-        "edge packet events: 5",
+        "edge packet events: 7",
         "proof/edge-topology.json exports both the topology and the latest ledger summary."
       ],
       "why_it_matters": "A multimodal repository reads as more serious when it can say what entered the system, why it was slowed down, and where that decision was recorded.",
@@ -672,9 +672,9 @@
       "summary": "The current readiness posture is 'review_ready'. The repo now has a steadier runtime edge, though the strongest next step remains more repeated evidence under varied real inputs.",
       "evidence": [
         "readiness posture: review_ready",
-        "connector runs: 517",
-        "pipeline runs: 400",
-        "compiled recipes: 177"
+        "connector runs: 534",
+        "pipeline runs: 416",
+        "compiled recipes: 190"
       ],
       "why_it_matters": "The repository is more valuable when it is explicit about what has been proven, what is promising, and what still needs to earn its place.",
       "next_step": "Bring in more repeated warehouse, object-store, and mixed-modality examples so the runtime is exercised under broader operational texture.",
@@ -826,5 +826,5 @@
       ]
     }
   ],
-  "created_at": "2026-07-05T15:41:26.815993+00:00"
+  "created_at": "2026-07-06T00:31:56.858903+00:00"
 }

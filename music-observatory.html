@@ -380,6 +380,23 @@
       overflow: hidden;
     }
 
+    .music-signal-card::before,
+    .music-link-card::before,
+    .music-topology-card::before,
+    .music-genre-node::before,
+    .music-metric-card::before,
+    .music-story-card::before,
+    .music-timeline-card::before,
+    .music-alignment-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 2px;
+      background: linear-gradient(90deg, var(--copper), var(--rose), var(--jade), var(--lilac));
+      opacity: 0.82;
+      pointer-events: none;
+    }
+
     .music-signal-card strong,
     .music-link-card h3,
     .music-topology-card h3,
@@ -552,12 +569,21 @@
       100% { filter: saturate(1.16); }
     }
 
+    @media (max-width: 1120px) {
+      .music-signal-grid,
+      .music-link-grid,
+      .music-alignment-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .music-topology-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 980px) {
       .music-hero-grid,
       .music-two-up,
-      .music-alignment-grid,
-      .music-signal-grid,
-      .music-link-grid,
       .music-topology-grid {
         grid-template-columns: 1fr;
       }
@@ -581,7 +607,12 @@
       }
 
       .nav-links::-webkit-scrollbar,
-      .music-scroll-row::-webkit-scrollbar {
+      .music-scroll-row::-webkit-scrollbar,
+      .music-signal-grid::-webkit-scrollbar,
+      .music-link-grid::-webkit-scrollbar,
+      .music-alignment-grid::-webkit-scrollbar,
+      .music-topology-grid::-webkit-scrollbar,
+      .music-metric-grid::-webkit-scrollbar {
         display: none;
       }
 
@@ -603,7 +634,13 @@
       }
 
       .music-metric-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(246px, 78vw);
+        grid-template-columns: none;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
       }
 
       .music-section-head {
@@ -612,7 +649,32 @@
 
       .music-scroll-row,
       .music-timeline {
-        grid-auto-columns: minmax(250px, 84vw);
+        grid-auto-columns: minmax(292px, 86vw);
+      }
+
+      .music-signal-grid,
+      .music-link-grid,
+      .music-alignment-grid,
+      .music-topology-grid {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(292px, 86vw);
+        grid-template-columns: none;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+      }
+
+      .music-signal-card,
+      .music-link-card,
+      .music-topology-card,
+      .music-alignment-card,
+      .music-metric-card,
+      .music-story-card,
+      .music-timeline-card {
+        scroll-snap-align: start;
+        min-height: auto;
       }
     }
   </style>

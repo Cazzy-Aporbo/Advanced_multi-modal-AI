@@ -3,7 +3,7 @@
 - Service: `advanced-multimodal-ai`
 - Version: `0.5.0`
 - Files mapped: `174`
-- Edges mapped: `1014`
+- Edges mapped: `1043`
 - Active Python files: `99`
 - Frontend files: `21`
 - Proof files: `34`
@@ -42,7 +42,7 @@
 - Language: `HTML`
 - Status: `frontend`
 - Complexity score: `100`
-- Lines: `3693`
+- Lines: `3759`
 - Routes: `0`
 - Tests: `0`
 
@@ -177,7 +177,7 @@ Evidence:
 - Language: `HTML`
 - Status: `frontend`
 - Complexity score: `100`
-- Lines: `859`
+- Lines: `910`
 - Routes: `0`
 - Tests: `0`
 
@@ -220,7 +220,7 @@ Evidence:
 - Language: `HTML`
 - Status: `frontend`
 - Complexity score: `100`
-- Lines: `681`
+- Lines: `743`
 - Routes: `0`
 - Tests: `0`
 
@@ -355,7 +355,7 @@ Evidence:
 - Language: `Markdown`
 - Status: `supporting`
 - Complexity score: `100`
-- Lines: `498`
+- Lines: `509`
 - Routes: `0`
 - Tests: `0`
 

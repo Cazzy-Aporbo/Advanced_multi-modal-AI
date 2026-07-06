@@ -223,6 +223,19 @@
       padding: 22px;
       transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
       min-height: 270px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stage-button::before,
+    .continuation-card::before,
+    .summary-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 2px;
+      background: linear-gradient(90deg, var(--copper), var(--rose), var(--jade), var(--blue));
+      opacity: 0.78;
+      pointer-events: none;
     }
     .stage-button:hover,
     .stage-button.active {
@@ -431,6 +444,8 @@
         linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)),
         radial-gradient(circle at bottom left, rgba(240, 178, 126, 0.14), transparent 54%),
         rgba(28, 21, 34, 0.96);
+      position: relative;
+      overflow: hidden;
     }
     .continuation-card a {
       color: var(--text);
@@ -457,12 +472,48 @@
     }
     @media (max-width: 960px) {
       .hero,
-      .summary-grid,
-      .stage-grid,
       .detail-grid,
-      .continuation-grid,
       .operator-grid {
         grid-template-columns: 1fr;
+      }
+
+      .summary-grid,
+      .stage-grid,
+      .continuation-grid {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(292px, 46vw);
+        grid-template-columns: none;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scroll-snap-type: x proximity;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(154, 223, 212, 0.34) rgba(255, 255, 255, 0.06);
+      }
+
+      .summary-shell,
+      .stage-button,
+      .continuation-card {
+        scroll-snap-align: start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .summary-grid,
+      .stage-grid,
+      .continuation-grid {
+        grid-auto-columns: minmax(292px, 86vw);
+        scrollbar-width: none;
+      }
+
+      .summary-grid::-webkit-scrollbar,
+      .stage-grid::-webkit-scrollbar,
+      .continuation-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .stage-button {
+        min-height: auto;
       }
     }
   </style>

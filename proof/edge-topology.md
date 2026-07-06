@@ -27,8 +27,9 @@
 
 ## Recent ledger events
 
+- **hold** · `9bd76889-16ec-4aab-b8a0-a56e937c5370` · DE → DE · entropy 0.894
+- **hold** · `ea07961b-1d72-4e6f-9b17-71f399892700` · DE → DE · entropy 0.894
+- **hold** · `194e4c9e-8415-428e-92da-c2bf43840077` · DE → DE · entropy 0.894
 - **hold** · `f50f9075-98b4-4c04-9527-623b5f2f653a` · DE → DE · entropy 0.894
 - **hold** · `5b83f62c-a12c-40b6-b881-4d27a1c71489` · DE → DE · entropy 0.894
 - **hold** · `70f69ca0-af64-45c9-af58-df5173e3bede` · DE → DE · entropy 0.894
-- **hold** · `9638972a-41f8-4c61-9b55-d90b58e265ec` · DE → DE · entropy 0.894
-- **hold** · `ccd0184c-be6e-4a71-b07c-e5a151062dde` · DE → DE · entropy 0.894

@@ -65,7 +65,7 @@
         ]
       }
     ],
-    "generated_at": "2026-07-04T04:03:15.598627+00:00"
+    "generated_at": "2026-07-06T00:32:21.936274+00:00"
   },
   "sample_request": {
     "asset_kind": "diesel_engine",
@@ -209,7 +209,7 @@
           "energy_isolated=False"
         ],
         "implication": "Hands-on diagnostics cannot continue until hazardous energy is controlled.",
-        "checked_at": "2026-07-04T04:03:15.598725+00:00"
+        "checked_at": "2026-07-06T00:32:21.936367+00:00"
       },
       {
         "standard": "ISO 13849-1",
@@ -220,7 +220,7 @@
           "manual_reset_verified=False"
         ],
         "implication": "The machine may not re-enter motion through an automatic restart path.",
-        "checked_at": "2026-07-04T04:03:15.598734+00:00"
+        "checked_at": "2026-07-06T00:32:21.936375+00:00"
       },
       {
         "standard": "IEC 61508",
@@ -233,7 +233,7 @@
           "highest_diagnosis_severity=high"
         ],
         "implication": "The safety function cannot be treated as fully trustworthy until proof coverage is restored.",
-        "checked_at": "2026-07-04T04:03:15.598741+00:00"
+        "checked_at": "2026-07-06T00:32:21.936382+00:00"
       }
     ],
     "invariants": [
@@ -246,7 +246,7 @@
           "energy_isolated=False",
           "trace_length=3"
         ],
-        "checked_at": "2026-07-04T04:03:15.598795+00:00"
+        "checked_at": "2026-07-06T00:32:21.936458+00:00"
       },
       {
         "invariant_id": "restart-after-protective-controls",
@@ -257,7 +257,7 @@
           "guard_interlock_verified=True",
           "manual_reset_verified=False"
         ],
-        "checked_at": "2026-07-04T04:03:15.598803+00:00"
+        "checked_at": "2026-07-06T00:32:21.936464+00:00"
       },
       {
         "invariant_id": "critical-faults-do-not-route",
@@ -267,7 +267,7 @@
           "critical_present=True",
           "blocking_finding_present=True"
         ],
-        "checked_at": "2026-07-04T04:03:15.598807+00:00"
+        "checked_at": "2026-07-06T00:32:21.936467+00:00"
       }
     ],
     "fault_graph": {
@@ -482,7 +482,7 @@
           "severity": "block",
           "state": "block",
           "metrics": {
-            "checked_at": "2026-07-04T04:03:15.598725+00:00"
+            "checked_at": "2026-07-06T00:32:21.936367+00:00"
           }
         },
         {
@@ -493,7 +493,7 @@
           "severity": "watch",
           "state": "watch",
           "metrics": {
-            "checked_at": "2026-07-04T04:03:15.598734+00:00"
+            "checked_at": "2026-07-06T00:32:21.936375+00:00"
           }
         },
         {
@@ -504,7 +504,7 @@
           "severity": "block",
           "state": "block",
           "metrics": {
-            "checked_at": "2026-07-04T04:03:15.598741+00:00"
+            "checked_at": "2026-07-06T00:32:21.936382+00:00"
           }
         },
         {
@@ -1140,7 +1140,7 @@
         "label": "request",
         "parent_hash": "",
         "sha256": "c6d12e2a1974919db69a8f48418b8d9d3e4085f60d35b38a9bc67ab13ebe9434",
-        "recorded_at": "2026-07-04T04:03:15.599185+00:00",
+        "recorded_at": "2026-07-06T00:32:21.936770+00:00",
         "note": "request sealed into the industrial diagnostic chain."
       },
       {
@@ -1148,31 +1148,31 @@
         "label": "diagnoses",
         "parent_hash": "c6d12e2a1974919db69a8f48418b8d9d3e4085f60d35b38a9bc67ab13ebe9434",
         "sha256": "261f0761186e28d579d100446f58f5c205cfa04bf6a19dcb81bb16e25418d748",
-        "recorded_at": "2026-07-04T04:03:15.599213+00:00",
+        "recorded_at": "2026-07-06T00:32:21.936794+00:00",
         "note": "diagnoses sealed into the industrial diagnostic chain."
       },
       {
         "entry_id": "audit-03",
         "label": "compliance",
         "parent_hash": "261f0761186e28d579d100446f58f5c205cfa04bf6a19dcb81bb16e25418d748",
-        "sha256": "c2847318b3833023c282033d68678ac6fc6161bd4299b78bb076082bc11dc4ab",
-        "recorded_at": "2026-07-04T04:03:15.599230+00:00",
+        "sha256": "420498e848421bf3d8a92165e88411c64d3c8ec55b3615fd1096d346170bedff",
+        "recorded_at": "2026-07-06T00:32:21.936810+00:00",
         "note": "compliance sealed into the industrial diagnostic chain."
       },
       {
         "entry_id": "audit-04",
         "label": "invariants",
-        "parent_hash": "c2847318b3833023c282033d68678ac6fc6161bd4299b78bb076082bc11dc4ab",
-        "sha256": "01e5f703ff6ad5de0a61954322ca2ef2a138ca22a59a2c6fd9bcebac639dc4ba",
-        "recorded_at": "2026-07-04T04:03:15.599244+00:00",
+        "parent_hash": "420498e848421bf3d8a92165e88411c64d3c8ec55b3615fd1096d346170bedff",
+        "sha256": "4efe83832654a46ccce1803453e8b9580a2505ef6550804686f117c22d1aff5d",
+        "recorded_at": "2026-07-06T00:32:21.936822+00:00",
         "note": "invariants sealed into the industrial diagnostic chain."
       },
       {
         "entry_id": "audit-05",
         "label": "verdict",
-        "parent_hash": "01e5f703ff6ad5de0a61954322ca2ef2a138ca22a59a2c6fd9bcebac639dc4ba",
-        "sha256": "01ac90f0ee9032fa48dab4a3bd7771b5dcecd038cf26b017c89a06e59e3440ce",
-        "recorded_at": "2026-07-04T04:03:15.599252+00:00",
+        "parent_hash": "4efe83832654a46ccce1803453e8b9580a2505ef6550804686f117c22d1aff5d",
+        "sha256": "aa83837c6b1541d05f743957c048f4430d78318182e196367ea9651a15cabb9e",
+        "recorded_at": "2026-07-06T00:32:21.936829+00:00",
         "note": "verdict sealed into the industrial diagnostic chain."
       }
     ],
@@ -1225,6 +1225,6 @@
       "Restart cannot proceed without guard, emergency stop, and manual reset verification.",
       "A critical diagnosis or a blocking regulatory finding prevents a route verdict."
     ],
-    "generated_at": "2026-07-04T04:03:15.599277+00:00"
+    "generated_at": "2026-07-06T00:32:21.936852+00:00"
   }
 }

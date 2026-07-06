@@ -1011,19 +1011,16 @@ def interactive_data_analysis():
     """Interactive function to use the trained model"""
     
     print("""
-    ========================================
-    DATA ANALYST AI - Interactive Mode
-    ========================================
+    Data Analyst Workspace
     
-    This AI can:
-    - Analyze any dataset (CSV, Excel, SQL)
-    - Create professional visualizations
-    - Perform statistical tests
-    - Build ML models
-    - Generate insights
+    Available paths:
+    - dataset review for CSV, Excel, or SQL-backed extracts
+    - visualization drafts for measured fields
+    - statistical tests with explicit assumptions
+    - model sketches and review notes
+    - compact findings that can be checked against the source
     
     Type 'quit' to exit
-    ----------------------------------------
     """)
     
     # Load the trained model (if exists)

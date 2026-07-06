@@ -338,6 +338,32 @@ body[data-theme="paper"][data-contrast="high"] {
   animation: pagePulseShift 6s ease-in-out infinite alternate;
 }
 
+:where(.page-ribbon, .signal-rail-strip, .file-atlas-summary, .file-atlas-rail) {
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+:where(.page-ribbon-card, .signal-rail-card, .signal-run-note, .file-atlas-card, .file-atlas-detail) {
+  overflow-wrap: anywhere;
+}
+
+:where(.page-ribbon-card, .signal-rail-card, .file-atlas-card)::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--copper), var(--rose, #d7b4d8), var(--jade), #b9c7ff);
+  opacity: 0.82;
+  pointer-events: none;
+}
+
+.page-mobile-cue {
+  display: none;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
 body {
   --heading-ombre-active: var(--ombre-aurora, linear-gradient(115deg, #fff7ed, #ffc4d9, #9be7de, #b9c7ff));
   --label-ombre-active: var(--ombre-warm, linear-gradient(118deg, #f8c37e, #ffd9a6, #ffb5d0, #9de6dd));
@@ -1001,7 +1027,7 @@ body {
 .file-atlas-rail {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(276px, 30vw);
+  grid-auto-columns: clamp(300px, 34vw, 390px);
   gap: 14px;
   overflow-x: auto;
   scroll-snap-type: x proximity;
@@ -1095,6 +1121,20 @@ body {
     width: 100%;
     justify-content: flex-start;
   }
+
+  .page-ribbon {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(300px, 46vw);
+    grid-template-columns: none;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x proximity;
+  }
+
+  .page-ribbon-card {
+    min-height: 190px;
+    scroll-snap-align: start;
+  }
 }
 
 @media (max-width: 860px) {
@@ -1121,6 +1161,23 @@ body {
 
   .file-atlas-stage {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 780px) {
+  .page-mobile-cue {
+    display: block;
+  }
+
+  .signal-rail-strip,
+  .file-atlas-rail {
+    grid-auto-columns: minmax(292px, 82vw);
+  }
+
+  .signal-rail-card,
+  .file-atlas-card,
+  .page-ribbon-card {
+    min-height: auto;
   }
 }
 
@@ -1237,7 +1294,7 @@ body {
   }
 
   .signal-rail-strip {
-    grid-auto-columns: minmax(258px, 84vw);
+    grid-auto-columns: minmax(292px, 86vw);
   }
 
   .signal-run-grid {
@@ -1246,7 +1303,7 @@ body {
 
   .file-atlas-summary {
     grid-auto-flow: column;
-    grid-auto-columns: minmax(220px, 78vw);
+    grid-auto-columns: minmax(246px, 80vw);
     overflow-x: auto;
     scroll-snap-type: x proximity;
   }
@@ -1261,11 +1318,38 @@ body {
   }
 
   .file-atlas-rail {
-    grid-auto-columns: minmax(262px, 84vw);
+    grid-auto-columns: minmax(292px, 86vw);
   }
 
   .file-atlas-io {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .signal-rail-shell,
+  .page-ribbon-card,
+  .file-atlas-detail,
+  .file-atlas-card {
+    border-radius: 22px;
+  }
+
+  .signal-rail-strip,
+  .file-atlas-rail {
+    grid-auto-columns: minmax(280px, 88vw);
+  }
+
+  .page-ribbon {
+    grid-auto-columns: minmax(276px, 88vw);
+  }
+
+  .file-constellation {
+    min-height: 300px;
+  }
+
+  .file-node {
+    --node-size: clamp(50px, 15vw, 62px);
+    font-size: 0.58rem;
   }
 }
 

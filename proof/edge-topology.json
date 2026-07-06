@@ -2,8 +2,8 @@
   "topology": {
     "service": "advanced-multimodal-ai",
     "version": "0.5.0",
-    "route_count": 100,
-    "ledger_event_count": 5,
+    "route_count": 106,
+    "ledger_event_count": 8,
     "retrieval_backend": "memory",
     "active_policy": {
       "jurisdiction": "EU_EEA",
@@ -38,34 +38,107 @@
       "append-only tracking ledger"
     ],
     "store_counts": {
-      "async_jobs": 204,
-      "dataset_catalog": 776,
-      "connector_runs": 503,
+      "async_jobs": 228,
+      "dataset_catalog": 837,
+      "connector_runs": 536,
       "drift_baselines": 8,
-      "pipeline_runs": 387,
-      "ontology_snapshots": 130,
-      "recipe_registry": 164,
+      "pipeline_runs": 418,
+      "ontology_snapshots": 131,
+      "recipe_registry": 192,
       "lifecycle_policies": 33,
       "change_controls": 33,
       "supply_chain_snapshots": 33,
-      "execution_journal_runs": 203,
-      "edge_packets": 5,
-      "music_manifests": 74,
-      "music_feature_runs": 74
+      "execution_journal_runs": 288,
+      "edge_packets": 8,
+      "music_manifests": 98,
+      "music_feature_runs": 98,
+      "privacy_runs": 5
     },
     "notes": [
       "The deployment stack is explicit and versioned, even when the default runtime remains a single local service edge.",
       "The gateway lane stays narrow: it evaluates packet geometry and routing posture before downstream orchestration claims more than the current code can support.",
       "Connector, music, replay, and governance stores remain visible so the edge route does not become a disconnected glamour layer."
     ],
-    "created_at": "2026-07-04T04:03:17.907468+00:00"
+    "created_at": "2026-07-06T00:32:24.164268+00:00"
   },
   "ledger": {
-    "total_events": 5,
+    "total_events": 8,
     "action_counts": {
-      "hold": 5
+      "hold": 8
     },
     "recent_events": [
+      {
+        "event_id": "e71c7b67-61a9-40da-9c47-8c47d5a07d38",
+        "transaction_id": "9bd76889-16ec-4aab-b8a0-a56e937c5370",
+        "jurisdiction": "EU_EEA",
+        "source_region": "DE",
+        "target_region": "DE",
+        "route_action": "hold",
+        "manifest_hash": "7d65fd9d471c2854564020212850300354cac9da574a16789244834177d186d1",
+        "overall_entropy_score": 0.8938578654609097,
+        "highest_modality_risk": 1.0,
+        "encrypted_in_transit": true,
+        "cross_border": false,
+        "connector_kind": "s3_parquet",
+        "ledger_parent_hash": "46bd8ba8c1ca774424b23647f830f34a006e8497897c8e04e95a30aaa9a02733",
+        "ledger_hash": "d638b6584177c005baa1bdb7f264cb4b307cbb97d82e58efde75e67ce004553c",
+        "notes": [
+          "policy=EU_EEA",
+          "connector_kind=s3_parquet",
+          "modalities=audio,text",
+          "audio: entropy crossed the hold threshold.",
+          "text: entropy crossed the hold threshold."
+        ],
+        "created_at": "2026-07-06T00:32:24.156681+00:00"
+      },
+      {
+        "event_id": "1909f697-9035-47a6-b183-caeaf7ab46dc",
+        "transaction_id": "ea07961b-1d72-4e6f-9b17-71f399892700",
+        "jurisdiction": "EU_EEA",
+        "source_region": "DE",
+        "target_region": "DE",
+        "route_action": "hold",
+        "manifest_hash": "8b7fd058770c5829b3e23ebd7cbe5150ce4181c3f11e3123e325c44cace282ca",
+        "overall_entropy_score": 0.8938578654609097,
+        "highest_modality_risk": 1.0,
+        "encrypted_in_transit": true,
+        "cross_border": false,
+        "connector_kind": "s3_parquet",
+        "ledger_parent_hash": "da3dc14a6887364998e7e2d87d602c9cfeec6560345d110e03804c44bbec5764",
+        "ledger_hash": "46bd8ba8c1ca774424b23647f830f34a006e8497897c8e04e95a30aaa9a02733",
+        "notes": [
+          "policy=EU_EEA",
+          "connector_kind=s3_parquet",
+          "modalities=audio,text",
+          "audio: entropy crossed the hold threshold.",
+          "text: entropy crossed the hold threshold."
+        ],
+        "created_at": "2026-07-06T00:28:27.861638+00:00"
+      },
+      {
+        "event_id": "2480153e-1ce4-4ebf-8560-4c681ff03222",
+        "transaction_id": "194e4c9e-8415-428e-92da-c2bf43840077",
+        "jurisdiction": "EU_EEA",
+        "source_region": "DE",
+        "target_region": "DE",
+        "route_action": "hold",
+        "manifest_hash": "beb3854c0871a03f37b6df2359a5e6b395cb0de97ccdb973853d16dab4b9d7b6",
+        "overall_entropy_score": 0.8938578654609097,
+        "highest_modality_risk": 1.0,
+        "encrypted_in_transit": true,
+        "cross_border": false,
+        "connector_kind": "s3_parquet",
+        "ledger_parent_hash": "fa15020f4509bcea2d4560fac83a275b36eb4aa129fa9486b202cbc575e7807a",
+        "ledger_hash": "da3dc14a6887364998e7e2d87d602c9cfeec6560345d110e03804c44bbec5764",
+        "notes": [
+          "policy=EU_EEA",
+          "connector_kind=s3_parquet",
+          "modalities=audio,text",
+          "audio: entropy crossed the hold threshold.",
+          "text: entropy crossed the hold threshold."
+        ],
+        "created_at": "2026-07-06T00:24:06.852577+00:00"
+      },
       {
         "event_id": "1228f76c-c6b4-4671-83a8-49f4acc80794",
         "transaction_id": "f50f9075-98b4-4c04-9527-623b5f2f653a",
@@ -137,56 +210,8 @@
           "text: entropy crossed the hold threshold."
         ],
         "created_at": "2026-07-04T02:49:40.112927+00:00"
-      },
-      {
-        "event_id": "ac961f5b-751c-475e-9fd0-2051c1b91897",
-        "transaction_id": "9638972a-41f8-4c61-9b55-d90b58e265ec",
-        "jurisdiction": "EU_EEA",
-        "source_region": "DE",
-        "target_region": "DE",
-        "route_action": "hold",
-        "manifest_hash": "0d31bdba74416619b976c465746aafc8c587f210eb19f1ab06eea58fa3e8e165",
-        "overall_entropy_score": 0.8938578654609097,
-        "highest_modality_risk": 1.0,
-        "encrypted_in_transit": true,
-        "cross_border": false,
-        "connector_kind": "s3_parquet",
-        "ledger_parent_hash": "bf01ee25461f878803598a6036f6a9c431d5521e03c5175f007884d2e6a1a960",
-        "ledger_hash": "076dd4bfde1ab2d2b14c8752261c5b4ecbc358edcc6608532218a0454ada5edb",
-        "notes": [
-          "policy=EU_EEA",
-          "connector_kind=s3_parquet",
-          "modalities=audio,text",
-          "audio: entropy crossed the hold threshold.",
-          "text: entropy crossed the hold threshold."
-        ],
-        "created_at": "2026-07-04T02:46:31.006270+00:00"
-      },
-      {
-        "event_id": "94c1b43f-6a74-4774-996b-43743e2db6a7",
-        "transaction_id": "ccd0184c-be6e-4a71-b07c-e5a151062dde",
-        "jurisdiction": "EU_EEA",
-        "source_region": "DE",
-        "target_region": "DE",
-        "route_action": "hold",
-        "manifest_hash": "15c9a5cd7a4b1f7a0e1ac119cfa3380aa7bbdd8ae164d568bced771f456362f0",
-        "overall_entropy_score": 0.8938578654609097,
-        "highest_modality_risk": 1.0,
-        "encrypted_in_transit": true,
-        "cross_border": false,
-        "connector_kind": "s3_parquet",
-        "ledger_parent_hash": "",
-        "ledger_hash": "bf01ee25461f878803598a6036f6a9c431d5521e03c5175f007884d2e6a1a960",
-        "notes": [
-          "policy=EU_EEA",
-          "connector_kind=s3_parquet",
-          "modalities=audio,text",
-          "audio: entropy crossed the hold threshold.",
-          "text: entropy crossed the hold threshold."
-        ],
-        "created_at": "2026-07-04T02:21:57.338922+00:00"
       }
     ],
-    "created_at": "2026-07-04T04:03:17.913094+00:00"
+    "created_at": "2026-07-06T00:32:24.169113+00:00"
   }
 }

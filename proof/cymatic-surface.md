@@ -10,7 +10,7 @@
 - Baseline harmony: `0.95`
 - Tension index: `0.37`
 - Active files counted: `96`
-- Total recorded runs: `226`
+- Total recorded runs: `278`
 
 ## Harmonic bands
 
@@ -30,8 +30,8 @@
 ### Ingest and shape
 
 - Stage id: `connector_ingest`
-- Harmony: `0.78`
-- Friction: `0.23`
+- Harmony: `0.82`
+- Friction: `0.16`
 
 Human read:
 Different file shapes are named and typed before they turn into a convincing multimodal story.
@@ -56,7 +56,7 @@ Files:
 - `src/advanced_multimodal_ai/pipelines.py`
 
 Metrics:
-- **duration**: `205.88` ms
+- **duration**: `104.81` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **connector kinds**: `7.0` lanes
@@ -90,7 +90,7 @@ Files:
 - `src/advanced_multimodal_ai/alignment.py`
 
 Metrics:
-- **duration**: `20.68` ms
+- **duration**: `16.15` ms
 - **records**: `2.0` records
 - **artifacts**: `1.0` items
 
@@ -98,8 +98,8 @@ Metrics:
 ### Replay and prove
 
 - Stage id: `pipeline_replay`
-- Harmony: `0.87`
-- Friction: `0.13`
+- Harmony: `0.88`
+- Friction: `0.12`
 
 Human read:
 If a run can be replayed cleanly, the repository is giving you memory rather than theatre.
@@ -123,7 +123,7 @@ Files:
 - `src/advanced_multimodal_ai/pipeline_store.py`
 
 Metrics:
-- **duration**: `110.85` ms
+- **duration**: `79.16` ms
 - **records**: `6.0` records
 - **artifacts**: `2.0` items
 
@@ -131,8 +131,8 @@ Metrics:
 ### Concurrent batch work
 
 - Stage id: `batch_job`
-- Harmony: `0.83`
-- Friction: `0.15`
+- Harmony: `0.84`
+- Friction: `0.14`
 
 Human read:
 Longer work belongs in a job lane with visible status, not in a tab that looks busy and then forgets everything.
@@ -156,7 +156,7 @@ Files:
 - `src/advanced_multimodal_ai/api.py`
 
 Metrics:
-- **duration**: `82.46` ms
+- **duration**: `64.2` ms
 - **records**: `3.0` records
 - **artifacts**: `1.0` items
 
@@ -164,8 +164,8 @@ Metrics:
 ### Segment and warehouse
 
 - Stage id: `music_warehouse`
-- Harmony: `0.83`
-- Friction: `0.15`
+- Harmony: `0.86`
+- Friction: `0.12`
 
 Human read:
 A track can stay outside the repository while its segment map and its derived structure remain open to inspection.
@@ -190,7 +190,7 @@ Files:
 - `src/advanced_multimodal_ai/service.py`
 
 Metrics:
-- **duration**: `75.45` ms
+- **duration**: `24.94` ms
 - **records**: `3.0` records
 - **artifacts**: `2.0` items
 - **manifests**: `0.0` records
@@ -228,7 +228,7 @@ Files:
 - `src/advanced_multimodal_ai/governance_ledger.py`
 
 Metrics:
-- **duration**: `4.95` ms
+- **duration**: `4.62` ms
 - **records**: `18.0` records
 - **artifacts**: `1.0` items
 - **open questions**: `5.0` questions
@@ -246,7 +246,7 @@ Consequence:
 The cost is not only technical. Repetition flattens taste, reduces surprise, and makes a catalogue feel smaller than it is.
 
 Continuation:
-515 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
+534 connector runs and 7 typed connector kinds mean the repo can start from rows, contracts, and public pages before tensor work begins.
 
 
 ### For operators and review teams

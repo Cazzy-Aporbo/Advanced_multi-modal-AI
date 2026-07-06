@@ -219,6 +219,16 @@
       border-radius: 50%;
       background: radial-gradient(circle, rgba(149,191,240,0.18), transparent 70%);
     }
+    .card::before,
+    .flow-node::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 2px;
+      background: linear-gradient(90deg, var(--copper), var(--rose), var(--jade), var(--blue), var(--violet));
+      opacity: 0.82;
+      pointer-events: none;
+    }
     .chip {
       display: inline-flex;
       align-items: center;
@@ -390,6 +400,8 @@
       border-radius: 28px;
       padding: 18px;
       scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
     }
     .bar {
       height: 12px;
@@ -438,12 +450,52 @@
       .nav a { white-space: nowrap; }
       .hero { grid-template-columns: 1fr; }
       h1 { font-size: clamp(3rem, 18vw, 5.1rem); max-width: 8ch; }
-      .stat-grid, .cards, .source-grid { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cards,
+      .source-grid {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(292px, 86vw);
+        grid-template-columns: none;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+      }
+      .cards::-webkit-scrollbar,
+      .source-grid::-webkit-scrollbar {
+        display: none;
+      }
+      .card,
+      .source-card {
+        scroll-snap-align: start;
+      }
       .panel { border-radius: 28px; padding: 22px; }
       .receipt-row { grid-template-columns: 1fr; }
       .category-card { min-height: auto; }
-      .privacy-map { min-height: 520px; }
+      .privacy-map { min-height: 440px; }
       .privacy-orb { width: calc(var(--size, 76px) * 0.86); height: calc(var(--size, 76px) * 0.86); }
+    }
+
+    @media (max-width: 480px) {
+      .wrap { width: min(100vw - 14px, 100%); }
+      h1 { font-size: clamp(2.55rem, 16vw, 4.2rem); }
+      .panel { padding: 18px; }
+      .stat-grid {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(210px, 78vw);
+        grid-template-columns: none;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+      }
+      .stat-grid::-webkit-scrollbar { display: none; }
+      .stat { scroll-snap-align: start; }
+      .privacy-map { min-height: 360px; }
+      .privacy-orb {
+        width: calc(var(--size, 76px) * 0.7);
+        height: calc(var(--size, 76px) * 0.7);
+        font-size: 0.58rem;
+      }
     }
   </style>
 </head>

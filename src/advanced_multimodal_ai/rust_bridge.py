@@ -85,3 +85,9 @@ def replay_frame_from_payload(
     payload: Dict[str, Any], settings: Settings
 ) -> Dict[str, Any] | None:
     return _run_bridge("replay-frame", payload, settings)
+
+
+def quality_receipt_from_payload(
+    payload: Dict[str, Any], settings: Settings
+) -> Dict[str, Any] | None:
+    return _run_bridge("quality-receipt", payload, settings)

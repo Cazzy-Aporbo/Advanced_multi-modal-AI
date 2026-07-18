@@ -4,9 +4,9 @@
   "default_branch": "main",
   "collection_mode": "github_api_partial",
   "traffic_window_available": false,
-  "stars": 8,
+  "stars": 7,
   "forks": 0,
-  "watchers": 8,
+  "watchers": 7,
   "subscribers": 1,
   "open_issues": 0,
   "open_pull_requests": 0,
@@ -38,5 +38,5 @@
   "notes": [
     "GitHub traffic endpoints were unavailable; stars, forks, and contributor signals still refreshed."
   ],
-  "captured_at": "2026-07-17T08:29:52.344884+00:00"
+  "captured_at": "2026-07-18T08:10:52.932769+00:00"
 }
